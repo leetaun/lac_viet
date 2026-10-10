@@ -117,13 +117,14 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             Chưa có thẻ nào trên tay. Hãy dừng ở ô Lễ hội hoặc Thị trường để rút thẻ!
           </div>
         ) : (
-          <div key={cardFilter} className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 animate-tab-enter">
+          <div key={cardFilter} className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {/* Knowledge Cards */}
-            {(cardFilter === 'all' || cardFilter === 'knowledge') && player.cards.knowledge.map(card => (
+            {(cardFilter === 'all' || cardFilter === 'knowledge') && player.cards.knowledge.map((card, idx) => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(card)}
-                className="p-3 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
+                style={{ animationDelay: `${Math.min(idx * 40, 400)}ms` }}
+                className="animate-stagger-item p-3 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
               >
                 <div className="flex items-center justify-between text-[10px] text-blue-700 font-bold mb-1">
                   <span>THẺ KIẾN THỨC</span>
@@ -139,11 +140,12 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             ))}
 
             {/* Resource Cards */}
-            {(cardFilter === 'all' || cardFilter === 'resource') && player.cards.resource.map(card => (
+            {(cardFilter === 'all' || cardFilter === 'resource') && player.cards.resource.map((card, idx) => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(card)}
-                className="p-3 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
+                style={{ animationDelay: `${Math.min((player.cards.knowledge.length + idx) * 40, 400)}ms` }}
+                className="animate-stagger-item p-3 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
               >
                 <div className="flex items-center justify-between text-[10px] text-emerald-700 font-bold mb-1">
                   <span>THẺ TÀI NGUYÊN</span>
@@ -159,11 +161,12 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             ))}
 
             {/* Fortune Cards */}
-            {(cardFilter === 'all' || cardFilter === 'fortune') && player.cards.fortune.map(card => (
+            {(cardFilter === 'all' || cardFilter === 'fortune') && player.cards.fortune.map((card, idx) => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(card)}
-                className="p-3 rounded-xl border border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
+                style={{ animationDelay: `${Math.min((player.cards.knowledge.length + player.cards.resource.length + idx) * 40, 400)}ms` }}
+                className="animate-stagger-item p-3 rounded-xl border border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
               >
                 <div className="flex items-center justify-between text-[10px] text-amber-700 font-bold mb-1">
                   <span>THẺ MAY MẮN</span>
@@ -194,14 +197,15 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         </div>
 
         <div className="space-y-2">
-          {opponents.map(opp => {
+          {opponents.map((opp, idx) => {
             const oppToken = TOKENS[opp.token];
             const isSameSpace = opp.position === player.position;
 
             return (
               <div
                 key={opp.id}
-                className="p-3 rounded-xl border border-gray-200 bg-gray-50/70 flex items-center justify-between gap-3 text-xs"
+                style={{ animationDelay: `${idx * 60}ms` }}
+                className="animate-stagger-item p-3 rounded-xl border border-gray-200 bg-gray-50/70 flex items-center justify-between gap-3 text-xs"
               >
                 <div className="flex items-center gap-2.5">
                   <span

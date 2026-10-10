@@ -66,13 +66,14 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
 
       {/* 2. Accordion Sections (Matching Slide 10) */}
       <div className="space-y-2.5">
-        {RULEBOOK_SECTIONS.map((sec) => {
+        {RULEBOOK_SECTIONS.map((sec, idx) => {
           const isOpen = openSectionId === sec.id;
 
           return (
             <div
               key={sec.id}
-              className={`bg-white rounded-2xl border transition-all overflow-hidden ${
+              style={{ animationDelay: `${idx * 45}ms` }}
+              className={`animate-stagger-item bg-white rounded-2xl border transition-all overflow-hidden ${
                 isOpen ? 'border-[#C5A059] shadow-md ring-1 ring-[#C5A059]/30' : 'border-gray-200 hover:border-gray-300'
               }`}
             >

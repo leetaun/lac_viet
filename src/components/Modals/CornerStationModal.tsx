@@ -131,7 +131,8 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
               {/* Option A: Fortune Card */}
               <button
                 onClick={() => onSelectOption('fortune')}
-                className="w-full p-3 rounded-xl border border-amber-200 hover:border-amber-400 bg-amber-50/60 hover:bg-amber-100/70 text-left transition-all flex items-center justify-between group"
+                style={{ animationDelay: '100ms' }}
+                className="animate-stagger-item w-full p-3 rounded-xl border border-amber-200 hover:border-amber-400 bg-amber-50/60 hover:bg-amber-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-lg bg-amber-100 text-amber-700 group-hover:scale-110 transition-transform">
@@ -152,7 +153,8 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
               {/* Option B: Resource Card */}
               <button
                 onClick={() => onSelectOption('resource')}
-                className="w-full p-3 rounded-xl border border-emerald-200 hover:border-emerald-400 bg-emerald-50/60 hover:bg-emerald-100/70 text-left transition-all flex items-center justify-between group"
+                style={{ animationDelay: '160ms' }}
+                className="animate-stagger-item w-full p-3 rounded-xl border border-emerald-200 hover:border-emerald-400 bg-emerald-50/60 hover:bg-emerald-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700 group-hover:scale-110 transition-transform">
@@ -173,7 +175,8 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
               {/* Option C: Restore Token Skill */}
               <button
                 onClick={() => onSelectOption('restore_skill')}
-                className="w-full p-3 rounded-xl border border-blue-200 hover:border-blue-400 bg-blue-50/60 hover:bg-blue-100/70 text-left transition-all flex items-center justify-between group"
+                style={{ animationDelay: '220ms' }}
+                className="animate-stagger-item w-full p-3 rounded-xl border border-blue-200 hover:border-blue-400 bg-blue-50/60 hover:bg-blue-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
                   <div className="p-2 rounded-lg bg-blue-100 text-blue-700 group-hover:scale-110 transition-transform">
@@ -195,7 +198,8 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
               {player.artifacts > 0 && (
                 <button
                   onClick={() => onSelectOption('safe_deposit')}
-                  className="w-full p-3 rounded-xl border border-[#C5A059] bg-[#FAF6EE] hover:bg-[#F5E5BE]/50 text-left transition-all flex items-center justify-between group mt-2"
+                  style={{ animationDelay: '280ms' }}
+                  className="animate-stagger-item w-full p-3 rounded-xl border border-[#C5A059] bg-[#FAF6EE] hover:bg-[#F5E5BE]/50 text-left transition-all flex items-center justify-between group mt-2 active:scale-98"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="p-2 rounded-lg bg-[#C5A059]/20 text-[#7E121D] group-hover:scale-110 transition-transform">

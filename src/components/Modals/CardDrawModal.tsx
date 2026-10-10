@@ -317,7 +317,8 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                         key={idx}
                         disabled={answered}
                         onClick={() => handleAnswer(idx)}
-                        className={`w-full p-3 rounded-xl border text-left text-xs sm:text-sm transition-all duration-150 flex items-center justify-between gap-2 shadow-sm ${optionStyle}`}
+                        style={{ animationDelay: `${120 + idx * 50}ms` }}
+                        className={`animate-stagger-item w-full p-3 rounded-xl border text-left text-xs sm:text-sm transition-all duration-150 flex items-center justify-between gap-2 shadow-sm ${optionStyle}`}
                       >
                         <div className="flex items-center gap-2">
                           <span className="w-5 h-5 rounded-full bg-gray-100 text-gray-700 font-bold text-xs flex items-center justify-center flex-shrink-0">

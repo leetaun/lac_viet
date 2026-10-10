@@ -128,12 +128,13 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
       </div>
 
       {/* Provinces Grid matching Slide 9 */}
-      <div key={`${selectedRegion}-${selectedType}-${searchQuery}`} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 animate-tab-enter">
-        {filteredProvinces.map(prov => (
+      <div key={`${selectedRegion}-${selectedType}-${searchQuery}`} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+        {filteredProvinces.map((prov, idx) => (
           <div
             key={prov.id}
             onClick={() => handleSelectProvince(prov)}
-            className="bg-white rounded-2xl p-3.5 border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group active:scale-98"
+            style={{ animationDelay: `${Math.min(idx * 30, 450)}ms` }}
+            className="animate-stagger-item bg-white rounded-2xl p-3.5 border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group active:scale-98"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">

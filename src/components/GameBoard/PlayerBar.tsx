@@ -30,7 +30,8 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
         return (
           <div
             key={player.id}
-            className={`relative rounded-xl p-2 sm:p-2.5 transition-all duration-300 ease-out border text-xs ${
+            style={{ animationDelay: `${idx * 60}ms` }}
+            className={`animate-stagger-item relative rounded-xl p-2 sm:p-2.5 transition-all duration-300 ease-out border text-xs ${
               isActive
                 ? 'bg-gradient-to-b from-[#FFFDF9] to-[#FDF4DC] border-[#C5A059] shadow-md ring-2 ring-[#C5A059]/50 scale-[1.02] shadow-[0_0_12px_rgba(197,160,89,0.35)]'
                 : 'bg-white/80 border-gray-200 hover:border-gray-300 hover:bg-white'

@@ -202,6 +202,23 @@
   animation: accordionOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Stagger / Cascade Child Items */
+@keyframes staggerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-stagger-item {
+  animation: staggerIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
 /* Glassmorphism */
 .glass-panel {
   background: rgba(255, 255, 255, 0.88);
