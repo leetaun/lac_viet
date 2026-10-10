@@ -113,9 +113,6 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
               </h1>
             </div>
           </div>
-          <span className="text-xs bg-[#5C0D15] text-[#F5E5BE] px-3 py-1 rounded-full border border-[#C5A059]/40 font-mono">
-            Phiên bản 1.0 (Số hóa)
-          </span>
         </div>
 
         {/* 2-Column Layout matching Slide 6 */}
