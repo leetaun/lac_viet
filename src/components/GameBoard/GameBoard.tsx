@@ -212,8 +212,8 @@ export const GameBoard: React.FC<GameBoardProps> = ({
 
       {/* Selected Space Inspection Drawer / Modal */}
       {selectedSpace && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-2xl border-2 border-[#C5A059] relative animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-backdrop-fade">
+          <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-2xl border-2 border-[#C5A059] relative animate-modal-pop">
             <button
               onClick={() => setSelectedSpaceIndex(null)}
               className="absolute top-3 right-3 p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200"

@@ -552,38 +552,40 @@ export const App: React.FC = () => {
         onToggleSound={() => setSoundEnabled(!soundEnabled)}
       />
 
-      {/* 2. Main Content Body according to Active Tab */}
+      {/* 2. Main Content Body according to Active Tab with smooth entrance animation */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-2 sm:p-4">
-        {activeTab === 'board' && (
-          <GameBoard
-            gameState={gameState}
-            isRolling={isRolling}
-            onRollDice={handleRollDice}
-            onUseTokenSkill={() => setShowTokenSkillModal(true)}
-            onEndTurn={handleEndTurn}
-            language={language}
-          />
-        )}
+        <div key={activeTab} className="animate-tab-enter">
+          {activeTab === 'board' && (
+            <GameBoard
+              gameState={gameState}
+              isRolling={isRolling}
+              onRollDice={handleRollDice}
+              onUseTokenSkill={() => setShowTokenSkillModal(true)}
+              onEndTurn={handleEndTurn}
+              language={language}
+            />
+          )}
 
-        {activeTab === 'inventory' && (
-          <InventoryTab
-            player={activePlayer}
-            allPlayers={gameState.players}
-            artifactGoal={gameState.artifactGoal}
-            onUseCard={(card) => {
-              alert(`Kích hoạt thẻ ${'title' in card ? card.title : card.name}`);
-            }}
-            language={language}
-          />
-        )}
+          {activeTab === 'inventory' && (
+            <InventoryTab
+              player={activePlayer}
+              allPlayers={gameState.players}
+              artifactGoal={gameState.artifactGoal}
+              onUseCard={(card) => {
+                alert(`Kích hoạt thẻ ${'title' in card ? card.title : card.name}`);
+              }}
+              language={language}
+            />
+          )}
 
-        {activeTab === 'map' && (
-          <CulturalMapTab language={language} />
-        )}
+          {activeTab === 'map' && (
+            <CulturalMapTab language={language} />
+          )}
 
-        {activeTab === 'rules' && (
-          <RulebookTab language={language} />
-        )}
+          {activeTab === 'rules' && (
+            <RulebookTab language={language} />
+          )}
+        </div>
       </main>
 
       {/* 3. Bottom Navigation Bar */}

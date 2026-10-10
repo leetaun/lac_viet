@@ -59,8 +59,8 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 animate-backdrop-fade">
+      <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop">
         
         {/* Banner */}
         <div className="crimson-gradient-bg p-6 text-center text-white border-b-2 border-[#C5A059] relative">

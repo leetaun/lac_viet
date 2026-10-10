@@ -80,21 +80,21 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
               <button
                 type="button"
                 onClick={() => toggleSection(sec.id)}
-                className="w-full p-4 text-left flex items-center justify-between gap-3 select-none"
+                className="w-full p-4 text-left flex items-center justify-between gap-3 select-none hover:bg-gray-50/60 transition-colors"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="font-serif-lacviet font-bold text-sm sm:text-base text-gray-900">
+                  <span className={`font-serif-lacviet font-bold text-sm sm:text-base transition-colors ${isOpen ? 'text-[#7E121D]' : 'text-gray-900'}`}>
                     {language === 'vi' ? sec.title : sec.enTitle}
                   </span>
                 </div>
-                <div className="p-1 rounded-full text-gray-400 bg-gray-50 flex-shrink-0">
-                  {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                <div className="p-1 rounded-full text-gray-400 bg-gray-50 flex-shrink-0 transition-transform duration-300">
+                  <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#7E121D]' : ''}`} />
                 </div>
               </button>
 
               {/* Accordion Content */}
               {isOpen && (
-                <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 border-t border-gray-100 text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 animate-in fade-in duration-150">
+                <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 border-t border-gray-100 text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 animate-accordion overflow-hidden">
                   <div className="bg-[#FAF6EE] p-3.5 rounded-xl border border-[#C5A059]/20 whitespace-pre-line text-xs font-normal">
                     {language === 'vi' ? sec.content : sec.enContent}
                   </div>
@@ -158,8 +158,8 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
 
       {/* QR Code Batch Printing Modal */}
       {showQRPrinter && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-3xl max-w-2xl w-full p-5 shadow-2xl border-4 border-[#C5A059] max-h-[85vh] flex flex-col animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
+          <div className="bg-white rounded-3xl max-w-2xl w-full p-5 shadow-2xl border-4 border-[#C5A059] max-h-[85vh] flex flex-col animate-modal-pop">
             <div className="flex items-center justify-between pb-3 border-b border-gray-200">
               <div>
                 <h3 className="font-serif-lacviet text-lg font-bold text-[#7E121D]">

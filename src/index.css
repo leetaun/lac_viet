@@ -80,6 +80,128 @@
   animation: tokenPulse 1.8s infinite;
 }
 
+/* Page & Tab Transitions */
+@keyframes tabEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.995);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-tab-enter {
+  animation: tabEnter 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Modal Pop & Backdrop Fade */
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.93) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-pop {
+  animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes backdropFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-backdrop-fade {
+  animation: backdropFade 0.22s ease-out forwards;
+  will-change: opacity;
+}
+
+/* Slide Up and In */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Slide in from Right */
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Badge Bounce on updates */
+@keyframes badgeBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.22); }
+}
+
+.animate-badge-bounce {
+  animation: badgeBounce 0.35s ease-out;
+}
+
+/* Accordion expand */
+@keyframes accordionOpen {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-accordion {
+  animation: accordionOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Glassmorphism */
 .glass-panel {
   background: rgba(255, 255, 255, 0.88);

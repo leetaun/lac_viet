@@ -59,29 +59,33 @@ export const Navigation: React.FC<NavigationProps> = ({
             <button
               key={tab.id}
               onClick={() => onSelectTab(tab.id)}
-              className={`relative flex flex-col items-center justify-center py-1 px-3 sm:px-5 rounded-xl transition-all duration-200 ${
+              className={`relative flex flex-col items-center justify-center py-1.5 px-3 sm:px-5 rounded-2xl transition-all duration-300 ease-out active:scale-95 ${
                 isActive
-                  ? 'text-[#7E121D] font-bold scale-105'
-                  : 'text-gray-500 hover:text-gray-800'
+                  ? 'text-[#7E121D] font-bold'
+                  : 'text-gray-500 hover:text-gray-800 hover:-translate-y-0.5'
               }`}
             >
-              <div className={`p-1 rounded-lg ${isActive ? 'bg-[#FAF6EE] text-[#7E121D] shadow-sm border border-[#C5A059]/40' : ''}`}>
+              <div className={`p-1.5 rounded-xl transition-all duration-300 ${
+                isActive
+                  ? 'bg-[#FAF6EE] text-[#7E121D] shadow-sm border border-[#C5A059]/50 scale-105 shadow-[0_2px_8px_rgba(197,160,89,0.3)]'
+                  : 'hover:bg-gray-50'
+              }`}>
                 {tab.icon}
               </div>
-              <span className={`text-[11px] mt-0.5 tracking-tight ${isActive ? 'text-[#7E121D] font-bold' : 'font-medium'}`}>
+              <span className={`text-[11px] mt-1 tracking-tight transition-colors duration-200 ${isActive ? 'text-[#7E121D] font-bold' : 'font-medium'}`}>
                 {language === 'vi' ? tab.label : tab.enLabel}
               </span>
 
               {/* Badge indicator for cards in bag */}
               {tab.badge !== undefined && (
-                <span className="absolute top-0.5 right-2 sm:right-4 w-4 h-4 bg-[#DC2626] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                <span className="absolute top-0 right-2 sm:right-4 w-4 h-4 bg-[#DC2626] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm animate-badge-bounce">
                   {tab.badge}
                 </span>
               )}
 
               {/* Active line indicator */}
               {isActive && (
-                <div className="absolute -bottom-1.5 w-6 h-0.5 bg-[#7E121D] rounded-full" />
+                <div className="absolute -bottom-1 w-6 h-0.5 bg-[#7E121D] rounded-full animate-scale-in shadow-[0_0_6px_rgba(126,18,29,0.5)]" />
               )}
             </button>
           );

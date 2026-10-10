@@ -95,8 +95,8 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#141824]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border-4 border-[#C5A059] overflow-hidden my-auto animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-[#141824]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-backdrop-fade">
+      <div className="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border-4 border-[#C5A059] overflow-hidden my-auto animate-modal-pop">
         
         {/* Top Header matching Slide 6 */}
         <div className="crimson-gradient-bg px-5 py-4 text-white flex items-center justify-between border-b-2 border-[#C5A059]">

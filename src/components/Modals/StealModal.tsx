@@ -24,8 +24,8 @@ export const StealModal: React.FC<StealModalProps> = ({
   const targetTotalCards = target.cards.knowledge.length + target.cards.resource.length + target.cards.fortune.length;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#DC2626] animate-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
+      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#DC2626] animate-modal-pop">
         
         {/* Header */}
         <div className="p-4 bg-gradient-to-r from-red-700 to-red-900 text-white flex items-center justify-between">

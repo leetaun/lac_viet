@@ -72,10 +72,10 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
           </div>
 
           {/* Region Tabs */}
-          <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-xl text-xs">
+          <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-xl text-xs overflow-x-auto">
             <button
               onClick={() => setSelectedRegion('all')}
-              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
                 selectedRegion === 'all' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -83,7 +83,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             </button>
             <button
               onClick={() => setSelectedRegion('bac_bo')}
-              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
                 selectedRegion === 'bac_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -91,7 +91,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             </button>
             <button
               onClick={() => setSelectedRegion('trung_bo')}
-              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
                 selectedRegion === 'trung_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -99,7 +99,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             </button>
             <button
               onClick={() => setSelectedRegion('nam_bo')}
-              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
+              className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
                 selectedRegion === 'nam_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -115,10 +115,10 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             <button
               key={type}
               onClick={() => setSelectedType(type)}
-              className={`px-2 py-0.5 rounded-full border transition-all ${
+              className={`px-2.5 py-0.5 rounded-full border transition-all duration-200 active:scale-95 ${
                 selectedType === type
-                  ? 'bg-gray-800 text-white border-gray-800 font-bold'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
+                  ? 'bg-gray-800 text-white border-gray-800 font-bold shadow-sm'
+                  : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:bg-gray-50'
               }`}
             >
               {type === 'all' ? 'Tất cả loại ô' : type}
@@ -128,12 +128,12 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
       </div>
 
       {/* Provinces Grid matching Slide 9 */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+      <div key={`${selectedRegion}-${selectedType}-${searchQuery}`} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 animate-tab-enter">
         {filteredProvinces.map(prov => (
           <div
             key={prov.id}
             onClick={() => handleSelectProvince(prov)}
-            className="bg-white rounded-2xl p-3.5 border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md transition-all cursor-pointer flex flex-col justify-between group"
+            className="bg-white rounded-2xl p-3.5 border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group active:scale-98"
           >
             <div>
               <div className="flex items-center justify-between mb-1.5">
@@ -167,8 +167,8 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
 
       {/* Province Detail Modal */}
       {selectedProvince && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-in zoom-in-95 duration-150 flex flex-col max-h-[90vh]">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
+          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop flex flex-col max-h-[90vh]">
             
             {/* Header */}
             <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">

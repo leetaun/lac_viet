@@ -19,6 +19,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
   onUseCard,
   language
 }) => {
+  const [cardFilter, setCardFilter] = useState<'all' | 'knowledge' | 'resource' | 'fortune'>('all');
   const [selectedCard, setSelectedCard] = useState<GameCard | null>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
 
@@ -76,14 +77,36 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
 
       {/* 2. TAY THẺ (Hand Cards) */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/30 shadow-sm space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <h3 className="font-serif-lacviet font-bold text-base text-[#7E121D] flex items-center gap-1.5">
             <Layers size={16} className="text-[#C5A059]" />
             <span>TAY THẺ BÀI SỞ HỮU</span>
           </h3>
-          <span className="text-xs font-bold bg-gray-100 px-2.5 py-0.5 rounded-full text-gray-700">
+          <span className="text-xs font-bold bg-gray-100 px-2.5 py-0.5 rounded-full text-gray-700 w-fit">
             {player.cards.knowledge.length + player.cards.resource.length + player.cards.fortune.length} thẻ
           </span>
+        </div>
+
+        {/* Filter subtabs with smooth transition */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+          {[
+            { id: 'all', label: 'Tất cả' },
+            { id: 'knowledge', label: `Kiến thức (${player.cards.knowledge.length})` },
+            { id: 'resource', label: `Tài nguyên (${player.cards.resource.length})` },
+            { id: 'fortune', label: `May mắn (${player.cards.fortune.length})` },
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setCardFilter(tab.id as any)}
+              className={`px-3 py-1.5 rounded-xl font-medium transition-all duration-200 text-xs whitespace-nowrap active:scale-95 ${
+                cardFilter === tab.id
+                  ? 'bg-[#7E121D] text-[#F5E5BE] font-bold shadow-sm'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200/80 hover:text-gray-900'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
         {/* Empty state */}
@@ -94,13 +117,13 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             Chưa có thẻ nào trên tay. Hãy dừng ở ô Lễ hội hoặc Thị trường để rút thẻ!
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div key={cardFilter} className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 animate-tab-enter">
             {/* Knowledge Cards */}
-            {player.cards.knowledge.map(card => (
+            {(cardFilter === 'all' || cardFilter === 'knowledge') && player.cards.knowledge.map(card => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(card)}
-                className="p-3 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 transition-all cursor-pointer flex flex-col justify-between shadow-sm hover:shadow"
+                className="p-3 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
               >
                 <div className="flex items-center justify-between text-[10px] text-blue-700 font-bold mb-1">
                   <span>THẺ KIẾN THỨC</span>
@@ -116,11 +139,11 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             ))}
 
             {/* Resource Cards */}
-            {player.cards.resource.map(card => (
+            {(cardFilter === 'all' || cardFilter === 'resource') && player.cards.resource.map(card => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(card)}
-                className="p-3 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 transition-all cursor-pointer flex flex-col justify-between shadow-sm hover:shadow"
+                className="p-3 rounded-xl border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
               >
                 <div className="flex items-center justify-between text-[10px] text-emerald-700 font-bold mb-1">
                   <span>THẺ TÀI NGUYÊN</span>
@@ -136,11 +159,11 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             ))}
 
             {/* Fortune Cards */}
-            {player.cards.fortune.map(card => (
+            {(cardFilter === 'all' || cardFilter === 'fortune') && player.cards.fortune.map(card => (
               <div
                 key={card.id}
                 onClick={() => handleCardClick(card)}
-                className="p-3 rounded-xl border border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 transition-all cursor-pointer flex flex-col justify-between shadow-sm hover:shadow"
+                className="p-3 rounded-xl border border-amber-200 bg-amber-50/60 hover:bg-amber-100/70 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between shadow-sm hover:shadow active:scale-98"
               >
                 <div className="flex items-center justify-between text-[10px] text-amber-700 font-bold mb-1">
                   <span>THẺ MAY MẮN</span>
@@ -215,8 +238,8 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
 
       {/* Selected Card Modal / QR Code Drawer */}
       {selectedCard && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border-4 border-[#C5A059] relative animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-backdrop-fade">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-5 shadow-2xl border-4 border-[#C5A059] relative animate-modal-pop">
             <button
               onClick={() => setSelectedCard(null)}
               className="absolute top-3 right-3 p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-100"
