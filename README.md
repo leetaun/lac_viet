@@ -1,5 +1,5 @@
 # 🏛️ LẠC VIỆT - ỨNG DỤNG BOARDGAME DI SẢN VĂN HÓA VIỆT NAM
-> **Dự án dự thi Olympic Khởi nghiệp 2026** — *Trường Đại học Kinh tế Quốc dân*  
+> **Dự án dự thi Startup Olympiad 2026** — *Trường Đại học Kinh tế Quốc dân*  
 > **Người hướng dẫn chuyên môn:** TS. Võ Thị Hồng Hạnh  
 > **Nhóm thực hiện:** Lạc Việt (NEU, FTU, HUST)
 
