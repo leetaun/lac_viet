@@ -1,0 +1,15 @@
+{
+  "pdfPages": 1,
+  "cardSizeMm": [
+    63,
+    88
+  ],
+  "decodedPdfCodes": 4,
+  "allPdfAndPngCodesMatch": true,
+  "links": [
+    "https://lac-viet.vercel.app/#card=challenge",
+    "https://lac-viet.vercel.app/#card=fortune",
+    "https://lac-viet.vercel.app/#card=knowledge",
+    "https://lac-viet.vercel.app/#card=resource"
+  ]
+}

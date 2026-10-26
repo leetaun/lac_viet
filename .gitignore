@@ -10,7 +10,13 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.qr-work/
+tmp/pdfs/
 *.local
+.env
+.env.*
+!.env.example
+public/qr/demo-*.png
 
 # Editor directories and files
 .vscode/*

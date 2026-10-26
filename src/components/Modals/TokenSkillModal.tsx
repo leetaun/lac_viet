@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Player, GameCard } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
-import { CHALLENGE_CARDS } from '../../data/cardDecks';
+import { CHALLENGE_CARDS, KNOWLEDGE_CARDS } from '../../data/cardDecks';
 import { soundManager } from '../../utils/sound';
-import { Sparkles, ArrowLeft, ArrowRight, Eye, RefreshCw, X } from 'lucide-react';
+import { Sparkles, ArrowLeft, ArrowRight, Eye, RefreshCw, X, Check } from 'lucide-react';
 
 interface TokenSkillModalProps {
   player: Player;
   onActivateLotusSwap: (discardIds: string[], targetDeck: 'knowledge' | 'resource' | 'fortune') => void;
   onActivateBanhMiShift: (delta: -1 | 1) => void;
+  previewQuestion?: GameCard | null;
+  onPreviewLantern?: () => Promise<GameCard | null>;
+  initialPreview?: GameCard | null;
+  onActivateLanternRedraw?: () => void;
   onClose: () => void;
   language: 'vi' | 'en';
 }
@@ -17,19 +21,25 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
   player,
   onActivateLotusSwap,
   onActivateBanhMiShift,
+  onActivateLanternRedraw,
+  previewQuestion,
+  onPreviewLantern,
+  initialPreview,
   onClose,
   language
 }) => {
   const tokenDef = TOKENS[player.token];
   const [selectedCardsToDiscard, setSelectedCardsToDiscard] = useState<string[]>([]);
   const [targetDeck, setTargetDeck] = useState<'knowledge' | 'resource' | 'fortune'>('fortune');
-  const [previewCard, setPreviewCard] = useState<typeof CHALLENGE_CARDS[0] | null>(null);
+  const [previewCard, setPreviewCard] = useState<any>(initialPreview||null);
+  React.useEffect(()=>{if(initialPreview)setPreviewCard(initialPreview);},[initialPreview]);
 
-  // All cards on hand
+  // All cards in player's pouch/hand
   const allHandCards: { id: string; name: string; type: string }[] = [
-    ...player.cards.knowledge.map(c => ({ id: c.id, name: `[Kiến thức] ${c.title}`, type: 'knowledge' })),
+    ...player.biKipCards.map(c => ({ id: c.id, name: `[Bí kíp] ${c.title}`, type: 'bikip' })),
     ...player.cards.resource.map(c => ({ id: c.id, name: `[Tài nguyên] ${c.name}`, type: 'resource' })),
-    ...player.cards.fortune.map(c => ({ id: c.id, name: `[May mắn] ${c.name}`, type: 'fortune' }))
+    ...player.cards.fortune.map(c => ({ id: c.id, name: `[May mắn] ${c.name}`, type: 'fortune' })),
+    ...player.cards.knowledge.map(c => ({ id: c.id, name: `[Kiến thức] ${c.title}`, type: 'knowledge' }))
   ];
 
   const handleToggleCardDiscard = (id: string) => {
@@ -42,9 +52,9 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
     }
   };
 
-  const handlePreviewLantern = () => {
+  const handlePreviewLantern = async () => {
     soundManager.playTokenSkill();
-    const randomCard = CHALLENGE_CARDS[Math.floor(Math.random() * CHALLENGE_CARDS.length)];
+    const randomCard = onPreviewLantern ? await onPreviewLantern() : previewQuestion;
     setPreviewCard(randomCard);
   };
 
@@ -58,10 +68,10 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
             <span className="text-2xl">{tokenDef.icon}</span>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-                KÍCH HOẠT NỘI TẠI TOKEN
+                KỸ NĂNG TOKEN
               </span>
               <h2 className="font-serif-lacviet text-lg font-bold">
-                {tokenDef.name}
+                {tokenDef.name} · {tokenDef.passive}
               </h2>
             </div>
           </div>
@@ -72,139 +82,169 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
 
         {/* Body */}
         <div className="p-4 sm:p-5 space-y-4">
-          <p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">
+          <div className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-2xl border border-[#C5A059]/30 leading-relaxed">
+            <span className="font-bold text-[#7E121D] block mb-0.5">Hiệu lực kỹ năng:</span>
             {tokenDef.description}
-          </p>
+            <div className="text-[11px] text-gray-500 mt-1">
+              Thời điểm kích hoạt: <strong>{tokenDef.timing}</strong>
+            </div>
+          </div>
 
-          {/* 1. NÓN LÁ */}
+          {/* 1. NÓN LÁ: Che mưa */}
           {player.token === 'non_la' && (
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 space-y-1">
-              <div className="font-bold flex items-center gap-1">
-                <Sparkles size={14} className="text-blue-600" />
-                <span>Nội tại Tự Động Miễn Nhiễm</span>
+            <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-2xl text-xs text-blue-950 space-y-1.5">
+              <div className="font-bold flex items-center gap-1.5 text-blue-900">
+                <Sparkles size={15} className="text-blue-600" />
+                <span>Kỹ năng: Che Mưa (Tự động kích hoạt)</span>
               </div>
-              <p className="text-gray-600">
-                Khi bạn trả lời sai một câu hỏi Thử Thách, Nón Lá sẽ tự động bảo vệ kỷ vật của bạn không bị mất về ô START (1 lần/vòng).
+              <p className="text-gray-600 leading-relaxed">
+                Khi bạn thua Thử thách hoặc chịu tác động từ thẻ Sự kiện xấu (như Bão lũ), hệ thống sẽ hỏi bạn có dùng kỹ năng miễn phạt 01 lần và bảo vệ an toàn kỷ vật của bạn.
               </p>
+              <div className="text-[11px] font-bold text-blue-800">
+                Trạng thái: {player.tokenSkillAvailable ? '✅ Sẵn sàng sử dụng' : '⏳ Đã sử dụng (Hồi phục ở START/Góc)'}
+              </div>
             </div>
           )}
 
-          {/* 2. HOA SEN: Đổi 2 thẻ lấy 1 thẻ */}
+          {/* 2. HOA SEN: Thanh lọc (Đổi 2 thẻ lấy 1) */}
           {player.token === 'hoa_sen' && (
             <div className="space-y-3">
-              <div className="text-xs font-bold text-gray-800">
-                Chọn 2 thẻ trên tay để đổi (Đã chọn {selectedCardsToDiscard.length}/2):
+              <div className="text-xs font-bold text-gray-800 flex items-center justify-between">
+                <span>Chọn 2 thẻ trong túi đồ để đổi ({selectedCardsToDiscard.length}/2):</span>
               </div>
               
               {allHandCards.length < 2 ? (
                 <div className="p-3 bg-amber-50 text-amber-900 text-xs rounded-xl border border-amber-200">
-                  Bạn cần có ít nhất 2 lá bài trên tay để kích hoạt kỹ năng của Hoa Sen.
+                  ⚠️ Bạn cần tối thiểu 2 thẻ bài trong túi đồ để kích hoạt kỹ năng Thanh lọc.
                 </div>
               ) : (
-                <div className="max-h-40 overflow-y-auto space-y-1 border rounded-xl p-2 bg-gray-50 text-xs">
-                  {allHandCards.map(c => {
-                    const isSelected = selectedCardsToDiscard.includes(c.id);
-                    return (
-                      <div
-                        key={c.id}
-                        onClick={() => handleToggleCardDiscard(c.id)}
-                        className={`p-2 rounded-lg cursor-pointer border transition-all flex items-center justify-between ${
-                          isSelected ? 'bg-pink-100 border-pink-400 font-bold text-pink-900' : 'bg-white border-gray-200 text-gray-700'
-                        }`}
-                      >
-                        <span className="truncate">{c.name}</span>
-                        {isSelected && <span>✓</span>}
-                      </div>
-                    );
-                  })}
+                <div className="space-y-1.5 max-h-36 overflow-y-auto">
+                  {allHandCards.map(c => (
+                    <button
+                      key={c.id}
+                      onClick={() => handleToggleCardDiscard(c.id)}
+                      className={`w-full p-2 rounded-xl text-xs text-left border flex items-center justify-between transition-all ${
+                        selectedCardsToDiscard.includes(c.id)
+                          ? 'bg-[#7E121D] text-white font-bold border-[#7E121D]'
+                          : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-700'
+                      }`}
+                    >
+                      <span className="truncate">{c.name}</span>
+                      {selectedCardsToDiscard.includes(c.id) && <Check size={14} />}
+                    </button>
+                  ))}
                 </div>
               )}
 
-              <div className="flex items-center justify-between text-xs pt-1">
-                <span className="font-bold text-gray-700">Bộ thẻ muốn bốc:</span>
-                <select
-                  value={targetDeck}
-                  onChange={(e) => setTargetDeck(e.target.value as any)}
-                  className="p-1.5 border border-gray-300 rounded-lg text-xs bg-white"
-                >
-                  <option value="fortune">Thẻ May Mắn</option>
-                  <option value="resource">Thẻ Tài Nguyên</option>
-                  <option value="knowledge">Thẻ Kiến Thức</option>
-                </select>
+              {/* Target Deck selector */}
+              <div className="pt-2 border-t border-gray-200">
+                <label className="text-xs font-bold text-gray-700 block mb-1">
+                  Chọn loại thẻ muốn nhận:
+                </label>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <button
+                    onClick={() => setTargetDeck('resource')}
+                    className={`py-2 rounded-xl border font-bold ${
+                      targetDeck === 'resource'
+                        ? 'bg-emerald-600 text-white border-emerald-600'
+                        : 'bg-gray-50 text-gray-700 border-gray-200'
+                    }`}
+                  >
+                    Thẻ Tài Nguyên
+                  </button>
+                  <button
+                    onClick={() => setTargetDeck('fortune')}
+                    className={`py-2 rounded-xl border font-bold ${
+                      targetDeck === 'fortune'
+                        ? 'bg-amber-600 text-white border-amber-600'
+                        : 'bg-gray-50 text-gray-700 border-gray-200'
+                    }`}
+                  >
+                    Thẻ May Mắn
+                  </button>
+                </div>
               </div>
 
               <button
-                disabled={selectedCardsToDiscard.length !== 2}
-                onClick={() => {
-                  soundManager.playTokenSkill();
-                  onActivateLotusSwap(selectedCardsToDiscard, targetDeck);
-                }}
-                className={`w-full py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-1.5 ${
-                  selectedCardsToDiscard.length === 2
-                    ? 'crimson-gradient-bg text-[#F5E5BE] border border-[#C5A059]'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
+                disabled={selectedCardsToDiscard.length !== 2 || !player.tokenSkillAvailable}
+                onClick={() => onActivateLotusSwap(selectedCardsToDiscard, targetDeck)}
+                className="w-full py-2.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all"
               >
-                <RefreshCw size={14} />
-                <span>Hoán Đổi 2 Thẻ Lấy 1 Thẻ Mới</span>
+                Kích Hoạt Thanh Lọc (Đổi Thẻ)
               </button>
             </div>
           )}
 
-          {/* 3. ĐÈN LỒNG: Soi trước 1 thẻ thử thách */}
+          {/* 3. ĐÈN LỒNG: Soi đường */}
           {player.token === 'den_long' && (
             <div className="space-y-3">
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-950 space-y-1">
+                <span className="font-bold flex items-center gap-1 text-amber-900">
+                  <Eye size={14} className="text-amber-700" /> Kỹ năng: Soi Đường
+                </span>
+                <p className="text-gray-600">
+                  Xem trước đề bài Kiến thức hoặc Thử thách khi vừa chạm ô, đồng thời được quyền đổi đề 01 lần nếu câu hỏi quá khó.
+                </p>
+              </div>
+
               {!previewCard ? (
                 <button
+                  disabled={!player.tokenSkillAvailable}
                   onClick={handlePreviewLantern}
-                  className="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs sm:text-sm shadow flex items-center justify-center gap-2"
+                  className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-1.5"
                 >
-                  <Eye size={16} />
-                  <span>Soi Trước 1 Thẻ Thử Thách Tiếp Theo</span>
+                  <Eye size={15} />
+                  <span>Xem Trước Đề Bài Sắp Tới</span>
                 </button>
               ) : (
-                <div className="p-3 bg-amber-50 border border-amber-300 rounded-xl space-y-2 text-xs">
-                  <div className="font-bold text-amber-900 flex items-center gap-1">
-                    <span>🏮 Đèn Lồng Soi Sáng:</span>
-                    <span className="text-[#7E121D]">{previewCard.title} ({previewCard.province})</span>
+                <div className="p-3 bg-white border border-amber-300 rounded-2xl text-xs space-y-2">
+                  <div className="font-bold text-[#7E121D]">
+                    [Xem trước]: {previewCard.title} ({previewCard.province})
                   </div>
-                  <div className="text-gray-800 font-medium">
-                    {previewCard.question}
+                  <div className="text-gray-700 italic">
+                    "{previewCard.question}"
                   </div>
-                  <div className="text-[11px] text-green-700 bg-green-50 p-2 rounded-lg border border-green-200">
-                    💡 Gợi ý: Hãy giữ Thẻ Kiến Thức liên quan đến "{previewCard.relatedKnowledgeKeyword}" để được bỏ qua thử thách này!
-                  </div>
+                  {onActivateLanternRedraw && (
+                    <button
+                      onClick={onActivateLanternRedraw}
+                      className="w-full py-2 bg-[#7E121D] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1"
+                    >
+                      <RefreshCw size={14} /> Đổi sang đề mới
+                    </button>
+                  )}
                 </div>
               )}
             </div>
           )}
 
-          {/* 4. BÁNH MÌ: Tiến hoặc lùi 1 ô */}
+          {/* 4. BÁNH MÌ: Tiện đường */}
           {player.token === 'banh_mi' && (
             <div className="space-y-3">
-              <div className="text-xs font-bold text-gray-800 text-center">
-                Chọn hướng điều chỉnh vị trí ngay lúc này:
+              <div className="p-3 bg-orange-50 border border-orange-200 rounded-xl text-xs text-orange-950 space-y-1">
+                <span className="font-bold text-orange-900">
+                  Kỹ năng: Tiện Đường (+1 hoặc -1 ô sau khi gieo xúc xắc)
+                </span>
+                <p className="text-gray-600">
+                  Cho phép bạn tiến hoặc lùi 1 ô để né ô có Cột mốc đối thủ, hoặc tiến thẳng vào Trạm góc/Thử thách mong muốn.
+                </p>
               </div>
+
               <div className="grid grid-cols-2 gap-2">
                 <button
-                  onClick={() => {
-                    soundManager.playTokenSkill();
-                    onActivateBanhMiShift(-1);
-                  }}
-                  className="p-3 bg-orange-50 hover:bg-orange-100 border border-orange-300 rounded-xl text-xs font-bold text-orange-950 flex items-center justify-center gap-1.5 shadow-sm"
+                  disabled={!player.tokenSkillAvailable}
+                  onClick={() => onActivateBanhMiShift(-1)}
+                  className="py-2.5 px-3 bg-gray-100 hover:bg-orange-100 disabled:opacity-50 text-gray-800 rounded-xl text-xs font-bold border border-gray-300 flex items-center justify-center gap-1.5 shadow-sm"
                 >
-                  <ArrowLeft size={16} />
-                  <span>Lùi lại 1 ô (-1)</span>
+                  <ArrowLeft size={15} />
+                  <span>Lùi Lại 1 Ô (-1)</span>
                 </button>
                 <button
-                  onClick={() => {
-                    soundManager.playTokenSkill();
-                    onActivateBanhMiShift(1);
-                  }}
-                  className="p-3 bg-orange-50 hover:bg-orange-100 border border-orange-300 rounded-xl text-xs font-bold text-orange-950 flex items-center justify-center gap-1.5 shadow-sm"
+                  disabled={!player.tokenSkillAvailable}
+                  onClick={() => onActivateBanhMiShift(1)}
+                  className="py-2.5 px-3 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold border border-orange-600 flex items-center justify-center gap-1.5 shadow-sm"
                 >
-                  <span>Tiến thêm 1 ô (+1)</span>
-                  <ArrowRight size={16} />
+                  <span>Tiến Lên 1 Ô (+1)</span>
+                  <ArrowRight size={15} />
                 </button>
               </div>
             </div>
@@ -226,4 +266,3 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
     </div>
   );
 };
-

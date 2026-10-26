@@ -1,0 +1,22 @@
+{
+  "sourceFile": "Ngan_hang_cau_hoi_kien_thuc_xa_hoi_375_cau.docx",
+  "sourceSha256": "a66807d939a24ee28debcbab662baf6ade1874448c012aa8744547196c95688e",
+  "total": 375,
+  "counts": {
+    "basic/knowledge": 50,
+    "basic/challenge": 25,
+    "basic/market": 25,
+    "basic/festival": 25,
+    "intermediate/knowledge": 50,
+    "intermediate/challenge": 25,
+    "intermediate/market": 25,
+    "intermediate/festival": 25,
+    "advanced/knowledge": 50,
+    "advanced/challenge": 25,
+    "advanced/market": 25,
+    "advanced/festival": 25
+  },
+  "missingAnswers": 0,
+  "missingSources": 0,
+  "classification": "Original group and difficulty; no invented province attribution."
+}

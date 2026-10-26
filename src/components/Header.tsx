@@ -22,6 +22,13 @@ export const Header: React.FC<HeaderProps> = ({
   soundEnabled,
   onToggleSound,
 }) => {
+  const [now, setNow] = React.useState(Date.now());
+  React.useEffect(()=>{
+    if(!gameState.endsAt || gameState.gameStatus!=='playing')return;
+    const timer=setInterval(()=>setNow(Date.now()),1000);
+    return()=>clearInterval(timer);
+  },[gameState.endsAt,gameState.gameStatus]);
+  const secondsLeft = gameState.endsAt ? Math.max(0,Math.ceil((gameState.endsAt-now)/1000)) : null;
   const activePlayer = gameState.players[gameState.activePlayerIndex] || gameState.players[0];
   const activeSpace = BOARD_SPACES[activePlayer?.position || 0];
   const tokenDef = activePlayer ? TOKENS[activePlayer.token] : null;
@@ -78,11 +85,12 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
+          {secondsLeft !== null && <span className="text-[10px] text-[#E5C07B]/80 hidden sm:inline">{secondsLeft ? `Giờ thu quân: ${Math.floor(secondsLeft/60)}:${String(secondsLeft%60).padStart(2,'0')}` : 'Hết giờ · Hoàn tất lượt hiện tại'}</span>}
           {/* Start Bank Penalized Artifacts if any */}
-          {gameState.penalizedArtifactsAtStart > 0 && (
+          {gameState.lostAndFound.length > 0 && (
             <div className="hidden lg:flex items-center gap-1 bg-[#D97706]/20 border border-[#D97706] text-[#FDE68A] px-2 py-0.5 rounded text-[11px]">
               <Sparkles size={11} />
-              <span>START: {gameState.penalizedArtifactsAtStart} kỷ vật phạt</span>
+              <span>START: {gameState.lostAndFound.length} kỷ vật phạt</span>
             </div>
           )}
         </div>

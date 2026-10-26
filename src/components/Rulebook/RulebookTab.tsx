@@ -1,3 +1,4 @@
+import { PHYSICAL_CARDS, physicalCardUrl } from '../../utils/physicalQR';
 import React, { useState } from 'react';
 import { RULEBOOK_SECTIONS } from '../../data/rulebook';
 import { BookOpen, ChevronDown, ChevronUp, Printer, QrCode, ExternalLink, Award, Users, Recycle } from 'lucide-react';
@@ -24,12 +25,10 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
     setShowQRPrinter(true);
     const list: { name: string; url: string; qrImg: string }[] = [];
 
-    // Take representative spaces
-    const sampleSpaces = BOARD_SPACES.filter(s => s.type !== 'corner' || s.index === 0).slice(0, 16);
-    for (const space of sampleSpaces) {
-      const url = `https://lacviet.edu.vn/space/${space.index}-${space.name.toLowerCase().replace(/\s+/g, '-')}`;
+    for (const card of PHYSICAL_CARDS) {
+      const url = physicalCardUrl(card.kind);
       const qrImg = await generateQRCode(url);
-      list.push({ name: `${space.name} (#${space.index})`, url, qrImg });
+      list.push({name:card.label,url,qrImg});
     }
 
     setGeneratedQRs(list);
@@ -171,11 +170,11 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                 </span>
               </div>
               <button
-                onClick={() => window.print()}
+                onClick={() => window.open('/qr/lac-viet-qr-cards-a4.pdf','_blank','noopener,noreferrer')}
                 className="px-3 py-1.5 bg-[#7E121D] text-white rounded-xl text-xs font-bold flex items-center gap-1"
               >
                 <Printer size={13} />
-                <span>In trang</span>
+                <span>Mở bản in PDF</span>
               </button>
             </div>
 
@@ -190,12 +189,15 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                     <div key={idx} className="p-2.5 bg-gray-50 rounded-xl border border-gray-200 flex flex-col items-center gap-1.5">
                       <img src={item.qrImg} alt={item.name} className="w-24 h-24 rounded shadow-sm border border-gray-300" />
                       <span className="font-bold text-[11px] text-gray-800 truncate w-full">{item.name}</span>
+                      <a href={item.url} className="text-[10px] text-[#7E121D] hover:underline" target="_blank" rel="noopener noreferrer">Mở thử đường dẫn</a>
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
+            <p className="text-xs text-gray-500">Bốn mã dùng lại cho cả bàn, không phải một mã cho mỗi câu. Bản mới cần được đưa lên Vercel trước khi dùng bộ thẻ.</p>
+            <a href="/qr/lac-viet-qr-cards-a4.pdf" download className="px-3 py-1.5 bg-[#7E121D] text-white rounded-xl text-xs font-bold flex items-center gap-1">Tải PDF 4 thẻ để in A4</a>
             <div className="pt-3 border-t border-gray-200 flex justify-end">
               <button
                 onClick={() => setShowQRPrinter(false)}

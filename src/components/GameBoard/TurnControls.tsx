@@ -85,11 +85,11 @@ export const TurnControls: React.FC<TurnControlsProps> = ({
         <div>
           {language === 'vi' ? (
             <span>
-              <strong>Kỹ năng Token:</strong> Mỗi token chỉ dùng 1 lần/vòng. Được hồi phục khi đi qua ô START hoặc dừng tại 3 ô Góc lớn.
+              <strong>Kỹ năng Token:</strong> Mỗi token chỉ dùng 1 lần/vòng. Tự hồi khi qua START; tại Ô góc cần chọn quyền lợi hồi kỹ năng.
             </span>
           ) : (
             <span>
-              <strong>Token Passive:</strong> Usable once per lap. Resets upon passing START or stopping at the 3 Corner Stations.
+              <strong>Token Passive:</strong> Usable once per lap. Resets at START; at a Corner Station, choose the skill recovery bonus.
             </span>
           )}
         </div>

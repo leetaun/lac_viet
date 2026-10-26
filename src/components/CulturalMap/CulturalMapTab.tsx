@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { PROVINCES_DATA, ProvinceInfo } from '../../data/provinces';
 import { generateQRCode } from '../../utils/qrcode';
-import { Search, MapPin, Sparkles, BookOpen, ShoppingBag, Swords, QrCode, X, Filter } from 'lucide-react';
+import { Search, MapPin, Sparkles, BookOpen, ShoppingBag, Swords, QrCode, X, Filter, Trophy } from 'lucide-react';
 
 interface CulturalMapTabProps {
   language: 'vi' | 'en';
@@ -22,6 +22,10 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                           p.heritage.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesRegion && matchesType && matchesSearch;
   });
+
+  const countBac = PROVINCES_DATA.filter(p => p.region === 'bac_bo').length;
+  const countTrung = PROVINCES_DATA.filter(p => p.region === 'trung_bo').length;
+  const countNam = PROVINCES_DATA.filter(p => p.region === 'nam_bo').length;
 
   const handleSelectProvince = async (province: ProvinceInfo) => {
     setSelectedProvince(province);
@@ -51,10 +55,10 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/40 shadow-sm">
         <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#7E121D] flex items-center gap-2">
           <span>🗺️</span>
-          <span>BẢN ĐỒ HÀNH TRÌNH VĂN HÓA VIỆT NAM</span>
+          <span>BẢN ĐỒ HÀNH TRÌNH 36 ĐỊA PHƯƠNG (LUẬT)</span>
         </h2>
         <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-          Khám phá 34 tỉnh/thành tiêu biểu qua 3 miền Bắc - Trung - Nam với 4 phân loại ô chức năng: Kiến thức, Lễ hội, Thị trường và Thử thách.
+          Căn cứ Nghị quyết 202/2025/QH15, bàn cờ Lạc Việt phân bố 36 ô địa phương cân bằng qua 3 miền: 15 Bắc Bộ, 13 Trung Bộ (gồm Đặc khu Hoàng Sa và Đặc khu Trường Sa) và 8 Nam Bộ.
         </p>
 
         {/* Search & Filters */}
@@ -66,7 +70,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm kiếm tỉnh thành, di sản (Hà Nội, Huế, Sa Pa...)"
+              placeholder="Tìm kiếm tỉnh thành, di sản (Hoàng Sa, Trường Sa, Hà Nội, Huế...)"
               className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
             />
           </div>
@@ -79,7 +83,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'all' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Tất cả (34)
+              Tất cả (36)
             </button>
             <button
               onClick={() => setSelectedRegion('bac_bo')}
@@ -87,7 +91,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'bac_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Bắc Bộ (15)
+              Bắc Bộ ({countBac})
             </button>
             <button
               onClick={() => setSelectedRegion('trung_bo')}
@@ -95,7 +99,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'trung_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Trung Bộ (11)
+              Trung Bộ ({countTrung})
             </button>
             <button
               onClick={() => setSelectedRegion('nam_bo')}
@@ -103,75 +107,52 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'nam_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Nam Bộ (8)
+              Nam Bộ ({countNam})
             </button>
           </div>
         </div>
-
-        {/* Tile Type Quick Filters */}
-        <div className="flex items-center gap-1.5 mt-2.5 flex-wrap text-[11px]">
-          <span className="text-gray-400 font-medium">Lọc theo ô:</span>
-          {['all', 'Kiến thức', 'Lễ hội', 'Thị trường', 'Thử thách'].map((type) => (
-            <button
-              key={type}
-              onClick={() => setSelectedType(type)}
-              className={`px-2.5 py-0.5 rounded-full border transition-all duration-200 active:scale-95 ${
-                selectedType === type
-                  ? 'bg-gray-800 text-white border-gray-800 font-bold shadow-sm'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:bg-gray-50'
-              }`}
-            >
-              {type === 'all' ? 'Tất cả loại ô' : type}
-            </button>
-          ))}
-        </div>
       </div>
 
-      {/* Provinces Grid matching Slide 9 */}
-      <div key={`${selectedRegion}-${selectedType}-${searchQuery}`} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
-        {filteredProvinces.map((prov, idx) => (
+      {/* Grid of Provinces */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {filteredProvinces.map((province, idx) => (
           <div
-            key={prov.id}
-            onClick={() => handleSelectProvince(prov)}
-            style={{ animationDelay: `${Math.min(idx * 30, 450)}ms` }}
-            className="animate-stagger-item bg-white rounded-2xl p-3.5 border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer flex flex-col justify-between group active:scale-98"
+            key={province.id}
+            onClick={() => handleSelectProvince(province)}
+            style={{ animationDelay: `${(idx % 12) * 40}ms` }}
+            className="animate-stagger-item bg-white p-3.5 rounded-2xl border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 space-y-2 group"
           >
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="font-bold text-sm text-gray-900 group-hover:text-[#7E121D] transition-colors">
-                  {prov.name}
-                </span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getTileBadgeStyle(prov.tileType)}`}>
-                  {prov.tileType}
-                </span>
-              </div>
-
-              <div className="text-[11px] text-[#C5A059] font-medium flex items-center gap-1 mb-1 truncate">
-                <MapPin size={11} className="flex-shrink-0" />
-                <span className="truncate">{prov.heritage}</span>
-              </div>
-
-              <p className="text-[11px] text-gray-600 line-clamp-2 leading-relaxed">
-                {prov.description}
-              </p>
+            <div className="flex items-center justify-between">
+              <span className="font-serif-lacviet font-bold text-gray-900 text-sm group-hover:text-[#7E121D] transition-colors">
+                {province.name}
+              </span>
+              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getTileBadgeStyle(province.tileType)}`}>
+                {province.tileType}
+              </span>
             </div>
 
-            <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-gray-100 text-[10px] text-gray-400">
-              <span>{prov.regionName}</span>
-              <span className="text-[#7E121D] font-bold group-hover:underline flex items-center gap-0.5">
-                Xem di sản & QR →
+            <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+              {province.heritage}
+            </p>
+
+            <div className="pt-1 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
+              <span className="truncate max-w-[170px]">
+                🌾 {province.specialty.split(',')[0]}
+              </span>
+              <span className="text-[#7E121D] font-bold group-hover:underline">
+                Xem chi tiết →
               </span>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Province Detail Modal */}
+      {/* Province Detail Modal with Artifacts, Market Quiz, Festivals */}
       {selectedProvince && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop flex flex-col max-h-[90vh]">
+          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] max-h-[90vh] flex flex-col animate-modal-pop">
             
-            {/* Header */}
+            {/* Modal Header */}
             <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
@@ -189,59 +170,71 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
               </button>
             </div>
 
-            {/* Content */}
-            <div className="p-4 sm:p-6 overflow-y-auto space-y-3.5">
+            {/* Modal Content */}
+            <div className="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs text-gray-700">
               
-              {/* Heritage highlight */}
-              <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/30">
-                <div className="text-xs font-bold text-[#7E121D] mb-1 flex items-center gap-1.5">
-                  <MapPin size={14} className="text-[#C5A059]" />
-                  <span>Di sản & Danh lam tiêu biểu:</span>
-                </div>
-                <div className="text-xs sm:text-sm font-semibold text-gray-800">
-                  {selectedProvince.heritage}
-                </div>
+              {/* Heritage Description */}
+              <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 leading-relaxed">
+                <span className="font-bold text-[#7E121D] block mb-1">🏛️ Di sản tiêu biểu:</span>
+                <p className="text-gray-800">{selectedProvince.heritage}</p>
+                <p className="text-gray-600 mt-1">{selectedProvince.description}</p>
               </div>
 
-              {/* Description */}
-              <div className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                {selectedProvince.description}
-              </div>
-
-              {/* Special food & festivals */}
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="p-2.5 bg-gray-50 rounded-xl border border-gray-200">
-                  <span className="font-bold text-gray-800 block mb-0.5">🍜 Đặc sản trứ danh:</span>
-                  <span className="text-gray-600 text-[11px]">{selectedProvince.specialty}</span>
-                </div>
-                <div className="p-2.5 bg-gray-50 rounded-xl border border-gray-200">
-                  <span className="font-bold text-gray-800 block mb-0.5">🎋 Lễ hội truyền thống:</span>
-                  <span className="text-gray-600 text-[11px]">{selectedProvince.festivals.join(', ')}</span>
-                </div>
-              </div>
-
-              {/* QR Code Section */}
-              {qrCodeUrl && (
-                <div className="bg-gradient-to-br from-[#FAF6EE] to-[#FFFDF9] p-3.5 rounded-2xl border border-[#C5A059]/40 flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-xs font-bold text-[#7E121D] block">
-                      MÃ QR KẾT NỐI VĂN HÓA SỐ
-                    </span>
-                    <p className="text-[11px] text-gray-500 mt-0.5">
-                      Quét bằng điện thoại để tra cứu kho tư liệu lịch sử, bản đồ 3D và câu hỏi mở rộng.
-                    </p>
+              {/* 3 Digital Artifacts (2 regular, 1 treasure) */}
+              <div className="p-3 bg-amber-50/70 rounded-xl border border-amber-200/70 space-y-1.5">
+                <span className="font-bold text-amber-950 flex items-center gap-1">
+                  <Trophy size={14} className="text-amber-700" /> KHO KỶ VẬT CỦA TỈNH:
+                </span>
+                <div className="space-y-1">
+                  {selectedProvince.artifacts.regular.map((art, i) => (
+                    <div key={i} className="flex items-center gap-1.5 text-gray-800 bg-white p-1.5 rounded-lg border border-amber-100">
+                      <span>• {art}</span>
+                      <span className="text-[10px] text-gray-400">(Kỷ vật thường)</span>
+                    </div>
+                  ))}
+                  <div className="flex items-center justify-between text-amber-950 font-bold bg-amber-100/70 p-1.5 rounded-lg border border-amber-300">
+                    <span>⭐ {selectedProvince.artifacts.treasure}</span>
+                    <span className="text-[10px] bg-amber-200 px-1 rounded font-bold">BẢO VẬT</span>
                   </div>
-                  <img src={qrCodeUrl} alt="QR Code" className="w-20 h-20 rounded-lg shadow-sm border border-gray-200 flex-shrink-0" />
+                </div>
+              </div>
+
+              {/* Specialty & Market Quiz */}
+              <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/70 space-y-1">
+                <span className="font-bold text-emerald-950 flex items-center gap-1">
+                  <ShoppingBag size={14} className="text-emerald-700" /> ĐẶC SẢN & PHIÊN CHỢ:
+                </span>
+                <p className="text-gray-700">{selectedProvince.specialty}</p>
+                <div className="text-[11px] text-emerald-900 bg-white p-2 rounded-lg border border-emerald-200 mt-1">
+                  <strong>Đặc sản đấu giá: </strong> {selectedProvince.marketQuiz.item}
+                  <div className="text-gray-500 italic mt-0.5">{selectedProvince.marketQuiz.marketHint}</div>
+                </div>
+              </div>
+
+              {/* Festivals */}
+              <div className="p-3 bg-rose-50/60 rounded-xl border border-rose-200/70 space-y-1">
+                <span className="font-bold text-rose-950 flex items-center gap-1">
+                  <Sparkles size={14} className="text-rose-700" /> LỄ HỘI TRUYỀN THỐNG:
+                </span>
+                <p className="text-gray-700">{selectedProvince.festivals.join(' • ')}</p>
+              </div>
+
+              {/* QR Code Deep Dive */}
+              {qrCodeUrl && (
+                <div className="text-center pt-2 border-t border-gray-100">
+                  <img src={qrCodeUrl} alt="QR" className="w-24 h-24 mx-auto rounded-lg border border-gray-200" />
+                  <span className="text-[10px] text-gray-400 mt-1 block">
+                    Quét QR trên điện thoại để xem dữ liệu văn hóa mở rộng
+                  </span>
                 </div>
               )}
-
             </div>
 
-            {/* Footer */}
+            {/* Modal Footer */}
             <div className="p-3 bg-gray-50 border-t border-gray-200 flex justify-end">
               <button
                 onClick={() => setSelectedProvince(null)}
-                className="px-5 py-2 bg-[#7E121D] text-white font-bold rounded-xl text-xs hover:bg-[#941B26]"
+                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold"
               >
                 Đóng
               </button>
@@ -254,4 +247,3 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
     </div>
   );
 };
-

@@ -8,9 +8,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     enName: 'START',
     type: 'start',
     region: 'special',
-    subtitle: 'Khởi Hành Di Sản',
-    description: 'Điểm xuất phát và trạm thu hồi Kỷ vật văn hóa bị phạt. Vượt qua đây, trả lời 2 câu hỏi để nhận Thẻ May Mắn và chiếm lại tối đa 1 kỷ vật phạt!',
-    heritageHighlight: 'Cột mốc số 0 - Hành trình mở cõi văn hóa Việt Nam',
+    subtitle: 'Khởi Hành & Kho Thất Lạc',
+    description: 'Trạm Khởi hành và Kho thất lạc tập trung. Tự động kiểm tra Vinh quy bái tổ, tự động hồi phục Kỹ năng Token. Trả lời 2 câu hỏi (hoặc làm Hướng dẫn viên): Đúng 2/2 nhận lại 1 Kỷ vật từ Kho thất lạc; Đúng 1/2 nhận 1 thẻ bài.',
+    heritageHighlight: 'Cột mốc số 0 - Hành trình mở cõi văn hóa Việt Nam & Kho thất lạc',
     iconName: 'flag'
   },
   // 1: Hà Nội - Kiến thức
@@ -139,7 +139,7 @@ export const BOARD_SPACES: BoardSpace[] = [
     type: 'corner',
     region: 'bac_bo',
     subtitle: 'Trạm Dừng Chân Miền Bắc',
-    description: 'Trạm dừng chân chiến lược Bắc Bộ. Tại đây người chơi được chọn: Rút Thẻ May Mắn, Rút Thẻ Tài Nguyên, hoặc Hồi phục kỹ năng Token; gửi Kỷ vật an toàn.',
+    description: 'Trạm dừng chân chiến lược Bắc Bộ. Tự động giải phóng phong ấn kỷ vật; chọn 1 trong 4 quyền lợi (May Mắn, Tài Nguyên, Hồi chiêu, Ký gửi tối đa 2 kỷ vật).',
     heritageHighlight: 'Cái nôi văn minh sông Hồng & Văn hóa Đông Sơn',
     iconName: 'landmark'
   },
@@ -222,21 +222,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Quần thể danh thắng Tràng An & Cố đô Hoa Lư',
     iconName: 'book-open'
   },
-  // 17: Phiên Chợ Quê - Thị trường
+  // 17: Thanh Hóa - Thị trường
   {
     index: 17,
-    name: 'Chợ Quê Việt',
-    enName: 'Rural Market',
-    type: 'market',
-    region: 'bac_bo',
-    subtitle: 'Giao Thương Văn Hóa',
-    description: 'Ô thị trường đặc biệt tái hiện cảnh chợ phiên dân gian Việt Nam. Người chơi được bốc thẻ Tài Nguyên và có thể giao thương thẻ.',
-    heritageHighlight: 'Không gian Văn hóa Chợ phiên truyền thống Việt',
-    iconName: 'shopping-bag'
-  },
-  // 18: Thanh Hóa - Thị trường
-  {
-    index: 18,
     name: 'Thanh Hóa',
     enName: 'Thanh Hoa',
     type: 'market',
@@ -247,9 +235,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Di sản thế giới Di tích Thành nhà Hồ & Lam Kinh',
     iconName: 'shopping-bag'
   },
-  // 19: Nghệ An - Thử thách
+  // 18: Nghệ An - Thử thách
   {
-    index: 19,
+    index: 18,
     name: 'Nghệ An',
     enName: 'Nghe An',
     type: 'challenge',
@@ -260,23 +248,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Khu di tích Kim Liên & Dân ca Ví, Giặm Nghệ Tĩnh',
     iconName: 'swords'
   },
-
-  // 20: TRẠM DỪNG CHÂN TRUNG BỘ (Corner)
+  // 19: Hà Tĩnh - Kiến thức
   {
-    index: 20,
-    name: 'TRUNG BỘ',
-    enName: 'Central Station',
-    type: 'corner',
-    region: 'trung_bo',
-    subtitle: 'Trạm Dừng Chân Miền Trung',
-    description: 'Trạm dừng chân miền Trung nắng gió kiên cường. Người chơi chọn: Rút May Mắn, Rút Tài Nguyên, hồi phục Token, gửi Kỷ vật an toàn.',
-    heritageHighlight: 'Con đường Di sản Miền Trung kết nối ngàn năm',
-    iconName: 'landmark'
-  },
-
-  // 21: Hà Tĩnh - Kiến thức
-  {
-    index: 21,
+    index: 19,
     name: 'Hà Tĩnh',
     enName: 'Ha Tinh',
     type: 'knowledge',
@@ -287,9 +261,23 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Khu lưu niệm Đại thi hào Nguyễn Du & Ngã ba Đồng Lộc',
     iconName: 'book-open'
   },
-  // 22: Quảng Trị - Lễ hội
+
+  // 20: TRẠM DỪNG CHÂN TRUNG BỘ (Corner)
   {
-    index: 22,
+    index: 20,
+    name: 'TRUNG BỘ',
+    enName: 'Central Station',
+    type: 'corner',
+    region: 'trung_bo',
+    subtitle: 'Trạm Dừng Chân Miền Trung',
+    description: 'Trạm dừng chân miền Trung nắng gió kiên cường. Tự động giải phóng phong ấn; chọn 1 trong 4 quyền lợi (May Mắn, Tài Nguyên, Hồi chiêu, Ký gửi tối đa 2 kỷ vật).',
+    heritageHighlight: 'Con đường Di sản Miền Trung kết nối ngàn năm',
+    iconName: 'landmark'
+  },
+
+  // 21: Quảng Trị - Lễ hội
+  {
+    index: 21,
     name: 'Quảng Trị',
     enName: 'Quang Tri',
     type: 'festival',
@@ -300,10 +288,10 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Thành cổ Quảng Trị & Cụm di tích Đôi bờ Hiền Lương',
     iconName: 'sparkles'
   },
-  // 23: Thừa Thiên Huế - Kiến thức
+  // 22: Huế - Kiến thức
   {
-    index: 23,
-    name: 'Thừa Thiên Huế',
+    index: 22,
+    name: 'Huế',
     enName: 'Hue City',
     type: 'knowledge',
     region: 'trung_bo',
@@ -313,9 +301,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Quần thể Di tích Cố đô Huế & Nhã nhạc Cung đình',
     iconName: 'book-open'
   },
-  // 24: Đà Nẵng - Thị trường
+  // 23: Đà Nẵng - Thị trường
   {
-    index: 24,
+    index: 23,
     name: 'Đà Nẵng',
     enName: 'Da Nang',
     type: 'market',
@@ -326,9 +314,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Cầu Rồng, Ngũ Hành Sơn & Bảo tàng Điêu khắc Chăm',
     iconName: 'shopping-bag'
   },
-  // 25: Quảng Ngãi - Thử thách
+  // 24: Quảng Ngãi - Thử thách
   {
-    index: 25,
+    index: 24,
     name: 'Quảng Ngãi',
     enName: 'Quang Ngai',
     type: 'challenge',
@@ -339,9 +327,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Đảo Lý Sơn & Lễ khao lề thế lính Hoàng Sa',
     iconName: 'swords'
   },
-  // 26: Gia Lai - Kiến thức
+  // 25: Gia Lai - Kiến thức
   {
-    index: 26,
+    index: 25,
     name: 'Gia Lai',
     enName: 'Gia Lai',
     type: 'knowledge',
@@ -352,9 +340,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Biển Hồ T’nưng & Văn hóa Cồng chiêng Tây Nguyên',
     iconName: 'book-open'
   },
-  // 27: Đắk Lắk - Lễ hội
+  // 26: Đắk Lắk - Lễ hội
   {
-    index: 27,
+    index: 26,
     name: 'Đắk Lắk',
     enName: 'Dak Lak',
     type: 'festival',
@@ -365,9 +353,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Lễ hội Cà phê Buôn Ma Thuột & Làng Đôn',
     iconName: 'sparkles'
   },
-  // 28: Khánh Hòa - Thị trường
+  // 27: Khánh Hòa - Thị trường
   {
-    index: 28,
+    index: 27,
     name: 'Khánh Hòa',
     enName: 'Khanh Hoa',
     type: 'market',
@@ -378,9 +366,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Tháp Bà Ponagar & Nghề khai thác Yến sào',
     iconName: 'shopping-bag'
   },
-  // 29: Lâm Đồng - Thử thách
+  // 28: Lâm Đồng - Thử thách
   {
-    index: 29,
+    index: 28,
     name: 'Lâm Đồng',
     enName: 'Lam Dong',
     type: 'challenge',
@@ -391,6 +379,19 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Cao nguyên Langbiang & Festival Hoa Đà Lạt',
     iconName: 'swords'
   },
+  // 29: Đặc khu Hoàng Sa - Kiến thức
+  {
+    index: 29,
+    name: 'Hoàng Sa',
+    enName: 'Hoang Sa Islands',
+    type: 'knowledge',
+    region: 'trung_bo',
+    province: 'Đặc khu Hoàng Sa',
+    subtitle: 'Hải Đội Hoàng Sa Hùng Binh',
+    description: 'Quần đảo tiền tiêu thiêng liêng ở Biển Đông gắn liền với những chuyến giong buồm đo đạc cắm mốc chủ quyền của Đội hùng binh Hoàng Sa triều Nguyễn.',
+    heritageHighlight: 'Bia chủ quyền triều Nguyễn & Đội Hoàng Sa kiêm quản Bắc Hải',
+    iconName: 'book-open'
+  },
 
   // 30: TRẠM DỪNG CHÂN NAM BỘ (Corner)
   {
@@ -400,26 +401,40 @@ export const BOARD_SPACES: BoardSpace[] = [
     type: 'corner',
     region: 'nam_bo',
     subtitle: 'Trạm Dừng Chân Phương Nam',
-    description: 'Trạm dừng chân phương Nam trù phú, sông nước mênh mông, con người hào sảng bao dung. Chọn rút May Mắn, Tài Nguyên hoặc hồi chiêu.',
+    description: 'Trạm dừng chân phương Nam trù phú, hào sảng. Tự động giải phóng phong ấn; chọn 1 trong 4 quyền lợi (May Mắn, Tài Nguyên, Hồi chiêu, Ký gửi tối đa 2 kỷ vật).',
     heritageHighlight: 'Văn minh sông nước Cửu Long & Hào khí Đồng Nai',
     iconName: 'landmark'
   },
 
-  // 31: Đêm Lễ Hội - Lễ hội
+  // 31: Đặc khu Trường Sa - Lễ hội
   {
     index: 31,
-    name: 'Đêm Hội Nam Bộ',
-    enName: 'Southern Fest',
+    name: 'Trường Sa',
+    enName: 'Truong Sa Islands',
     type: 'festival',
-    region: 'nam_bo',
-    subtitle: 'Đờn Ca Tài Tử',
-    description: 'Đêm hội ngân vang tiếng đàn kìm, đàn tranh của Đờn ca tài tử Nam Bộ di sản UNESCO, rộn ràng điệu múa lân sư rồng phương Nam.',
-    heritageHighlight: 'Nghệ thuật Đờn ca tài tử Nam Bộ (UNESCO)',
+    region: 'trung_bo',
+    province: 'Đặc khu Trường Sa',
+    subtitle: 'Biển Trời Phên Dậu Tổ Quốc',
+    description: 'Tuyến đảo phên dậu kiên cường của Tổ quốc, biểu tượng ý chí sắt đá của quân dân ta giữa phong ba bão táp ngàn khơi.',
+    heritageHighlight: 'Cột mốc chủ quyền thiêng liêng & Cây Phong ba, Bàng vuông hiên ngang',
     iconName: 'sparkles'
   },
-  // 32: Đồng Nai - Lễ hội
+  // 32: TP. Hồ Chí Minh - Thị trường
   {
     index: 32,
+    name: 'TP. Hồ Chí Minh',
+    enName: 'Ho Chi Minh City',
+    type: 'market',
+    region: 'nam_bo',
+    province: 'TP. Hồ Chí Minh',
+    subtitle: 'Hòn Ngọc Viễn Đông',
+    description: 'Đầu tàu kinh tế sôi động bậc nhất cả nước, Bến Nhà Rồng nơi Bác Hồ ra đi tìm đường cứu nước, Chợ Bến Thành hoa lệ.',
+    heritageHighlight: 'Bến Nhà Rồng, Chợ Bến Thành & Địa đạo Củ Chi',
+    iconName: 'shopping-bag'
+  },
+  // 33: Đồng Nai - Lễ hội
+  {
+    index: 33,
     name: 'Đồng Nai',
     enName: 'Dong Nai',
     type: 'festival',
@@ -430,9 +445,9 @@ export const BOARD_SPACES: BoardSpace[] = [
     heritageHighlight: 'Văn miếu Trấn Biên & Vườn quốc gia Cát Tiên',
     iconName: 'sparkles'
   },
-  // 33: Tây Ninh - Kiến thức
+  // 34: Tây Ninh - Kiến thức
   {
-    index: 33,
+    index: 34,
     name: 'Tây Ninh',
     enName: 'Tay Ninh',
     type: 'knowledge',
@@ -442,19 +457,6 @@ export const BOARD_SPACES: BoardSpace[] = [
     description: 'Đỉnh núi Bà Đen 986m cao nhất Nam Bộ, Tòa thánh Tây Ninh kiến trúc tôn giáo độc đáo giao thoa Đông Tây.',
     heritageHighlight: 'Quần thể Núi Bà Đen & Tòa thánh Cao Đài Tây Ninh',
     iconName: 'book-open'
-  },
-  // 34: TP. Hồ Chí Minh - Thị trường
-  {
-    index: 34,
-    name: 'TP. Hồ Chí Minh',
-    enName: 'Ho Chi Minh City',
-    type: 'market',
-    region: 'nam_bo',
-    province: 'TP.HCM',
-    subtitle: 'Hòn Ngọc Viễn Đông',
-    description: 'Đầu tàu kinh tế sôi động bậc nhất cả nước, Bến Nhà Rồng nơi Bác Hồ ra đi tìm đường cứu nước, Chợ Bến Thành hoa lệ.',
-    heritageHighlight: 'Bến Nhà Rồng, Chợ Bến Thành & Địa đạo Củ Chi',
-    iconName: 'shopping-bag'
   },
   // 35: Vĩnh Long - Thử thách
   {

@@ -6,40 +6,43 @@ export const TOKENS: Record<TokenType, TokenDef> = {
     name: 'Nón Lá',
     enName: 'Conical Hat',
     icon: '👒',
-    passive: 'Miễn nhiễm 1 lần phạt',
-    enPassive: 'Immune to 1 penalty',
-    color: '#0284C7', // Xanh lam thanh bình
-    description: 'Biểu tượng của sự che chở, chịu thương chịu khó. Khi trả lời sai thử thách, miễn phạt rớt kỷ vật về ô START 1 lần mỗi vòng chơi.'
+    passive: 'Che mưa (Miễn phạt 01 lần)',
+    enPassive: 'Rain Shelter (Immune to 1 penalty)',
+    color: '#0284C7',
+    description: 'Miễn phạt 01 lần: khi thua Thử thách (không bị rơi Kỷ vật về Kho thất lạc) hoặc khi chịu tác động từ 1 thẻ Sự kiện xấu. Hệ thống tự động hỏi ngay khi chịu phạt.',
+    timing: 'Tự động kích hoạt khi chịu hình phạt hoặc thẻ Sự kiện xấu'
   },
   hoa_sen: {
     id: 'hoa_sen',
     name: 'Hoa Sen',
     enName: 'Lotus Blossom',
     icon: '🪷',
-    passive: 'Đổi 2 thẻ trên tay lấy 1 thẻ mới',
-    enPassive: 'Exchange 2 cards for 1 new card',
-    color: '#EC4899', // Hồng sen tao nhã
-    description: 'Quốc hoa tượng trưng cho sự thuần khiết và linh hoạt. Cho phép người chơi hoán đổi 2 lá bài không cần thiết trên tay để bốc 1 lá bài mới từ bất kỳ bộ thẻ nào.'
+    passive: 'Thanh lọc (Bỏ 2 thẻ đổi 1 thẻ tùy chọn)',
+    enPassive: 'Purification (Discard 2 cards for 1 chosen)',
+    color: '#EC4899',
+    description: 'Bỏ 2 thẻ bài bất kỳ trong túi đồ số để nhận 1 thẻ ngẫu nhiên thuộc loại tự chọn (Kiến thức, Tài nguyên hoặc May mắn).',
+    timing: 'Kích hoạt tại Bước 1 (Chuẩn bị) trong lượt của mình'
   },
   den_long: {
     id: 'den_long',
     name: 'Đèn Lồng',
     enName: 'Lantern',
     icon: '🏮',
-    passive: 'Xem trước 1 thẻ thử thách',
-    enPassive: 'Preview next challenge card',
-    color: '#F59E0B', // Vàng đèn rực rỡ
-    description: 'Ánh sáng tri thức soi đường của phố cổ Hội An. Cho phép người chơi soi trước nội dung câu hỏi/thử thách sắp tới để chuẩn bị thẻ kiến thức đối ứng.'
+    passive: 'Soi đường (Xem trước & Đổi đề 1 lần)',
+    enPassive: 'Wayfinder (Preview & Reroll challenge)',
+    color: '#F59E0B',
+    description: 'Xem trước đề bài Kiến thức hoặc Thử thách, đồng thời được quyền đổi đề 01 lần nếu đề bài quá khó (bắt buộc làm đề mới).',
+    timing: 'Kích hoạt sau khi chọn ô nhưng trước khi bấm trả lời'
   },
   banh_mi: {
     id: 'banh_mi',
     name: 'Bánh Mì',
     enName: 'Vietnamese Banh Mi',
     icon: '🥖',
-    passive: 'Tiến hoặc lùi 1 ô để né bẫy/chọn ô',
-    enPassive: 'Step +1 or -1 space to evade trap',
-    color: '#EA580C', // Cam giòn ấm áp
-    description: 'Ẩm thực đường phố nổi tiếng thế giới, mang tinh thần năng động. Cho phép điều chỉnh vị trí vừa gieo xúc xắc tiến hoặc lùi 1 ô để chọn ô lợi thế.'
+    passive: 'Tiện đường (Tiến hoặc Lùi 1 ô)',
+    enPassive: 'On the Way (Shift +/- 1 space)',
+    color: '#EA580C',
+    description: 'Cho phép Token tiến hoặc lùi thêm 01 ô trên bàn cờ vật lý và Web, sau đó thực hiện toàn bộ nhiệm vụ tại ô mới dừng.',
+    timing: 'Kích hoạt ngay sau khi gieo xúc xắc ở Bước 2'
   }
 };
-

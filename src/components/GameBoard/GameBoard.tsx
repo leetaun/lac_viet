@@ -44,7 +44,11 @@ export const GameBoard: React.FC<GameBoardProps> = ({
   const topSpaces = [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
   const rightSpaces = [31, 32, 33, 34, 35, 36, 37, 38, 39];
 
-  const selectedSpace = selectedSpaceIndex !== null ? BOARD_SPACES[selectedSpaceIndex] : null;
+  const boardSpaces = BOARD_SPACES.map(space => {
+    const flag = gameState.milestones.find(m => m.spaceIndex === space.index);
+    return flag ? { ...space, hasMilestone: true, milestoneOwnerSeat: flag.playerSeat } : space;
+  });
+  const selectedSpace = selectedSpaceIndex !== null ? boardSpaces[selectedSpaceIndex] : null;
 
   return (
     <div className="flex flex-col gap-4 pb-20 max-w-7xl mx-auto px-2 sm:px-4">
@@ -53,6 +57,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
         players={gameState.players}
         activePlayerIndex={gameState.activePlayerIndex}
         artifactGoal={gameState.artifactGoal}
+        gameModeRule={gameState.gameModeRule}
         language={language}
       />
 
@@ -66,7 +71,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             {topSpaces.map(idx => (
               <BoardSpaceTile
                 key={idx}
-                space={BOARD_SPACES[idx]}
+                space={boardSpaces[idx]}
                 playersOnSpace={getPlayersOnSpace(idx)}
                 activePlayerIndex={gameState.activePlayerIndex}
                 isSelected={selectedSpaceIndex === idx}
@@ -82,7 +87,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
               {[...leftSpaces].reverse().map(idx => (
                 <BoardSpaceTile
                   key={idx}
-                  space={BOARD_SPACES[idx]}
+                  space={boardSpaces[idx]}
                   playersOnSpace={getPlayersOnSpace(idx)}
                   activePlayerIndex={gameState.activePlayerIndex}
                   isSelected={selectedSpaceIndex === idx}
@@ -172,7 +177,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
               {rightSpaces.map(idx => (
                 <BoardSpaceTile
                   key={idx}
-                  space={BOARD_SPACES[idx]}
+                  space={boardSpaces[idx]}
                   playersOnSpace={getPlayersOnSpace(idx)}
                   activePlayerIndex={gameState.activePlayerIndex}
                   isSelected={selectedSpaceIndex === idx}
@@ -187,7 +192,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0].map(idx => (
               <BoardSpaceTile
                 key={idx}
-                space={BOARD_SPACES[idx]}
+                space={boardSpaces[idx]}
                 playersOnSpace={getPlayersOnSpace(idx)}
                 activePlayerIndex={gameState.activePlayerIndex}
                 isSelected={selectedSpaceIndex === idx}

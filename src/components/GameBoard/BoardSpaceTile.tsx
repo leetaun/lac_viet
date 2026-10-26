@@ -98,6 +98,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           #{space.index}
         </span>
         <div className="flex items-center gap-0.5">
+          {space.hasMilestone && <span className="text-[9px] font-mono font-bold px-1 rounded bg-gray-100 text-gray-500" title={`Cột mốc của P${space.milestoneOwnerSeat}`}>⚑ P{space.milestoneOwnerSeat}</span>}
           {config.icon}
         </div>
       </div>

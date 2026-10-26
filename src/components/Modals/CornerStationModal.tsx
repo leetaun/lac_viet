@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Player, BoardSpace } from '../../types/game';
+import { Player, BoardSpace, ArtifactItem } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { soundManager } from '../../utils/sound';
-import { Sparkles, ShoppingBag, RotateCcw, ShieldCheck, Flag, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Sparkles, ShoppingBag, RotateCcw, ShieldCheck, Flag, CheckCircle2, ArrowRight, Unlock, Mic } from 'lucide-react';
 
 interface CornerStationModalProps {
   station: BoardSpace;
   player: Player;
   penalizedArtifactsAtStart: number;
-  onSelectOption: (option: 'fortune' | 'resource' | 'restore_skill' | 'safe_deposit' | 'reclaim_start') => void;
+  lostAndFoundList?: ArtifactItem[];
+  onSelectOption: (option: 'fortune' | 'resource' | 'restore_skill' | 'safe_deposit' | 'reclaim_start', extraData?: any) => void;
+  onGuideApproval?: () => Promise<boolean>;
   onClose: () => void;
   language: 'vi' | 'en';
 }
@@ -17,13 +19,24 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
   station,
   player,
   penalizedArtifactsAtStart,
+  lostAndFoundList = [],
   onSelectOption,
   onClose,
+  onGuideApproval,
   language
 }) => {
   const isStart = station.index === 0;
   const tokenDef = TOKENS[player.token];
+  const [approvingGuide, setApprovingGuide] = useState(false);
+  const finished = React.useRef(false);
   const [startQuizStep, setStartQuizStep] = useState<number>(0);
+  const [startQuizScore, setStartQuizScore] = useState<number>(0);
+  const [guidePresentationDone, setGuidePresentationDone] = useState<boolean>(false);
+  const [selectedArtifactToDeposit, setSelectedArtifactToDeposit] = useState<string[]>([]);
+
+  // Count unsealed artifacts during corner visit
+  const sealedArtifactsCount = player.artifactItems.filter(a => a.isSealed).length;
+  const pouchArtifacts = player.artifactItems.filter(a => a.storage === 'pouch' && !a.isSealed);
 
   // START 2 Questions
   const startQuestions = [
@@ -39,19 +52,40 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
     }
   ];
 
+  const finishStart = (score: number) => {
+    if (finished.current) return;
+    finished.current = true;
+    if (score === 2 && lostAndFoundList.length > 0) onSelectOption('reclaim_start');
+    else if (score > 0) onSelectOption(score === 2 ? 'fortune' : 'resource');
+    else onClose();
+  };
   const handleAnswerStartQuiz = (optIndex: number) => {
-    if (optIndex === startQuestions[startQuizStep].correct) {
-      soundManager.playSuccess();
-      if (startQuizStep < 1) {
-        setStartQuizStep(1);
-      } else {
-        // Finished both questions successfully!
-        onSelectOption('fortune');
-      }
+    if (finished.current || approvingGuide) return;
+    const correct = optIndex === startQuestions[startQuizStep].correct;
+    const score = startQuizScore + (correct ? 1 : 0);
+    setStartQuizScore(score);
+    if (startQuizStep === 0) setStartQuizStep(1);
+    else finishStart(score);
+  };
+  const handleGuideSubstitute = async () => {
+    if (guidePresentationDone || approvingGuide || finished.current) return;
+    setApprovingGuide(true);
+    const approved = await onGuideApproval?.();
+    setApprovingGuide(false);
+    setGuidePresentationDone(true);
+    const score = startQuizScore + (approved ? 1 : 0);
+    setStartQuizScore(score);
+    if (startQuizStep === 0) setStartQuizStep(1);
+    else finishStart(score);
+  };
+
+  const handleToggleDeposit = (artId: string) => {
+    if (selectedArtifactToDeposit.includes(artId)) {
+      setSelectedArtifactToDeposit(selectedArtifactToDeposit.filter(id => id !== artId));
     } else {
-      soundManager.playPenalty();
-      alert('Chưa chính xác! Bạn đã bỏ lỡ cơ hội nhận Thẻ May Mắn tại START.');
-      onClose();
+      if (selectedArtifactToDeposit.length < 2) {
+        setSelectedArtifactToDeposit([...selectedArtifactToDeposit, artId]);
+      }
     }
   };
 
@@ -63,36 +97,52 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
         <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-              {isStart ? 'Ô ĐẶC BIỆT' : 'TRẠM DỪNG CHÂN'}
+              {isStart ? 'TRẠM KHỞI HÀNH & KHO THẤT LẠC' : 'TRẠM DỪNG CHÂN 3 MIỀN'}
             </span>
             <h2 className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2">
               {isStart ? <Flag size={20} className="text-[#C5A059]" /> : <span>🏛️</span>}
               <span>{station.name}</span>
             </h2>
           </div>
-          <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#C5A059] text-[#1E2538]">
+          <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-[#C5A059] text-[#1E2538]">
             Ô #{station.index}
           </span>
         </div>
 
         {/* Content */}
         <div className="p-4 sm:p-5 space-y-3">
-          <p className="text-xs sm:text-sm text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">
+          <p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">
             {station.description}
           </p>
+
+          {/* Auto unseal notification if any sealed artifact was released */}
+          {sealedArtifactsCount > 0 && !isStart && (
+            <div className="p-2.5 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center gap-2">
+              <Unlock size={16} className="text-emerald-600 flex-shrink-0" />
+              <span>
+                <strong>Tự động giải phóng!</strong> {sealedArtifactsCount} kỷ vật bị phong ấn của bạn đã được mở khóa tự do!
+              </span>
+            </div>
+          )}
 
           {/* START Tile Special Flow */}
           {isStart ? (
             <div className="space-y-3">
-              <div className="bg-amber-50 border border-amber-300 p-3 rounded-xl text-xs text-amber-900">
-                <div className="font-bold mb-1 flex items-center gap-1">
-                  <Sparkles size={14} className="text-amber-700" />
-                  <span>Vượt qua START: Trả lời 2 câu hỏi để nhận Thẻ May Mắn!</span>
+              <div className="bg-amber-50 border border-amber-300 p-3.5 rounded-2xl text-xs text-amber-900 space-y-2">
+                <div className="font-bold flex items-center justify-between">
+                  <span className="flex items-center gap-1">
+                    <Sparkles size={14} className="text-amber-700" /> Trạm Khởi Hành (Câu {startQuizStep + 1}/2)
+                  </span>
+                  <span className="text-[11px] text-amber-800">
+                    Đúng: {startQuizScore}/2
+                  </span>
                 </div>
-                <div className="font-semibold text-gray-800 mt-2">
-                  Câu hỏi {startQuizStep + 1}/2: {startQuestions[startQuizStep].q}
+
+                <div className="font-semibold text-gray-900">
+                  {startQuestions[startQuizStep].q}
                 </div>
-                <div className="grid grid-cols-2 gap-1.5 mt-2">
+
+                <div className="grid grid-cols-2 gap-1.5 pt-1">
                   {startQuestions[startQuizStep].opts.map((opt, i) => (
                     <button
                       key={i}
@@ -103,120 +153,154 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                     </button>
                   ))}
                 </div>
+
+                {/* Substitute with "Hướng dẫn viên" */}
+                {!guidePresentationDone && (
+                  <div className="pt-2 border-t border-amber-200 flex items-center justify-between">
+                    <span className="text-[11px] text-gray-600">Hoặc thuyết trình 30s:</span>
+                    <button
+                      disabled={approvingGuide}
+                      onClick={handleGuideSubstitute}
+                      className="px-2.5 py-1 bg-[#7E121D] text-[#F5E5BE] font-bold rounded-lg text-[11px] flex items-center gap-1 shadow"
+                    >
+                      <Mic size={12} /> Làm Hướng dẫn viên (+1 câu đúng)
+                    </button>
+                  </div>
+                )}
               </div>
 
-              {/* Reclaim Penalized Artifact at START if any */}
-              {penalizedArtifactsAtStart > 0 && (
-                <div className="bg-emerald-50 border border-emerald-300 p-3 rounded-xl flex items-center justify-between gap-2">
-                  <div className="text-xs text-emerald-900">
-                    <span className="font-bold">✨ Có {penalizedArtifactsAtStart} Kỷ vật bị phạt tại đây!</span>
-                    <div className="text-[11px] text-emerald-700">Giải cứu 1 kỷ vật về túi của bạn ngay.</div>
+              {/* Kho thất lạc status at START */}
+              <div className="bg-emerald-50 border border-emerald-300 p-3 rounded-xl flex items-center justify-between gap-2 text-xs">
+                <div>
+                  <span className="font-bold text-emerald-950">
+                    📦 Kho Thất Lạc: {lostAndFoundList.length || penalizedArtifactsAtStart} Kỷ vật
+                  </span>
+                  <div className="text-[11px] text-emerald-700">
+                    Đúng 2/2 câu hỏi để thu hồi 01 kỷ vật đưa về Tay nải!
                   </div>
-                  <button
-                    onClick={() => onSelectOption('reclaim_start')}
-                    className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow flex-shrink-0"
-                  >
-                    Chiếm lại Kỷ vật
-                  </button>
                 </div>
-              )}
+              </div>
             </div>
           ) : (
             /* 3 Corner Stations: Bac Bo, Trung Bo, Nam Bo */
             <div className="space-y-2 pt-1">
               <div className="text-xs font-bold text-gray-800 mb-1">
-                Chọn 1 quyền lợi tại Trạm Dừng Chân:
+                Chọn 1 trong 4 đặc quyền tại Trạm Dừng Chân:
               </div>
 
-              {/* Option A: Fortune Card */}
+              {/* Option 1: Fortune Card */}
               <button
                 onClick={() => onSelectOption('fortune')}
-                style={{ animationDelay: '100ms' }}
-                className="animate-stagger-item w-full p-3 rounded-xl border border-amber-200 hover:border-amber-400 bg-amber-50/60 hover:bg-amber-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
+                className="w-full p-2.5 rounded-xl border border-amber-200 hover:border-amber-400 bg-amber-50/60 hover:bg-amber-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-amber-100 text-amber-700 group-hover:scale-110 transition-transform">
-                    <Sparkles size={16} />
+                  <div className="p-2 rounded-lg bg-amber-100 text-amber-700">
+                    <Sparkles size={15} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs sm:text-sm text-amber-950">
-                      Rút 1 Thẻ May Mắn
+                    <div className="font-bold text-xs text-amber-950">
+                      1. Nhận 01 Thẻ May Mắn
                     </div>
-                    <div className="text-[11px] text-amber-800/80">
-                      Nhận các thời vận (đổ thêm xúc xắc, đón gió lành...)
+                    <div className="text-[10px] text-amber-800/80">
+                      Áp dụng ngay hiệu lực thời vận tốt lành
                     </div>
                   </div>
                 </div>
-                <ArrowRight size={16} className="text-amber-700" />
+                <ArrowRight size={15} className="text-amber-700" />
               </button>
 
-              {/* Option B: Resource Card */}
+              {/* Option 2: Resource Card */}
               <button
                 onClick={() => onSelectOption('resource')}
-                style={{ animationDelay: '160ms' }}
-                className="animate-stagger-item w-full p-3 rounded-xl border border-emerald-200 hover:border-emerald-400 bg-emerald-50/60 hover:bg-emerald-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
+                className="w-full p-2.5 rounded-xl border border-emerald-200 hover:border-emerald-400 bg-emerald-50/60 hover:bg-emerald-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700 group-hover:scale-110 transition-transform">
-                    <ShoppingBag size={16} />
+                  <div className="p-2 rounded-lg bg-emerald-100 text-emerald-700">
+                    <ShoppingBag size={15} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs sm:text-sm text-emerald-950">
-                      Rút 1 Thẻ Tài Nguyên
+                    <div className="font-bold text-xs text-emerald-950">
+                      2. Nhận 01 Thẻ Tài Nguyên
                     </div>
-                    <div className="text-[11px] text-emerald-800/80">
-                      Nhận lá chắn bảo hộ, đất đai hoặc vật phẩm đổi chác
+                    <div className="text-[10px] text-emerald-800/80">
+                      Bốc lá chắn, ngựa trạm, nỏ thần hoặc cột mốc
                     </div>
                   </div>
                 </div>
-                <ArrowRight size={16} className="text-emerald-700" />
+                <ArrowRight size={15} className="text-emerald-700" />
               </button>
 
-              {/* Option C: Restore Token Skill */}
+              {/* Option 3: Restore Token Skill */}
               <button
                 onClick={() => onSelectOption('restore_skill')}
-                style={{ animationDelay: '220ms' }}
-                className="animate-stagger-item w-full p-3 rounded-xl border border-blue-200 hover:border-blue-400 bg-blue-50/60 hover:bg-blue-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
+                className="w-full p-2.5 rounded-xl border border-blue-200 hover:border-blue-400 bg-blue-50/60 hover:bg-blue-100/70 text-left transition-all flex items-center justify-between group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-lg bg-blue-100 text-blue-700 group-hover:scale-110 transition-transform">
-                    <RotateCcw size={16} />
+                  <div className="p-2 rounded-lg bg-blue-100 text-blue-700">
+                    <RotateCcw size={15} />
                   </div>
                   <div>
-                    <div className="font-bold text-xs sm:text-sm text-blue-950">
-                      Hồi Phục Kỹ Năng Token [{tokenDef.name}]
+                    <div className="font-bold text-xs text-blue-950">
+                      3. Hồi Phục Kỹ Năng Token [{tokenDef.name}]
                     </div>
-                    <div className="text-[11px] text-blue-800/80">
-                      Khôi phục 1 lần sử dụng nội tại token cho vòng này
+                    <div className="text-[10px] text-blue-800/80">
+                      Khôi phục trạng thái sẵn sàng sử dụng nội tại
                     </div>
                   </div>
                 </div>
-                <ArrowRight size={16} className="text-blue-700" />
+                <ArrowRight size={15} className="text-blue-700" />
               </button>
 
-              {/* Option D: Safe deposit artifacts */}
-              {player.artifacts > 0 && (
-                <button
-                  onClick={() => onSelectOption('safe_deposit')}
-                  style={{ animationDelay: '280ms' }}
-                  className="animate-stagger-item w-full p-3 rounded-xl border border-[#C5A059] bg-[#FAF6EE] hover:bg-[#F5E5BE]/50 text-left transition-all flex items-center justify-between group mt-2 active:scale-98"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded-lg bg-[#C5A059]/20 text-[#7E121D] group-hover:scale-110 transition-transform">
-                      <ShieldCheck size={16} />
-                    </div>
-                    <div>
-                      <div className="font-bold text-xs sm:text-sm text-[#7E121D]">
-                        Gửi An Toàn {player.artifacts} Kỷ Vật Tại Trạm
-                      </div>
-                      <div className="text-[11px] text-gray-600">
-                        Bảo vệ kỷ vật khỏi bị đối thủ cướp khi tiếp tục hành trình!
-                      </div>
-                    </div>
+              {/* Option 4: Ký gửi tối đa 2 kỷ vật */}
+              <div className="p-2.5 rounded-xl border border-[#C5A059] bg-[#FAF6EE] text-left space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck size={16} className="text-[#7E121D]" />
+                    <span className="font-bold text-xs text-[#7E121D]">
+                      4. Ký Gửi Kỷ Vật (Tối đa 02 kỷ vật)
+                    </span>
                   </div>
-                  <CheckCircle2 size={16} className="text-[#7E121D]" />
-                </button>
-              )}
+                  <span className="text-[10px] text-gray-500">
+                    Đã chọn {selectedArtifactToDeposit.length}/2
+                  </span>
+                </div>
+
+                <p className="text-[10px] text-gray-600">
+                  Chuyển từ Tay nải sang Hòm ký gửi (bảo vệ tuyệt đối khỏi cướp, phong ấn và làm rơi).
+                </p>
+
+                {pouchArtifacts.length > 0 ? (
+                  <div className="space-y-1 pt-1">
+                    <div className="flex flex-wrap gap-1 max-h-20 overflow-y-auto">
+                      {pouchArtifacts.map(art => (
+                        <button
+                          key={art.id}
+                          onClick={() => handleToggleDeposit(art.id)}
+                          className={`px-2 py-1 rounded text-[10px] border transition-all ${
+                            selectedArtifactToDeposit.includes(art.id)
+                              ? 'bg-[#7E121D] text-white font-bold border-[#7E121D]'
+                              : 'bg-white text-gray-700 border-gray-300'
+                          }`}
+                        >
+                          {art.name} ({art.province})
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      disabled={selectedArtifactToDeposit.length === 0}
+                      onClick={() => onSelectOption('safe_deposit', selectedArtifactToDeposit)}
+                      className="w-full mt-1.5 py-1.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow"
+                    >
+                      Xác nhận Ký Gửi ({selectedArtifactToDeposit.length} kỷ vật)
+                    </button>
+                  </div>
+                ) : (
+                  <div className="text-[10px] italic text-gray-400">
+                    Tay nải chưa có kỷ vật nào để ký gửi.
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -225,6 +309,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
         {/* Footer */}
         <div className="p-3 bg-gray-50 border-t border-gray-200 flex justify-end">
           <button
+            disabled={isStart && !finished.current}
             onClick={onClose}
             className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold"
           >
@@ -236,4 +321,3 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
     </div>
   );
 };
-

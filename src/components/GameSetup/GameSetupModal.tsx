@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
-import { GameMode, ArtifactGoal, TokenType, Player } from '../../types/game';
+import { GameMode, GameModeRule, ArtifactGoal, TokenType, Player } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
+import { STARTER_BIKIP_CARDS } from '../../data/cardDecks';
+import { copyCard } from '../../engine/rules';
 import { soundManager } from '../../utils/sound';
-import { Users, Trophy, Play, Sparkles, Smartphone, Bot, Globe } from 'lucide-react';
+import { Play, Smartphone, Bot, Globe, ArrowLeft, ArrowRight, Check, ChevronDown } from 'lucide-react';
 
 interface GameSetupModalProps {
   onStartGame: (config: {
+    durationMinutes?: number;
     mode: GameMode;
+    gameModeRule: GameModeRule;
     playerCount: number;
     artifactGoal: ArtifactGoal;
     players: Player[];
     roomCode?: string;
+    options: {
+      physicalQR?: boolean;
+      starterBiKip: boolean;
+      exploreMode: boolean;
+      timedMode: boolean;
+    };
   }) => void;
   language: 'vi' | 'en';
 }
@@ -22,10 +32,24 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
   onStartGame,
   language
 }) => {
+  const [step, setStep] = useState(0);
+  const stepHeading = React.useRef<HTMLHeadingElement>(null);
+  React.useEffect(() => { stepHeading.current?.focus(); }, [step]);
+
   const [mode, setMode] = useState<GameMode>('offline');
+  const [gameModeRule, setGameModeRule] = useState<GameModeRule>('toc_chien');
   const [playerCount, setPlayerCount] = useState<number>(4);
   const [artifactGoal, setArtifactGoal] = useState<ArtifactGoal>(3);
   const [roomCode, setRoomCode] = useState<string>('LV-2026');
+
+  const [durationMinutes, setDurationMinutes] = useState(60);
+  const [starterSeats, setStarterSeats] = useState([true, false, false, false]);
+
+  // Options toggles (Section 3 & 10.1)
+  const [starterBiKip, setStarterBiKip] = useState<boolean>(false);
+  const [exploreMode, setExploreMode] = useState<boolean>(false);
+  const [timedMode, setTimedMode] = useState<boolean>(false);
+  const [physicalQR,setPhysicalQR]=useState(true);
 
   // Player configurations
   const [playerNames, setPlayerNames] = useState<string[]>([
@@ -44,14 +68,15 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
 
   const handleTokenSelect = (seatIdx: number, token: TokenType) => {
     const updated = [...assignedTokens];
+    const other = updated.indexOf(token);
+    if (other !== -1) updated[other] = updated[seatIdx];
     updated[seatIdx] = token;
     setAssignedTokens(updated);
   };
 
-  const handleNameChange = (idx: number, name: string) => {
-    const updated = [...playerNames];
-    updated[idx] = name;
-    setPlayerNames(updated);
+  const handleSelectRuleMode = (rule: GameModeRule, goal: ArtifactGoal) => {
+    setGameModeRule(rule);
+    setArtifactGoal(goal);
   };
 
   const handleStart = () => {
@@ -60,18 +85,27 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
     const createdPlayers: Player[] = [];
     for (let i = 0; i < playerCount; i++) {
       const isAIPlayer = mode === 'ai' && i > 0;
+      
+      // Starter Bi Kip assignment (Rule: 1 starter Bi Kip default or 3 if starterBiKip enabled)
+      const initialBiKip = starterBiKip && starterSeats[i]
+        ? [STARTER_BIKIP_CARDS[0], STARTER_BIKIP_CARDS[1], STARTER_BIKIP_CARDS[2]]
+        : [STARTER_BIKIP_CARDS[i % STARTER_BIKIP_CARDS.length]];
+
       createdPlayers.push({
         id: `p${i + 1}`,
         name: isAIPlayer 
           ? (i === 1 ? 'Bé Sen (AI)' : i === 2 ? 'Cụ Đồ (AI)' : 'Bạn An (AI)')
-          : (playerNames[i] || `Người chơi ${i + 1}`),
+          : (playerNames[i].trim() || `Người chơi ${i + 1}`),
         seat: i + 1,
         isAI: isAIPlayer,
         token: assignedTokens[i] || TOKEN_LIST[i % 4],
         color: PLAYER_COLORS[i % PLAYER_COLORS.length],
         position: 0, // Starts at 0 (START)
+        artifactItems: [],
         artifacts: 0,
         safeArtifacts: 0,
+        biKipCards: initialBiKip.map(copyCard),
+        milestones: [],
         score: 0,
         tokenSkillAvailable: true,
         hasShield: false,
@@ -87,251 +121,183 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
 
     onStartGame({
       mode,
+      durationMinutes,
+      gameModeRule: exploreMode ? 'toc_chien' : gameModeRule,
       playerCount,
-      artifactGoal,
+      artifactGoal: exploreMode ? 3 : artifactGoal,
       players: createdPlayers,
-      roomCode: mode === 'online' ? roomCode : undefined
+      roomCode: mode === 'online' ? roomCode.trim() : undefined,
+      options: {
+        physicalQR: mode==='offline' && physicalQR,
+        starterBiKip,
+        exploreMode,
+        timedMode: timedMode && !exploreMode
+      }
     });
   };
 
+  const steps = ['Hình thức', 'Chế độ', 'Người chơi', 'Sẵn sàng'];
+  const modes = [
+    { value: 'offline' as GameMode, icon: Smartphone, name: 'Chơi offline', description: 'Cùng chơi trên bàn cờ thật, dùng một thiết bị làm trọng tài.' },
+    { value: 'ai' as GameMode, icon: Bot, name: 'Chơi với AI', description: 'Bạn và những người bạn máy cùng khám phá Lạc Việt.' },
+    { value: 'online' as GameMode, icon: Globe, name: 'Chơi online', description: 'Dùng mã phòng để thiết lập ván chơi.' },
+  ];
+  const rules = [
+    { rule: 'toc_chien' as GameModeRule, goal: 3 as ArtifactGoal, name: 'Tốc chiến', time: '25–35 phút', description: '3 Kỷ vật · Mỗi miền ít nhất 1' },
+    { rule: 'co_ban' as GameModeRule, goal: 5 as ArtifactGoal, name: 'Cơ bản', time: '~45–60 phút', description: '5 Kỷ vật · Mỗi miền ít nhất 1' },
+    { rule: 'truong_ky' as GameModeRule, goal: 7 as ArtifactGoal, name: 'Trường kỳ', time: '75–90 phút', description: '7 Kỷ vật · Mỗi miền ít nhất 2' },
+  ];
+  const selectedMode = modes.find(item => item.value === mode)!;
+  const selectedRule = rules.find(item => item.rule === gameModeRule)!;
+  const titles = ['Bạn muốn chơi thế nào?', 'Chọn nhịp chơi của bạn', 'Ai sẽ cùng lên đường?', 'Sẵn sàng khám phá Lạc Việt'];
+  const descriptions = [
+    'Chọn một hình thức để bắt đầu hành trình.',
+    'Một ván nhanh hay một chuyến đi thật thong thả?',
+    mode === 'ai' ? 'Bạn ở ghế 1. Các ghế còn lại do AI điều khiển.' : 'Chọn số người và quân cờ theo thứ tự quanh bàn.',
+    'Xem lại lựa chọn, rồi cùng bắt đầu thôi.',
+  ];
+  const selectionClass = (selected: boolean) => `w-full text-left rounded-2xl border p-4 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] focus-visible:ring-offset-2 ${selected ? 'border-[#7E121D] bg-[#FCF5F3] shadow-sm' : 'border-gray-200 bg-white hover:border-[#C5A059] hover:bg-[#FAF8F3]'}`;
+
   return (
-    <div className="fixed inset-0 z-50 bg-[#141824]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-backdrop-fade">
-      <div className="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border-4 border-[#C5A059] overflow-hidden my-auto animate-modal-pop">
-        
-        {/* Top Header matching Slide 6 */}
-        <div className="crimson-gradient-bg px-5 py-4 text-white flex items-center justify-between border-b-2 border-[#C5A059]">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full bg-[#FAF6EE] text-[#7E121D] font-bold font-serif-lacviet flex items-center justify-center border border-[#C5A059] text-base">
-              LV
-            </div>
+    <div className="fixed inset-0 z-50 bg-[#141824]/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-backdrop-fade">
+      <section role="dialog" aria-modal="true" aria-labelledby="setup-title" className="bg-white rounded-3xl max-w-xl w-full max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-3rem)] flex flex-col shadow-2xl border-2 border-[#C5A059] overflow-hidden animate-modal-pop">
+        <header className="crimson-gradient-bg px-5 sm:px-7 py-4 text-white border-b border-[#C5A059] shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[#FAF6EE] text-[#7E121D] font-bold font-serif-lacviet flex items-center justify-center border border-[#C5A059] shrink-0">LV</div>
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-                STARUP OLYMPIAD 2026
-              </div>
-              <h1 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-white tracking-wide">
-                BOARDGAME LẠC VIỆT
-              </h1>
+              <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">STARTUP OLYMPIAD 2026</p>
+              <p className="font-serif-lacviet text-xl sm:text-2xl font-bold">BOARDGAME LẠC VIỆT</p>
             </div>
           </div>
-        </div>
+        </header>
 
-        {/* 2-Column Layout matching Slide 6 */}
-        <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-          
-          {/* LEFT COLUMN: App Description & Game Mode (Slide 6 Left) */}
-          <div className="space-y-4">
-            <div>
-              <h2 className="font-serif-lacviet text-xl font-bold text-[#7E121D]">
-                Lạc Việt
-              </h2>
-              <p className="text-xs text-gray-600 mt-0.5">
-                Hành trình 40 ô qua văn hóa Việt. Một máy làm trọng tài cho cả bàn chơi.
-              </p>
-            </div>
-
-            {/* Mode Selection */}
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block">
-                HÌNH THỨC CHƠI
-              </span>
-
-              {/* 1. Offline */}
-              <div
-                onClick={() => setMode('offline')}
-                className={`p-3 rounded-2xl border cursor-pointer transition-all ${
-                  mode === 'offline'
-                    ? 'bg-red-50/70 border-[#7E121D] ring-2 ring-[#7E121D]/20 shadow-sm'
-                    : 'bg-gray-50 border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Smartphone size={16} className={mode === 'offline' ? 'text-[#7E121D]' : 'text-gray-400'} />
-                  <span className="font-bold text-xs sm:text-sm text-gray-900">
-                    Chơi offline (Trọng tài)
-                  </span>
-                </div>
-                <div className="text-[11px] text-gray-500 mt-1 pl-6">
-                  Một máy làm trọng tài, truyền tay quanh bàn kết hợp với bàn cờ thật hoặc chơi trực tiếp trên máy.
-                </div>
-              </div>
-
-              {/* 2. Vs AI */}
-              <div
-                onClick={() => setMode('ai')}
-                className={`p-3 rounded-2xl border cursor-pointer transition-all ${
-                  mode === 'ai'
-                    ? 'bg-red-50/70 border-[#7E121D] ring-2 ring-[#7E121D]/20 shadow-sm'
-                    : 'bg-gray-50 border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Bot size={16} className={mode === 'ai' ? 'text-[#7E121D]' : 'text-gray-400'} />
-                  <span className="font-bold text-xs sm:text-sm text-gray-900">
-                    Chơi với AI
-                  </span>
-                </div>
-                <div className="text-[11px] text-gray-500 mt-1 pl-6">
-                  Bạn giữ ghế 1, các ghế còn lại (P2, P3, P4) do máy AI điều khiển tự động.
-                </div>
-              </div>
-
-              {/* 3. Online */}
-              <div
-                onClick={() => setMode('online')}
-                className={`p-3 rounded-2xl border cursor-pointer transition-all ${
-                  mode === 'online'
-                    ? 'bg-red-50/70 border-[#7E121D] ring-2 ring-[#7E121D]/20 shadow-sm'
-                    : 'bg-gray-50 border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Globe size={16} className={mode === 'online' ? 'text-[#7E121D]' : 'text-gray-400'} />
-                  <span className="font-bold text-xs sm:text-sm text-gray-900">
-                    Chơi online (Mã phòng)
-                  </span>
-                </div>
-                <div className="text-[11px] text-gray-500 mt-1 pl-6">
-                  Mỗi người một máy, cùng vào một mã phòng chung.
-                </div>
-              </div>
-            </div>
-
-            {/* Referee App Note Box */}
-            <div className="p-3.5 bg-[#FAF6EE] rounded-2xl border border-[#C5A059]/40 text-[11px] text-gray-700 space-y-1.5 leading-relaxed">
-              <span className="font-bold text-[#7E121D] block">
-                LẠC VIỆT · REFEREE APP
-              </span>
-              <p>
-                Một máy làm trọng tài cho tối đa 4 người chơi. Bàn 40 ô, 4 bộ thẻ, kỷ vật, cơ chế phạt và cướp, kỹ năng token, bản đồ hành trình và tra cứu luật — tất cả theo đúng luật đã mô tả.
-              </p>
-              <ul className="list-disc pl-4 space-y-0.5 text-gray-600">
-                <li>Chạm bất kỳ ô nào trên bàn để xem loại ô và ý nghĩa văn hóa.</li>
-                <li>Thẻ kiến thức cùng chủ đề với thẻ thử thách sẽ mở nút bỏ qua câu hỏi.</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: Settings & Start Match (Slide 6 Right) */}
-          <div className="space-y-4">
-            
-            {/* Number of Players: 2 | 3 | 4 */}
-            <div>
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1.5">
-                SỐ NGƯỜI CHƠI
-              </span>
-              <div className="grid grid-cols-3 gap-2">
-                {[2, 3, 4].map(num => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => setPlayerCount(num)}
-                    className={`py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all ${
-                      playerCount === num
-                        ? 'bg-[#7E121D] text-white border-[#7E121D] shadow-sm'
-                        : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
-                    }`}
-                  >
-                    {num} người
+        <div className="overflow-y-auto p-5 sm:p-7 space-y-6">
+          <nav aria-label="Các bước thiết lập">
+            <ol className="flex items-start">
+              {steps.map((label, index) => (
+                <li key={label} aria-current={index === step ? 'step' : undefined} className="flex-1 relative text-center">
+                  {index < steps.length - 1 && <div aria-hidden="true" className={`absolute h-px top-3.5 left-1/2 w-full ${index < step ? 'bg-[#C5A059]' : 'bg-gray-200'}`} />}
+                  <button type="button" disabled={index >= step} onClick={() => setStep(index)} className="relative flex flex-col items-center gap-2 mx-auto disabled:cursor-default rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059]" aria-label={`Bước ${index + 1}: ${label}`}>
+                    <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${index === step ? 'bg-[#7E121D] text-white' : index < step ? 'bg-[#F4E8CF] text-[#7E121D]' : 'bg-gray-100 text-gray-400'}`}>
+                      {index < step ? <Check size={14} aria-hidden="true" /> : index + 1}
+                    </span>
+                    <span className={`text-[10px] sm:text-xs ${index === step ? 'text-[#7E121D] font-bold' : 'text-gray-500'}`}>{label}</span>
                   </button>
-                ))}
-              </div>
+                </li>
+              ))}
+            </ol>
+          </nav>
+
+          <div>
+            <h2 id="setup-title" ref={stepHeading} tabIndex={-1} className="font-serif-lacviet text-2xl sm:text-3xl font-bold text-[#7E121D] outline-none">{titles[step]}</h2>
+            <p className="text-sm text-gray-500 mt-2">{descriptions[step]}</p>
+          </div>
+
+          {step === 0 && (
+            <div className="space-y-3" role="group" aria-label="Hình thức chơi">
+              {modes.map(item => (
+                <button key={item.value} type="button" aria-pressed={mode === item.value} onClick={() => setMode(item.value)} className={selectionClass(mode === item.value)}>
+                  <span className="flex items-center gap-3">
+                    <span className={`p-2.5 rounded-xl ${mode === item.value ? 'bg-[#7E121D] text-white' : 'bg-gray-100 text-gray-500'}`}><item.icon size={20} aria-hidden="true" /></span>
+                    <span className="flex-1"><span className="block text-sm font-bold text-gray-900">{item.name}</span><span className="block text-xs text-gray-500 mt-1 leading-relaxed">{item.description}</span></span>
+                    {mode === item.value && <Check size={18} className="text-[#7E121D] shrink-0" aria-hidden="true" />}
+                  </span>
+                </button>
+              ))}
             </div>
+          )}
 
-            {/* Artifact Goal: Tốc chiến (3) | Cơ bản (5) | Trường kỳ (7) */}
-            <div>
-              <span className="text-xs font-bold text-gray-500 uppercase tracking-wider block mb-1.5">
-                QUY ƯỚC SỐ KỶ VẬT
-              </span>
-              <div className="space-y-1.5">
-                {[
-                  { goal: 3 as ArtifactGoal, name: 'Tốc chiến', desc: '3 kỷ vật' },
-                  { goal: 5 as ArtifactGoal, name: 'Cơ bản', desc: '5 kỷ vật' },
-                  { goal: 7 as ArtifactGoal, name: 'Trường kỳ', desc: '7 kỷ vật' },
-                ].map(item => (
-                  <div
-                    key={item.goal}
-                    onClick={() => setArtifactGoal(item.goal)}
-                    className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between text-xs ${
-                      artifactGoal === item.goal
-                        ? 'bg-amber-50 border-[#C5A059] font-bold text-amber-950 shadow-sm'
-                        : 'bg-white border-gray-200 hover:bg-gray-50 text-gray-700'
-                    }`}
-                  >
-                    <span>{item.name}</span>
-                    <span className="text-gray-500 font-medium">{item.desc}</span>
-                  </div>
-                ))}
-              </div>
+          {step === 1 && (
+            <div className="space-y-3" role="group" aria-label="Chế độ chơi">
+              {rules.map(item => (
+                <button key={item.rule} type="button" aria-pressed={gameModeRule === item.rule} onClick={() => handleSelectRuleMode(item.rule, item.goal)} className={selectionClass(gameModeRule === item.rule)}>
+                  <span className="flex justify-between items-center gap-2"><span className="text-base font-bold text-[#7E121D]">{item.name}</span><span className="text-xs text-gray-500">{item.time}</span></span>
+                  <span className="block text-xs text-gray-500 mt-2">{item.description}</span>
+                </button>
+              ))}
             </div>
+          )}
 
-            {/* Token Selection for each seat */}
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  CHỌN TOKEN CHO TỪNG GHẾ
-                </span>
-                <span className="text-[11px] text-[#7E121D] font-bold">
-                  {playerCount} ghế đã kích hoạt
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                {Array.from({ length: playerCount }).map((_, seatIdx) => {
+          {step === 2 && (
+            <div className="space-y-5">
+              <fieldset>
+                <legend className="text-xs font-bold text-gray-500 mb-2">SỐ NGƯỜI CHƠI {mode === 'ai' && '(GỒM CẢ BẠN)'}</legend>
+                <div className="grid grid-cols-3 gap-2">
+                  {[2, 3, 4].map(num => (
+                    <button key={num} type="button" aria-pressed={playerCount === num} onClick={() => setPlayerCount(num)} className={`py-2.5 rounded-xl text-sm font-bold border transition-colors ${playerCount === num ? 'bg-[#7E121D] text-white border-[#7E121D]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#C5A059]'}`}>{num} người</button>
+                  ))}
+                </div>
+              </fieldset>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {Array.from({ length: playerCount }, (_, seatIdx) => {
                   const currentToken = assignedTokens[seatIdx] || TOKEN_LIST[seatIdx % 4];
-                  const tDef = TOKENS[currentToken];
-
+                  const isAI = mode === 'ai' && seatIdx > 0;
                   return (
-                    <div
-                      key={seatIdx}
-                      className="p-2.5 bg-gray-50 rounded-xl border border-gray-200 space-y-1.5"
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-[11px] text-gray-800">
-                          Ghế P{seatIdx + 1}
-                        </span>
-                        <select
-                          value={currentToken}
-                          onChange={(e) => handleTokenSelect(seatIdx, e.target.value as TokenType)}
-                          className="text-[11px] font-bold border border-gray-300 rounded p-1 bg-white"
-                        >
-                          {TOKEN_LIST.map(tKey => (
-                            <option key={tKey} value={tKey}>
-                              {TOKENS[tKey].icon} {TOKENS[tKey].name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className="text-[10px] text-gray-500 line-clamp-1">
-                        {tDef.passive}
-                      </div>
+                    <div key={seatIdx} className="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200 space-y-2">
+                      <label htmlFor={`token-${seatIdx}`} className="block text-xs font-bold text-gray-700">{isAI ? ['Bạn', 'Bé Sen (AI)', 'Cụ Đồ (AI)', 'Bạn An (AI)'][seatIdx] : mode === 'ai' ? 'Bạn · Ghế 1' : `Ghế ${seatIdx + 1}`}</label>
+                      {!isAI && <input aria-label={`Biệt danh ghế ${seatIdx + 1}`} value={playerNames[seatIdx]} onChange={e => setPlayerNames(previous => previous.map((name,index) => index === seatIdx ? e.target.value : name))} maxLength={24} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]" />}
+                      <select id={`token-${seatIdx}`} value={currentToken} onChange={e => handleTokenSelect(seatIdx, e.target.value as TokenType)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">
+                        {TOKEN_LIST.map(token => <option key={token} value={token}>{TOKENS[token].icon} {TOKENS[token].name}</option>)}
+                      </select>
+                      <p className="text-[11px] text-gray-500 leading-relaxed">{TOKENS[currentToken].passive}</p>
                     </div>
                   );
                 })}
               </div>
             </div>
+          )}
 
-            {/* BIG START BUTTON */}
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={handleStart}
-                className="w-full py-3.5 crimson-gradient-bg text-[#F5E5BE] font-bold rounded-2xl text-base border-2 border-[#C5A059] shadow-lg hover:shadow-xl hover:opacity-95 transition-all flex items-center justify-center gap-2 active:scale-98"
-              >
-                <Play size={18} fill="#F5E5BE" />
-                <span>Bắt Đầu Trận Đấu</span>
-              </button>
-              <div className="text-center text-[10px] text-gray-400 mt-1.5">
-                Máy này giữ luật, thẻ và điểm. Người chơi vẫn dùng bàn thật nếu muốn.
+          {step === 3 && (
+            <div className="space-y-4">
+              <div className="rounded-2xl bg-[#FAF8F3] border border-[#EADFC9] p-4">
+                <div className="flex items-center justify-between gap-3"><span className="text-sm font-bold text-[#7E121D]">{selectedMode.name}</span><button type="button" onClick={() => setStep(0)} className="text-xs text-[#7E121D] underline underline-offset-4">Thay đổi</button></div>
+                <p className="text-sm text-gray-600 mt-2">{selectedRule.name} · {playerCount} người · {selectedRule.time}</p>
+                <p className="text-xs text-gray-500 mt-1">{selectedRule.description}</p>
+                <div className="flex flex-wrap gap-2 mt-3">{assignedTokens.slice(0, playerCount).map((token, index) => <span key={index} className="rounded-lg bg-white border border-[#EADFC9] px-2 py-1 text-xs text-gray-600">{TOKENS[token].icon} {TOKENS[token].name}</span>)}</div>
               </div>
+              {mode === 'online' && (
+                <div>
+                  <label htmlFor="setup-room-code" className="block text-xs font-bold text-gray-600 mb-2">MÃ PHÒNG</label>
+                  <input id="setup-room-code" value={roomCode} onChange={e => setRoomCode(e.target.value)} maxLength={32} placeholder="Ví dụ: LV-2026" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-[#C5A059] focus:border-[#C5A059]" />
+                </div>
+              )}
+              <details className="group rounded-xl border border-gray-200">
+                <summary className="cursor-pointer list-none flex items-center justify-between p-4 text-sm font-semibold text-gray-700">Tùy chọn bổ sung<ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" /></summary>
+                <div className="px-4 pb-4 space-y-4">
+                  {mode==='offline' && <label className="flex items-start gap-3 cursor-pointer"><input type="checkbox" checked={physicalQR} onChange={e=>setPhysicalQR(e.target.checked)} className="mt-1 accent-[#7E121D]"/><span><span className="block text-sm font-semibold text-gray-800">Dùng 4 thẻ QR vật lý</span><span className="block text-xs text-gray-500 mt-1">Dừng ở ô địa phương, quét thẻ bằng điện thoại chung hoặc bấm mở trên máy.</span></span></label>}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={starterBiKip} onChange={e => setStarterBiKip(e.target.checked)} className="mt-1 accent-[#7E121D]" />
+                    <span><span className="block text-sm font-semibold text-gray-800">3 Bí kíp cho người mới</span><span className="block text-xs text-gray-500 mt-1">Thêm trợ giúp về Lịch sử, Ẩm thực và Nghệ thuật.</span></span>
+                  </label>
+                  {starterBiKip && <div className="space-y-2">
+                    <p className="text-xs text-gray-500">Chọn người mới được nhận 3 Bí kíp:</p>
+                    {playerNames.slice(0,playerCount).map((name,index) => <label key={index} className="flex items-start gap-3 cursor-pointer text-xs text-gray-700"><input type="checkbox" checked={starterSeats[index]} onChange={e => setStarterSeats(previous => previous.map((value,i) => i === index ? e.target.checked : value))} className="mt-1 accent-[#7E121D]" />{mode === 'ai' && index>0 ? ['','Bé Sen (AI)','Cụ Đồ (AI)','Bạn An (AI)'][index] : name}</label>)}
+                  </div>}
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" checked={exploreMode} onChange={e => { setExploreMode(e.target.checked); if (e.target.checked) { handleSelectRuleMode('toc_chien',3); setTimedMode(false); } }} className="mt-1 accent-[#7E121D]" />
+                    <span><span className="block text-sm font-semibold text-gray-800">Khám phá văn hóa</span><span className="block text-xs text-gray-500 mt-1">Tốc chiến, không đếm ngược; tắt Nỏ thần, Phong ấn và Chạm trán để thong thả tìm hiểu di sản.</span></span>
+                  </label>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" disabled={exploreMode} checked={timedMode} onChange={e => setTimedMode(e.target.checked)} className="mt-1 accent-[#7E121D]" />
+                    <span><span className="block text-sm font-semibold text-gray-800">Giờ thu quân</span><span className="block text-xs text-gray-500 mt-1">Hết giờ, hoàn tất lượt đang chơi rồi xếp hạng theo Kỷ vật hợp lệ, số miền và khoảng cách đến START.</span></span>
+                  </label>
+                  {timedMode && <label className="block text-xs font-bold text-gray-600">Thời gian ván chơi (phút)<input type="number" min={5} max={180} value={durationMinutes} onChange={e => setDurationMinutes(Math.min(180,Math.max(5,Number(e.target.value)||5)))} className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-[#C5A059] focus:border-[#C5A059]" /></label>}
+                </div>
+              </details>
+              <p className="text-xs text-gray-400 leading-relaxed">Bạn có thể quay lại các bước trước để sửa lựa chọn.</p>
             </div>
-
-          </div>
-
+          )}
         </div>
 
-      </div>
+        <footer className="shrink-0 px-5 sm:px-7 py-4 border-t border-gray-100 flex items-center justify-between gap-3 bg-white">
+          {step > 0 ? <button type="button" onClick={() => setStep(step - 1)} className="flex items-center gap-1.5 px-2 py-3 text-sm font-semibold text-gray-500 hover:text-[#7E121D]"><ArrowLeft size={16} aria-hidden="true" />Quay lại</button> : <span className="text-xs text-gray-400">Bước 1 / 4</span>}
+          {step < steps.length - 1 ? (
+            <button type="button" onClick={() => setStep(step + 1)} className="flex items-center justify-center gap-2 rounded-xl bg-[#7E121D] hover:bg-[#650F17] text-white px-6 py-3 text-sm font-bold transition-colors">Tiếp tục<ArrowRight size={16} aria-hidden="true" /></button>
+          ) : (
+            <button type="button" onClick={handleStart} disabled={mode === 'online' && !roomCode.trim()} className="flex items-center justify-center gap-2 rounded-xl crimson-gradient-bg text-[#F5E5BE] border border-[#C5A059] px-5 py-3 text-sm font-bold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"><Play size={16} fill="currentColor" aria-hidden="true" />Bắt đầu trận đấu</button>
+          )}
+        </footer>
+      </section>
     </div>
   );
 };
-

@@ -1,0 +1,41 @@
+{
+  "site": "https://lac-viet.vercel.app/",
+  "cardWidthMm": 63,
+  "cardHeightMm": 88,
+  "quietZoneModules": 4,
+  "errorCorrection": "Q",
+  "cards": [
+    {
+      "kind": "knowledge",
+      "label": "Kiến thức",
+      "group": "knowledge",
+      "description": "Đến ô Kiến thức · Mở câu hỏi và chọn tỉnh",
+      "url": "https://lac-viet.vercel.app/#card=knowledge",
+      "moduleCount": 33
+    },
+    {
+      "kind": "challenge",
+      "label": "Thử thách",
+      "group": "challenge",
+      "description": "Đến ô Thử thách · Chọn tỉnh và vượt ải",
+      "url": "https://lac-viet.vercel.app/#card=challenge",
+      "moduleCount": 33
+    },
+    {
+      "kind": "resource",
+      "label": "Tài nguyên",
+      "group": "market",
+      "description": "Đến ô Thị trường · Nhận thẻ và trả giá",
+      "url": "https://lac-viet.vercel.app/#card=resource",
+      "moduleCount": 33
+    },
+    {
+      "kind": "fortune",
+      "label": "May mắn",
+      "group": "festival",
+      "description": "Đến ô Lễ hội · Mở thẻ và thực hiện hiệu lực",
+      "url": "https://lac-viet.vercel.app/#card=fortune",
+      "moduleCount": 33
+    }
+  ]
+}
