@@ -1,4 +1,4 @@
-import { createRoomService } from '../server/rooms';
+import { createRoomService } from '../server/rooms.js';
 const service = createRoomService();
 export default async function handler(req: any, res: any) {
   res.setHeader('Cache-Control', 'no-store');

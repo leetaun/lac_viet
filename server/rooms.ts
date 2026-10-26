@@ -1,5 +1,5 @@
 import { randomBytes, createHash } from 'node:crypto';
-import bank from '../src/data/questionBank.json';
+import bank from '../src/data/questionBank.json' with { type: 'json' };
 
 type Snapshot = { key: string; kind: string; province: string; player: string; questionId?: string; title?: string; description?: string; seconds?: number };
 type Room = { host: string; guest: string; snapshot: Snapshot | null; command: any; result: any; deadline: number; version: number };

@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict');
 const bank=require('../src/data/questionBank.json').questions;
 const base=process.argv[2]||'http://127.0.0.1:3014';
-async function call(body){const response=await fetch(`${base}/api/qr-room`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Error(data.error);return data;}
+async function call(body){const response=await fetch(`${base}/api/qr-room`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});const text=await response.text();let data;try{data=JSON.parse(text);}catch{throw Error(`API HTTP ${response.status}: ${text.slice(0,120)}`);}if(!response.ok)throw Error(data.error);return data;}
 (async()=>{
  const laptop=await call({action:'create'});
  const phone={code:laptop.code,...await call({action:'join',code:laptop.code})};
