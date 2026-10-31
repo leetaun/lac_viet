@@ -41,18 +41,18 @@ export const StealModal: React.FC<StealModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
-      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#7E121D] animate-modal-pop">
+      <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#543310] animate-modal-pop">
         
         {/* Header */}
-        <div className="p-4 bg-gradient-to-r from-red-700 via-[#7E121D] to-red-900 text-white flex items-center justify-between">
+        <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Swords size={20} className="text-[#C5A059]" />
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-amber-200">
-                BƯỚC 3: CHẠM TRÁN ĐỐI THỦ
+                CHẠM TRÁN
               </span>
               <h2 className="font-serif-lacviet text-lg font-bold">
-                Dừng Chung Ô Với {target.name}!
+                Cùng Ô Với {target.name}
               </h2>
             </div>
           </div>
@@ -68,7 +68,7 @@ export const StealModal: React.FC<StealModalProps> = ({
             <div>
               <span className="font-bold text-gray-900 text-sm">{target.name} (P{target.seat})</span>
               <div className="text-[11px] text-gray-500 mt-0.5">
-                Tay nải: <strong>{target.artifacts}</strong> • Hòm ký gửi: <strong>{target.safeArtifacts}</strong> • Thẻ bài: <strong>{targetHandCardsCount}</strong>
+                Tay nải: <strong>{target.artifacts}</strong> • Hòm: <strong>{target.safeArtifacts}</strong> • Thẻ: <strong>{targetHandCardsCount}</strong>
               </div>
             </div>
             {target.hasShield && (
@@ -84,9 +84,9 @@ export const StealModal: React.FC<StealModalProps> = ({
             <div className="p-3 bg-amber-50 border border-amber-300 rounded-2xl text-xs text-amber-950 flex items-start gap-2">
               <Shield size={16} className="text-amber-700 mt-0.5 flex-shrink-0" />
               <div>
-                <strong className="block text-[#7E121D]">CƠ CHẾ "KHÔNG ĐÁNH NGƯỜI NGÃ":</strong>
+                <strong className="block text-[#543310]">KHÔNG ĐÁNH NGƯỜI NGÃ:</strong>
                 <span>
-                  {target.name} đang có ít kỷ vật nhất bàn chơi. Hệ thống tự động kích hoạt bảo vệ miễn nhiễm hoàn toàn với cướp và phong ấn!
+                  {target.name} đang có ít kỷ vật nhất bàn chơi: Miễn nhiễm hoàn toàn cướp và phong ấn!
                 </span>
               </div>
             </div>
@@ -105,10 +105,10 @@ export const StealModal: React.FC<StealModalProps> = ({
                 </div>
                 <div>
                   <div className="text-xs sm:text-sm font-bold text-gray-900">
-                    1. Trả phí Cướp Kỷ Vật Thường
+                    1. Trả phí Cướp Kỷ Vật
                   </div>
                   <div className="text-[10px] text-gray-600">
-                    Bỏ 01 thẻ Tài nguyên bất kỳ để lấy 01 kỷ vật trong Tay nải đối thủ (Bảo vật được bảo vệ).
+                    Bỏ 01 thẻ Tài nguyên để lấy 01 kỷ vật trong Tay nải.
                   </div>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export const StealModal: React.FC<StealModalProps> = ({
                 >
                   {attacker.cards.resource.map(r => (
                     <option key={r.id} value={r.id}>
-                      Trả thẻ: {r.name}
+                      Trả: {r.name}
                     </option>
                   ))}
                 </select>
@@ -134,7 +134,7 @@ export const StealModal: React.FC<StealModalProps> = ({
                     const cardUsed = attacker.cards.resource.find(r => r.id === selectedResourceCardId) || attacker.cards.resource[0];
                     onExecuteSteal('artifact', cardUsed, stealableArtifacts[0]);
                   }}
-                  className="px-3 py-1.5 bg-[#7E121D] hover:bg-[#941B26] text-white rounded-lg text-xs font-bold shadow flex-shrink-0"
+                  className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-lg text-xs font-bold shadow flex-shrink-0"
                 >
                   Cướp Kỷ Vật
                 </button>

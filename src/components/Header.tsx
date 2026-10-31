@@ -34,12 +34,12 @@ export const Header: React.FC<HeaderProps> = ({
   const tokenDef = activePlayer ? TOKENS[activePlayer.token] : null;
 
   return (
-    <header className="sticky top-0 z-40 bg-[#7E121D] text-white shadow-md border-b-2 border-[#C5A059]">
+    <header className="sticky top-0 z-40 bg-[#452817] text-white shadow-md border-b-2 border-[#C5A059]">
       <div className="max-w-7xl mx-auto px-3 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between gap-2">
         {/* Left: Brand & Active Player */}
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF6EE] text-[#7E121D] flex items-center justify-center font-bold text-base shadow border border-[#C5A059] flex-shrink-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FAF6EE] text-[#452817] flex items-center justify-center font-bold text-base shadow border border-[#C5A059] flex-shrink-0">
               <span className="font-serif-lacviet">LV</span>
             </div>
             <div>
@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="font-serif-lacviet font-bold text-sm sm:text-base text-[#F5E5BE] tracking-wide">
                   LẠC VIỆT
                 </span>
-                <span className="text-[10px] bg-[#941B26] text-[#E5C07B] px-1.5 py-0.2 rounded border border-[#C5A059]/40 font-mono hidden sm:inline-block">
+                <span className="text-[10px] bg-[#5C3A21] text-[#E5C07B] px-1.5 py-0.2 rounded border border-[#C5A059]/40 font-mono hidden sm:inline-block">
                   {gameState.mode === 'offline' ? (language === 'vi' ? 'Trọng tài' : 'Referee') :
                    gameState.mode === 'ai' ? 'Vs AI' : 'Online'}
                 </span>
@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="font-semibold text-white truncate max-w-[110px] sm:max-w-[160px]">
                   {activePlayer?.name}
                 </span>
-                <span className="text-[#E5C07B]/70">· Ghế {activePlayer?.seat}</span>
+                <span className="text-[#E5C07B]/70">· P{activePlayer?.seat}</span>
                 {tokenDef && <span className="ml-0.5">{tokenDef.icon}</span>}
               </div>
             </div>
@@ -67,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Center: Position & Artifact Progress */}
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Current Space */}
-          <div className="hidden md:flex items-center gap-1.5 bg-[#5C0D15] px-2.5 py-1 rounded-full border border-[#C5A059]/30 text-xs">
+          <div className="hidden md:flex items-center gap-1.5 bg-[#331C10] px-2.5 py-1 rounded-full border border-[#C5A059]/30 text-xs">
             <MapPin size={13} className="text-[#E5C07B]" />
             <span className="text-white font-medium truncate max-w-[120px]">
               {language === 'vi' ? activeSpace.name : activeSpace.enName}
@@ -75,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Artifact Counter */}
-          <div className="flex items-center gap-1.5 bg-[#5C0D15] px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border border-[#C5A059] shadow-sm">
+          <div className="flex items-center gap-1.5 bg-[#331C10] px-2.5 py-1 sm:px-3 sm:py-1 rounded-full border border-[#C5A059] shadow-sm">
             <Trophy size={14} className="text-[#E5C07B]" />
             <span className="font-bold text-xs sm:text-sm text-[#F5E5BE]">
               {(activePlayer?.artifacts || 0) + (activePlayer?.safeArtifacts || 0)}/{gameState.artifactGoal}
@@ -85,22 +85,26 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </div>
 
-          {secondsLeft !== null && <span className="text-[10px] text-[#E5C07B]/80 hidden sm:inline">{secondsLeft ? `Giờ thu quân: ${Math.floor(secondsLeft/60)}:${String(secondsLeft%60).padStart(2,'0')}` : 'Hết giờ · Hoàn tất lượt hiện tại'}</span>}
+          {secondsLeft !== null && (
+            <span className="text-[10px] text-[#E5C07B]/80 hidden sm:inline font-mono">
+              {secondsLeft > 0 ? `⏱️ ${Math.floor(secondsLeft/60)}:${String(secondsLeft%60).padStart(2,'0')}` : '⏱️ Hết giờ'}
+            </span>
+          )}
           {/* Start Bank Penalized Artifacts if any */}
           {gameState.lostAndFound.length > 0 && (
-            <div className="hidden lg:flex items-center gap-1 bg-[#D97706]/20 border border-[#D97706] text-[#FDE68A] px-2 py-0.5 rounded text-[11px]">
+            <div className="hidden lg:flex items-center gap-1 bg-amber-900/40 border border-amber-600/60 text-[#FDE68A] px-2 py-0.5 rounded text-[11px]">
               <Sparkles size={11} />
-              <span>START: {gameState.lostAndFound.length} kỷ vật phạt</span>
+              <span>Kho START: {gameState.lostAndFound.length}</span>
             </div>
           )}
         </div>
 
         {/* Right: Controls (Language, Sound, Reset) */}
         <div className="flex items-center gap-1 sm:gap-2">
-          {/* Language VI / EN Toggle (Matching Slide mockups!) */}
+          {/* Language VI / EN Toggle */}
           <button
             onClick={onToggleLanguage}
-            className="px-2 py-1 bg-[#5C0D15] hover:bg-[#941B26] text-[#E5C07B] rounded text-xs font-bold border border-[#C5A059]/50 transition-colors shadow-sm"
+            className="px-2 py-1 bg-[#331C10] hover:bg-[#5C3A21] text-[#E5C07B] rounded text-xs font-bold border border-[#C5A059]/50 transition-colors shadow-sm"
             title="Đổi ngôn ngữ VI / EN"
           >
             {language === 'vi' ? 'VI / EN' : 'EN / VI'}
@@ -112,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
               onToggleSound();
               soundManager.playCardDraw();
             }}
-            className="p-1.5 sm:p-2 bg-[#5C0D15] hover:bg-[#941B26] text-[#E5C07B] rounded-full border border-[#C5A059]/40 transition-colors"
+            className="p-1.5 sm:p-2 bg-[#331C10] hover:bg-[#5C3A21] text-[#E5C07B] rounded-full border border-[#C5A059]/40 transition-colors"
             title={soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'}
           >
             {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} className="text-gray-400" />}
@@ -121,8 +125,8 @@ export const Header: React.FC<HeaderProps> = ({
           {/* New Game / Reset */}
           <button
             onClick={onResetGame}
-            className="p-1.5 sm:p-2 bg-[#5C0D15] hover:bg-[#941B26] text-[#E5C07B] rounded-full border border-[#C5A059]/40 transition-colors"
-            title="Thiết lập trận mới"
+            className="p-1.5 sm:p-2 bg-[#331C10] hover:bg-[#5C3A21] text-[#E5C07B] rounded-full border border-[#C5A059]/40 transition-colors"
+            title="Thiết lập ván mới"
           >
             <RotateCcw size={15} />
           </button>

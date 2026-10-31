@@ -94,10 +94,10 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
       <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop">
         
         {/* Header */}
-        <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">
+        <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-              {isStart ? 'TRẠM KHỞI HÀNH & KHO THẤT LẠC' : 'TRẠM DỪNG CHÂN 3 MIỀN'}
+              {isStart ? 'TRẠM KHỞI HÀNH & KHO THẤT LẠC' : 'TRẠM DỪNG CHÂN'}
             </span>
             <h2 className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2">
               {isStart ? <Flag size={20} className="text-[#C5A059]" /> : <span>🏛️</span>}
@@ -120,7 +120,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
             <div className="p-2.5 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center gap-2">
               <Unlock size={16} className="text-emerald-600 flex-shrink-0" />
               <span>
-                <strong>Tự động giải phóng!</strong> {sealedArtifactsCount} kỷ vật bị phong ấn của bạn đã được mở khóa tự do!
+                <strong>Đã giải phóng!</strong> {sealedArtifactsCount} kỷ vật phong ấn đã mở khóa!
               </span>
             </div>
           )}
@@ -157,13 +157,13 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                 {/* Substitute with "Hướng dẫn viên" */}
                 {!guidePresentationDone && (
                   <div className="pt-2 border-t border-amber-200 flex items-center justify-between">
-                    <span className="text-[11px] text-gray-600">Hoặc thuyết trình 30s:</span>
+                    <span className="text-[11px] text-gray-600">Thuyết trình 30s:</span>
                     <button
                       disabled={approvingGuide}
                       onClick={handleGuideSubstitute}
-                      className="px-2.5 py-1 bg-[#7E121D] text-[#F5E5BE] font-bold rounded-lg text-[11px] flex items-center gap-1 shadow"
+                      className="px-2.5 py-1 bg-[#543310] hover:bg-[#6F441E] text-[#F5E5BE] font-bold rounded-lg text-[11px] flex items-center gap-1 shadow"
                     >
-                      <Mic size={12} /> Làm Hướng dẫn viên (+1 câu đúng)
+                      <Mic size={12} /> Hướng dẫn viên (+1 câu đúng)
                     </button>
                   </div>
                 )}
@@ -255,18 +255,18 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
               <div className="p-2.5 rounded-xl border border-[#C5A059] bg-[#FAF6EE] text-left space-y-1.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck size={16} className="text-[#7E121D]" />
-                    <span className="font-bold text-xs text-[#7E121D]">
-                      4. Ký Gửi Kỷ Vật (Tối đa 02 kỷ vật)
+                    <ShieldCheck size={16} className="text-[#543310]" />
+                    <span className="font-bold text-xs text-[#543310]">
+                      4. Ký Gửi Kỷ Vật (Tối đa 02)
                     </span>
                   </div>
-                  <span className="text-[10px] text-gray-500">
-                    Đã chọn {selectedArtifactToDeposit.length}/2
+                  <span className="text-[10px] text-gray-500 font-medium">
+                    {selectedArtifactToDeposit.length}/2
                   </span>
                 </div>
 
                 <p className="text-[10px] text-gray-600">
-                  Chuyển từ Tay nải sang Hòm ký gửi (bảo vệ tuyệt đối khỏi cướp, phong ấn và làm rơi).
+                  Chuyển vào Hòm ký gửi (bảo vệ tuyệt đối).
                 </p>
 
                 {pouchArtifacts.length > 0 ? (
@@ -278,7 +278,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                           onClick={() => handleToggleDeposit(art.id)}
                           className={`px-2 py-1 rounded text-[10px] border transition-all ${
                             selectedArtifactToDeposit.includes(art.id)
-                              ? 'bg-[#7E121D] text-white font-bold border-[#7E121D]'
+                              ? 'bg-[#543310] text-white font-bold border-[#543310]'
                               : 'bg-white text-gray-700 border-gray-300'
                           }`}
                         >
@@ -290,14 +290,14 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                     <button
                       disabled={selectedArtifactToDeposit.length === 0}
                       onClick={() => onSelectOption('safe_deposit', selectedArtifactToDeposit)}
-                      className="w-full mt-1.5 py-1.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow"
+                      className="w-full mt-1.5 py-1.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow"
                     >
-                      Xác nhận Ký Gửi ({selectedArtifactToDeposit.length} kỷ vật)
+                      Ký gửi ({selectedArtifactToDeposit.length})
                     </button>
                   </div>
                 ) : (
                   <div className="text-[10px] italic text-gray-400">
-                    Tay nải chưa có kỷ vật nào để ký gửi.
+                    Tay nải chưa có kỷ vật để ký gửi.
                   </div>
                 )}
               </div>

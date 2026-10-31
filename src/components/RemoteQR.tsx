@@ -6,7 +6,7 @@ import { DIFFICULTY_LABELS, QuestionDifficulty } from '../data/questionBank';
 import { BOARD_SPACES } from '../data/boardData';
 import type { GameState } from '../types/game';
 
-const button='px-5 py-2.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all';
+const button='px-5 py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all';
 const input='w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]';
 export function useHostQR(controller: any, enabled: boolean) {
   const [identity,setIdentity]=useState<any>(()=>readRoomIdentity('host'));
@@ -56,7 +56,7 @@ export function useHostQR(controller: any, enabled: boolean) {
 }
 export function HostQRPanel({host}:{host:ReturnType<typeof useHostQR>}) {
   return <div className="p-3 rounded-xl bg-[#FAF6EE] border border-[#C5A059]/30 text-xs space-y-2">
-    {host.code?<><p className="font-bold text-[#7E121D]">Mã phòng: <span className="text-base select-text">{host.code}</span></p><p>Điện thoại quét thẻ QR, nhập mã này một lần rồi trả lời. Laptop tự nhận kết quả.</p></>:<button type="button" className={button} disabled={host.creating} onClick={host.create}>{host.creating?'Đang tạo phòng…':'Kết nối điện thoại'}</button>}
+    {host.code?<><p className="font-bold text-[#543310]">Mã phòng: <span className="text-base select-text">{host.code}</span></p><p>Điện thoại quét thẻ QR, nhập mã này để gửi kết quả về máy.</p></>:<button type="button" className={button} disabled={host.creating} onClick={host.create}>{host.creating?'Đang tạo phòng…':'Kết nối điện thoại'}</button>}
     {host.error&&<><p role="alert" className="text-amber-800">{host.error}</p>{host.code&&<button className={button} onClick={host.create} disabled={host.creating}>Tạo lại phòng</button>}</>}
   </div>;
 }
@@ -80,22 +80,22 @@ export function RemoteQRPhone({kind,onPractice}:{kind:PhysicalCardKind;onPractic
   useEffect(()=>{const timer=setInterval(()=>{if(!deadline.current){setRemaining(null);return;}const left=Math.max(0,Math.ceil((deadline.current-Date.now()-offset.current)/1000));setRemaining(left);if(left===0&&snapshot?.question&&snapshot.kind===kind&&!result)void send(-1);},250);return()=>clearInterval(timer);},[key,result,kind,identity]);
   const open=async()=>{setBusy(true);try{await roomRequest({...identity,action:'open',key,kind,province,difficulty});setError('');}catch(e){setError((e as Error).message);}finally{setBusy(false);}};
   return <main className="min-h-screen bg-[#F8F5EE] font-sans text-gray-900 p-3 sm:p-6"><section className="bg-white rounded-3xl max-w-xl mx-auto shadow-2xl border-2 border-[#C5A059] overflow-hidden">
-    <header className="crimson-gradient-bg px-5 py-4 text-white border-b border-[#C5A059]"><p className="text-[10px] font-bold text-[#F5E5BE]">BOARDGAME LẠC VIỆT</p><h1 className="font-serif-lacviet text-xl font-bold">{card.label}</h1></header>
+    <header className="brown-gradient-bg px-5 py-4 text-white border-b border-[#C5A059]"><p className="text-[10px] font-bold text-[#F5E5BE]">BOARDGAME LẠC VIỆT</p><h1 className="font-serif-lacviet text-xl font-bold">{card.label}</h1></header>
     <div className="p-5 space-y-4">
       {!identity?<><p className="text-xs text-gray-600">Nhập mã phòng hiển thị trên laptop để gửi kết quả về đúng ván chơi.</p><label className="block text-xs font-bold">Mã phòng<input className={input} value={code} maxLength={10} autoCapitalize="characters" onChange={e=>setCode(e.target.value.toUpperCase())}/></label><button className={button} disabled={busy} onClick={join}>Kết nối với laptop</button></>:<>
-        <p className="text-xs font-bold text-[#7E121D]">Phòng {identity.code}{snapshot?` · Lượt ${snapshot.player}`:''}</p>
+        <p className="text-xs font-bold text-[#543310]">Phòng {identity.code}{snapshot?` · Lượt ${snapshot.player}`:''}</p>
         {!snapshot?<><p className="text-sm">Đang chờ nhiệm vụ trên laptop…</p>{receipt&&<p className="text-xs text-gray-600">Kết quả vừa gửi: {receipt.success?'chính xác':'chưa đúng'}. {receipt.explanation}</p>}</>:snapshot.kind!==kind?<p className="text-sm">Laptop đang chờ thẻ {PHYSICAL_CARDS.find(c=>c.kind===snapshot.kind)?.label}. Hãy quét đúng thẻ.</p>:<>
-          <p className="text-xs text-gray-600">Tỉnh trên bàn cờ: {snapshot.province}. Câu hỏi thuộc ngân hàng Liên ngành.</p>
+          <p className="text-xs text-gray-600">Tỉnh trên bàn cờ: {snapshot.province}.</p>
           {!snapshot.question&&!snapshot.title?<><ProvinceSelector value={province} onChange={setProvince}/><label className="block text-xs font-bold">Độ khó<select className={input} value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)}>{Object.entries(DIFFICULTY_LABELS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label><button className={button} disabled={busy} onClick={open}>Mở câu hỏi</button></>:snapshot.question?<>
             {remaining!==null&&!result&&<p className="text-xs font-bold">Thời gian: {remaining} giây</p>}
             <p className="text-sm font-bold">{snapshot.question.question}</p>
             {snapshot.question.options.map((option:string,index:number)=><button key={index} className="w-full p-3 rounded-xl border border-gray-200 text-left text-xs sm:text-sm bg-white hover:bg-blue-50/50 disabled:opacity-60 shadow-sm" disabled={busy||!!result} onClick={()=>send(index)}>{String.fromCharCode(65+index)}. {option}</button>)}
           </>:<><p className="font-bold text-sm">{snapshot.title}</p><p className="text-sm">{snapshot.description}</p><p className="text-xs text-gray-600">Tiếp tục xử lý sự kiện trên laptop.</p></>}
-          {result&&<div className={`p-3 rounded-xl border text-xs ${result.success?'bg-emerald-100 border-emerald-500':'bg-amber-100 border-amber-400'}`}><strong>{result.success?'Chính xác!':'Cùng tìm hiểu đáp án nhé.'}</strong><p>{result.explanation}</p><p className="mt-2">Kết quả đã gửi về phòng. Laptop sẽ xử lý theo luật; các lựa chọn thưởng, thanh toán hoặc hình phạt thực hiện trên laptop.</p></div>}
+          {result&&<div className={`p-3 rounded-xl border text-xs ${result.success?'bg-emerald-100 border-emerald-500':'bg-amber-100 border-amber-400'}`}><strong>{result.success?'Chính xác!':'Cùng tìm hiểu đáp án nhé.'}</strong><p>{result.explanation}</p><p className="mt-2">Kết quả đã gửi về phòng.</p></div>}
         </>}
-        <button className="text-xs text-[#7E121D] font-bold hover:underline" onClick={()=>{localStorage.removeItem('lacviet.qr.guest');setIdentity(null);setData(null);}}>Đổi phòng</button>
+        <button className="text-xs text-[#543310] font-bold hover:underline" onClick={()=>{localStorage.removeItem('lacviet.qr.guest');setIdentity(null);setData(null);}}>Đổi phòng</button>
       </>}
       {error&&<p role="alert" className="text-xs text-amber-800">{error}</p>}
-    </div><footer className="p-4 bg-gray-50 border-t border-gray-200"><button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold" onClick={onPractice}>Luyện tập trên thiết bị này</button></footer>
+    </div><footer className="p-4 bg-gray-50 border-t border-gray-200"><button className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold" onClick={onPractice}>Luyện tập</button></footer>
   </section></main>;
 }

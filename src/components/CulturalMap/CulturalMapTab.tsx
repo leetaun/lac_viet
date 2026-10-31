@@ -53,12 +53,12 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
       
       {/* Title & Introduction */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/40 shadow-sm">
-        <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#7E121D] flex items-center gap-2">
+        <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#543310] flex items-center gap-2">
           <span>🗺️</span>
-          <span>BẢN ĐỒ HÀNH TRÌNH 36 ĐỊA PHƯƠNG (LUẬT)</span>
+          <span>BẢN ĐỒ 36 ĐỊA PHƯƠNG</span>
         </h2>
-        <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-          Căn cứ Nghị quyết 202/2025/QH15, bàn cờ Lạc Việt phân bố 36 ô địa phương cân bằng qua 3 miền: 15 Bắc Bộ, 13 Trung Bộ (gồm Đặc khu Hoàng Sa và Đặc khu Trường Sa) và 8 Nam Bộ.
+        <p className="text-xs text-gray-600 mt-1">
+          36 địa phương trên 3 miền: 15 Bắc Bộ · 13 Trung Bộ · 8 Nam Bộ.
         </p>
 
         {/* Search & Filters */}
@@ -70,7 +70,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm kiếm tỉnh thành, di sản (Hoàng Sa, Trường Sa, Hà Nội, Huế...)"
+              placeholder="Tìm tỉnh thành, di sản..."
               className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
             />
           </div>
@@ -80,7 +80,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             <button
               onClick={() => setSelectedRegion('all')}
               className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
-                selectedRegion === 'all' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
+                selectedRegion === 'all' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               Tất cả (36)
@@ -88,7 +88,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             <button
               onClick={() => setSelectedRegion('bac_bo')}
               className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
-                selectedRegion === 'bac_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
+                selectedRegion === 'bac_bo' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               Bắc Bộ ({countBac})
@@ -96,7 +96,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             <button
               onClick={() => setSelectedRegion('trung_bo')}
               className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
-                selectedRegion === 'trung_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
+                selectedRegion === 'trung_bo' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               Trung Bộ ({countTrung})
@@ -104,7 +104,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             <button
               onClick={() => setSelectedRegion('nam_bo')}
               className={`px-2.5 py-1.5 rounded-lg font-semibold transition-all duration-200 active:scale-95 whitespace-nowrap ${
-                selectedRegion === 'nam_bo' ? 'bg-[#7E121D] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
+                selectedRegion === 'nam_bo' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
               Nam Bộ ({countNam})
@@ -123,7 +123,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
             className="animate-stagger-item bg-white p-3.5 rounded-2xl border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 space-y-2 group"
           >
             <div className="flex items-center justify-between">
-              <span className="font-serif-lacviet font-bold text-gray-900 text-sm group-hover:text-[#7E121D] transition-colors">
+              <span className="font-serif-lacviet font-bold text-gray-900 text-sm group-hover:text-[#543310] transition-colors">
                 {province.name}
               </span>
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getTileBadgeStyle(province.tileType)}`}>
@@ -139,8 +139,8 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
               <span className="truncate max-w-[170px]">
                 🌾 {province.specialty.split(',')[0]}
               </span>
-              <span className="text-[#7E121D] font-bold group-hover:underline">
-                Xem chi tiết →
+              <span className="text-[#543310] font-bold group-hover:underline">
+                Chi tiết →
               </span>
             </div>
           </div>
@@ -153,7 +153,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
           <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] max-h-[90vh] flex flex-col animate-modal-pop">
             
             {/* Modal Header */}
-            <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">
+            <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
                   {selectedProvince.regionName} · Ô {selectedProvince.tileType}
@@ -175,7 +175,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
               
               {/* Heritage Description */}
               <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 leading-relaxed">
-                <span className="font-bold text-[#7E121D] block mb-1">🏛️ Di sản tiêu biểu:</span>
+                <span className="font-bold text-[#543310] block mb-1">🏛️ Di sản tiêu biểu:</span>
                 <p className="text-gray-800">{selectedProvince.heritage}</p>
                 <p className="text-gray-600 mt-1">{selectedProvince.description}</p>
               </div>

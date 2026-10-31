@@ -33,10 +33,10 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
         };
       case 'corner':
         return {
-          bg: 'bg-[#7E121D] text-white',
+          bg: 'bg-[#452817] text-white',
           border: 'border-[#E5C07B] border-2',
-          badgeBg: 'bg-[#E5C07B] text-[#7E121D]',
-          badgeText: 'TRẠM GÓC',
+          badgeBg: 'bg-[#E5C07B] text-[#452817]',
+          badgeText: 'Ô GÓC',
           icon: <Landmark size={14} className="text-[#F5E5BE]" />
         };
       case 'knowledge':

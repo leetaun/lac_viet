@@ -27,18 +27,18 @@ export function RuleChoiceModal({ choice, onConfirm }: { choice: RuleChoice; onC
         if (event.shiftKey && (document.activeElement === first || document.activeElement === dialog.current)) { event.preventDefault(); last?.focus(); }
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
       }}>
-        <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">
+        <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
           <h2 id="rule-choice-title" className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2">{choice.title}</h2>
         </div>
         <div className="p-4 sm:p-5 space-y-3 max-h-[60vh] overflow-y-auto">
           {choice.description && <p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">{choice.description}</p>}
-          {choice.options.map(option => <button key={option.id} type="button" aria-pressed={selected.includes(option.id)} onClick={() => setSelected(previous => previous.includes(option.id) ? previous.filter(id => id !== option.id) : choice.max === 1 ? [option.id] : previous.length < choice.max ? [...previous, option.id] : previous)} className={`w-full p-2 rounded-xl text-xs text-left border flex items-center justify-between transition-all ${selected.includes(option.id) ? 'bg-[#7E121D] text-white font-bold border-[#7E121D]' : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-700'}`}>
+          {choice.options.map(option => <button key={option.id} type="button" aria-pressed={selected.includes(option.id)} onClick={() => setSelected(previous => previous.includes(option.id) ? previous.filter(id => id !== option.id) : choice.max === 1 ? [option.id] : previous.length < choice.max ? [...previous, option.id] : previous)} className={`w-full p-2 rounded-xl text-xs text-left border flex items-center justify-between transition-all ${selected.includes(option.id) ? 'bg-[#543310] text-white font-bold border-[#543310]' : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-700'}`}>
             {option.label}
           </button>)}
         </div>
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-          <span className="text-xs text-gray-500">Đã chọn {selected.length}/{choice.max}</span>
-          <button type="button" disabled={selected.length < choice.min || selected.length > choice.max} onClick={() => onConfirm(selected)} className="px-5 py-2.5 crimson-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2 disabled:opacity-50">Xác nhận & Tiếp tục</button>
+          <span className="text-xs text-gray-500 font-medium">Đã chọn {selected.length}/{choice.max}</span>
+          <button type="button" disabled={selected.length < choice.min || selected.length > choice.max} onClick={() => onConfirm(selected)} className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2 disabled:opacity-50">Xác nhận</button>
         </div>
       </div>
     </div>

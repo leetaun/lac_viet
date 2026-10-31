@@ -112,16 +112,16 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
             {/* Stats row: Artifacts, Hand Cards, Milestones, Bi Kip */}
             <div className="flex items-center justify-between text-[11px] pt-1 border-t border-gray-100">
               {/* Artifacts */}
-              <div className="flex items-center gap-1 text-[#7E121D] font-bold">
+              <div className="flex items-center gap-1 text-[#543310] font-bold">
                 <Trophy size={12} className="text-[#C5A059]" />
                 <span>{validTotal}/{artifactGoal}</span>
                 {safeItems.length > 0 && (
-                  <span className="text-[9px] text-emerald-700" title="Kỷ vật đã ký gửi an toàn">
-                    (+{safeItems.length} gửi)
+                  <span className="text-[9px] text-emerald-700" title="Đã gửi an toàn">
+                    (+{safeItems.length})
                   </span>
                 )}
                 {sealedPouch.length > 0 && (
-                  <span className="text-[9px] text-red-600 flex items-center" title="Kỷ vật bị phong ấn">
+                  <span className="text-[9px] text-red-600 flex items-center" title="Bị phong ấn">
                     <Lock size={9} /> {sealedPouch.length}
                   </span>
                 )}
@@ -138,7 +138,7 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
                   <span>{biKipCount}</span>
                 </div>
                 {player.milestones && player.milestones.length > 0 && (
-                  <div className="flex items-center gap-0.5 text-[#7E121D]" title="Cột mốc đã cắm">
+                  <div className="flex items-center gap-0.5 text-[#543310]" title="Cột mốc đã cắm">
                     <Flag size={11} />
                     <span>{player.milestones.length}</span>
                   </div>
@@ -151,8 +151,8 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
 
             {/* Active Turn Indicator banner */}
             {isActive && (
-              <div className="mt-1 text-center text-[9px] font-bold text-[#7E121D] bg-[#E5C07B]/30 rounded py-0.5 border border-[#C5A059]/40">
-                {language === 'vi' ? 'Đang trong lượt' : 'Current Turn'}
+              <div className="mt-1 text-center text-[9px] font-bold text-[#543310] bg-[#E5C07B]/30 rounded py-0.5 border border-[#C5A059]/40 tracking-wider">
+                {language === 'vi' ? 'LƯỢT ĐI' : 'ACTIVE'}
               </div>
             )}
           </div>

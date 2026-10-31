@@ -406,12 +406,12 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
           {/* QR Code Deep Dive Section (Part 4) */}
           {showQR && qrDataUrl && (
             <div className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center flex flex-col items-center gap-2 animate-fade-in">
-              <span className="text-xs font-bold text-[#7E121D] flex items-center gap-1">
-                <QrCode size={15} /> PHẦN 4: TÌM HIỂU MỞ RỘNG (XEM TRÊN MÁY BẠN)
+              <span className="text-xs font-bold text-[#543310] flex items-center gap-1">
+                <QrCode size={15} /> TƯ LIỆU MỞ RỘNG (QR)
               </span>
               <img src={qrDataUrl} alt="QR Code" className="w-32 h-32 rounded-xl shadow-sm border border-gray-200" />
               <p className="text-[11px] text-gray-600 max-w-xs leading-relaxed">
-                Quét mã QR bằng điện thoại cá nhân để đọc sâu tư liệu lịch sử, xem video và bản đồ mà không làm chậm nhịp độ ván chơi chung.
+                Quét mã để xem tư liệu lịch sử chi tiết trên điện thoại.
               </p>
             </div>
           )}
@@ -423,8 +423,8 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
               {!answered && (
                 <div className="bg-[#FAF6EE] border border-[#C5A059]/40 p-2.5 rounded-xl flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1 text-gray-700">
-                    <BookOpen size={14} className="text-[#7E121D]" />
-                    <span>Bí kíp của bạn: <strong>{player.biKipCards.length}</strong></span>
+                    <BookOpen size={14} className="text-[#543310]" />
+                    <span>Bí kíp: <strong>{player.biKipCards.length}</strong></span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     {player.biKipCards.length >= 1 && !helperUsed && !askingFriend && eliminatedOptions.length === 0 && (
@@ -510,26 +510,26 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                     {isCorrect ? (
                       <>
                         <Trophy size={16} className="text-amber-600 flex-shrink-0" />
-                        <span>CHÍNH XÁC! Bạn nhận được 01 Kỷ vật của tỉnh {card.province} vào Tay nải!</span>
+                        <span>CHÍNH XÁC! +1 Kỷ vật ({card.province})</span>
                       </>
                     ) : (
                       <>
-                        <BookOpen size={16} className="text-[#7E121D] flex-shrink-0" />
-                        <span>HỌC TỪ CÁI SAI! Không phạt; bạn nhận được câu hỏi này làm BÍ KÍP ({topicName(card.topic)})!</span>
+                        <BookOpen size={16} className="text-[#543310] flex-shrink-0" />
+                        <span>HỌC TỪ CÁI SAI! Nhận 01 Bí kíp ({topicName(card.topic)})</span>
                       </>
                     )}
                   </div>
 
                   {/* Part 2: Did You Know (Bạn có biết) */}
                   <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 text-xs text-gray-800 leading-relaxed">
-                    <span className="font-bold text-[#7E121D] block mb-0.5">💡 PHẦN 2: BẠN CÓ BIẾT?</span>
+                    <span className="font-bold text-[#543310] block mb-0.5">💡 Bạn có biết?</span>
                     {card.didYouKnow || card.description}
                   </div>
 
                   {/* Part 3: Citation (Dẫn chứng) */}
                   {card.citation && (
                     <div className="text-[11px] text-gray-500 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                      <strong>📜 Dẫn chứng: </strong> {card.citation}
+                      <strong>📜 Nguồn: </strong> {card.citation}
                     </div>
                   )}
                 </div>
@@ -553,7 +553,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                   </div>
                   <button
                     onClick={handleAutoPassChallengeWithBiKip}
-                    className="px-3 py-1.5 crimson-gradient-bg text-[#F5E5BE] font-bold rounded-xl text-xs border border-[#C5A059] shadow transition-all active:scale-95 flex-shrink-0"
+                    className="px-3 py-1.5 brown-gradient-bg text-[#F5E5BE] font-bold rounded-xl text-xs border border-[#C5A059] shadow transition-all active:scale-95 flex-shrink-0"
                   >
                     Vượt ải tự động
                   </button>
@@ -562,7 +562,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
 
               {/* Task prompt */}
               <div className="bg-[#FAF6EE] p-4 rounded-2xl border border-[#C5A059]/40">
-                <div className="flex items-center justify-between mb-1.5 text-xs font-bold text-[#7E121D]">
+                <div className="flex items-center justify-between mb-1.5 text-xs font-bold text-[#543310]">
                   <span>
                     {card.challengeType === 'quiz' ? 'TRẮC NGHIỆM CHUYÊN SÂU' :
                      card.challengeType === 'action' ? 'THỬ THÁCH HÀNH ĐỘNG' : 'KỂ NHANH 20 GIÂY'}
@@ -573,7 +573,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                   {card.question}
                 </div>
                 {card.actionPrompt && (
-                  <div className="mt-2 text-xs text-[#7E121D] font-medium bg-red-50 p-2.5 rounded-lg border border-red-200">
+                  <div className="mt-2 text-xs text-[#543310] font-medium bg-[#FAF6EE] p-2.5 rounded-lg border border-[#C5A059]/30">
                     👉 {card.actionPrompt}
                   </div>
                 )}
@@ -669,9 +669,9 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                       </>
                     ) : (
                       <>
-                        <BookOpen size={16} className="text-[#7E121D] flex-shrink-0" />
+                        <BookOpen size={16} className="text-[#543310] flex-shrink-0" />
                         <span>
-                          Bạn nhận được thêm 01 Bí kíp! Bấm tiếp tục để chọn Kỷ vật hoặc thẻ phải bỏ; bạn có thể dùng Nón lá nếu kỹ năng còn sẵn sàng.
+                          Nhận 01 Bí kíp. Bấm tiếp tục để chọn Kỷ vật/thẻ phải bỏ (hoặc dùng Nón lá nếu sẵn sàng).
                         </span>
                       </>
                     )}
@@ -679,14 +679,14 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
 
                   {card.explanation && (
                     <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 text-xs text-gray-800">
-                      <span className="font-bold text-[#7E121D] block mb-0.5">💡 Lời giải chi tiết:</span>
+                      <span className="font-bold text-[#543310] block mb-0.5">💡 Lời giải:</span>
                       {card.explanation}
                     </div>
                   )}
 
                   {card.citation && (
                     <div className="text-[11px] text-gray-500 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                      <strong>📜 Dẫn chứng: </strong> {card.citation}
+                      <strong>📜 Nguồn: </strong> {card.citation}
                     </div>
                   )}
                 </div>
@@ -701,10 +701,10 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
             <div className="space-y-3">
               <div className="bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl">
                 <div className="text-[10px] font-bold text-emerald-900 uppercase tracking-wider mb-1">
-                  TÀI NGUYÊN NHẬN ĐƯỢC (TÚI ĐỒ SỐ)
+                  TÀI NGUYÊN (TÚI ĐỒ)
                 </div>
                 <div className="font-serif-lacviet text-base font-bold text-emerald-950">
-                  {card.name} (Tỷ lệ xuất hiện: {card.ratePercent}%)
+                  {card.name} (Tỷ lệ: {card.ratePercent}%)
                 </div>
                 <p className="text-xs text-gray-700 mt-1 leading-relaxed">
                   {card.description}
@@ -717,12 +717,12 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
               {/* Phiên chợ đặc sản & Trả giá */}
               {marketQuiz && (
                 <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2.5">
-                  <div className="text-xs font-bold text-[#7E121D] flex items-center justify-between">
+                  <div className="text-xs font-bold text-[#543310] flex items-center justify-between">
                     <span className="flex items-center gap-1">
-                      <ShoppingBag size={14} /> PHIÊN CHỢ ĐẶC SẢN {provinceName.toUpperCase()}
+                      <ShoppingBag size={14} /> CHỢ ĐẶC SẢN {provinceName.toUpperCase()}
                     </span>
                     <span className="text-[11px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">
-                      Sản vật: {marketQuiz.item}
+                      {marketQuiz.item}
                     </span>
                   </div>
 
@@ -762,7 +762,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                             onClick={() => handleToggleMarketCard(c.id)}
                             className={`p-1.5 text-[11px] rounded-lg border transition-all ${
                               selectedCardsToPay.includes(c.id)
-                                ? 'bg-[#7E121D] text-white font-bold border-[#7E121D]'
+                                ? 'bg-[#543310] text-white font-bold border-[#543310]'
                                 : 'bg-white text-gray-700 border-gray-200'
                             }`}
                           >
@@ -777,13 +777,13 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                           onClick={handleConfirmMarketPurchase}
                           className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow"
                         >
-                          Đồng ý mua ({marketPrice} thẻ)
+                          Đổi ({marketPrice} thẻ)
                         </button>
                         <button
                           onClick={() => handleComplete()}
                           className="py-2 px-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-medium"
                         >
-                          Không mua (Giữ thẻ)
+                          Bỏ qua
                         </button>
                       </div>
                     </div>
@@ -793,7 +793,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
             </div>
           )}
 
-          {card.type==='fortune' && card.contestQuestion && <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2.5"><p className="text-xs font-bold text-[#7E121D]">Hội thi · {DIFFICULTY_LABELS[card.contestQuestion.difficulty]}</p><p className="text-sm font-bold text-gray-900">{card.contestQuestion.question}</p>{card.contestQuestion.options.map((option,index)=><p key={index} className="text-xs text-gray-700">{String.fromCharCode(65+index)}. {option}</p>)}<button type="button" onClick={()=>setShowContestAnswer(true)} className="px-3 py-1.5 bg-[#7E121D] text-white rounded-xl text-xs font-bold">Hiện đáp án sau khi cả bàn trả lời</button>{showContestAnswer && <div className="text-xs text-gray-700"><strong>Đáp án {String.fromCharCode(65+card.contestQuestion.correctAnswer)}.</strong> {card.contestQuestion.explanation}{card.contestQuestion.sources.map(source=><a className="block text-[11px] text-gray-500 hover:underline" key={source.id} href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a>)}</div>}</div>}
+          {card.type==='fortune' && card.contestQuestion && <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2.5"><p className="text-xs font-bold text-[#543310]">Hội thi · {DIFFICULTY_LABELS[card.contestQuestion.difficulty]}</p><p className="text-sm font-bold text-gray-900">{card.contestQuestion.question}</p>{card.contestQuestion.options.map((option,index)=><p key={index} className="text-xs text-gray-700">{String.fromCharCode(65+index)}. {option}</p>)}<button type="button" onClick={()=>setShowContestAnswer(true)} className="px-3 py-1.5 bg-[#543310] text-white rounded-xl text-xs font-bold">Hiện đáp án</button>{showContestAnswer && <div className="text-xs text-gray-700"><strong>Đáp án {String.fromCharCode(65+card.contestQuestion.correctAnswer)}.</strong> {card.contestQuestion.explanation}{card.contestQuestion.sources.map(source=><a className="block text-[11px] text-gray-500 hover:underline" key={source.id} href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a>)}</div>}</div>}
 
           {/* 4. THẺ MAY MẮN (Ô Lễ hội) */}
           {card.type === 'fortune' && (
@@ -820,19 +820,19 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
           <button
             onClick={() => setShowQR(!showQR)}
-            className="text-xs text-[#7E121D] font-bold flex items-center gap-1 hover:underline"
+            className="text-xs text-[#543310] font-bold flex items-center gap-1 hover:underline"
           >
             <ExternalLink size={13} />
-            <span>{showQR ? 'Ẩn mã QR' : 'Quét QR xem chuyên sâu'}</span>
+            <span>{showQR ? 'Ẩn QR' : 'Mở rộng (QR)'}</span>
           </button>
 
           {card.type === 'resource' && marketQuiz && marketBargainAnswered ? null : (
             (card.type !== 'challenge' && card.type !== 'knowledge') || answered ? (
               <button
                 onClick={() => handleComplete()}
-                className="px-5 py-2.5 crimson-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
+                className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
               >
-                <span>Xác nhận & Tiếp tục</span>
+                <span>Tiếp tục</span>
                 <ArrowRight size={15} />
               </button>
             ) : null

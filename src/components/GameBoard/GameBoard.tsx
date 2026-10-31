@@ -100,39 +100,36 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             <div className="col-span-9 bg-gradient-to-br from-[#FAF6EE] via-[#FFFDF9] to-[#F5E5BE]/30 rounded-2xl p-4 sm:p-6 border border-[#C5A059]/30 flex flex-col justify-between relative shadow-inner overflow-hidden min-h-[360px]">
               {/* Vietnam S-Shape subtle vector backdrop */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.09] flex items-center justify-center">
-                <svg viewBox="0 0 400 800" className="h-full max-h-[380px] text-[#7E121D] fill-current">
-                  <path d="M 180,40 Q 220,70 190,120 Q 150,180 180,240 Q 210,300 230,360 Q 250,420 220,480 Q 170,540 180,620 Q 190,700 130,760" stroke="#7E121D" strokeWidth="32" fill="none" strokeLinecap="round" />
+                <svg viewBox="0 0 400 800" className="h-full max-h-[380px] text-[#543310] fill-current">
+                  <path d="M 180,40 Q 220,70 190,120 Q 150,180 180,240 Q 210,300 230,360 Q 250,420 220,480 Q 170,540 180,620 Q 190,700 130,760" stroke="#543310" strokeWidth="32" fill="none" strokeLinecap="round" />
                 </svg>
               </div>
 
               {/* Center Top: Cultural Title & Region Indicators */}
               <div className="flex items-center justify-between z-10">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#7E121D]" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#7E121D]">
-                    {language === 'vi' ? 'Hành trình 40 ô di sản' : '40-Tile Heritage Journey'}
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#543310]" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#543310]">
+                    {language === 'vi' ? '40 Ô Di Sản' : '40 Heritage Spaces'}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-[10px]">
-                  <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-semibold border border-blue-200">
+                <div className="flex items-center gap-1.5 text-[10px]">
+                  <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 font-semibold border border-blue-200">
                     Bắc Bộ
                   </span>
-                  <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-semibold border border-amber-200">
+                  <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold border border-amber-200">
                     Trung Bộ
                   </span>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-semibold border border-emerald-200">
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-semibold border border-emerald-200">
                     Nam Bộ
                   </span>
                 </div>
               </div>
 
               {/* Center Middle: Dice Rolling Arena */}
-              <div className="flex flex-col items-center justify-center py-4 z-10 gap-3">
+              <div className="flex flex-col items-center justify-center py-3 z-10 gap-2.5">
                 <div className="text-center">
-                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    {language === 'vi' ? 'Lượt của' : 'Turn for'}
-                  </span>
-                  <div className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#7E121D] flex items-center justify-center gap-2">
+                  <div className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#543310] flex items-center justify-center gap-2">
                     <span className="w-3 h-3 rounded-full" style={{ backgroundColor: activePlayer?.color }} />
                     <span>{activePlayer?.name}</span>
                   </div>
@@ -148,22 +145,20 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                 />
 
                 {gameState.diceValue && (
-                  <div className="text-xs font-medium text-gray-600 bg-white/90 px-3 py-1 rounded-full border border-gray-200 shadow-sm animate-fade-in">
-                    {language === 'vi' 
-                      ? `Xúc xắc: ${gameState.diceValue} bước` 
-                      : `Rolled: ${gameState.diceValue} steps`}
+                  <div className="text-xs font-medium text-gray-700 bg-white/95 px-3 py-1 rounded-full border border-gray-200 shadow-sm animate-fade-in font-mono">
+                    🎲 {language === 'vi' ? `${gameState.diceValue} bước` : `${gameState.diceValue} steps`}
                   </div>
                 )}
               </div>
 
               {/* Center Bottom: Quick Log of recent game actions */}
-              <div className="z-10 bg-white/80 backdrop-blur rounded-xl p-2 border border-[#C5A059]/20 text-[11px] text-gray-600 max-h-[70px] overflow-y-auto">
-                <div className="font-semibold text-gray-800 mb-0.5 flex items-center gap-1">
-                  <Compass size={12} className="text-[#C5A059]" />
-                  <span>{language === 'vi' ? 'Nhật ký hành trình:' : 'Journey Log:'}</span>
+              <div className="z-10 bg-white/85 backdrop-blur rounded-xl p-2 border border-[#C5A059]/30 text-[11px] text-gray-600 max-h-[64px] overflow-y-auto">
+                <div className="font-semibold text-gray-800 mb-0.5 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                  <Compass size={11} className="text-[#C5A059]" />
+                  <span>{language === 'vi' ? 'Nhật ký:' : 'Log:'}</span>
                 </div>
                 <div className="space-y-0.5">
-                  {gameState.historyLog.slice(-3).reverse().map((log, i) => (
+                  {gameState.historyLog.slice(-2).reverse().map((log, i) => (
                     <div key={i} className="truncate">
                       • {log}
                     </div>
@@ -227,7 +222,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             </button>
 
             <div className="flex items-center gap-2 mb-2">
-              <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#7E121D] text-[#F5E5BE]">
+              <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#543310] text-[#F5E5BE]">
                 Ô #{selectedSpace.index}
               </span>
               <span className="text-xs text-gray-500 font-medium">
@@ -235,12 +230,12 @@ export const GameBoard: React.FC<GameBoardProps> = ({
               </span>
             </div>
 
-            <h3 className="font-serif-lacviet text-xl font-bold text-[#7E121D] mb-1">
+            <h3 className="font-serif-lacviet text-xl font-bold text-[#543310] mb-1">
               {selectedSpace.name}
             </h3>
 
             {selectedSpace.heritageHighlight && (
-              <div className="flex items-center gap-1.5 text-xs text-[#C5A059] font-bold mb-3">
+              <div className="flex items-center gap-1.5 text-xs text-[#8C572D] font-bold mb-3">
                 <MapPin size={13} />
                 <span>{selectedSpace.heritageHighlight}</span>
               </div>
@@ -253,7 +248,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             {/* Players currently here */}
             {getPlayersOnSpace(selectedSpace.index).length > 0 && (
               <div className="mb-4 text-xs bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                <span className="font-bold text-gray-800">Người chơi đang ở ô này:</span>
+                <span className="font-bold text-gray-800">Người chơi tại ô:</span>
                 <div className="flex items-center gap-2 mt-1">
                   {getPlayersOnSpace(selectedSpace.index).map(p => (
                     <span
@@ -270,9 +265,9 @@ export const GameBoard: React.FC<GameBoardProps> = ({
 
             <button
               onClick={() => setSelectedSpaceIndex(null)}
-              className="w-full py-2 bg-[#7E121D] hover:bg-[#941B26] text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059]"
+              className="w-full py-2 bg-[#543310] hover:bg-[#6F441E] text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059]"
             >
-              Đóng tra cứu
+              Đóng
             </button>
           </div>
         </div>

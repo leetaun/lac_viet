@@ -63,7 +63,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
       <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop">
         
         {/* Header */}
-        <div className="p-4 bg-gradient-to-r from-[#941B26] via-[#7E121D] to-[#5C0D15] text-white flex items-center justify-between">
+        <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-2xl">{tokenDef.icon}</span>
             <div>
@@ -83,10 +83,10 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
         {/* Body */}
         <div className="p-4 sm:p-5 space-y-4">
           <div className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-2xl border border-[#C5A059]/30 leading-relaxed">
-            <span className="font-bold text-[#7E121D] block mb-0.5">Hiệu lực kỹ năng:</span>
+            <span className="font-bold text-[#543310] block mb-0.5">Hiệu lực kỹ năng:</span>
             {tokenDef.description}
             <div className="text-[11px] text-gray-500 mt-1">
-              Thời điểm kích hoạt: <strong>{tokenDef.timing}</strong>
+              Thời điểm: <strong>{tokenDef.timing}</strong>
             </div>
           </div>
 
@@ -125,7 +125,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                       onClick={() => handleToggleCardDiscard(c.id)}
                       className={`w-full p-2 rounded-xl text-xs text-left border flex items-center justify-between transition-all ${
                         selectedCardsToDiscard.includes(c.id)
-                          ? 'bg-[#7E121D] text-white font-bold border-[#7E121D]'
+                          ? 'bg-[#543310] text-white font-bold border-[#543310]'
                           : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-700'
                       }`}
                     >
@@ -168,7 +168,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
               <button
                 disabled={selectedCardsToDiscard.length !== 2 || !player.tokenSkillAvailable}
                 onClick={() => onActivateLotusSwap(selectedCardsToDiscard, targetDeck)}
-                className="w-full py-2.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all"
+                className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all"
               >
                 Kích Hoạt Thanh Lọc (Đổi Thẻ)
               </button>
@@ -183,7 +183,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                   <Eye size={14} className="text-amber-700" /> Kỹ năng: Soi Đường
                 </span>
                 <p className="text-gray-600">
-                  Xem trước đề bài Kiến thức hoặc Thử thách khi vừa chạm ô, đồng thời được quyền đổi đề 01 lần nếu câu hỏi quá khó.
+                  Xem trước đề bài khi vừa chạm ô, được đổi đề 01 lần.
                 </p>
               </div>
 
@@ -198,7 +198,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                 </button>
               ) : (
                 <div className="p-3 bg-white border border-amber-300 rounded-2xl text-xs space-y-2">
-                  <div className="font-bold text-[#7E121D]">
+                  <div className="font-bold text-[#543310]">
                     [Xem trước]: {previewCard.title} ({previewCard.province})
                   </div>
                   <div className="text-gray-700 italic">
@@ -207,7 +207,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                   {onActivateLanternRedraw && (
                     <button
                       onClick={onActivateLanternRedraw}
-                      className="w-full py-2 bg-[#7E121D] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1"
+                      className="w-full py-2 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1"
                     >
                       <RefreshCw size={14} /> Đổi sang đề mới
                     </button>

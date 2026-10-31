@@ -41,15 +41,15 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
       {/* 1. Header Banner */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/40 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#7E121D] flex items-center gap-1">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-[#543310] flex items-center gap-1">
             <BookOpen size={13} className="text-[#C5A059]" />
-            <span>CẨM NANG & LUẬT CHƠI TOÀN TẬP</span>
+            <span>CẨM NANG & LUẬT CHƠI</span>
           </div>
-          <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#7E121D] mt-0.5">
-            LUẬT CHƠI BOARDGAME LẠC VIỆT
+          <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#543310] mt-0.5">
+            LUẬT CHƠI LẠC VIỆT
           </h2>
           <p className="text-xs text-gray-600 mt-1">
-            Tra cứu toàn bộ quy định luật chơi, 4 bộ thẻ, cơ chế cướp & phạt, và kỹ năng token.
+            Quy định luật chơi, 4 bộ thẻ và kỹ năng token.
           </p>
         </div>
 
@@ -59,11 +59,11 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
           className="px-3.5 py-2 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#B89249] hover:to-[#C5A059] text-[#1E2538] font-bold rounded-xl text-xs shadow-sm flex items-center gap-1.5 flex-shrink-0 transition-transform active:scale-95"
         >
           <QrCode size={15} />
-          <span>Tạo Mã QR In Bộ Cờ Vật Lý</span>
+          <span>Mã QR In Bộ Cờ</span>
         </button>
       </div>
 
-      {/* 2. Accordion Sections (Matching Slide 10) */}
+      {/* 2. Accordion Sections */}
       <div className="space-y-2.5">
         {RULEBOOK_SECTIONS.map((sec, idx) => {
           const isOpen = openSectionId === sec.id;
@@ -83,12 +83,12 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                 className="w-full p-4 text-left flex items-center justify-between gap-3 select-none hover:bg-gray-50/60 transition-colors"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className={`font-serif-lacviet font-bold text-sm sm:text-base transition-colors ${isOpen ? 'text-[#7E121D]' : 'text-gray-900'}`}>
+                  <span className={`font-serif-lacviet font-bold text-sm sm:text-base transition-colors ${isOpen ? 'text-[#543310]' : 'text-gray-900'}`}>
                     {language === 'vi' ? sec.title : sec.enTitle}
                   </span>
                 </div>
                 <div className="p-1 rounded-full text-gray-400 bg-gray-50 flex-shrink-0 transition-transform duration-300">
-                  <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#7E121D]' : ''}`} />
+                  <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#543310]' : ''}`} />
                 </div>
               </button>
 
@@ -123,14 +123,14 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/40 shadow-sm space-y-3">
         <div className="flex items-center gap-2">
           <Award size={18} className="text-[#C5A059]" />
-          <h3 className="font-serif-lacviet font-bold text-base text-[#7E121D]">
+          <h3 className="font-serif-lacviet font-bold text-base text-[#543310]">
             THÔNG TIN DỰ ÁN OLYMPIC KHỞI NGHIỆP 2026
           </h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
           <div className="p-3 bg-[#FAF6EE] rounded-xl border border-[#C5A059]/30 space-y-1.5">
-            <span className="font-bold text-[#7E121D] flex items-center gap-1">
+            <span className="font-bold text-[#543310] flex items-center gap-1">
               <Users size={13} />
               <span>Đội Ngũ Thực Hiện & Cố Vấn:</span>
             </span>
@@ -145,7 +145,7 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
           </div>
 
           <div className="p-3 bg-[#FAF6EE] rounded-xl border border-[#C5A059]/30 space-y-1.5">
-            <span className="font-bold text-[#7E121D] flex items-center gap-1">
+            <span className="font-bold text-[#543310] flex items-center gap-1">
               <Recycle size={13} />
               <span>Kinh Tế Tuần Hoàn & Vật Liệu Tái Chế:</span>
             </span>
@@ -162,16 +162,16 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
           <div className="bg-white rounded-3xl max-w-2xl w-full p-5 shadow-2xl border-4 border-[#C5A059] max-h-[85vh] flex flex-col animate-modal-pop">
             <div className="flex items-center justify-between pb-3 border-b border-gray-200">
               <div>
-                <h3 className="font-serif-lacviet text-lg font-bold text-[#7E121D]">
-                  TRUNG TÂM IN MÃ QR BỘ CỜ LẠC VIỆT
+                <h3 className="font-serif-lacviet text-lg font-bold text-[#543310]">
+                  IN MÃ QR BỘ CỜ LẠC VIỆT
                 </h3>
                 <span className="text-xs text-gray-500">
-                  Mã QR tương thích với bàn cờ và hệ thống thẻ bài vật lý ngoài đời
+                  Mã QR tương thích với bàn cờ và hệ thống thẻ bài vật lý
                 </span>
               </div>
               <button
                 onClick={() => window.open('/qr/lac-viet-qr-cards-a4.pdf','_blank','noopener,noreferrer')}
-                className="px-3 py-1.5 bg-[#7E121D] text-white rounded-xl text-xs font-bold flex items-center gap-1"
+                className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow"
               >
                 <Printer size={13} />
                 <span>Mở bản in PDF</span>
@@ -189,15 +189,15 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                     <div key={idx} className="p-2.5 bg-gray-50 rounded-xl border border-gray-200 flex flex-col items-center gap-1.5">
                       <img src={item.qrImg} alt={item.name} className="w-24 h-24 rounded shadow-sm border border-gray-300" />
                       <span className="font-bold text-[11px] text-gray-800 truncate w-full">{item.name}</span>
-                      <a href={item.url} className="text-[10px] text-[#7E121D] hover:underline" target="_blank" rel="noopener noreferrer">Mở thử đường dẫn</a>
+                      <a href={item.url} className="text-[10px] text-[#543310] hover:underline" target="_blank" rel="noopener noreferrer">Mở thử</a>
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            <p className="text-xs text-gray-500">Bốn mã dùng lại cho cả bàn, không phải một mã cho mỗi câu. Bản mới cần được đưa lên Vercel trước khi dùng bộ thẻ.</p>
-            <a href="/qr/lac-viet-qr-cards-a4.pdf" download className="px-3 py-1.5 bg-[#7E121D] text-white rounded-xl text-xs font-bold flex items-center gap-1">Tải PDF 4 thẻ để in A4</a>
+            <p className="text-xs text-gray-500">Bốn mã dùng lại cho cả bàn, không phải một mã cho mỗi câu.</p>
+            <a href="/qr/lac-viet-qr-cards-a4.pdf" download className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl text-xs font-bold flex items-center gap-1">Tải PDF 4 thẻ để in A4</a>
             <div className="pt-3 border-t border-gray-200 flex justify-end">
               <button
                 onClick={() => setShowQRPrinter(false)}

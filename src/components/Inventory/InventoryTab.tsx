@@ -70,11 +70,11 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-gray-100">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
-              TỔNG QUAN TÀI SẢN SỐ · {player.name}
+              TÀI SẢN · {player.name}
             </span>
-            <div className="font-serif-lacviet text-2xl font-bold text-[#7E121D] flex items-center gap-2">
+            <div className="font-serif-lacviet text-2xl font-bold text-[#543310] flex items-center gap-2">
               <Trophy size={24} className="text-[#C5A059]" />
-              <span>Hợp Lệ: {validArtifactCount}/{artifactGoal} Kỷ Vật</span>
+              <span>{validArtifactCount}/{artifactGoal} Kỷ vật</span>
             </div>
           </div>
 
@@ -109,8 +109,8 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
           {/* Compartment A: Tay Nải */}
           <div className="bg-[#FAF6EE] p-3 rounded-2xl border border-[#C5A059]/40 space-y-2">
-            <div className="flex items-center justify-between text-xs font-bold text-[#7E121D]">
-              <span>🎒 TAY NẢI (LƯU ĐỘNG)</span>
+            <div className="flex items-center justify-between text-xs font-bold text-[#543310]">
+              <span>🎒 TAY NẢI</span>
               <span>{player.artifactItems.filter(a => a.storage === 'pouch').length} món</span>
             </div>
 
@@ -151,7 +151,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             
             {pouchSealed.length > 0 && (
               <div className="text-[10px] text-red-700 bg-red-100/70 p-1.5 rounded-lg">
-                ⚠️ {pouchSealed.length} kỷ vật đang bị phong ấn (không tính vào chiến thắng). Dừng tại Ô Góc để tự động giải phóng!
+                ⚠️ {pouchSealed.length} kỷ vật bị phong ấn (vào Ô Góc để giải phóng).
               </div>
             )}
           </div>
@@ -160,7 +160,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
           <div className="bg-emerald-50/60 p-3 rounded-2xl border border-emerald-300 space-y-2">
             <div className="flex items-center justify-between text-xs font-bold text-emerald-950">
               <span className="flex items-center gap-1">
-                <Shield size={14} className="text-emerald-700" /> HÒM KÝ GỬI (AN TOÀN)
+                <Shield size={14} className="text-emerald-700" /> HÒM KÝ GỬI
               </span>
               <span>{safeDeposit.length} món</span>
             </div>
@@ -176,12 +176,12 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
               </div>
             ) : (
               <div className="text-[11px] text-gray-400 italic py-2 text-center">
-                Chưa ký gửi kỷ vật tại Trạm dừng chân
+                Chưa ký gửi kỷ vật
               </div>
             )}
 
             <div className="text-[10px] text-emerald-800 bg-emerald-100/80 p-1.5 rounded-lg leading-relaxed">
-              🛡️ Kỷ vật trong Hòm ký gửi được bảo vệ tuyệt đối khỏi cướp, phong ấn và rơi khi thua thử thách!
+              🛡️ Kỷ vật an toàn tuyệt đối khỏi cướp và phong ấn.
             </div>
           </div>
         </div>
@@ -189,24 +189,24 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         {/* Milestone Indicator */}
         <div className="p-2.5 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-between text-xs">
           <div className="flex items-center gap-1.5 text-gray-700">
-            <Flag size={14} className="text-[#7E121D]" />
-            <span>Cột mốc chủ quyền đã cắm: <strong>{player.milestones.length}/2</strong></span>
+            <Flag size={14} className="text-[#543310]" />
+            <span>Cột mốc đã cắm: <strong>{player.milestones.length}/2</strong></span>
           </div>
           <span className="text-[11px] text-gray-500">
-            {player.milestones.length > 0 ? `Tại các ô: ${player.milestones.map(idx => `#${idx}`).join(', ')}` : 'Chưa cắm cờ cột mốc'}
+            {player.milestones.length > 0 ? `Ô: ${player.milestones.map(idx => `#${idx}`).join(', ')}` : 'Chưa cắm cờ'}
           </span>
         </div>
       </div>
 
-      {/* 2. BÍ KÍP TÍCH LŨY ("HỌC TỪ CÁI SAI") */}
+      {/* 2. BÍ KÍP TÍCH LŨY */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/30 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-serif-lacviet font-bold text-base text-[#7E121D] flex items-center gap-1.5">
+          <h3 className="font-serif-lacviet font-bold text-base text-[#543310] flex items-center gap-1.5">
             <BookOpen size={16} className="text-[#C5A059]" />
-            <span>BỘ SƯU TẬP BÍ KÍP ({player.biKipCards.length})</span>
+            <span>BÍ KÍP ({player.biKipCards.length})</span>
           </h3>
           <span className="text-[11px] text-gray-500">
-            Dùng đổi quyền trợ giúp hoặc vượt ải Thử thách
+            Trợ giúp câu hỏi hoặc vượt ải
           </span>
         </div>
 
@@ -223,7 +223,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
                     {bk.title}
                   </div>
                   <div className="text-[10px] text-gray-500 mt-0.5">
-                    Chủ đề: <strong className="text-[#7E121D]">{bk.topicName}</strong> {bk.sourceProvince ? `(${bk.sourceProvince})` : ''}
+                    Chủ đề: <strong className="text-[#543310]">{bk.topicName}</strong> {bk.sourceProvince ? `(${bk.sourceProvince})` : ''}
                   </div>
                 </div>
                 <span className="text-base">📜</span>
@@ -232,20 +232,20 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
           </div>
         ) : (
           <div className="text-xs text-gray-400 italic py-2 text-center bg-gray-50 rounded-xl">
-            Chưa có thẻ Bí kíp nào. Khi trả lời sai ô Kiến thức hoặc thua Thử thách, bạn sẽ nhận được Bí kíp!
+            Chưa có Bí kíp nào (nhận khi trả lời sai hoặc thua Thử thách).
           </div>
         )}
 
         {/* Bi Kip assist exchange guide */}
-        <div className="bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/50 text-[11px] text-amber-950 grid grid-cols-3 gap-2 text-center">
+        <div className="bg-amber-50/50 p-2 rounded-xl border border-amber-200/50 text-[11px] text-amber-950 grid grid-cols-3 gap-2 text-center">
           <div>
-            <strong>1 Bí kíp:</strong> Loại 2 đáp án (50:50)
+            <strong>1 BK:</strong> Loại 2 đáp án
           </div>
           <div>
-            <strong>1 Bí kíp:</strong> Hỏi bạn cùng chơi
+            <strong>1 BK:</strong> Hỏi bạn
           </div>
           <div>
-            <strong>3 Bí kíp:</strong> "Có công mài sắt" (nhận kỷ vật ngay)
+            <strong>3 BK:</strong> Nhận kỷ vật ngay
           </div>
         </div>
       </div>
@@ -254,13 +254,13 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/30 shadow-sm space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <h3 className="font-serif-lacviet font-bold text-base text-[#7E121D] flex items-center gap-1.5">
+            <h3 className="font-serif-lacviet font-bold text-base text-[#543310] flex items-center gap-1.5">
               <Layers size={16} className="text-[#C5A059]" />
-              <span>TÚI ĐỒ SỐ ({totalHandCards}/5 thẻ)</span>
+              <span>TÚI ĐỒ ({totalHandCards}/5 thẻ)</span>
             </h3>
             {totalHandCards > 5 && (
               <span className="text-[10px] bg-red-100 text-red-800 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                <AlertTriangle size={11} /> Vượt giới hạn 5 thẻ (Cần xả cuối lượt)
+                <AlertTriangle size={11} /> Quá 5 thẻ (xả cuối lượt)
               </span>
             )}
           </div>
@@ -271,7 +271,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
                 key={tab}
                 onClick={() => setCardFilter(tab as any)}
                 className={`px-2 py-1 rounded-lg font-medium transition-all ${
-                  cardFilter === tab ? 'bg-[#7E121D] text-white font-bold' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  cardFilter === tab ? 'bg-[#543310] text-white font-bold' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
                 {tab === 'all' ? 'Tất cả' : tab === 'resource' ? 'Tài nguyên' : tab === 'fortune' ? 'May mắn' : 'Kiến thức'}
@@ -343,7 +343,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-sm w-full p-4 border-2 border-[#C5A059] shadow-xl space-y-3">
             <div className="flex items-center justify-between border-b pb-2">
-              <span className="text-xs font-bold text-[#7E121D]">CHI TIẾT BÍ KÍP VĂN HÓA</span>
+              <span className="text-xs font-bold text-[#543310]">CHI TIẾT BÍ KÍP</span>
               <button onClick={() => setSelectedBiKip(null)} className="text-gray-400 hover:text-gray-600">
                 <X size={16} />
               </button>
@@ -359,7 +359,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
               )}
             </div>
             <div className="text-[11px] text-amber-900 bg-amber-50 p-2 rounded-lg">
-              ✨ Dùng để vượt ải tự động khi gặp Thử thách có cùng chủ đề <strong>{selectedBiKip.topicName}</strong>, hoặc gom đủ 3 Bí kíp để kích hoạt "Có công mài sắt"!
+              ✨ Dùng để vượt ải Thử thách cùng chủ đề <strong>{selectedBiKip.topicName}</strong> hoặc gom 3 Bí kíp để nhận kỷ vật!
             </div>
           </div>
         </div>
@@ -370,7 +370,7 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-sm w-full p-4 border-2 border-[#C5A059] shadow-xl space-y-3">
             <div className="flex items-center justify-between border-b pb-2">
-              <span className="text-xs font-bold text-[#7E121D]">THÔNG TIN THẺ BÀI</span>
+              <span className="text-xs font-bold text-[#543310]">THÔNG TIN THẺ BÀI</span>
               <button onClick={() => setSelectedCard(null)} className="text-gray-400 hover:text-gray-600">
                 <X size={16} />
               </button>
@@ -381,11 +381,11 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             <p className="text-xs text-gray-600">
               {'description' in selectedCard ? selectedCard.description : selectedCard.explanation}
             </p>
-            <button type="button" onClick={() => { onUseCard(selectedCard); setSelectedCard(null); }} className="w-full py-2.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">Sử dụng thẻ</button>
+            <button type="button" onClick={() => { onUseCard(selectedCard); setSelectedCard(null); }} className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">Sử dụng thẻ</button>
             {qrCodeUrl && (
               <div className="text-center pt-2">
                 <img src={qrCodeUrl} alt="QR" className="w-28 h-28 mx-auto rounded-lg border border-gray-200" />
-                <span className="text-[10px] text-gray-400 mt-1 block">Quét mã QR để xem tư liệu</span>
+                <span className="text-[10px] text-gray-400 mt-1 block">Quét QR xem tư liệu</span>
               </div>
             )}
           </div>

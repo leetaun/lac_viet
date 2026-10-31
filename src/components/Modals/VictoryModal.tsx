@@ -38,7 +38,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
 
     // Trigger confetti bursts
     const end = Date.now() + 3.5 * 1000;
-    const colors = ['#C5A059', '#7E121D', '#E5C07B', '#DC2626', '#1E2538'];
+    const colors = ['#C5A059', '#543310', '#E5C07B', '#8C572D', '#3B220C'];
 
     (function frame() {
       confetti({
@@ -85,8 +85,8 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
       <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop my-auto">
         
         {/* Banner */}
-        <div className="crimson-gradient-bg p-6 text-center text-white border-b-2 border-[#C5A059] relative">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#C5A059] via-[#F5E5BE] to-[#C5A059] mx-auto flex items-center justify-center text-[#7E121D] shadow-lg mb-2 border-2 border-white animate-bounce-slow">
+        <div className="brown-gradient-bg p-6 text-center text-white border-b-2 border-[#C5A059] relative">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#C5A059] via-[#F5E5BE] to-[#C5A059] mx-auto flex items-center justify-center text-[#543310] shadow-lg mb-2 border-2 border-white animate-bounce-slow">
             <Trophy size={32} />
           </div>
 
@@ -94,13 +94,13 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
             VINH QUY BÁI TỔ · LẠC VIỆT
           </span>
           <h2 className="font-serif-lacviet text-2xl sm:text-3xl font-bold mt-1 text-white">
-            {winner.name} ĐÃ CHIẾN THẮNG!
+            {winner.name} CHIẾN THẮNG!
           </h2>
 
           <div className="flex items-center justify-center gap-2 mt-2 text-xs text-[#F5E5BE]">
-            <span>Biểu tượng: {tokenDef.icon} {tokenDef.name}</span>
+            <span>{tokenDef.icon} {tokenDef.name}</span>
             <span>•</span>
-            <span>Thu thập đủ 3 miền & Cán đích START an toàn</span>
+            <span>Đủ 3 miền & Về đích START</span>
           </div>
         </div>
 
@@ -109,9 +109,9 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           
           {/* Winner Artifacts Showcase */}
           <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2">
-            <div className="text-xs font-bold text-[#7E121D] flex items-center justify-between">
-              <span>HÀNH TRÌNH DI SẢN MANG VỀ ĐÍCH:</span>
-              <span>{winnerValidArtifacts.length} Kỷ vật</span>
+            <div className="text-xs font-bold text-[#543310] flex items-center justify-between">
+              <span>BỘ SƯU TẬP KỶ VẬT:</span>
+              <span>{winnerValidArtifacts.length} món</span>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -158,7 +158,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
                     </div>
 
                     <div className="flex items-center gap-3 text-xs">
-                      <span className="text-[#7E121D] font-bold">
+                      <span className="text-[#543310] font-bold">
                         {totalArt}/{artifactGoal} Kỷ vật
                       </span>
                       <span className="text-gray-400 font-normal">
@@ -175,7 +175,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           <div className="bg-blue-50/70 p-3 rounded-2xl border border-blue-200 space-y-1.5 text-xs text-blue-950">
             <div className="flex items-center justify-between">
               <span className="font-bold flex items-center gap-1.5 text-blue-900">
-                <Mic size={14} className="text-blue-700" /> PHÚT KỂ CHUYỆN (3 PHÚT CUỐI VÁN)
+                <Mic size={14} className="text-blue-700" /> PHÚT KỂ CHUYỆN (3 PHÚT)
               </span>
               <button
                 onClick={() => setShowStoryMinute(!showStoryMinute)}
@@ -186,11 +186,11 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
             </div>
             {showStoryMinute ? (
               <p className="text-gray-700 leading-relaxed pt-1">
-                Mỗi người chơi lần lượt chia sẻ 1 thông tin mới hoặc điều bất ngờ nhất mà mình vừa học được từ các câu hỏi. Người chiến thắng ({winner.name}) hãy kể câu chuyện về 1 Kỷ vật mình yêu thích nhất đã mang về đích!
+                Mỗi người chơi lần lượt chia sẻ 1 điều bất ngờ hoặc câu chuyện về kỷ vật tâm đắc nhất mang về đích.
               </p>
             ) : (
               <p className="text-gray-600">
-                Hoạt động kết nối cảm xúc: Mỗi người chia sẻ 1 điều tâm đắc sau hành trình.
+                Mỗi người chơi chia sẻ 1 điều tâm đắc sau hành trình.
               </p>
             )}
           </div>
@@ -198,15 +198,15 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           {/* Sổ Hành Trình QR Code */}
           {showJournalQR && (
             <div className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center space-y-2 animate-fade-in">
-              <span className="font-bold text-xs text-[#7E121D] block">
-                MÃ QR TẢI SỔ HÀNH TRÌNH VĂN HÓA CÁ NHÂN
+              <span className="font-bold text-xs text-[#543310] block">
+                MÃ QR SỔ HÀNH TRÌNH VĂN HÓA
               </span>
               <select aria-label="Sổ hành trình của người chơi" value={journalPlayerId} onChange={event=>setJournalPlayerId(event.target.value)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{players.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select>
               {journalError && <p className="text-xs text-gray-500">{journalError}</p>}
-              <button type="button" onClick={()=>downloadJournal(journalPlayer)} className="w-full py-2.5 bg-[#7E121D] hover:bg-[#941B26] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">Tải Sổ hành trình</button>
+              <button type="button" onClick={()=>downloadJournal(journalPlayer)} className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">Tải Sổ hành trình</button>
               {journalQrUrl && <img src={journalQrUrl} alt="Journey QR" className="w-28 h-28 mx-auto rounded-lg border border-gray-200" />}
               <p className="text-[11px] text-gray-500">
-                Quét mã để lưu lại toàn bộ kỷ vật, câu hỏi và tri thức bạn đã thu hoạch được vào điện thoại!
+                Quét mã để lưu lại toàn bộ kỷ vật và tri thức vào điện thoại!
               </p>
             </div>
           )}
@@ -218,16 +218,16 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
             onClick={() => setShowJournalQR(!showJournalQR)}
             className="px-3 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-bold border border-gray-300 flex items-center gap-1.5 transition-all"
           >
-            <QrCode size={14} className="text-[#7E121D]" />
+            <QrCode size={14} className="text-[#543310]" />
             <span>Sổ hành trình</span>
           </button>
 
           <button
             onClick={onNewGame}
-            className="px-5 py-2.5 crimson-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
+            className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
           >
             <RotateCcw size={15} />
-            <span>Chơi Ván Mới</span>
+            <span>Ván Mới</span>
           </button>
         </div>
 

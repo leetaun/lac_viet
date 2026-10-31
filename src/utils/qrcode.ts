@@ -6,7 +6,7 @@ export async function generateQRCode(text: string): Promise<string> {
       width: 280,
       margin: 2,
       color: {
-        dark: '#7E121D', // Màu đỏ trầm Lạc Việt quý phái
+        dark: '#543310', // Màu nâu trầm hoàng gia Lạc Việt
         light: '#FFFFFF'
       }
     });

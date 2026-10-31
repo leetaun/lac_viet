@@ -8,11 +8,18 @@ export default {
     extend: {
       colors: {
         lacviet: {
+          brown: {
+            DEFAULT: '#543310',
+            light: '#6F441E',
+            dark: '#3B220C',
+            deep: '#2E1A09',
+            warm: '#7D4D24',
+          },
           red: {
-            DEFAULT: '#7E121D',
-            light: '#941B26',
-            dark: '#5C0D15',
-            wine: '#4A0810',
+            DEFAULT: '#543310',
+            light: '#6F441E',
+            dark: '#3B220C',
+            wine: '#2E1A09',
           },
           gold: {
             DEFAULT: '#C5A059',
@@ -46,7 +53,8 @@ export default {
       },
       boxShadow: {
         'gold-glow': '0 0 15px rgba(197, 160, 89, 0.45)',
-        'red-glow': '0 0 15px rgba(126, 18, 29, 0.4)',
+        'red-glow': '0 0 15px rgba(84, 51, 16, 0.45)',
+        'brown-glow': '0 0 15px rgba(84, 51, 16, 0.45)',
         'card': '0 4px 14px 0 rgba(0, 0, 0, 0.08)',
         'board': '0 10px 30px rgba(0, 0, 0, 0.25)',
       }
