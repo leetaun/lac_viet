@@ -68,10 +68,10 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
             <span className="text-2xl">{tokenDef.icon}</span>
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-                KỸ NĂNG TOKEN
+                {language === 'vi' ? 'KỸ NĂNG TOKEN' : 'TOKEN SKILL'}
               </span>
               <h2 className="font-serif-lacviet text-lg font-bold">
-                {tokenDef.name} · {tokenDef.passive}
+                {language === 'vi' ? tokenDef.name : tokenDef.enName} · {language === 'vi' ? tokenDef.passive : tokenDef.enPassive}
               </h2>
             </div>
           </div>
@@ -83,10 +83,12 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
         {/* Body */}
         <div className="p-4 sm:p-5 space-y-4">
           <div className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-2xl border border-[#C5A059]/30 leading-relaxed">
-            <span className="font-bold text-[#543310] block mb-0.5">Hiệu lực kỹ năng:</span>
-            {tokenDef.description}
+            <span className="font-bold text-[#543310] block mb-0.5">
+              {language === 'vi' ? 'Hiệu lực kỹ năng:' : 'Skill effect:'}
+            </span>
+            {language === 'vi' ? tokenDef.description : (tokenDef.enPassive || tokenDef.description)}
             <div className="text-[11px] text-gray-500 mt-1">
-              Thời điểm: <strong>{tokenDef.timing}</strong>
+              {language === 'vi' ? 'Thời điểm:' : 'Timing:'} <strong>{tokenDef.timing}</strong>
             </div>
           </div>
 
@@ -95,13 +97,18 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
             <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-2xl text-xs text-blue-950 space-y-1.5">
               <div className="font-bold flex items-center gap-1.5 text-blue-900">
                 <Sparkles size={15} className="text-blue-600" />
-                <span>Kỹ năng: Che Mưa (Tự động kích hoạt)</span>
+                <span>{language === 'vi' ? 'Kỹ năng: Che Mưa (Tự động kích hoạt)' : 'Passive: Rain Shelter (Auto-trigger)'}</span>
               </div>
               <p className="text-gray-600 leading-relaxed">
-                Khi bạn thua Thử thách hoặc chịu tác động từ thẻ Sự kiện xấu (như Bão lũ), hệ thống sẽ hỏi bạn có dùng kỹ năng miễn phạt 01 lần và bảo vệ an toàn kỷ vật của bạn.
+                {language === 'vi' 
+                  ? 'Khi bạn thua Thử thách hoặc chịu tác động từ thẻ Sự kiện xấu (như Bão lũ), hệ thống sẽ hỏi bạn có dùng kỹ năng miễn phạt 01 lần và bảo vệ an toàn kỷ vật của bạn.'
+                  : 'When you fail a challenge or suffer a negative event, you will be prompted to use your 1-time penalty immunity.'}
               </p>
               <div className="text-[11px] font-bold text-blue-800">
-                Trạng thái: {player.tokenSkillAvailable ? '✅ Sẵn sàng sử dụng' : '⏳ Đã sử dụng (Hồi phục ở START/Góc)'}
+                {language === 'vi' ? 'Trạng thái:' : 'Status:'}{' '}
+                {player.tokenSkillAvailable 
+                  ? (language === 'vi' ? '✅ Sẵn sàng sử dụng' : '✅ Ready to use') 
+                  : (language === 'vi' ? '⏳ Đã sử dụng (Hồi phục ở START/Góc)' : '⏳ Used (Restores at START/Corners)')}
               </div>
             </div>
           )}
@@ -110,12 +117,16 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
           {player.token === 'hoa_sen' && (
             <div className="space-y-3">
               <div className="text-xs font-bold text-gray-800 flex items-center justify-between">
-                <span>Chọn 2 thẻ trong túi đồ để đổi ({selectedCardsToDiscard.length}/2):</span>
+                <span>
+                  {language === 'vi' ? `Chọn 2 thẻ trong túi đồ để đổi (${selectedCardsToDiscard.length}/2):` : `Select 2 cards to discard (${selectedCardsToDiscard.length}/2):`}
+                </span>
               </div>
               
               {allHandCards.length < 2 ? (
                 <div className="p-3 bg-amber-50 text-amber-900 text-xs rounded-xl border border-amber-200">
-                  ⚠️ Bạn cần tối thiểu 2 thẻ bài trong túi đồ để kích hoạt kỹ năng Thanh lọc.
+                  {language === 'vi' 
+                    ? '⚠️ Bạn cần tối thiểu 2 thẻ bài trong túi đồ để kích hoạt kỹ năng Thanh lọc.'
+                    : '⚠️ You need at least 2 cards in hand to activate Purification.'}
                 </div>
               ) : (
                 <div className="space-y-1.5 max-h-36 overflow-y-auto">
@@ -139,7 +150,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
               {/* Target Deck selector */}
               <div className="pt-2 border-t border-gray-200">
                 <label className="text-xs font-bold text-gray-700 block mb-1">
-                  Chọn loại thẻ muốn nhận:
+                  {language === 'vi' ? 'Chọn loại thẻ muốn nhận:' : 'Select card type to receive:'}
                 </label>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <button
@@ -150,7 +161,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                         : 'bg-gray-50 text-gray-700 border-gray-200'
                     }`}
                   >
-                    Thẻ Tài Nguyên
+                    {language === 'vi' ? 'Thẻ Tài Nguyên' : 'Resource Card'}
                   </button>
                   <button
                     onClick={() => setTargetDeck('fortune')}
@@ -160,7 +171,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                         : 'bg-gray-50 text-gray-700 border-gray-200'
                     }`}
                   >
-                    Thẻ May Mắn
+                    {language === 'vi' ? 'Thẻ May Mắn' : 'Fortune Card'}
                   </button>
                 </div>
               </div>
@@ -170,7 +181,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                 onClick={() => onActivateLotusSwap(selectedCardsToDiscard, targetDeck)}
                 className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all"
               >
-                Kích Hoạt Thanh Lọc (Đổi Thẻ)
+                {language === 'vi' ? 'Kích Hoạt Thanh Lọc (Đổi Thẻ)' : 'Activate Purification (Swap Cards)'}
               </button>
             </div>
           )}
@@ -180,10 +191,13 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
             <div className="space-y-3">
               <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-950 space-y-1">
                 <span className="font-bold flex items-center gap-1 text-amber-900">
-                  <Eye size={14} className="text-amber-700" /> Kỹ năng: Soi Đường
+                  <Eye size={14} className="text-amber-700" /> 
+                  {language === 'vi' ? 'Kỹ năng: Soi Đường' : 'Skill: Wayfinder (Preview)'}
                 </span>
                 <p className="text-gray-600">
-                  Xem trước đề bài khi vừa chạm ô, được đổi đề 01 lần.
+                  {language === 'vi' 
+                    ? 'Xem trước đề bài khi vừa chạm ô, được đổi đề 01 lần.' 
+                    : 'Preview upcoming question and reroll once if too difficult.'}
                 </p>
               </div>
 
@@ -194,12 +208,12 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                   className="w-full py-2.5 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow flex items-center justify-center gap-1.5"
                 >
                   <Eye size={15} />
-                  <span>Xem Trước Đề Bài Sắp Tới</span>
+                  <span>{language === 'vi' ? 'Xem Trước Đề Bài Sắp Tới' : 'Preview Next Question'}</span>
                 </button>
               ) : (
                 <div className="p-3 bg-white border border-amber-300 rounded-2xl text-xs space-y-2">
                   <div className="font-bold text-[#543310]">
-                    [Xem trước]: {previewCard.title} ({previewCard.province})
+                    [{language === 'vi' ? 'Xem trước' : 'Preview'}]: {previewCard.title} ({previewCard.province})
                   </div>
                   <div className="text-gray-700 italic">
                     "{previewCard.question}"
@@ -209,7 +223,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                       onClick={onActivateLanternRedraw}
                       className="w-full py-2 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1"
                     >
-                      <RefreshCw size={14} /> Đổi sang đề mới
+                      <RefreshCw size={14} /> {language === 'vi' ? 'Đổi sang đề mới' : 'Reroll for New Question'}
                     </button>
                   )}
                 </div>
@@ -222,10 +236,12 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
             <div className="space-y-3">
               <div className="p-3 bg-orange-50 border border-orange-200 rounded-xl text-xs text-orange-950 space-y-1">
                 <span className="font-bold text-orange-900">
-                  Kỹ năng: Tiện Đường (+1 hoặc -1 ô sau khi gieo xúc xắc)
+                  {language === 'vi' ? 'Kỹ năng: Tiện Đường (+1 hoặc -1 ô sau khi gieo xúc xắc)' : 'Skill: On the Way (+/- 1 space after roll)'}
                 </span>
                 <p className="text-gray-600">
-                  Cho phép bạn tiến hoặc lùi 1 ô để né ô có Cột mốc đối thủ, hoặc tiến thẳng vào Trạm góc/Thử thách mong muốn.
+                  {language === 'vi' 
+                    ? 'Cho phép bạn tiến hoặc lùi 1 ô để né ô có Cột mốc đối thủ, hoặc tiến thẳng vào Trạm góc/Thử thách mong muốn.'
+                    : 'Shift 1 space backward or forward to dodge enemy milestones or enter corners.'}
                 </p>
               </div>
 
@@ -236,14 +252,14 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
                   className="py-2.5 px-3 bg-gray-100 hover:bg-orange-100 disabled:opacity-50 text-gray-800 rounded-xl text-xs font-bold border border-gray-300 flex items-center justify-center gap-1.5 shadow-sm"
                 >
                   <ArrowLeft size={15} />
-                  <span>Lùi Lại 1 Ô (-1)</span>
+                  <span>{language === 'vi' ? 'Lùi Lại 1 Ô (-1)' : 'Shift Back (-1)'}</span>
                 </button>
                 <button
                   disabled={!player.tokenSkillAvailable}
                   onClick={() => onActivateBanhMiShift(1)}
                   className="py-2.5 px-3 bg-orange-600 hover:bg-orange-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold border border-orange-600 flex items-center justify-center gap-1.5 shadow-sm"
                 >
-                  <span>Tiến Lên 1 Ô (+1)</span>
+                  <span>{language === 'vi' ? 'Tiến Lên 1 Ô (+1)' : 'Shift Forward (+1)'}</span>
                   <ArrowRight size={15} />
                 </button>
               </div>
@@ -258,7 +274,7 @@ export const TokenSkillModal: React.FC<TokenSkillModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold"
           >
-            Đóng
+            {language === 'vi' ? 'Đóng' : 'Close'}
           </button>
         </div>
 

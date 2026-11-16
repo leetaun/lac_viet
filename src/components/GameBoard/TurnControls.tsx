@@ -52,11 +52,11 @@ export const TurnControls: React.FC<TurnControlsProps> = ({
               ? 'bg-[#FAF6EE] hover:bg-[#F5EFE6] text-[#543310] border-[#C5A059] active:scale-98'
               : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed opacity-60'
           }`}
-          title={tokenDef.description}
+          title={language === 'vi' ? tokenDef.description : (tokenDef.enPassive || tokenDef.description)}
         >
           <Sparkles size={14} className={activePlayer.tokenSkillAvailable ? 'text-[#C5A059]' : 'text-gray-400'} />
           <span className="truncate">
-            {tokenDef.name}: {tokenDef.passive}
+            {language === 'vi' ? tokenDef.name : tokenDef.enName}: {language === 'vi' ? tokenDef.passive : tokenDef.enPassive}
             {activePlayer.tokenSkillAvailable 
               ? '' 
               : (language === 'vi' ? ' (Đã dùng)' : ' (Used)')}

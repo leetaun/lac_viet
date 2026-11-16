@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Player, BoardSpace, ArtifactItem } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { soundManager } from '../../utils/sound';
+import { getArtifactName, getProvinceName } from '../../data/culturalTranslations';
 import { Sparkles, ShoppingBag, RotateCcw, ShieldCheck, Flag, CheckCircle2, ArrowRight, Unlock, Mic } from 'lucide-react';
 
 interface CornerStationModalProps {
@@ -97,15 +98,17 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
         <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-              {isStart ? 'TRẠM KHỞI HÀNH & KHO THẤT LẠC' : 'TRẠM DỪNG CHÂN'}
+              {isStart 
+                ? (language === 'vi' ? 'TRẠM KHỞI HÀNH & KHO THẤT LẠC' : 'START STATION & LOST-AND-FOUND')
+                : (language === 'vi' ? 'TRẠM DỪNG CHÂN' : 'CORNER REST STOP')}
             </span>
             <h2 className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2">
               {isStart ? <Flag size={20} className="text-[#C5A059]" /> : <span>🏛️</span>}
-              <span>{station.name}</span>
+              <span>{language === 'vi' ? station.name : (station.enName || station.name)}</span>
             </h2>
           </div>
           <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-[#C5A059] text-[#1E2538]">
-            Ô #{station.index}
+            {language === 'vi' ? `Ô #${station.index}` : `Space #${station.index}`}
           </span>
         </div>
 
@@ -120,7 +123,10 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
             <div className="p-2.5 bg-emerald-50 border border-emerald-300 rounded-xl text-xs text-emerald-950 flex items-center gap-2">
               <Unlock size={16} className="text-emerald-600 flex-shrink-0" />
               <span>
-                <strong>Đã giải phóng!</strong> {sealedArtifactsCount} kỷ vật phong ấn đã mở khóa!
+                <strong>{language === 'vi' ? 'Đã giải phóng!' : 'Released!'}</strong>{' '}
+                {language === 'vi' 
+                  ? `${sealedArtifactsCount} kỷ vật phong ấn đã mở khóa!` 
+                  : `${sealedArtifactsCount} sealed artifact(s) have been unlocked!`}
               </span>
             </div>
           )}
@@ -185,7 +191,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
             /* 3 Corner Stations: Bac Bo, Trung Bo, Nam Bo */
             <div className="space-y-2 pt-1">
               <div className="text-xs font-bold text-gray-800 mb-1">
-                Chọn 1 trong 4 đặc quyền tại Trạm Dừng Chân:
+                {language === 'vi' ? 'Chọn 1 trong 4 đặc quyền tại Trạm Dừng Chân:' : 'Select 1 of 4 privileges at Corner Rest Stop:'}
               </div>
 
               {/* Option 1: Fortune Card */}
@@ -199,10 +205,10 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                   </div>
                   <div>
                     <div className="font-bold text-xs text-amber-950">
-                      1. Nhận 01 Thẻ May Mắn
+                      {language === 'vi' ? '1. Nhận 01 Thẻ May Mắn' : '1. Draw 1 Fortune Card'}
                     </div>
                     <div className="text-[10px] text-amber-800/80">
-                      Áp dụng ngay hiệu lực thời vận tốt lành
+                      {language === 'vi' ? 'Áp dụng ngay hiệu lực thời vận tốt lành' : 'Immediately triggers favorable fortune'}
                     </div>
                   </div>
                 </div>
@@ -220,10 +226,10 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                   </div>
                   <div>
                     <div className="font-bold text-xs text-emerald-950">
-                      2. Nhận 01 Thẻ Tài Nguyên
+                      {language === 'vi' ? '2. Nhận 01 Thẻ Tài Nguyên' : '2. Draw 1 Resource Card'}
                     </div>
                     <div className="text-[10px] text-emerald-800/80">
-                      Bốc lá chắn, ngựa trạm, nỏ thần hoặc cột mốc
+                      {language === 'vi' ? 'Bốc lá chắn, ngựa trạm, nỏ thần hoặc cột mốc' : 'Shields, courier horses, divine crossbow or milestones'}
                     </div>
                   </div>
                 </div>
@@ -241,10 +247,12 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                   </div>
                   <div>
                     <div className="font-bold text-xs text-blue-950">
-                      3. Hồi Phục Kỹ Năng Token [{tokenDef.name}]
+                      {language === 'vi' 
+                        ? `3. Hồi Phục Kỹ Năng Token [${tokenDef.name}]` 
+                        : `3. Restore Token Skill [${tokenDef.enName}]`}
                     </div>
                     <div className="text-[10px] text-blue-800/80">
-                      Khôi phục trạng thái sẵn sàng sử dụng nội tại
+                      {language === 'vi' ? 'Khôi phục trạng thái sẵn sàng sử dụng nội tại' : 'Refreshes your unique token passive skill'}
                     </div>
                   </div>
                 </div>
@@ -257,7 +265,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                   <div className="flex items-center gap-2">
                     <ShieldCheck size={16} className="text-[#543310]" />
                     <span className="font-bold text-xs text-[#543310]">
-                      4. Ký Gửi Kỷ Vật (Tối đa 02)
+                      {language === 'vi' ? '4. Ký Gửi Kỷ Vật (Tối đa 02)' : '4. Safe Deposit (Max 2)'}
                     </span>
                   </div>
                   <span className="text-[10px] text-gray-500 font-medium">
@@ -266,7 +274,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                 </div>
 
                 <p className="text-[10px] text-gray-600">
-                  Chuyển vào Hòm ký gửi (bảo vệ tuyệt đối).
+                  {language === 'vi' ? 'Chuyển vào Hòm ký gửi (bảo vệ tuyệt đối).' : 'Transfer into safe deposit box (immune to steals).'}
                 </p>
 
                 {pouchArtifacts.length > 0 ? (
@@ -282,7 +290,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                               : 'bg-white text-gray-700 border-gray-300'
                           }`}
                         >
-                          {art.name} ({art.province})
+                          {getArtifactName(art.name, language)} ({getProvinceName(art.province, language)})
                         </button>
                       ))}
                     </div>
@@ -292,12 +300,12 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
                       onClick={() => onSelectOption('safe_deposit', selectedArtifactToDeposit)}
                       className="w-full mt-1.5 py-1.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-lg text-xs font-bold transition-all shadow"
                     >
-                      Ký gửi ({selectedArtifactToDeposit.length})
+                      {language === 'vi' ? `Ký gửi (${selectedArtifactToDeposit.length})` : `Deposit (${selectedArtifactToDeposit.length})`}
                     </button>
                   </div>
                 ) : (
                   <div className="text-[10px] italic text-gray-400">
-                    Tay nải chưa có kỷ vật để ký gửi.
+                    {language === 'vi' ? 'Tay nải chưa có kỷ vật để ký gửi.' : 'No portable artifacts in pouch to deposit.'}
                   </div>
                 )}
               </div>
@@ -313,7 +321,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold"
           >
-            Đóng
+            {language === 'vi' ? 'Đóng' : 'Close'}
           </button>
         </div>
 

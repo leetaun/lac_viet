@@ -1,7 +1,28 @@
-// Web Audio API procedural sound synthesizer for Lạc Việt Boardgame
+// Web Audio API procedural sound synthesizer & BGM Manager for Lạc Việt Boardgame
 class SoundManager {
   private ctx: AudioContext | null = null;
   public enabled: boolean = true;
+  private bgmAudio: HTMLAudioElement | null = null;
+  public isBgmPlaying: boolean = false;
+  private bgmVolume: number = 0.32; // Âm lượng lofi chill vừa phải (32%)
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      this.initBgm();
+      // Kích hoạt phát nhạc khi có tương tác đầu tiên của người chơi (vượt rào cản autoplay trình duyệt)
+      const handleFirstInteraction = () => {
+        if (this.enabled && !this.isBgmPlaying) {
+          this.playBgm();
+        }
+        window.removeEventListener('click', handleFirstInteraction);
+        window.removeEventListener('touchstart', handleFirstInteraction);
+        window.removeEventListener('keydown', handleFirstInteraction);
+      };
+      window.addEventListener('click', handleFirstInteraction, { passive: true });
+      window.addEventListener('touchstart', handleFirstInteraction, { passive: true });
+      window.addEventListener('keydown', handleFirstInteraction, { passive: true });
+    }
+  }
 
   private init() {
     if (!this.ctx && typeof window !== 'undefined') {
@@ -10,6 +31,51 @@ class SoundManager {
     }
     if (this.ctx && this.ctx.state === 'suspended') {
       this.ctx.resume();
+    }
+  }
+
+  private initBgm() {
+    if (!this.bgmAudio && typeof Audio !== 'undefined') {
+      this.bgmAudio = new Audio('/audio/lac-viet-lofi.mp3');
+      this.bgmAudio.loop = true;
+      this.bgmAudio.volume = this.bgmVolume;
+      this.bgmAudio.preload = 'auto';
+    }
+  }
+
+  public playBgm() {
+    if (!this.enabled) return;
+    this.init();
+    this.initBgm();
+    if (this.bgmAudio) {
+      this.bgmAudio.volume = this.bgmVolume;
+      const playPromise = this.bgmAudio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            this.isBgmPlaying = true;
+          })
+          .catch(() => {
+            // Autoplay bị trình duyệt chặn tạm thời cho đến khi click
+            this.isBgmPlaying = false;
+          });
+      }
+    }
+  }
+
+  public pauseBgm() {
+    if (this.bgmAudio) {
+      this.bgmAudio.pause();
+      this.isBgmPlaying = false;
+    }
+  }
+
+  public setSoundEnabled(enabled: boolean) {
+    this.enabled = enabled;
+    if (enabled) {
+      this.playBgm();
+    } else {
+      this.pauseBgm();
     }
   }
 

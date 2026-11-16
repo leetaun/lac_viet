@@ -76,13 +76,15 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
         <div>
           <div className="text-[10px] font-bold uppercase tracking-wider text-[#543310] flex items-center gap-1">
             <BookOpen size={13} className="text-[#C5A059]" />
-            <span>CẨM NANG & LUẬT CHƠI</span>
+            <span>{language === 'vi' ? 'CẨM NANG & LUẬT CHƠI' : 'GUIDEBOOK & RULES'}</span>
           </div>
           <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#543310] mt-0.5">
-            LUẬT CHƠI LẠC VIỆT
+            {language === 'vi' ? 'LUẬT CHƠI LẠC VIỆT' : 'LAC VIET RULEBOOK'}
           </h2>
           <p className="text-xs text-gray-600 mt-1">
-            Quy định luật chơi, 4 bộ thẻ và kỹ năng token.
+            {language === 'vi' 
+              ? 'Quy định luật chơi, 4 bộ thẻ và kỹ năng token.' 
+              : 'Official game rules, 4 card systems, and token abilities.'}
           </p>
         </div>
 
@@ -92,7 +94,7 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
           className="px-3.5 py-2 bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#B89249] hover:to-[#C5A059] text-[#1E2538] font-bold rounded-xl text-xs shadow-sm flex items-center gap-1.5 flex-shrink-0 transition-transform active:scale-95"
         >
           <QrCode size={15} />
-          <span>Mã QR In Bộ Cờ</span>
+          <span>{language === 'vi' ? 'Mã QR In Bộ Cờ' : 'Printable QR Cards'}</span>
         </button>
       </div>
 
@@ -118,7 +120,6 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                   </span>
                 </div>
               </button>
-
             </div>
           );
         })}
@@ -180,7 +181,7 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
         <div className="flex items-center gap-2">
           <Award size={18} className="text-[#C5A059]" />
           <h3 className="font-serif-lacviet font-bold text-base text-[#543310]">
-            THÔNG TIN DỰ ÁN OLYMPIC KHỞI NGHIỆP 2026
+            {language === 'vi' ? 'THÔNG TIN DỰ ÁN OLYMPIC KHỞI NGHIỆP 2026' : 'STARTUP OLYMPIAD 2026 PROJECT INFO'}
           </h3>
         </div>
 
@@ -188,25 +189,27 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
           <div className="p-3 bg-[#FAF6EE] rounded-xl border border-[#C5A059]/30 space-y-1.5">
             <span className="font-bold text-[#543310] flex items-center gap-1">
               <Users size={13} />
-              <span>Đội Ngũ Thực Hiện & Cố Vấn:</span>
+              <span>{language === 'vi' ? 'Đội Ngũ Thực Hiện & Cố Vấn:' : 'Team & Advisors:'}</span>
             </span>
             <ul className="space-y-1 text-gray-700 text-[11px]">
-              <li>• <strong>Người hướng dẫn:</strong> TS. Võ Thị Hồng Hạnh (ĐH Kinh tế Quốc dân)</li>
-              <li>• <strong>Trần Lê Khanh:</strong> Trưởng nhóm, Điều phối chung (NEU)</li>
-              <li>• <strong>Phạm Quỳnh Hương:</strong> Nghiên cứu nội dung & thị trường (FTU)</li>
-              <li>• <strong>Trương Phương Thảo:</strong> Vận hành sản xuất & Thiết kế (NEU)</li>
-              <li>• <strong>Trịnh Thị Ngân:</strong> Marketing, Tài chính - Vận hành (NEU)</li>
-              <li>• <strong>Lê Anh Tuấn:</strong> Kỹ thuật/Công nghệ & Phát triển App (HUST)</li>
+              <li>• <strong>{language === 'vi' ? 'Người hướng dẫn:' : 'Advisor:'}</strong> TS. Võ Thị Hồng Hạnh (ĐH Kinh tế Quốc dân)</li>
+              <li>• <strong>Trần Lê Khanh:</strong> {language === 'vi' ? 'Trưởng nhóm, Điều phối chung (NEU)' : 'Team Leader, Coordinator (NEU)'}</li>
+              <li>• <strong>Phạm Quỳnh Hương:</strong> {language === 'vi' ? 'Nghiên cứu nội dung & thị trường (FTU)' : 'Content & Market Research (FTU)'}</li>
+              <li>• <strong>Trương Phương Thảo:</strong> {language === 'vi' ? 'Vận hành sản xuất & Thiết kế (NEU)' : 'Production & Design (NEU)'}</li>
+              <li>• <strong>Trịnh Thị Ngân:</strong> {language === 'vi' ? 'Marketing, Tài chính - Vận hành (NEU)' : 'Marketing & Finance (NEU)'}</li>
+              <li>• <strong>Lê Anh Tuấn:</strong> {language === 'vi' ? 'Kỹ thuật/Công nghệ & Phát triển App (HUST)' : 'Tech & App Development (HUST)'}</li>
             </ul>
           </div>
 
           <div className="p-3 bg-[#FAF6EE] rounded-xl border border-[#C5A059]/30 space-y-1.5">
             <span className="font-bold text-[#543310] flex items-center gap-1">
               <Recycle size={13} />
-              <span>Kinh Tế Tuần Hoàn & Vật Liệu Tái Chế:</span>
+              <span>{language === 'vi' ? 'Kinh Tế Tuần Hoàn & Vật Liệu Tái Chế:' : 'Circular Economy & Sustainable Materials:'}</span>
             </span>
             <p className="text-[11px] text-gray-700 leading-relaxed">
-              Dự án sử dụng bìa cứng và giấy tái chế gia công bàn cờ & 4 bộ thẻ bài, kết hợp sợi nhựa tái chế công nghệ in 3D cho 4 token biểu tượng văn hóa. Mô hình Phygital kết nối số hóa qua QR Code giúp cập nhật 305+ câu hỏi liên tục mà không cần in lại bộ cờ vật lý!
+              {language === 'vi'
+                ? 'Dự án sử dụng bìa cứng và giấy tái chế gia công bàn cờ & 4 bộ thẻ bài, kết hợp sợi nhựa tái chế công nghệ in 3D cho 4 token biểu tượng văn hóa. Mô hình Phygital kết nối số hóa qua QR Code giúp cập nhật 305+ câu hỏi liên tục mà không cần in lại bộ cờ vật lý!'
+                : 'The project utilizes recycled cardboard and paper for the board and card decks, with 3D-printed tokens using recycled polymer filament. The Phygital QR model dynamically connects over 305+ questions without re-printing physical assets!'}
             </p>
           </div>
         </div>
@@ -219,10 +222,10 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
             <div className="flex items-center justify-between pb-3 border-b border-gray-200">
               <div>
                 <h3 className="font-serif-lacviet text-lg font-bold text-[#543310]">
-                  IN MÃ QR BỘ CỜ LẠC VIỆT
+                  {language === 'vi' ? 'IN MÃ QR BỘ CỜ LẠC VIỆT' : 'PRINT LAC VIET QR CARDS'}
                 </h3>
                 <span className="text-xs text-gray-500">
-                  Mã QR tương thích với bàn cờ và hệ thống thẻ bài vật lý
+                  {language === 'vi' ? 'Mã QR tương thích với bàn cờ và hệ thống thẻ bài vật lý' : 'QR codes matching the physical board and cards'}
                 </span>
               </div>
               <button
@@ -230,14 +233,14 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                 className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow"
               >
                 <Printer size={13} />
-                <span>Mở bản in PDF</span>
+                <span>{language === 'vi' ? 'Mở bản in PDF' : 'Open PDF Sheet'}</span>
               </button>
             </div>
 
             <div className="py-4 overflow-y-auto flex-1">
               {isGenerating ? (
                 <div className="text-center py-8 text-xs text-gray-500">
-                  Đang khởi tạo các mã QR chất lượng cao...
+                  {language === 'vi' ? 'Đang khởi tạo các mã QR chất lượng cao...' : 'Generating high-resolution QR codes...'}
                 </div>
               ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
@@ -245,21 +248,27 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
                     <div key={idx} className="p-2.5 bg-gray-50 rounded-xl border border-gray-200 flex flex-col items-center gap-1.5">
                       <img src={item.qrImg} alt={item.name} className="w-24 h-24 rounded shadow-sm border border-gray-300" />
                       <span className="font-bold text-[11px] text-gray-800 truncate w-full">{item.name}</span>
-                      <a href={item.url} className="text-[10px] text-[#543310] hover:underline" target="_blank" rel="noopener noreferrer">Mở thử</a>
+                      <a href={item.url} className="text-[10px] text-[#543310] hover:underline" target="_blank" rel="noopener noreferrer">
+                        {language === 'vi' ? 'Mở thử' : 'Test link'}
+                      </a>
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            <p className="text-xs text-gray-500">Bốn mã dùng lại cho cả bàn, không phải một mã cho mỗi câu.</p>
-            <a href="/qr/lac-viet-qr-cards-a4.pdf" download className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl text-xs font-bold flex items-center gap-1">Tải PDF 4 thẻ để in A4</a>
+            <p className="text-xs text-gray-500">
+              {language === 'vi' ? 'Bốn mã dùng lại cho cả bàn, không phải một mã cho mỗi câu.' : '4 reusable cards for the entire match, not one QR per question.'}
+            </p>
+            <a href="/qr/lac-viet-qr-cards-a4.pdf" download className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-xl text-xs font-bold flex items-center gap-1">
+              {language === 'vi' ? 'Tải PDF 4 thẻ để in A4' : 'Download 4-Card A4 PDF'}
+            </a>
             <div className="pt-3 border-t border-gray-200 flex justify-end">
               <button
                 onClick={() => setShowQRPrinter(false)}
                 className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded-xl text-xs"
               >
-                Đóng
+                {language === 'vi' ? 'Đóng' : 'Close'}
               </button>
             </div>
           </div>

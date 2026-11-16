@@ -10,7 +10,7 @@ export interface RuleChoice {
 }
 
 // Uses the same modal, option and footer button classes as CornerStationModal.
-export function RuleChoiceModal({ choice, onConfirm }: { choice: RuleChoice; onConfirm: (ids: string[]) => void }) {
+export function RuleChoiceModal({ choice, onConfirm, language = 'vi' }: { choice: RuleChoice; onConfirm: (ids: string[]) => void; language?: 'vi' | 'en' }) {
   const [selected, setSelected] = useState<string[]>([]);
   const dialog = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -37,8 +37,12 @@ export function RuleChoiceModal({ choice, onConfirm }: { choice: RuleChoice; onC
           </button>)}
         </div>
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-          <span className="text-xs text-gray-500 font-medium">Đã chọn {selected.length}/{choice.max}</span>
-          <button type="button" disabled={selected.length < choice.min || selected.length > choice.max} onClick={() => onConfirm(selected)} className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2 disabled:opacity-50">Xác nhận</button>
+          <span className="text-xs text-gray-500 font-medium">
+            {language === 'vi' ? `Đã chọn ${selected.length}/${choice.max}` : `Selected ${selected.length}/${choice.max}`}
+          </span>
+          <button type="button" disabled={selected.length < choice.min || selected.length > choice.max} onClick={() => onConfirm(selected)} className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2 disabled:opacity-50">
+            {language === 'vi' ? 'Xác nhận' : 'Confirm'}
+          </button>
         </div>
       </div>
     </div>

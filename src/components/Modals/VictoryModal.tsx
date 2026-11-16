@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { Player } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
+import { getArtifactName, getProvinceName } from '../../data/culturalTranslations';
 import { soundManager } from '../../utils/sound';
 import { generateQRCode } from '../../utils/qrcode';
 import { Trophy, Award, Sparkles, RotateCcw, BookOpen, QrCode, Mic, Download } from 'lucide-react';
@@ -69,10 +70,10 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
     journalUrl(journalPlayer).then(generateQRCode).then(url=>{
       if(cancelled)return;
       if(url)setJournalQrUrl(url);
-      else setJournalError('Sổ dài hơn dung lượng mã QR. Bạn vẫn có thể tải đầy đủ bằng nút bên dưới.');
-    }).catch(()=>{if(!cancelled)setJournalError('Không tạo được mã QR. Bạn có thể tải Sổ hành trình bên dưới.');});
+      else setJournalError(language === 'vi' ? 'Sổ dài hơn dung lượng mã QR. Bạn vẫn có thể tải đầy đủ bằng nút bên dưới.' : 'Journal exceeds QR code limit. You can still download the full file below.');
+    }).catch(()=>{if(!cancelled)setJournalError(language === 'vi' ? 'Không tạo được mã QR. Bạn có thể tải Sổ hành trình bên dưới.' : 'Failed to generate QR code. You can download the Journal below.');});
     return()=>{cancelled=true;};
-  }, [journalPlayer]);
+  }, [journalPlayer, language]);
 
   const sortedPlayers = timedRanking(players);
 
@@ -91,16 +92,16 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           </div>
 
           <span className="text-[11px] uppercase tracking-widest text-[#F5E5BE] font-bold">
-            VINH QUY BÁI TỔ · LẠC VIỆT
+            {language === 'vi' ? 'VINH QUY BÁI TỔ · LẠC VIỆT' : 'TRIUMPHANT RETURN · LAC VIET'}
           </span>
           <h2 className="font-serif-lacviet text-2xl sm:text-3xl font-bold mt-1 text-white">
-            {winner.name} CHIẾN THẮNG!
+            {winner.name} {language === 'vi' ? 'CHIẾN THẮNG!' : 'WINS!'}
           </h2>
 
           <div className="flex items-center justify-center gap-2 mt-2 text-xs text-[#F5E5BE]">
-            <span>{tokenDef.icon} {tokenDef.name}</span>
+            <span>{tokenDef.icon} {language === 'vi' ? tokenDef.name : (tokenDef.enName || tokenDef.name)}</span>
             <span>•</span>
-            <span>Đủ 3 miền & Về đích START</span>
+            <span>{language === 'vi' ? 'Đủ 3 miền & Về đích START' : 'All 3 Regions & Reached START'}</span>
           </div>
         </div>
 
@@ -110,8 +111,8 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           {/* Winner Artifacts Showcase */}
           <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2">
             <div className="text-xs font-bold text-[#543310] flex items-center justify-between">
-              <span>BỘ SƯU TẬP KỶ VẬT:</span>
-              <span>{winnerValidArtifacts.length} món</span>
+              <span>{language === 'vi' ? 'BỘ SƯU TẬP KỶ VẬT:' : 'ARTIFACT COLLECTION:'}</span>
+              <span>{winnerValidArtifacts.length} {language === 'vi' ? 'món' : 'items'}</span>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -120,7 +121,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
                   key={art.id}
                   className="px-2 py-1 rounded-lg bg-white border border-[#C5A059]/40 text-xs font-medium text-gray-800 shadow-sm"
                 >
-                  {art.isTreasure ? '⭐ ' : '• '}{art.name} <span className="text-[10px] text-gray-400">({art.province})</span>
+                  {art.isTreasure ? '⭐ ' : '• '}{getArtifactName(art.name, language)} <span className="text-[10px] text-gray-400">({getProvinceName(art.province, language)})</span>
                 </span>
               ))}
             </div>
@@ -129,7 +130,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           {/* Hall of Fame Ranking */}
           <div className="space-y-2">
             <div className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Bảng Vàng Thành Tích Toàn Trận
+              {language === 'vi' ? 'Bảng Vàng Thành Tích Toàn Trận' : 'Final Hall of Fame Rankings'}
             </div>
 
             <div className="space-y-1.5">
@@ -159,10 +160,10 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
 
                     <div className="flex items-center gap-3 text-xs">
                       <span className="text-[#543310] font-bold">
-                        {totalArt}/{artifactGoal} Kỷ vật
+                        {totalArt}/{artifactGoal} {language === 'vi' ? 'Kỷ vật' : 'Artifacts'}
                       </span>
                       <span className="text-gray-400 font-normal">
-                        ({player.score}đ)
+                        ({player.score}{language === 'vi' ? 'đ' : ' pts'})
                       </span>
                     </div>
                   </div>
@@ -175,22 +176,26 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           <div className="bg-blue-50/70 p-3 rounded-2xl border border-blue-200 space-y-1.5 text-xs text-blue-950">
             <div className="flex items-center justify-between">
               <span className="font-bold flex items-center gap-1.5 text-blue-900">
-                <Mic size={14} className="text-blue-700" /> PHÚT KỂ CHUYỆN (3 PHÚT)
+                <Mic size={14} className="text-blue-700" /> {language === 'vi' ? 'PHÚT KỂ CHUYỆN (3 PHÚT)' : 'STORYTELLING MINUTE (3 MINS)'}
               </span>
               <button
                 onClick={() => setShowStoryMinute(!showStoryMinute)}
                 className="text-[11px] font-bold text-blue-700 hover:underline"
               >
-                {showStoryMinute ? 'Thu gọn' : 'Xem gợi ý'}
+                {showStoryMinute ? (language === 'vi' ? 'Thu gọn' : 'Collapse') : (language === 'vi' ? 'Xem gợi ý' : 'Show tips')}
               </button>
             </div>
             {showStoryMinute ? (
               <p className="text-gray-700 leading-relaxed pt-1">
-                Mỗi người chơi lần lượt chia sẻ 1 điều bất ngờ hoặc câu chuyện về kỷ vật tâm đắc nhất mang về đích.
+                {language === 'vi'
+                  ? 'Mỗi người chơi lần lượt chia sẻ 1 điều bất ngờ hoặc câu chuyện về kỷ vật tâm đắc nhất mang về đích.'
+                  : 'Each player takes turns sharing 1 surprising discovery or favorite artifact brought to the finish line.'}
               </p>
             ) : (
               <p className="text-gray-600">
-                Mỗi người chơi chia sẻ 1 điều tâm đắc sau hành trình.
+                {language === 'vi'
+                  ? 'Mỗi người chơi chia sẻ 1 điều tâm đắc sau hành trình.'
+                  : 'Each player shares 1 memorable experience from the journey.'}
               </p>
             )}
           </div>
@@ -199,14 +204,16 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
           {showJournalQR && (
             <div className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center space-y-2 animate-fade-in">
               <span className="font-bold text-xs text-[#543310] block">
-                MÃ QR SỔ HÀNH TRÌNH VĂN HÓA
+                {language === 'vi' ? 'MÃ QR SỔ HÀNH TRÌNH VĂN HÓA' : 'CULTURAL TRAVEL JOURNAL QR'}
               </span>
-              <select aria-label="Sổ hành trình của người chơi" value={journalPlayerId} onChange={event=>setJournalPlayerId(event.target.value)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{players.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select>
+              <select aria-label={language === 'vi' ? "Sổ hành trình của người chơi" : "Player's travel journal"} value={journalPlayerId} onChange={event=>setJournalPlayerId(event.target.value)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{players.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select>
               {journalError && <p className="text-xs text-gray-500">{journalError}</p>}
-              <button type="button" onClick={()=>downloadJournal(journalPlayer)} className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">Tải Sổ hành trình</button>
+              <button type="button" onClick={()=>downloadJournal(journalPlayer)} className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">{language === 'vi' ? 'Tải Sổ hành trình' : 'Download Travel Journal'}</button>
               {journalQrUrl && <img src={journalQrUrl} alt="Journey QR" className="w-28 h-28 mx-auto rounded-lg border border-gray-200" />}
               <p className="text-[11px] text-gray-500">
-                Quét mã để lưu lại toàn bộ kỷ vật và tri thức vào điện thoại!
+                {language === 'vi'
+                  ? 'Quét mã để lưu lại toàn bộ kỷ vật và tri thức vào điện thoại!'
+                  : 'Scan QR to save all artifacts and knowledge to your mobile!'}
               </p>
             </div>
           )}
@@ -219,7 +226,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
             className="px-3 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-bold border border-gray-300 flex items-center gap-1.5 transition-all"
           >
             <QrCode size={14} className="text-[#543310]" />
-            <span>Sổ hành trình</span>
+            <span>{language === 'vi' ? 'Sổ hành trình' : 'Travel Journal'}</span>
           </button>
 
           <button
@@ -227,7 +234,7 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
             className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
           >
             <RotateCcw size={15} />
-            <span>Ván Mới</span>
+            <span>{language === 'vi' ? 'Ván Mới' : 'New Game'}</span>
           </button>
         </div>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PROVINCES_DATA, ProvinceInfo } from '../../data/provinces';
+import { getProvinceData, getArtifactName } from '../../data/culturalTranslations';
 import { generateQRCode } from '../../utils/qrcode';
 import { Search, MapPin, Sparkles, BookOpen, ShoppingBag, Swords, QrCode, X, Filter, Trophy } from 'lucide-react';
 
@@ -48,6 +49,22 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
     }
   };
 
+  const getTileBadgeLabel = (type: string) => {
+    if (language === 'vi') return type;
+    switch (type) {
+      case 'Kiến thức':
+        return 'Knowledge';
+      case 'Lễ hội':
+        return 'Festival';
+      case 'Thị trường':
+        return 'Market';
+      case 'Thử thách':
+        return 'Challenge';
+      default:
+        return type;
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-3 sm:p-4 pb-24 space-y-4">
       
@@ -55,10 +72,12 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/40 shadow-sm">
         <h2 className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#543310] flex items-center gap-2">
           <span>🗺️</span>
-          <span>BẢN ĐỒ 36 ĐỊA PHƯƠNG</span>
+          <span>{language === 'vi' ? 'BẢN ĐỒ 36 ĐỊA PHƯƠNG' : 'MAP OF 36 PROVINCES'}</span>
         </h2>
         <p className="text-xs text-gray-600 mt-1">
-          36 địa phương trên 3 miền: 15 Bắc Bộ · 13 Trung Bộ · 8 Nam Bộ.
+          {language === 'vi' 
+            ? '36 địa phương trên 3 miền: 15 Bắc Bộ · 13 Trung Bộ · 8 Nam Bộ.' 
+            : '36 provinces across 3 regions: 15 North · 13 Central · 8 South.'}
         </p>
 
         {/* Search & Filters */}
@@ -70,7 +89,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Tìm tỉnh thành, di sản..."
+              placeholder={language === 'vi' ? 'Tìm tỉnh thành, di sản...' : 'Search province, heritage...'}
               className="w-full pl-9 pr-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-[#C5A059]"
             />
           </div>
@@ -83,7 +102,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'all' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Tất cả (36)
+              {language === 'vi' ? 'Tất cả' : 'All'} (36)
             </button>
             <button
               onClick={() => setSelectedRegion('bac_bo')}
@@ -91,7 +110,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'bac_bo' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Bắc Bộ ({countBac})
+              {language === 'vi' ? 'Bắc Bộ' : 'North'} ({countBac})
             </button>
             <button
               onClick={() => setSelectedRegion('trung_bo')}
@@ -99,7 +118,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'trung_bo' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Trung Bộ ({countTrung})
+              {language === 'vi' ? 'Trung Bộ' : 'Central'} ({countTrung})
             </button>
             <button
               onClick={() => setSelectedRegion('nam_bo')}
@@ -107,7 +126,7 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
                 selectedRegion === 'nam_bo' ? 'bg-[#543310] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Nam Bộ ({countNam})
+              {language === 'vi' ? 'Nam Bộ' : 'South'} ({countNam})
             </button>
           </div>
         </div>
@@ -115,134 +134,151 @@ export const CulturalMapTab: React.FC<CulturalMapTabProps> = ({ language }) => {
 
       {/* Grid of Provinces */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {filteredProvinces.map((province, idx) => (
-          <div
-            key={province.id}
-            onClick={() => handleSelectProvince(province)}
-            style={{ animationDelay: `${(idx % 12) * 40}ms` }}
-            className="animate-stagger-item bg-white p-3.5 rounded-2xl border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 space-y-2 group"
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-serif-lacviet font-bold text-gray-900 text-sm group-hover:text-[#543310] transition-colors">
-                {province.name}
-              </span>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getTileBadgeStyle(province.tileType)}`}>
-                {province.tileType}
-              </span>
-            </div>
+        {filteredProvinces.map((province, idx) => {
+          const pData = getProvinceData(province, language);
+          return (
+            <div
+              key={province.id}
+              onClick={() => handleSelectProvince(province)}
+              style={{ animationDelay: `${(idx % 12) * 40}ms` }}
+              className="animate-stagger-item bg-white p-3.5 rounded-2xl border border-gray-200 hover:border-[#C5A059] shadow-sm hover:shadow-md cursor-pointer transition-all duration-200 space-y-2 group"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-serif-lacviet font-bold text-gray-900 text-sm group-hover:text-[#543310] transition-colors">
+                  {pData.name}
+                </span>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${getTileBadgeStyle(province.tileType)}`}>
+                  {getTileBadgeLabel(province.tileType)}
+                </span>
+              </div>
 
-            <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
-              {province.heritage}
-            </p>
+              <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed">
+                {pData.heritage}
+              </p>
 
-            <div className="pt-1 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
-              <span className="truncate max-w-[170px]">
-                🌾 {province.specialty.split(',')[0]}
-              </span>
-              <span className="text-[#543310] font-bold group-hover:underline">
-                Chi tiết →
-              </span>
+              <div className="pt-1 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
+                <span className="truncate max-w-[170px]">
+                  🌾 {pData.specialty.split(',')[0]}
+                </span>
+                <span className="text-[#543310] font-bold group-hover:underline">
+                  {language === 'vi' ? 'Chi tiết →' : 'Details →'}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Province Detail Modal with Artifacts, Market Quiz, Festivals */}
-      {selectedProvince && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
-          <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] max-h-[90vh] flex flex-col animate-modal-pop">
-            
-            {/* Modal Header */}
-            <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
-                  {selectedProvince.regionName} · Ô {selectedProvince.tileType}
-                </span>
-                <h3 className="font-serif-lacviet text-xl font-bold">
-                  {selectedProvince.name}
-                </h3>
-              </div>
-              <button
-                onClick={() => setSelectedProvince(null)}
-                className="p-1 rounded-full text-white/70 hover:text-white"
-              >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs text-gray-700">
+      {selectedProvince && (() => {
+        const pData = getProvinceData(selectedProvince, language);
+        return (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
+            <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] max-h-[90vh] flex flex-col animate-modal-pop">
               
-              {/* Heritage Description */}
-              <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 leading-relaxed">
-                <span className="font-bold text-[#543310] block mb-1">🏛️ Di sản tiêu biểu:</span>
-                <p className="text-gray-800">{selectedProvince.heritage}</p>
-                <p className="text-gray-600 mt-1">{selectedProvince.description}</p>
+              {/* Modal Header */}
+              <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#F5E5BE]">
+                    {pData.regionName} · {language === 'vi' ? `Ô ${selectedProvince.tileType}` : `${getTileBadgeLabel(selectedProvince.tileType)} Space`}
+                  </span>
+                  <h3 className="font-serif-lacviet text-xl font-bold">
+                    {pData.name}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => setSelectedProvince(null)}
+                  className="p-1 rounded-full text-white/70 hover:text-white"
+                >
+                  <X size={20} />
+                </button>
               </div>
 
-              {/* 3 Digital Artifacts (2 regular, 1 treasure) */}
-              <div className="p-3 bg-amber-50/70 rounded-xl border border-amber-200/70 space-y-1.5">
-                <span className="font-bold text-amber-950 flex items-center gap-1">
-                  <Trophy size={14} className="text-amber-700" /> KHO KỶ VẬT CỦA TỈNH:
-                </span>
-                <div className="space-y-1">
-                  {selectedProvince.artifacts.regular.map((art, i) => (
-                    <div key={i} className="flex items-center gap-1.5 text-gray-800 bg-white p-1.5 rounded-lg border border-amber-100">
-                      <span>• {art}</span>
-                      <span className="text-[10px] text-gray-400">(Kỷ vật thường)</span>
+              {/* Modal Content */}
+              <div className="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs text-gray-700">
+                
+                {/* Heritage Description */}
+                <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 leading-relaxed">
+                  <span className="font-bold text-[#543310] block mb-1">
+                    {language === 'vi' ? '🏛️ Di sản tiêu biểu:' : '🏛️ Notable Heritage:'}
+                  </span>
+                  <p className="text-gray-800">{pData.heritage}</p>
+                  <p className="text-gray-600 mt-1">{pData.description}</p>
+                </div>
+
+                {/* 3 Digital Artifacts (2 regular, 1 treasure) */}
+                <div className="p-3 bg-amber-50/70 rounded-xl border border-amber-200/70 space-y-1.5">
+                  <span className="font-bold text-amber-950 flex items-center gap-1">
+                    <Trophy size={14} className="text-amber-700" /> 
+                    {language === 'vi' ? 'KHO KỶ VẬT CỦA TỈNH:' : 'PROVINCIAL ARTIFACT VAULT:'}
+                  </span>
+                  <div className="space-y-1">
+                    {selectedProvince.artifacts.regular.map((art, i) => (
+                      <div key={i} className="flex items-center gap-1.5 text-gray-800 bg-white p-1.5 rounded-lg border border-amber-100">
+                        <span>• {getArtifactName(art, language)}</span>
+                        <span className="text-[10px] text-gray-400">
+                          {language === 'vi' ? '(Kỷ vật thường)' : '(Common Artifact)'}
+                        </span>
+                      </div>
+                    ))}
+                    <div className="flex items-center justify-between text-amber-950 font-bold bg-amber-100/70 p-1.5 rounded-lg border border-amber-300">
+                      <span>⭐ {getArtifactName(selectedProvince.artifacts.treasure, language)}</span>
+                      <span className="text-[10px] bg-amber-200 px-1 rounded font-bold">
+                        {language === 'vi' ? 'BẢO VẬT' : 'TREASURE'}
+                      </span>
                     </div>
-                  ))}
-                  <div className="flex items-center justify-between text-amber-950 font-bold bg-amber-100/70 p-1.5 rounded-lg border border-amber-300">
-                    <span>⭐ {selectedProvince.artifacts.treasure}</span>
-                    <span className="text-[10px] bg-amber-200 px-1 rounded font-bold">BẢO VẬT</span>
                   </div>
                 </div>
-              </div>
 
-              {/* Specialty & Market Quiz */}
-              <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/70 space-y-1">
-                <span className="font-bold text-emerald-950 flex items-center gap-1">
-                  <ShoppingBag size={14} className="text-emerald-700" /> ĐẶC SẢN & PHIÊN CHỢ:
-                </span>
-                <p className="text-gray-700">{selectedProvince.specialty}</p>
-                <div className="text-[11px] text-emerald-900 bg-white p-2 rounded-lg border border-emerald-200 mt-1">
-                  <strong>Đặc sản đấu giá: </strong> {selectedProvince.marketQuiz.item}
-                  <div className="text-gray-500 italic mt-0.5">{selectedProvince.marketQuiz.marketHint}</div>
-                </div>
-              </div>
-
-              {/* Festivals */}
-              <div className="p-3 bg-rose-50/60 rounded-xl border border-rose-200/70 space-y-1">
-                <span className="font-bold text-rose-950 flex items-center gap-1">
-                  <Sparkles size={14} className="text-rose-700" /> LỄ HỘI TRUYỀN THỐNG:
-                </span>
-                <p className="text-gray-700">{selectedProvince.festivals.join(' • ')}</p>
-              </div>
-
-              {/* QR Code Deep Dive */}
-              {qrCodeUrl && (
-                <div className="text-center pt-2 border-t border-gray-100">
-                  <img src={qrCodeUrl} alt="QR" className="w-24 h-24 mx-auto rounded-lg border border-gray-200" />
-                  <span className="text-[10px] text-gray-400 mt-1 block">
-                    Quét QR trên điện thoại để xem dữ liệu văn hóa mở rộng
+                {/* Specialty & Market Quiz */}
+                <div className="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200/70 space-y-1">
+                  <span className="font-bold text-emerald-950 flex items-center gap-1">
+                    <ShoppingBag size={14} className="text-emerald-700" /> 
+                    {language === 'vi' ? 'ĐẶC SẢN & PHIÊN CHỢ:' : 'SPECIALTY & MARKET AUCTION:'}
                   </span>
+                  <p className="text-gray-700">{pData.specialty}</p>
+                  <div className="text-[11px] text-emerald-900 bg-white p-2 rounded-lg border border-emerald-200 mt-1">
+                    <strong>{language === 'vi' ? 'Đặc sản đấu giá:' : 'Auction item:'} </strong> {pData.marketItem}
+                    <div className="text-gray-500 italic mt-0.5">{pData.marketHint}</div>
+                  </div>
                 </div>
-              )}
-            </div>
 
-            {/* Modal Footer */}
-            <div className="p-3 bg-gray-50 border-t border-gray-200 flex justify-end">
-              <button
-                onClick={() => setSelectedProvince(null)}
-                className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold"
-              >
-                Đóng
-              </button>
-            </div>
+                {/* Festivals */}
+                <div className="p-3 bg-rose-50/60 rounded-xl border border-rose-200/70 space-y-1">
+                  <span className="font-bold text-rose-950 flex items-center gap-1">
+                    <Sparkles size={14} className="text-rose-700" /> 
+                    {language === 'vi' ? 'LỄ HỘI TRUYỀN THỐNG:' : 'TRADITIONAL FESTIVALS:'}
+                  </span>
+                  <p className="text-gray-700">{pData.festivals.join(' • ')}</p>
+                </div>
 
+                {/* QR Code Deep Dive */}
+                {qrCodeUrl && (
+                  <div className="text-center pt-2 border-t border-gray-100">
+                    <img src={qrCodeUrl} alt="QR" className="w-24 h-24 mx-auto rounded-lg border border-gray-200" />
+                    <span className="text-[10px] text-gray-400 mt-1 block">
+                      {language === 'vi' 
+                        ? 'Quét QR trên điện thoại để xem dữ liệu văn hóa mở rộng' 
+                        : 'Scan QR on phone to explore digital heritage archives'}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-3 bg-gray-50 border-t border-gray-200 flex justify-end">
+                <button
+                  onClick={() => setSelectedProvince(null)}
+                  className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-xs font-semibold"
+                >
+                  {language === 'vi' ? 'Đóng' : 'Close'}
+                </button>
+              </div>
+
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
     </div>
   );

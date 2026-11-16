@@ -54,10 +54,10 @@ export function useHostQR(controller: any, enabled: boolean) {
   const active=enabled&&!!identity&&identity.sessionId===controller.gameState.sessionId;
   return { code:active?identity.code:null,create,creating,error,remoteAnswer,active };
 }
-export function HostQRPanel({host}:{host:ReturnType<typeof useHostQR>}) {
+export function HostQRPanel({host, language = 'vi'}:{host:ReturnType<typeof useHostQR>; language?: 'vi' | 'en'}) {
   return <div className="p-3 rounded-xl bg-[#FAF6EE] border border-[#C5A059]/30 text-xs space-y-2">
-    {host.code?<><p className="font-bold text-[#543310]">Mã phòng: <span className="text-base select-text">{host.code}</span></p><p>Điện thoại quét thẻ QR, nhập mã này để gửi kết quả về máy.</p></>:<button type="button" className={button} disabled={host.creating} onClick={host.create}>{host.creating?'Đang tạo phòng…':'Kết nối điện thoại'}</button>}
-    {host.error&&<><p role="alert" className="text-amber-800">{host.error}</p>{host.code&&<button className={button} onClick={host.create} disabled={host.creating}>Tạo lại phòng</button>}</>}
+    {host.code?<><p className="font-bold text-[#543310]">{language === 'vi' ? 'Mã phòng: ' : 'Room code: '}<span className="text-base select-text">{host.code}</span></p><p>{language === 'vi' ? 'Điện thoại quét thẻ QR, nhập mã này để gửi kết quả về máy.' : 'Mobile scans the QR card and enters this code to submit answers to this screen.'}</p></>:<button type="button" className={button} disabled={host.creating} onClick={host.create}>{host.creating?(language === 'vi' ? 'Đang tạo phòng…' : 'Creating room…'):(language === 'vi' ? 'Kết nối điện thoại' : 'Connect mobile')}</button>}
+    {host.error&&<><p role="alert" className="text-amber-800">{host.error}</p>{host.code&&<button className={button} onClick={host.create} disabled={host.creating}>{language === 'vi' ? 'Tạo lại phòng' : 'Recreate room'}</button>}</>}
   </div>;
 }
 export function RemoteQRPhone({kind,onPractice}:{kind:PhysicalCardKind;onPractice:()=>void}) {

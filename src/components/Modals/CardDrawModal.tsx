@@ -1,4 +1,5 @@
 import { topicName } from '../../engine/content';
+import { getProvinceName, getArtifactName } from '../../data/culturalTranslations';
 import { DIFFICULTY_LABELS } from '../../data/questionBank';
 import { pouchCards } from '../../engine/rules';
 import React, { useState, useEffect } from 'react';
@@ -363,13 +364,13 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
         }`}>
           <div>
             <div className="text-[10px] font-bold uppercase tracking-widest text-[#F5E5BE] flex items-center gap-1.5">
-              <span>{card.type === 'knowledge' ? '📖 Ô KIẾN THỨC' :
-                     card.type === 'fortune' ? '🌾 Ô LỄ HỘI' :
-                     card.type === 'resource' ? '🛒 Ô THỊ TRƯỜNG' :
-                     '⚔️ Ô THỬ THÁCH ĐỊA PHƯƠNG'}</span>
+              <span>{card.type === 'knowledge' ? (language === 'vi' ? '📖 Ô KIẾN THỨC' : '📖 KNOWLEDGE SPACE') :
+                     card.type === 'fortune' ? (language === 'vi' ? '🌾 Ô LỄ HỘI' : '🌾 FESTIVAL SPACE') :
+                     card.type === 'resource' ? (language === 'vi' ? '🛒 Ô THỊ TRƯỜNG' : '🛒 MARKET SPACE') :
+                     (language === 'vi' ? '⚔️ Ô THỬ THÁCH ĐỊA PHƯƠNG' : '⚔️ REGIONAL CHALLENGE')}</span>
               <span>•</span>
               <span className="bg-white/20 px-1.5 py-0.5 rounded text-[9px]">
-                {'province' in card ? card.province : 'Toàn quốc'}
+                {'province' in card && card.province ? getProvinceName(card.province, language) : (language === 'vi' ? 'Toàn quốc' : 'National')}
               </span>
             </div>
             <h2 className="font-serif-lacviet text-lg sm:text-xl font-bold mt-0.5">
@@ -392,7 +393,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
             <button
               onClick={() => setShowQR(!showQR)}
               className="p-2 bg-white/20 hover:bg-white/30 rounded-xl transition-colors text-white"
-              title="Quét QR xem tư liệu chuyên sâu trên máy cá nhân"
+              title={language === 'vi' ? 'Quét QR xem tư liệu chuyên sâu trên máy cá nhân' : 'Scan QR for digital source on mobile'}
             >
               <QrCode size={18} />
             </button>
@@ -407,11 +408,11 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
           {showQR && qrDataUrl && (
             <div className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center flex flex-col items-center gap-2 animate-fade-in">
               <span className="text-xs font-bold text-[#543310] flex items-center gap-1">
-                <QrCode size={15} /> TƯ LIỆU MỞ RỘNG (QR)
+                <QrCode size={15} /> {language === 'vi' ? 'TƯ LIỆU MỞ RỘNG (QR)' : 'DIGITAL ARCHIVE (QR)'}
               </span>
               <img src={qrDataUrl} alt="QR Code" className="w-32 h-32 rounded-xl shadow-sm border border-gray-200" />
               <p className="text-[11px] text-gray-600 max-w-xs leading-relaxed">
-                Quét mã để xem tư liệu lịch sử chi tiết trên điện thoại.
+                {language === 'vi' ? 'Quét mã để xem tư liệu lịch sử chi tiết trên điện thoại.' : 'Scan QR code to view detailed historical archives on mobile.'}
               </p>
             </div>
           )}
@@ -424,7 +425,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                 <div className="bg-[#FAF6EE] border border-[#C5A059]/40 p-2.5 rounded-xl flex items-center justify-between text-xs">
                   <div className="flex items-center gap-1 text-gray-700">
                     <BookOpen size={14} className="text-[#543310]" />
-                    <span>Bí kíp: <strong>{player.biKipCards.length}</strong></span>
+                    <span>{language === 'vi' ? 'Bí kíp:' : 'Bi Kip:'} <strong>{player.biKipCards.length}</strong></span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     {player.biKipCards.length >= 1 && !helperUsed && !askingFriend && eliminatedOptions.length === 0 && (
@@ -432,16 +433,20 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                         onClick={handleEliminateTwoOptions}
                         className="px-2 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-[11px] font-bold border border-amber-300"
                       >
-                        1 BK: Loại 2 đáp án
+                        {language === 'vi' ? '1 BK: Loại 2 đáp án' : '1 BK: 50/50'}
                       </button>
                     )}
-                    {!helperUsed && player.biKipCards.length >= 1 && onAskFriend && <button disabled={askingFriend} onClick={askFriend} className="px-2 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-[11px] font-bold border border-amber-300">1 BK: Hỏi bạn</button>}
+                    {!helperUsed && player.biKipCards.length >= 1 && onAskFriend && (
+                      <button disabled={askingFriend} onClick={askFriend} className="px-2 py-1 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-lg text-[11px] font-bold border border-amber-300">
+                        {language === 'vi' ? '1 BK: Hỏi bạn' : '1 BK: Ask friend'}
+                      </button>
+                    )}
                     {!helperUsed && player.biKipCards.length >= 3 && (
                       <button
                         onClick={handleCoCongMaiSat}
                         className="px-2 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold shadow"
                       >
-                        3 BK: Có công mài sắt
+                        {language === 'vi' ? '3 BK: Có công mài sắt' : '3 BK: Instant pass'}
                       </button>
                     )}
                   </div>
@@ -451,8 +456,8 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
               {/* Part 1: Task (Nhiệm vụ) */}
               <div className="bg-blue-50/70 border border-blue-200 p-3.5 rounded-2xl">
                 <div className="text-[10px] font-bold text-blue-900 uppercase tracking-wider mb-1 flex items-center justify-between">
-                  <span>PHẦN 1: NHIỆM VỤ (ĐỌC TO CHO CẢ BÀN)</span>
-                  <span className="text-blue-700 lowercase font-medium">Chủ đề: {topicName(card.topic)}</span>
+                  <span>{language === 'vi' ? 'PHẦN 1: NHIỆM VỤ (ĐỌC TO CHO CẢ BÀN)' : 'PART 1: TASK (READ ALOUD TO ALL)'}</span>
+                  <span className="text-blue-700 font-medium">{language === 'vi' ? 'Chủ đề:' : 'Topic:'} {topicName(card.topic, language)}</span>
                 </div>
                 <div className="text-sm font-bold text-gray-900 leading-snug">
                   {card.question}
@@ -510,26 +515,28 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                     {isCorrect ? (
                       <>
                         <Trophy size={16} className="text-amber-600 flex-shrink-0" />
-                        <span>CHÍNH XÁC! +1 Kỷ vật ({card.province})</span>
+                        <span>{language === 'vi' ? `CHÍNH XÁC! +1 Kỷ vật (${card.province})` : `CORRECT! +1 Artifact (${getProvinceName(card.province, 'en')})`}</span>
                       </>
                     ) : (
                       <>
                         <BookOpen size={16} className="text-[#543310] flex-shrink-0" />
-                        <span>HỌC TỪ CÁI SAI! Nhận 01 Bí kíp ({topicName(card.topic)})</span>
+                        <span>{language === 'vi' ? `HỌC TỪ CÁI SAI! Nhận 01 Bí kíp (${topicName(card.topic, 'vi')})` : `LEARN FROM ERROR! Received 1 Bi Kip scroll (${topicName(card.topic, 'en')})`}</span>
                       </>
                     )}
                   </div>
 
                   {/* Part 2: Did You Know (Bạn có biết) */}
                   <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 text-xs text-gray-800 leading-relaxed">
-                    <span className="font-bold text-[#543310] block mb-0.5">💡 Bạn có biết?</span>
+                    <span className="font-bold text-[#543310] block mb-0.5">
+                      {language === 'vi' ? '💡 Bạn có biết?' : '💡 Did you know?'}
+                    </span>
                     {card.didYouKnow || card.description}
                   </div>
 
                   {/* Part 3: Citation (Dẫn chứng) */}
                   {card.citation && (
                     <div className="text-[11px] text-gray-500 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                      <strong>📜 Nguồn: </strong> {card.citation}
+                      <strong>{language === 'vi' ? '📜 Nguồn: ' : '📜 Source: '}</strong> {card.citation}
                     </div>
                   )}
                 </div>
@@ -545,17 +552,17 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                 <div className="bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-[#C5A059] p-3 rounded-2xl flex items-center justify-between gap-2 shadow-sm">
                   <div className="text-xs text-amber-950">
                     <span className="font-bold flex items-center gap-1">
-                      <Sparkles size={14} className="text-amber-700" /> Bí kíp cùng chủ đề ({topicName(card.topic)})!
+                      <Sparkles size={14} className="text-amber-700" /> {language === 'vi' ? `Bí kíp cùng chủ đề (${topicName(card.topic, 'vi')})!` : `Matching Topic Bi Kip (${topicName(card.topic, 'en')})!`}
                     </span>
                     <div className="text-[11px] text-gray-600 mt-0.5 truncate max-w-xs">
-                      {matchingTopicBiKip.title}
+                      {language === 'vi' ? matchingTopicBiKip.title : (matchingTopicBiKip.enTitle || matchingTopicBiKip.title.replace(/^Bí Kíp\s*(Lịch Sử|Ẩm Thực|Nghệ Thuật|Phong Tục|Liên Ngành)?[:\s]*/i, () => `Bi Kip (${topicName(matchingTopicBiKip.topic, 'en')}): `))}
                     </div>
                   </div>
                   <button
                     onClick={handleAutoPassChallengeWithBiKip}
                     className="px-3 py-1.5 brown-gradient-bg text-[#F5E5BE] font-bold rounded-xl text-xs border border-[#C5A059] shadow transition-all active:scale-95 flex-shrink-0"
                   >
-                    Vượt ải tự động
+                    {language === 'vi' ? 'Vượt ải tự động' : 'Auto-pass'}
                   </button>
                 </div>
               )}
@@ -564,10 +571,13 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
               <div className="bg-[#FAF6EE] p-4 rounded-2xl border border-[#C5A059]/40">
                 <div className="flex items-center justify-between mb-1.5 text-xs font-bold text-[#543310]">
                   <span>
-                    {card.challengeType === 'quiz' ? 'TRẮC NGHIỆM CHUYÊN SÂU' :
-                     card.challengeType === 'action' ? 'THỬ THÁCH HÀNH ĐỘNG' : 'KỂ NHANH 20 GIÂY'}
+                    {language === 'vi'
+                      ? (card.challengeType === 'quiz' ? 'TRẮC NGHIỆM CHUYÊN SÂU' : card.challengeType === 'action' ? 'THỬ THÁCH HÀNH ĐỘNG' : 'KỂ NHANH 20 GIÂY')
+                      : (card.challengeType === 'quiz' ? 'ADVANCED QUIZ' : card.challengeType === 'action' ? 'ACTION CHALLENGE' : '20S SPEED RECALL')}
                   </span>
-                  <span className="text-gray-500 font-normal">Chủ đề: {topicName(card.topic)}</span>
+                  <span className="text-gray-500 font-normal">
+                    {language === 'vi' ? 'Chủ đề: ' : 'Topic: '}{topicName(card.topic, language)}
+                  </span>
                 </div>
                 <div className="text-sm font-semibold text-gray-900 leading-snug">
                   {card.question}
@@ -665,13 +675,19 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                     {isCorrect ? (
                       <>
                         <Trophy size={16} className="text-amber-600 flex-shrink-0" />
-                        <span>VƯỢT ẢI THÀNH CÔNG! Nhận 01 Kỷ vật tỉnh {card.province} + 01 thẻ tự chọn!</span>
+                        <span>
+                          {language === 'vi'
+                            ? `VƯỢT ẢI THÀNH CÔNG! Nhận 01 Kỷ vật tỉnh ${card.province} + 01 thẻ tự chọn!`
+                            : `CHALLENGE PASSED! Received 1 Artifact (${getProvinceName(card.province, 'en')}) + 1 bonus card!`}
+                        </span>
                       </>
                     ) : (
                       <>
                         <BookOpen size={16} className="text-[#543310] flex-shrink-0" />
                         <span>
-                          Nhận 01 Bí kíp. Bấm tiếp tục để chọn Kỷ vật/thẻ phải bỏ (hoặc dùng Nón lá nếu sẵn sàng).
+                          {language === 'vi'
+                            ? 'Nhận 01 Bí kíp. Bấm tiếp tục để chọn Kỷ vật/thẻ phải bỏ (hoặc dùng Nón lá nếu sẵn sàng).'
+                            : 'Received 1 Bi Kip scroll. Click proceed to choose artifact/card to forfeit (or use Non La).'}
                         </span>
                       </>
                     )}
@@ -823,7 +839,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
             className="text-xs text-[#543310] font-bold flex items-center gap-1 hover:underline"
           >
             <ExternalLink size={13} />
-            <span>{showQR ? 'Ẩn QR' : 'Mở rộng (QR)'}</span>
+            <span>{showQR ? (language === 'vi' ? 'Ẩn QR' : 'Hide QR') : (language === 'vi' ? 'Mở rộng (QR)' : 'Digital Archive (QR)')}</span>
           </button>
 
           {card.type === 'resource' && marketQuiz && marketBargainAnswered ? null : (
@@ -832,7 +848,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                 onClick={() => handleComplete()}
                 className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
               >
-                <span>Tiếp tục</span>
+                <span>{language === 'vi' ? 'Tiếp tục' : 'Continue'}</span>
                 <ArrowRight size={15} />
               </button>
             ) : null

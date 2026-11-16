@@ -51,18 +51,32 @@ export function QRCardGateway({kind,gameState,onOpen,onBack}: GatewayProps) {
     </section>
   </main>;
 }
-export function ProvinceSelector({value,onChange}:{value:string;onChange:(value:string)=>void}) {
-  return <label className="block text-xs font-bold text-gray-600">Tỉnh đang đứng — nơi nhận Kỷ vật<select value={value} onChange={e=>onChange(e.target.value)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{PROVINCES_DATA.map(p=><option key={p.id} value={p.name}>{p.name}</option>)}</select></label>;
+export function ProvinceSelector({value,onChange,language = 'vi'}:{value:string;onChange:(value:string)=>void;language?:'vi'|'en'}) {
+  return <label className="block text-xs font-bold text-gray-600">{language === 'vi' ? 'Tỉnh đang đứng — nơi nhận Kỷ vật' : 'Current province — Artifact reward location'}<select value={value} onChange={e=>onChange(e.target.value)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{PROVINCES_DATA.map(p=><option key={p.id} value={p.name}>{p.name}</option>)}</select></label>;
 }
-export function PhysicalCardPrompt({kind,province,onOpen,connection}:{kind:PhysicalCardKind;province:string;onOpen:(province:string,difficulty:QuestionDifficulty)=>Promise<void>;connection?:React.ReactNode}) {
+export function PhysicalCardPrompt({kind,province,onOpen,connection,language = 'vi'}:{kind:PhysicalCardKind;province:string;onOpen:(province:string,difficulty:QuestionDifficulty)=>Promise<void>;connection?:React.ReactNode;language?:'vi'|'en'}) {
   const card=PHYSICAL_CARDS.find(c=>c.kind===kind)!;
+  const cardLabel = language === 'vi' ? card.label : (kind === 'knowledge' ? 'Knowledge' : kind === 'challenge' ? 'Challenge' : kind === 'resource' ? 'Resource' : 'Fortune');
   const [selected,setSelected]=useState(province);
   const [difficulty,setDifficulty]=useState<QuestionDifficulty>('basic');
   const [opening,setOpening]=useState(false);
   return <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade"><section className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop">
-    <header className="p-4 brown-gradient-bg text-white"><h2 className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2"><QrCode size={20}/>Quét thẻ {card.label}</h2></header>
-    <div className="p-4 sm:p-5 space-y-3"><p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">Dùng điện thoại chung quét mã trên thẻ {card.label}, hoặc mở thẻ ngay bằng nút bên dưới. Nhiệm vụ chỉ được tính một lần cho lượt đang chơi.</p><ProvinceSelector value={selected} onChange={setSelected}/><label className="block text-xs font-bold text-gray-600">Độ khó<select value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{Object.entries(DIFFICULTY_LABELS).map(([key,label])=><option key={key} value={key}>{label}</option>)}</select></label></div>
+    <header className="p-4 brown-gradient-bg text-white"><h2 className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2"><QrCode size={20}/>{language === 'vi' ? `Quét thẻ ${cardLabel}` : `Scan ${cardLabel} Card`}</h2></header>
+    <div className="p-4 sm:p-5 space-y-3">
+      <p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">
+        {language === 'vi'
+          ? `Dùng điện thoại chung quét mã trên thẻ ${cardLabel}, hoặc mở thẻ ngay bằng nút bên dưới. Nhiệm vụ chỉ được tính một lần cho lượt đang chơi.`
+          : `Use a shared mobile to scan the QR code on the ${cardLabel} card, or open it now with the button below. Tasks count only once per turn.`}
+      </p>
+      <ProvinceSelector value={selected} onChange={setSelected} language={language}/>
+      <label className="block text-xs font-bold text-gray-600">
+        {language === 'vi' ? 'Độ khó' : 'Difficulty'}
+        <select value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">
+          {Object.entries(DIFFICULTY_LABELS).map(([key,label])=><option key={key} value={key}>{language === 'vi' ? label : (key === 'basic' ? 'Basic' : key === 'intermediate' ? 'Intermediate' : 'Advanced')}</option>)}
+        </select>
+      </label>
+    </div>
     {connection&&<div className="px-4 pb-3">{connection}</div>}
-    <footer className="p-4 bg-gray-50 border-t border-gray-200 flex justify-end"><button type="button" disabled={opening} onClick={async()=>{setOpening(true);try{await onOpen(selected,difficulty);}finally{setOpening(false);}}} className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2 disabled:opacity-50">Mở thẻ trên máy<ArrowRight size={15}/></button></footer>
+    <footer className="p-4 bg-gray-50 border-t border-gray-200 flex justify-end"><button type="button" disabled={opening} onClick={async()=>{setOpening(true);try{await onOpen(selected,difficulty);}finally{setOpening(false);}}} className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2 disabled:opacity-50">{language === 'vi' ? 'Mở thẻ trên máy' : 'Open card on screen'}<ArrowRight size={15}/></button></footer>
   </section></div>;
 }

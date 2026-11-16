@@ -136,26 +136,75 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
     });
   };
 
-  const steps = ['Hình thức', 'Chế độ', 'Người chơi', 'Sẵn sàng'];
+  const steps = language === 'vi' 
+    ? ['Hình thức', 'Chế độ', 'Người chơi', 'Sẵn sàng']
+    : ['Format', 'Mode', 'Players', 'Ready'];
+
   const modes = [
-    { value: 'offline' as GameMode, icon: Smartphone, name: 'Chơi offline', description: 'Cùng chơi trên bàn cờ thật với trọng tài số.' },
-    { value: 'ai' as GameMode, icon: Bot, name: 'Chơi với AI', description: 'Khám phá Lạc Việt cùng người chơi máy.' },
-    { value: 'online' as GameMode, icon: Globe, name: 'Chơi online', description: 'Kết nối phòng chơi trực tuyến qua mã phòng.' },
+    { 
+      value: 'offline' as GameMode, 
+      icon: Smartphone, 
+      name: language === 'vi' ? 'Chơi offline' : 'Offline Play', 
+      description: language === 'vi' ? 'Cùng chơi trên bàn cờ thật với trọng tài số.' : 'Play on the physical board with a digital referee.' 
+    },
+    { 
+      value: 'ai' as GameMode, 
+      icon: Bot, 
+      name: language === 'vi' ? 'Chơi với AI' : 'Play with AI', 
+      description: language === 'vi' ? 'Khám phá Lạc Việt cùng người chơi máy.' : 'Explore Lạc Việt with smart AI opponents.' 
+    },
+    { 
+      value: 'online' as GameMode, 
+      icon: Globe, 
+      name: language === 'vi' ? 'Chơi online' : 'Online Room', 
+      description: language === 'vi' ? 'Kết nối phòng chơi trực tuyến qua mã phòng.' : 'Connect to a multiplayer room via room code.' 
+    },
   ];
+
   const rules = [
-    { rule: 'toc_chien' as GameModeRule, goal: 3 as ArtifactGoal, name: 'Tốc chiến', time: '25–35 phút', description: '3 Kỷ vật · Mỗi miền ≥ 1' },
-    { rule: 'co_ban' as GameModeRule, goal: 5 as ArtifactGoal, name: 'Cơ bản', time: '~45–60 phút', description: '5 Kỷ vật · Mỗi miền ≥ 1' },
-    { rule: 'truong_ky' as GameModeRule, goal: 7 as ArtifactGoal, name: 'Trường kỳ', time: '75–90 phút', description: '7 Kỷ vật · Mỗi miền ≥ 2' },
+    { 
+      rule: 'toc_chien' as GameModeRule, 
+      goal: 3 as ArtifactGoal, 
+      name: language === 'vi' ? 'Tốc chiến' : 'Blitz Match', 
+      time: language === 'vi' ? '25–35 phút' : '25–35 mins', 
+      description: language === 'vi' ? '3 Kỷ vật · Mỗi miền ≥ 1' : '3 Artifacts · ≥ 1 per region' 
+    },
+    { 
+      rule: 'co_ban' as GameModeRule, 
+      goal: 5 as ArtifactGoal, 
+      name: language === 'vi' ? 'Cơ bản' : 'Standard', 
+      time: language === 'vi' ? '~45–60 phút' : '~45–60 mins', 
+      description: language === 'vi' ? '5 Kỷ vật · Mỗi miền ≥ 1' : '5 Artifacts · ≥ 1 per region' 
+    },
+    { 
+      rule: 'truong_ky' as GameModeRule, 
+      goal: 7 as ArtifactGoal, 
+      name: language === 'vi' ? 'Trường kỳ' : 'Epic Marathon', 
+      time: language === 'vi' ? '75–90 phút' : '75–90 mins', 
+      description: language === 'vi' ? '7 Kỷ vật · Mỗi miền ≥ 2' : '7 Artifacts · ≥ 2 per region' 
+    },
   ];
+
   const selectedMode = modes.find(item => item.value === mode)!;
   const selectedRule = rules.find(item => item.rule === gameModeRule)!;
-  const titles = ['Hình thức chơi', 'Chế độ chơi', 'Người chơi & Quân cờ', 'Xác nhận thông tin'];
-  const descriptions = [
-    'Chọn cách thức trải nghiệm hành trình.',
-    'Chọn mục tiêu số lượng kỷ vật và thời lượng.',
-    mode === 'ai' ? 'Bạn ở ghế 1. Các ghế còn lại do AI điều khiển.' : 'Chọn số người và quân cờ đại diện.',
-    'Kiểm tra lại lựa chọn trước khi xuất phát.',
-  ];
+
+  const titles = language === 'vi'
+    ? ['Hình thức chơi', 'Chế độ chơi', 'Người chơi & Quân cờ', 'Xác nhận thông tin']
+    : ['Play Format', 'Game Mode', 'Players & Tokens', 'Confirm & Start'];
+
+  const descriptions = language === 'vi'
+    ? [
+        'Chọn cách thức trải nghiệm hành trình.',
+        'Chọn mục tiêu số lượng kỷ vật và thời lượng.',
+        mode === 'ai' ? 'Bạn ở ghế 1. Các ghế còn lại do AI điều khiển.' : 'Chọn số người và quân cờ đại diện.',
+        'Kiểm tra lại lựa chọn trước khi xuất phát.',
+      ]
+    : [
+        'Select your journey play format.',
+        'Select artifact goal and match duration.',
+        mode === 'ai' ? 'You take Seat 1. Remaining seats are controlled by AI.' : 'Choose number of players and cultural tokens.',
+        'Review your choices before starting.',
+      ];
   const selectionClass = (selected: boolean) => `w-full text-left rounded-2xl border p-4 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C5A059] focus-visible:ring-offset-2 ${selected ? 'border-[#543310] bg-[#FAF6EE] shadow-sm' : 'border-gray-200 bg-white hover:border-[#C5A059] hover:bg-[#FAF8F3]'}`;
 
   return (
@@ -221,10 +270,20 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
           {step === 2 && (
             <div className="space-y-5">
               <fieldset>
-                <legend className="text-xs font-bold text-gray-500 mb-2">SỐ NGƯỜI CHƠI {mode === 'ai' && '(GỒM CẢ BẠN)'}</legend>
+                <legend className="text-xs font-bold text-gray-500 mb-2">
+                  {language === 'vi' ? `SỐ NGƯỜI CHƠI ${mode === 'ai' ? '(GỒM CẢ BẠN)' : ''}` : `NUMBER OF PLAYERS ${mode === 'ai' ? '(INCLUDING YOU)' : ''}`}
+                </legend>
                 <div className="grid grid-cols-3 gap-2">
                   {[2, 3, 4].map(num => (
-                    <button key={num} type="button" aria-pressed={playerCount === num} onClick={() => setPlayerCount(num)} className={`py-2.5 rounded-xl text-sm font-bold border transition-colors ${playerCount === num ? 'bg-[#543310] text-white border-[#543310]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#C5A059]'}`}>{num} người</button>
+                    <button 
+                      key={num} 
+                      type="button" 
+                      aria-pressed={playerCount === num} 
+                      onClick={() => setPlayerCount(num)} 
+                      className={`py-2.5 rounded-xl text-sm font-bold border transition-colors ${playerCount === num ? 'bg-[#543310] text-white border-[#543310]' : 'bg-white text-gray-600 border-gray-200 hover:border-[#C5A059]'}`}
+                    >
+                      {num} {language === 'vi' ? 'người' : 'players'}
+                    </button>
                   ))}
                 </div>
               </fieldset>
@@ -234,12 +293,37 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
                   const isAI = mode === 'ai' && seatIdx > 0;
                   return (
                     <div key={seatIdx} className="p-3.5 bg-[#FAF9F6] rounded-xl border border-gray-200 space-y-2">
-                      <label htmlFor={`token-${seatIdx}`} className="block text-xs font-bold text-gray-700">{isAI ? ['Bạn', 'Bé Sen (AI)', 'Cụ Đồ (AI)', 'Bạn An (AI)'][seatIdx] : mode === 'ai' ? 'Bạn · Ghế 1' : `Ghế ${seatIdx + 1}`}</label>
-                      {!isAI && <input aria-label={`Biệt danh ghế ${seatIdx + 1}`} value={playerNames[seatIdx]} onChange={e => setPlayerNames(previous => previous.map((name,index) => index === seatIdx ? e.target.value : name))} maxLength={24} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]" />}
-                      <select id={`token-${seatIdx}`} value={currentToken} onChange={e => handleTokenSelect(seatIdx, e.target.value as TokenType)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">
-                        {TOKEN_LIST.map(token => <option key={token} value={token}>{TOKENS[token].icon} {TOKENS[token].name}</option>)}
+                      <label htmlFor={`token-${seatIdx}`} className="block text-xs font-bold text-gray-700">
+                        {isAI 
+                          ? (language === 'vi' ? ['Bạn', 'Bé Sen (AI)', 'Cụ Đồ (AI)', 'Bạn An (AI)'][seatIdx] : ['You', 'Lotus Kid (AI)', 'Scholar (AI)', 'Friend An (AI)'][seatIdx])
+                          : mode === 'ai' 
+                            ? (language === 'vi' ? 'Bạn · Ghế 1' : 'You · Seat 1') 
+                            : (language === 'vi' ? `Ghế ${seatIdx + 1}` : `Seat ${seatIdx + 1}`)}
+                      </label>
+                      {!isAI && (
+                        <input 
+                          aria-label={language === 'vi' ? `Biệt danh ghế ${seatIdx + 1}` : `Seat ${seatIdx + 1} Nickname`} 
+                          value={playerNames[seatIdx]} 
+                          onChange={e => setPlayerNames(previous => previous.map((name,index) => index === seatIdx ? e.target.value : name))} 
+                          maxLength={24} 
+                          className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]" 
+                        />
+                      )}
+                      <select 
+                        id={`token-${seatIdx}`} 
+                        value={currentToken} 
+                        onChange={e => handleTokenSelect(seatIdx, e.target.value as TokenType)} 
+                        className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]"
+                      >
+                        {TOKEN_LIST.map(token => (
+                          <option key={token} value={token}>
+                            {TOKENS[token].icon} {language === 'vi' ? TOKENS[token].name : TOKENS[token].enName}
+                          </option>
+                        ))}
                       </select>
-                      <p className="text-[11px] text-gray-500 leading-relaxed">{TOKENS[currentToken].passive}</p>
+                      <p className="text-[11px] text-gray-500 leading-relaxed">
+                        {language === 'vi' ? TOKENS[currentToken].passive : TOKENS[currentToken].enPassive}
+                      </p>
                     </div>
                   );
                 })}
@@ -250,51 +334,140 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
           {step === 3 && (
             <div className="space-y-4">
               <div className="rounded-2xl bg-[#FAF8F3] border border-[#EADFC9] p-4">
-                <div className="flex items-center justify-between gap-3"><span className="text-sm font-bold text-[#543310]">{selectedMode.name}</span><button type="button" onClick={() => setStep(0)} className="text-xs text-[#543310] underline underline-offset-4">Thay đổi</button></div>
-                <p className="text-sm text-gray-600 mt-2">{selectedRule.name} · {playerCount} người · {selectedRule.time}</p>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-sm font-bold text-[#543310]">{selectedMode.name}</span>
+                  <button type="button" onClick={() => setStep(0)} className="text-xs text-[#543310] underline underline-offset-4">
+                    {language === 'vi' ? 'Thay đổi' : 'Change'}
+                  </button>
+                </div>
+                <p className="text-sm text-gray-600 mt-2">
+                  {selectedRule.name} · {playerCount} {language === 'vi' ? 'người' : 'players'} · {selectedRule.time}
+                </p>
                 <p className="text-xs text-gray-500 mt-1">{selectedRule.description}</p>
-                <div className="flex flex-wrap gap-2 mt-3">{assignedTokens.slice(0, playerCount).map((token, index) => <span key={index} className="rounded-lg bg-white border border-[#EADFC9] px-2 py-1 text-xs text-gray-600">{TOKENS[token].icon} {TOKENS[token].name}</span>)}</div>
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {assignedTokens.slice(0, playerCount).map((token, index) => (
+                    <span key={index} className="rounded-lg bg-white border border-[#EADFC9] px-2 py-1 text-xs text-gray-600">
+                      {TOKENS[token].icon} {language === 'vi' ? TOKENS[token].name : TOKENS[token].enName}
+                    </span>
+                  ))}
+                </div>
               </div>
               {mode === 'online' && (
                 <div>
-                  <label htmlFor="setup-room-code" className="block text-xs font-bold text-gray-600 mb-2">MÃ PHÒNG</label>
-                  <input id="setup-room-code" value={roomCode} onChange={e => setRoomCode(e.target.value)} maxLength={32} placeholder="Ví dụ: LV-2026" className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-[#C5A059] focus:border-[#C5A059]" />
+                  <label htmlFor="setup-room-code" className="block text-xs font-bold text-gray-600 mb-2">
+                    {language === 'vi' ? 'MÃ PHÒNG' : 'ROOM CODE'}
+                  </label>
+                  <input 
+                    id="setup-room-code" 
+                    value={roomCode} 
+                    onChange={e => setRoomCode(e.target.value)} 
+                    maxLength={32} 
+                    placeholder={language === 'vi' ? 'Ví dụ: LV-2026' : 'e.g. LV-2026'} 
+                    className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-[#C5A059] focus:border-[#C5A059]" 
+                  />
                 </div>
               )}
               <details className="group rounded-xl border border-gray-200">
-                <summary className="cursor-pointer list-none flex items-center justify-between p-4 text-sm font-semibold text-gray-700">Tùy chọn bổ sung<ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" /></summary>
+                <summary className="cursor-pointer list-none flex items-center justify-between p-4 text-sm font-semibold text-gray-700">
+                  {language === 'vi' ? 'Tùy chọn bổ sung' : 'Additional Options'}
+                  <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
+                </summary>
                 <div className="px-4 pb-4 space-y-4">
-                  {mode==='offline' && <label className="flex items-start gap-3 cursor-pointer"><input type="checkbox" checked={physicalQR} onChange={e=>setPhysicalQR(e.target.checked)} className="mt-1 accent-[#543310]"/><span><span className="block text-sm font-semibold text-gray-800">Dùng 4 thẻ QR vật lý</span><span className="block text-xs text-gray-500 mt-1">Dừng ở ô địa phương, quét thẻ bằng điện thoại chung hoặc bấm mở trên máy.</span></span></label>}
+                  {mode==='offline' && (
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input type="checkbox" checked={physicalQR} onChange={e=>setPhysicalQR(e.target.checked)} className="mt-1 accent-[#543310]"/>
+                      <span>
+                        <span className="block text-sm font-semibold text-gray-800">
+                          {language === 'vi' ? 'Dùng 4 thẻ QR vật lý' : 'Use 4 physical QR cards'}
+                        </span>
+                        <span className="block text-xs text-gray-500 mt-1">
+                          {language === 'vi' ? 'Dừng ở ô địa phương, quét thẻ bằng điện thoại chung hoặc bấm mở trên máy.' : 'Land on a space, scan card with phone or open directly on screen.'}
+                        </span>
+                      </span>
+                    </label>
+                  )}
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" checked={starterBiKip} onChange={e => setStarterBiKip(e.target.checked)} className="mt-1 accent-[#543310]" />
-                    <span><span className="block text-sm font-semibold text-gray-800">3 Bí kíp cho người mới</span><span className="block text-xs text-gray-500 mt-1">Thêm trợ giúp về Lịch sử, Ẩm thực và Nghệ thuật.</span></span>
+                    <span>
+                      <span className="block text-sm font-semibold text-gray-800">
+                        {language === 'vi' ? '3 Bí kíp cho người mới' : '3 Starter Bi Kip scrolls for beginners'}
+                      </span>
+                      <span className="block text-xs text-gray-500 mt-1">
+                        {language === 'vi' ? 'Thêm trợ giúp về Lịch sử, Ẩm thực và Nghệ thuật.' : 'Grants starting hints for History, Cuisine, and Arts.'}
+                      </span>
+                    </span>
                   </label>
-                  {starterBiKip && <div className="space-y-2">
-                    <p className="text-xs text-gray-500">Chọn người mới được nhận 3 Bí kíp:</p>
-                    {playerNames.slice(0,playerCount).map((name,index) => <label key={index} className="flex items-start gap-3 cursor-pointer text-xs text-gray-700"><input type="checkbox" checked={starterSeats[index]} onChange={e => setStarterSeats(previous => previous.map((value,i) => i === index ? e.target.checked : value))} className="mt-1 accent-[#543310]" />{mode === 'ai' && index>0 ? ['','Bé Sen (AI)','Cụ Đồ (AI)','Bạn An (AI)'][index] : name}</label>)}
-                  </div>}
+                  {starterBiKip && (
+                    <div className="space-y-2">
+                      <p className="text-xs text-gray-500">
+                        {language === 'vi' ? 'Chọn người mới được nhận 3 Bí kíp:' : 'Select players to receive 3 Bi Kip:'}
+                      </p>
+                      {playerNames.slice(0,playerCount).map((name,index) => (
+                        <label key={index} className="flex items-start gap-3 cursor-pointer text-xs text-gray-700">
+                          <input type="checkbox" checked={starterSeats[index]} onChange={e => setStarterSeats(previous => previous.map((value,i) => i === index ? e.target.checked : value))} className="mt-1 accent-[#543310]" />
+                          {mode === 'ai' && index>0 ? (language === 'vi' ? ['','Bé Sen (AI)','Cụ Đồ (AI)','Bạn An (AI)'][index] : ['','Lotus Kid (AI)','Scholar (AI)','Friend An (AI)'][index]) : name}
+                        </label>
+                      ))}
+                    </div>
+                  )}
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" checked={exploreMode} onChange={e => { setExploreMode(e.target.checked); if (e.target.checked) { handleSelectRuleMode('toc_chien',3); setTimedMode(false); } }} className="mt-1 accent-[#543310]" />
-                    <span><span className="block text-sm font-semibold text-gray-800">Khám phá văn hóa</span><span className="block text-xs text-gray-500 mt-1">Tốc chiến, không đếm ngược; tắt Nỏ thần, Phong ấn và Chạm trán để thong thả tìm hiểu di sản.</span></span>
+                    <span>
+                      <span className="block text-sm font-semibold text-gray-800">
+                        {language === 'vi' ? 'Khám phá văn hóa' : 'Cultural Exploration Mode'}
+                      </span>
+                      <span className="block text-xs text-gray-500 mt-1">
+                        {language === 'vi' ? 'Tốc chiến, không đếm ngược; tắt Nỏ thần, Phong ấn và Chạm trán để thong thả tìm hiểu di sản.' : 'Blitz goal, no countdown timer; disables PvP attacks and seals to focus on heritage.'}
+                      </span>
+                    </span>
                   </label>
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" disabled={exploreMode} checked={timedMode} onChange={e => setTimedMode(e.target.checked)} className="mt-1 accent-[#543310]" />
-                    <span><span className="block text-sm font-semibold text-gray-800">Giờ thu quân</span><span className="block text-xs text-gray-500 mt-1">Hết giờ, hoàn tất lượt đang chơi rồi xếp hạng theo Kỷ vật hợp lệ, số miền và khoảng cách đến START.</span></span>
+                    <span>
+                      <span className="block text-sm font-semibold text-gray-800">
+                        {language === 'vi' ? 'Giờ thu quân (Đếm ngược)' : 'Timed Match (Countdown)'}
+                      </span>
+                      <span className="block text-xs text-gray-500 mt-1">
+                        {language === 'vi' ? 'Hết giờ, hoàn tất lượt đang chơi rồi xếp hạng theo Kỷ vật hợp lệ, số miền và khoảng cách đến START.' : 'When time ends, finishes current turn and ranks players by valid artifacts, regions, and distance to START.'}
+                      </span>
+                    </span>
                   </label>
-                  {timedMode && <label className="block text-xs font-bold text-gray-600">Thời gian ván chơi (phút)<input type="number" min={5} max={180} value={durationMinutes} onChange={e => setDurationMinutes(Math.min(180,Math.max(5,Number(e.target.value)||5)))} className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-[#C5A059] focus:border-[#C5A059]" /></label>}
+                  {timedMode && (
+                    <label className="block text-xs font-bold text-gray-600">
+                      {language === 'vi' ? 'Thời gian ván chơi (phút)' : 'Match duration (minutes)'}
+                      <input type="number" min={5} max={180} value={durationMinutes} onChange={e => setDurationMinutes(Math.min(180,Math.max(5,Number(e.target.value)||5)))} className="w-full border border-gray-200 rounded-xl p-3 text-sm focus:ring-[#C5A059] focus:border-[#C5A059]" />
+                    </label>
+                  )}
                 </div>
               </details>
-              <p className="text-xs text-gray-400 leading-relaxed">Bạn có thể quay lại các bước trước để sửa lựa chọn.</p>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                {language === 'vi' ? 'Bạn có thể quay lại các bước trước để sửa lựa chọn.' : 'You can navigate back to previous steps to adjust settings.'}
+              </p>
             </div>
           )}
         </div>
 
         <footer className="shrink-0 px-5 sm:px-7 py-4 border-t border-gray-100 flex items-center justify-between gap-3 bg-white">
-          {step > 0 ? <button type="button" onClick={() => setStep(step - 1)} className="flex items-center gap-1.5 px-2 py-3 text-sm font-semibold text-gray-500 hover:text-[#543310]"><ArrowLeft size={16} aria-hidden="true" />Quay lại</button> : <span className="text-xs text-gray-400">Bước 1 / 4</span>}
-          {step < steps.length - 1 ? (
-            <button type="button" onClick={() => setStep(step + 1)} className="flex items-center justify-center gap-2 rounded-xl bg-[#543310] hover:bg-[#6F441E] text-white px-6 py-3 text-sm font-bold transition-colors">Tiếp tục<ArrowRight size={16} aria-hidden="true" /></button>
+          {step > 0 ? (
+            <button type="button" onClick={() => setStep(step - 1)} className="flex items-center gap-1.5 px-2 py-3 text-sm font-semibold text-gray-500 hover:text-[#543310]">
+              <ArrowLeft size={16} aria-hidden="true" />
+              {language === 'vi' ? 'Quay lại' : 'Back'}
+            </button>
           ) : (
-            <button type="button" onClick={handleStart} disabled={mode === 'online' && !roomCode.trim()} className="flex items-center justify-center gap-2 rounded-xl brown-gradient-bg text-[#F5E5BE] border border-[#C5A059] px-5 py-3 text-sm font-bold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"><Play size={16} fill="currentColor" aria-hidden="true" />Bắt đầu trận đấu</button>
+            <span className="text-xs text-gray-400">
+              {language === 'vi' ? 'Bước 1 / 4' : 'Step 1 / 4'}
+            </span>
+          )}
+          {step < steps.length - 1 ? (
+            <button type="button" onClick={() => setStep(step + 1)} className="flex items-center justify-center gap-2 rounded-xl bg-[#543310] hover:bg-[#6F441E] text-white px-6 py-3 text-sm font-bold transition-colors">
+              {language === 'vi' ? 'Tiếp tục' : 'Continue'}
+              <ArrowRight size={16} aria-hidden="true" />
+            </button>
+          ) : (
+            <button type="button" onClick={handleStart} disabled={mode === 'online' && !roomCode.trim()} className="flex items-center justify-center gap-2 rounded-xl brown-gradient-bg text-[#F5E5BE] border border-[#C5A059] px-5 py-3 text-sm font-bold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed">
+              <Play size={16} fill="currentColor" aria-hidden="true" />
+              {language === 'vi' ? 'Bắt đầu trận đấu' : 'Start Game'}
+            </button>
           )}
         </footer>
       </section>

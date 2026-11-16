@@ -87,14 +87,16 @@ export const Header: React.FC<HeaderProps> = ({
 
           {secondsLeft !== null && (
             <span className="text-[10px] text-[#E5C07B]/80 hidden sm:inline font-mono">
-              {secondsLeft > 0 ? `⏱️ ${Math.floor(secondsLeft/60)}:${String(secondsLeft%60).padStart(2,'0')}` : '⏱️ Hết giờ'}
+              {secondsLeft > 0 
+                ? `⏱️ ${Math.floor(secondsLeft/60)}:${String(secondsLeft%60).padStart(2,'0')}` 
+                : (language === 'vi' ? '⏱️ Hết giờ' : "⏱️ Time's up")}
             </span>
           )}
           {/* Start Bank Penalized Artifacts if any */}
           {gameState.lostAndFound.length > 0 && (
             <div className="hidden lg:flex items-center gap-1 bg-amber-900/40 border border-amber-600/60 text-[#FDE68A] px-2 py-0.5 rounded text-[11px]">
               <Sparkles size={11} />
-              <span>Kho START: {gameState.lostAndFound.length}</span>
+              <span>{language === 'vi' ? `Kho START: ${gameState.lostAndFound.length}` : `START Bank: ${gameState.lostAndFound.length}`}</span>
             </div>
           )}
         </div>
@@ -105,28 +107,40 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={onToggleLanguage}
             className="px-2 py-1 bg-[#331C10] hover:bg-[#5C3A21] text-[#E5C07B] rounded text-xs font-bold border border-[#C5A059]/50 transition-colors shadow-sm"
-            title="Đổi ngôn ngữ VI / EN"
+            title={language === 'vi' ? 'Chuyển sang Tiếng Anh' : 'Switch to Vietnamese'}
           >
             {language === 'vi' ? 'VI / EN' : 'EN / VI'}
           </button>
 
-          {/* Sound Toggle */}
+          {/* Sound & Music Toggle */}
           <button
             onClick={() => {
               onToggleSound();
               soundManager.playCardDraw();
             }}
-            className="p-1.5 sm:p-2 bg-[#331C10] hover:bg-[#5C3A21] text-[#E5C07B] rounded-full border border-[#C5A059]/40 transition-colors"
-            title={soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'}
+            className={`relative p-1.5 sm:p-2 bg-[#331C10] hover:bg-[#5C3A21] rounded-full border transition-all duration-300 ${
+              soundEnabled
+                ? 'text-[#E5C07B] border-[#C5A059] shadow-[0_0_10px_rgba(197,160,89,0.35)]'
+                : 'text-gray-400 border-[#C5A059]/20 hover:text-gray-300'
+            }`}
+            title={soundEnabled ? (language === 'vi' ? 'Tắt âm thanh & Nhạc nền Lofi' : 'Mute Sound & Lofi Music') : (language === 'vi' ? 'Bật âm thanh & Nhạc nền Lofi' : 'Enable Sound & Lofi Music')}
           >
-            {soundEnabled ? <Volume2 size={15} /> : <VolumeX size={15} className="text-gray-400" />}
+            {soundEnabled ? (
+              <span className="relative flex items-center justify-center">
+                <Volume2 size={15} />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping opacity-75" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full border border-[#331C10]" />
+              </span>
+            ) : (
+              <VolumeX size={15} />
+            )}
           </button>
 
           {/* New Game / Reset */}
           <button
             onClick={onResetGame}
             className="p-1.5 sm:p-2 bg-[#331C10] hover:bg-[#5C3A21] text-[#E5C07B] rounded-full border border-[#C5A059]/40 transition-colors"
-            title="Thiết lập ván mới"
+            title={language === 'vi' ? 'Thiết lập ván mới' : 'New Game Setup'}
           >
             <RotateCcw size={15} />
           </button>

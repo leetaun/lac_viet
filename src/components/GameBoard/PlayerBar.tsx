@@ -73,7 +73,7 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
             <div className="flex items-center justify-between gap-1 mb-1">
               <div className="flex items-center gap-1.5 min-w-0">
                 <span
-                  className="w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white font-bold flex-shrink-0"
+                  className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] sm:text-xs text-white font-bold flex-shrink-0 shadow-sm"
                   style={{ backgroundColor: player.color }}
                 >
                   P{player.seat}
@@ -85,7 +85,7 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
                   <Bot size={11} className="text-gray-400 flex-shrink-0" aria-label="Máy AI" />
                 )}
               </div>
-              <span className="text-sm flex-shrink-0" title={tokenDef.name}>
+              <span className="text-base sm:text-lg flex-shrink-0 leading-none select-none" title={tokenDef.name}>
                 {tokenDef.icon}
               </span>
             </div>
@@ -93,18 +93,21 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
             {/* Regional Badges: Bac - Trung - Nam */}
             <div className="flex items-center gap-1 mb-1 text-[9px] font-bold">
               <span className={`px-1 py-0.2 rounded border ${hasBac ? 'bg-blue-100 text-blue-900 border-blue-300' : 'bg-gray-100 text-gray-400 border-gray-200'}`}>
-                Bắc
+                {language === 'vi' ? 'Bắc' : 'North'}
               </span>
               <span className={`px-1 py-0.2 rounded border ${hasTrung ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-gray-100 text-gray-400 border-gray-200'}`}>
-                Trung
+                {language === 'vi' ? 'Trung' : 'Central'}
               </span>
               <span className={`px-1 py-0.2 rounded border ${hasNam ? 'bg-emerald-100 text-emerald-900 border-emerald-300' : 'bg-gray-100 text-gray-400 border-gray-200'}`}>
-                Nam
+                {language === 'vi' ? 'Nam' : 'South'}
               </span>
 
               {isImmuneByLeast && (
-                <span className="ml-auto text-[9px] bg-amber-100 text-amber-900 border border-amber-300 px-1 rounded flex items-center gap-0.5" title="Đang có ít kỷ vật nhất bàn: Miễn nhiễm hoàn toàn cướp và phong ấn!">
-                  🛡️ Miễn cướp
+                <span 
+                  className="ml-auto text-[9px] bg-amber-100 text-amber-900 border border-amber-300 px-1 rounded flex items-center gap-0.5" 
+                  title={language === 'vi' ? 'Đang có ít kỷ vật nhất bàn: Miễn nhiễm hoàn toàn cướp và phong ấn!' : 'Fewest artifacts on board: Fully immune to steal and seal!'}
+                >
+                  {language === 'vi' ? '🛡️ Miễn cướp' : '🛡️ Immune'}
                 </span>
               )}
             </div>
@@ -116,12 +119,12 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
                 <Trophy size={12} className="text-[#C5A059]" />
                 <span>{validTotal}/{artifactGoal}</span>
                 {safeItems.length > 0 && (
-                  <span className="text-[9px] text-emerald-700" title="Đã gửi an toàn">
+                  <span className="text-[9px] text-emerald-700" title={language === 'vi' ? 'Đã gửi an toàn' : 'Safely stored'}>
                     (+{safeItems.length})
                   </span>
                 )}
                 {sealedPouch.length > 0 && (
-                  <span className="text-[9px] text-red-600 flex items-center" title="Bị phong ấn">
+                  <span className="text-[9px] text-red-600 flex items-center" title={language === 'vi' ? 'Bị phong ấn' : 'Sealed'}>
                     <Lock size={9} /> {sealedPouch.length}
                   </span>
                 )}
@@ -129,22 +132,22 @@ export const PlayerBar: React.FC<PlayerBarProps> = ({
 
               {/* Hand cards & Bi Kip */}
               <div className="flex items-center gap-1.5 text-gray-600">
-                <div className="flex items-center gap-0.5" title="Thẻ bài túi đồ">
+                <div className="flex items-center gap-0.5" title={language === 'vi' ? 'Thẻ bài túi đồ' : 'Bag cards'}>
                   <Layers size={11} />
                   <span>{totalCards}</span>
                 </div>
-                <div className="flex items-center gap-0.5 text-amber-800" title="Bí kíp tích lũy">
+                <div className="flex items-center gap-0.5 text-amber-800" title={language === 'vi' ? 'Bí kíp tích lũy' : 'Bi Kip scrolls'}>
                   <BookOpen size={11} />
                   <span>{biKipCount}</span>
                 </div>
                 {player.milestones && player.milestones.length > 0 && (
-                  <div className="flex items-center gap-0.5 text-[#543310]" title="Cột mốc đã cắm">
+                  <div className="flex items-center gap-0.5 text-[#543310]" title={language === 'vi' ? 'Cột mốc đã cắm' : 'Claimed milestones'}>
                     <Flag size={11} />
                     <span>{player.milestones.length}</span>
                   </div>
                 )}
                 {player.hasShield && (
-                  <Shield size={11} className="text-blue-600 fill-blue-100" aria-label="Lá chắn" />
+                  <Shield size={11} className="text-blue-600 fill-blue-100" aria-label={language === 'vi' ? 'Lá chắn' : 'Shield'} />
                 )}
               </div>
             </div>

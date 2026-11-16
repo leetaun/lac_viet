@@ -116,7 +116,7 @@ export const App: React.FC = () => {
   const hostQR=useHostQR(controller,!qrKind);
   const { gameState, activePlayer, activeCardModal, activeCornerStation, activeStealTarget, showTokenSkillModal, isRolling, handleRollDice, handleResolveCard, handleSelectCornerOption, handleCloseCorner, handleExecuteSteal, handleConsumeBiKip, handleLotusSwap, handleBanhMiShift, handleEndTurn } = controller;
   const handleStartGame = (config: SetupConfig) => { controller.handleStartGame(config); setShowSetup(false); setActiveTab('board'); };
-  useEffect(() => { soundManager.enabled = soundEnabled; }, [soundEnabled]);
+  useEffect(() => { soundManager.setSoundEnabled(soundEnabled); }, [soundEnabled]);
   useEffect(()=>{const listener=()=>setQrKind(readPhysicalCard(location.hash));window.addEventListener('hashchange',listener);return()=>window.removeEventListener('hashchange',listener);},[]);
   const leaveQR=()=>{history.replaceState(null,'',location.pathname+location.search);setQrKind(null);};
 
@@ -188,14 +188,23 @@ export const App: React.FC = () => {
         />
       )}
 
-      {gameState.pendingPhysicalCard && !showSetup && <PhysicalCardPrompt key={`${gameState.pendingPhysicalCard.playerId}-${gameState.pendingPhysicalCard.spaceIndex}`} connection={<HostQRPanel host={hostQR}/>} kind={gameState.pendingPhysicalCard.kind} province={BOARD_SPACES[gameState.pendingPhysicalCard.spaceIndex].province!} onOpen={(province,difficulty)=>controller.openPhysicalCard(gameState.pendingPhysicalCard!.kind,province,difficulty)}/>}
+      {gameState.pendingPhysicalCard && !showSetup && (
+        <PhysicalCardPrompt
+          key={`${gameState.pendingPhysicalCard.playerId}-${gameState.pendingPhysicalCard.spaceIndex}`}
+          connection={<HostQRPanel host={hostQR} language={language} />}
+          kind={gameState.pendingPhysicalCard.kind}
+          province={BOARD_SPACES[gameState.pendingPhysicalCard.spaceIndex].province!}
+          onOpen={(province,difficulty)=>controller.openPhysicalCard(gameState.pendingPhysicalCard!.kind,province,difficulty)}
+          language={language}
+        />
+      )}
 
       {activeCardModal && (
         <CardDrawModal
           key={activeCardModal.id}
           card={activeCardModal}
           remoteConnected={hostQR.active}
-          remoteConnection={<HostQRPanel host={hostQR}/>}
+          remoteConnection={<HostQRPanel host={hostQR} language={language} />}
           remoteAnswer={hostQR.remoteAnswer?.key===activeCardModal.id?hostQR.remoteAnswer:undefined}
           exploreMode={gameState.options.exploreMode}
           onConsumeBiKip={handleConsumeBiKip}
@@ -246,8 +255,8 @@ export const App: React.FC = () => {
         />
       )}
 
-      {controller.choice && <RuleChoiceModal key={controller.choice.id} choice={controller.choice} onConfirm={controller.confirmChoice} />}
-      {controller.notice && <RuleChoiceModal choice={{ title: 'Thông báo', description: controller.notice, options: [{id:'ok',label:'Đã hiểu'}], min:1, max:1 }} onConfirm={() => controller.setNotice(null)} />}
+      {controller.choice && <RuleChoiceModal key={controller.choice.id} choice={controller.choice} onConfirm={controller.confirmChoice} language={language} />}
+      {controller.notice && <RuleChoiceModal choice={{ title: language === 'vi' ? 'Thông báo' : 'Notice', description: controller.notice, options: [{id:'ok',label: language === 'vi' ? 'Đã hiểu' : 'Understood'}], min:1, max:1 }} onConfirm={() => controller.setNotice(null)} language={language} />}
 
       {gameState.winner && (
         <VictoryModal

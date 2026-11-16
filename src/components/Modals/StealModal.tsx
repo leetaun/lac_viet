@@ -49,10 +49,10 @@ export const StealModal: React.FC<StealModalProps> = ({
             <Swords size={20} className="text-[#C5A059]" />
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-amber-200">
-                CHẠM TRÁN
+                {language === 'vi' ? 'CHẠM TRÁN' : 'ENCOUNTER'}
               </span>
               <h2 className="font-serif-lacviet text-lg font-bold">
-                Cùng Ô Với {target.name}
+                {language === 'vi' ? `Cùng Ô Với ${target.name}` : `Same Space as ${target.name}`}
               </h2>
             </div>
           </div>
@@ -68,13 +68,13 @@ export const StealModal: React.FC<StealModalProps> = ({
             <div>
               <span className="font-bold text-gray-900 text-sm">{target.name} (P{target.seat})</span>
               <div className="text-[11px] text-gray-500 mt-0.5">
-                Tay nải: <strong>{target.artifacts}</strong> • Hòm: <strong>{target.safeArtifacts}</strong> • Thẻ: <strong>{targetHandCardsCount}</strong>
+                {language === 'vi' ? 'Tay nải' : 'Pouch'}: <strong>{target.artifacts}</strong> • {language === 'vi' ? 'Hòm' : 'Safe'}: <strong>{target.safeArtifacts}</strong> • {language === 'vi' ? 'Thẻ' : 'Cards'}: <strong>{targetHandCardsCount}</strong>
               </div>
             </div>
             {target.hasShield && (
               <div className="flex items-center gap-1 bg-blue-100 text-blue-800 px-2 py-1 rounded-lg font-bold text-[11px]">
                 <Shield size={13} />
-                <span>Có Lá Chắn</span>
+                <span>{language === 'vi' ? 'Có Lá Chắn' : 'Shield Active'}</span>
               </div>
             )}
           </div>
@@ -84,9 +84,13 @@ export const StealModal: React.FC<StealModalProps> = ({
             <div className="p-3 bg-amber-50 border border-amber-300 rounded-2xl text-xs text-amber-950 flex items-start gap-2">
               <Shield size={16} className="text-amber-700 mt-0.5 flex-shrink-0" />
               <div>
-                <strong className="block text-[#543310]">KHÔNG ĐÁNH NGƯỜI NGÃ:</strong>
+                <strong className="block text-[#543310]">
+                  {language === 'vi' ? 'KHÔNG ĐÁNH NGƯỜI NGÃ:' : 'MERCY RULE (PROTECTED):'}
+                </strong>
                 <span>
-                  {target.name} đang có ít kỷ vật nhất bàn chơi: Miễn nhiễm hoàn toàn cướp và phong ấn!
+                  {language === 'vi' 
+                    ? `${target.name} đang có ít kỷ vật nhất bàn chơi: Miễn nhiễm hoàn toàn cướp và phong ấn!`
+                    : `${target.name} has the fewest artifacts: Immune to steals and seals!`}
                 </span>
               </div>
             </div>
@@ -105,10 +109,10 @@ export const StealModal: React.FC<StealModalProps> = ({
                 </div>
                 <div>
                   <div className="text-xs sm:text-sm font-bold text-gray-900">
-                    1. Trả phí Cướp Kỷ Vật
+                    {language === 'vi' ? '1. Trả phí Cướp Kỷ Vật' : '1. Pay Resource to Steal Artifact'}
                   </div>
                   <div className="text-[10px] text-gray-600">
-                    Bỏ 01 thẻ Tài nguyên để lấy 01 kỷ vật trong Tay nải.
+                    {language === 'vi' ? 'Bỏ 01 thẻ Tài nguyên để lấy 01 kỷ vật trong Tay nải.' : 'Spend 1 Resource card to take 1 artifact from pouch.'}
                   </div>
                 </div>
               </div>
@@ -124,7 +128,7 @@ export const StealModal: React.FC<StealModalProps> = ({
                 >
                   {attacker.cards.resource.map(r => (
                     <option key={r.id} value={r.id}>
-                      Trả: {r.name}
+                      {language === 'vi' ? `Trả: ${r.name}` : `Spend: ${r.name}`}
                     </option>
                   ))}
                 </select>
@@ -136,7 +140,7 @@ export const StealModal: React.FC<StealModalProps> = ({
                   }}
                   className="px-3 py-1.5 bg-[#543310] hover:bg-[#6F441E] text-white rounded-lg text-xs font-bold shadow flex-shrink-0"
                 >
-                  Cướp Kỷ Vật
+                  {language === 'vi' ? 'Cướp Kỷ Vật' : 'Steal Artifact'}
                 </button>
               </div>
             )}
@@ -155,10 +159,10 @@ export const StealModal: React.FC<StealModalProps> = ({
                 </div>
                 <div>
                   <div className="text-xs sm:text-sm font-bold text-gray-900">
-                    2. Trộm 1 Thẻ Bài Túi Đồ (Miễn phí)
+                    {language === 'vi' ? '2. Trộm 1 Thẻ Bài Túi Đồ (Miễn phí)' : '2. Steal 1 Hand Card (Free)'}
                   </div>
                   <div className="text-[10px] text-gray-600">
-                    Lấy ngẫu nhiên 01 thẻ bài trong túi đồ đối thủ chuyển sang cho bạn.
+                    {language === 'vi' ? 'Lấy ngẫu nhiên 01 thẻ bài trong túi đồ đối thủ chuyển sang cho bạn.' : 'Take 1 random card from opponent into your hand.'}
                   </div>
                 </div>
               </div>
@@ -171,7 +175,7 @@ export const StealModal: React.FC<StealModalProps> = ({
                   }}
                   className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow flex-shrink-0"
                 >
-                  Trộm Thẻ
+                  {language === 'vi' ? 'Trộm Thẻ' : 'Steal Card'}
                 </button>
               )}
             </div>
@@ -183,7 +187,7 @@ export const StealModal: React.FC<StealModalProps> = ({
               onClick={() => onExecuteSteal('skip')}
               className="w-full py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-xs font-semibold transition-all"
             >
-              Bỏ qua Chạm trán (Làm nhiệm vụ chính của ô)
+              {language === 'vi' ? 'Bỏ qua Chạm trán (Làm nhiệm vụ chính của ô)' : 'Skip Encounter (Proceed with Space Task)'}
             </button>
           </div>
         </div>

@@ -10,6 +10,7 @@ interface BoardSpaceTileProps {
   isSelected?: boolean;
   onClick?: () => void;
   orientation?: 'horizontal' | 'vertical' | 'corner';
+  language?: 'vi' | 'en';
 }
 
 export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
@@ -18,7 +19,8 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
   activePlayerIndex,
   isSelected,
   onClick,
-  orientation = 'horizontal'
+  orientation = 'horizontal',
+  language = 'vi'
 }) => {
   // Color configuration by space type
   const getTypeConfig = () => {
@@ -36,7 +38,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           bg: 'bg-[#452817] text-white',
           border: 'border-[#E5C07B] border-2',
           badgeBg: 'bg-[#E5C07B] text-[#452817]',
-          badgeText: 'Ô GÓC',
+          badgeText: language === 'vi' ? 'Ô GÓC' : 'CORNER',
           icon: <Landmark size={14} className="text-[#F5E5BE]" />
         };
       case 'knowledge':
@@ -44,7 +46,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           bg: 'bg-white hover:bg-blue-50/60',
           border: 'border-blue-200 border hover:border-blue-400',
           badgeBg: 'bg-blue-100 text-blue-800',
-          badgeText: 'Kiến thức',
+          badgeText: language === 'vi' ? 'Kiến thức' : 'Knowledge',
           icon: <BookOpen size={13} className="text-blue-600" />
         };
       case 'festival':
@@ -52,7 +54,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           bg: 'bg-white hover:bg-amber-50/60',
           border: 'border-amber-200 border hover:border-amber-400',
           badgeBg: 'bg-amber-100 text-amber-800',
-          badgeText: 'Lễ hội',
+          badgeText: language === 'vi' ? 'Lễ hội' : 'Festival',
           icon: <Sparkles size={13} className="text-amber-600" />
         };
       case 'market':
@@ -60,7 +62,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           bg: 'bg-white hover:bg-emerald-50/60',
           border: 'border-emerald-200 border hover:border-emerald-400',
           badgeBg: 'bg-emerald-100 text-emerald-800',
-          badgeText: 'Thị trường',
+          badgeText: language === 'vi' ? 'Thị trường' : 'Market',
           icon: <ShoppingBag size={13} className="text-emerald-600" />
         };
       case 'challenge':
@@ -68,7 +70,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           bg: 'bg-white hover:bg-red-50/60',
           border: 'border-red-200 border hover:border-red-400',
           badgeBg: 'bg-red-100 text-red-800',
-          badgeText: 'Thử thách',
+          badgeText: language === 'vi' ? 'Thử thách' : 'Challenge',
           icon: <Swords size={13} className="text-red-600" />
         };
     }
@@ -98,7 +100,14 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
           #{space.index}
         </span>
         <div className="flex items-center gap-0.5">
-          {space.hasMilestone && <span className="text-[9px] font-mono font-bold px-1 rounded bg-gray-100 text-gray-500" title={`Cột mốc của P${space.milestoneOwnerSeat}`}>⚑ P{space.milestoneOwnerSeat}</span>}
+          {space.hasMilestone && (
+            <span 
+              className="text-[9px] font-mono font-bold px-1 rounded bg-gray-100 text-gray-500" 
+              title={language === 'vi' ? `Cột mốc của P${space.milestoneOwnerSeat}` : `Milestone of P${space.milestoneOwnerSeat}`}
+            >
+              ⚑ P{space.milestoneOwnerSeat}
+            </span>
+          )}
           {config.icon}
         </div>
       </div>
@@ -108,7 +117,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
         <div className={`board-space-name font-bold text-[11px] sm:text-[12px] truncate ${
           isCorner ? 'text-[#F5E5BE] font-serif-lacviet' : 'text-gray-900'
         }`}>
-          {space.name}
+          {language === 'vi' ? space.name : (space.enName || space.name)}
         </div>
         <div className={`text-[8px] sm:text-[9px] truncate ${
           isCorner ? 'text-[#E5C07B]/80 font-medium' : 'text-gray-500'
@@ -118,23 +127,29 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
       </div>
 
       {/* Players Tokens currently resting on this tile */}
-      <div className="board-space-tokens flex items-center justify-center gap-1 min-h-[18px]">
+      <div className={`board-space-tokens flex items-center justify-center min-h-[22px] sm:min-h-[28px] ${
+        playersOnSpace.length > 2 ? '-space-x-1 sm:-space-x-1.5' : 'gap-1'
+      }`}>
         {playersOnSpace.map((player) => {
           const tDef = TOKENS[player.token];
           const isActive = player.seat - 1 === activePlayerIndex;
 
+          const sizeClasses = isCorner
+            ? (playersOnSpace.length <= 2 ? 'w-7 h-7 sm:w-8.5 sm:h-8.5 text-sm sm:text-base' : 'w-6 h-6 sm:w-7 sm:h-7 text-xs sm:text-sm')
+            : (playersOnSpace.length === 1 ? 'w-6.5 h-6.5 sm:w-7.5 sm:h-7.5 text-sm sm:text-base' : playersOnSpace.length === 2 ? 'w-5.5 h-5.5 sm:w-6.5 sm:h-6.5 text-xs sm:text-sm' : 'w-5 h-5 sm:w-6 sm:h-6 text-[11px] sm:text-xs');
+
           return (
             <div
               key={player.id}
-              className={`relative w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center text-[10px] sm:text-xs shadow-md border border-white transition-transform ${
-                isActive ? 'animate-token-active scale-110 z-10' : ''
+              className={`relative ${sizeClasses} rounded-full flex items-center justify-center shadow-md border-2 border-white transition-all duration-200 ${
+                isActive ? 'animate-token-active scale-110 ring-2 ring-yellow-400 z-20 shadow-lg' : 'hover:scale-105 z-10'
               }`}
               style={{ backgroundColor: player.color }}
-              title={`${player.name} (${tDef.name})`}
+              title={`${player.name} (${language === 'vi' ? tDef.name : tDef.enName})`}
             >
-              <span>{tDef.icon}</span>
+              <span className="leading-none select-none">{tDef.icon}</span>
               {isActive && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-ping" />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-yellow-400 rounded-full animate-ping ring-1 ring-white" />
               )}
             </div>
           );

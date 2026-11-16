@@ -6,34 +6,50 @@ export const STARTER_BIKIP_CARDS: BiKipCard[] = [
   {
     id: 'bk_hist_start',
     title: 'Bí Kíp Lịch Sử: Khởi Nguồn Âu Lạc',
+    enTitle: 'History Bi Kip: Origins of Au Lac',
     topic: 'history',
     topicName: 'Lịch sử',
+    enTopicName: 'History',
     sourceProvince: 'Hà Nội',
-    questionSnippet: 'Dời đô Thăng Long 1010 và chiến lũy Cổ Loa thời An Dương Vương'
+    enSourceProvince: 'Hanoi',
+    questionSnippet: 'Dời đô Thăng Long 1010 và chiến lũy Cổ Loa thời An Dương Vương',
+    enQuestionSnippet: 'Thang Long capital relocation in 1010 and the ancient Co Loa Citadel of King An Duong Vuong'
   },
   {
     id: 'bk_cuis_start',
     title: 'Bí Kíp Ẩm Thực: Hương Vị Ba Miền',
+    enTitle: 'Cuisine Bi Kip: Flavors of Three Regions',
     topic: 'cuisine',
     topicName: 'Ẩm thực',
+    enTopicName: 'Cuisine',
     sourceProvince: 'Hải Phòng',
-    questionSnippet: 'Tinh hoa gia vị thảo mộc và nghệ thuật nấu nước dùng truyền thống'
+    enSourceProvince: 'Hai Phong',
+    questionSnippet: 'Tinh hoa gia vị thảo mộc và nghệ thuật nấu nước dùng truyền thống',
+    enQuestionSnippet: 'Essence of indigenous herbal spices and the culinary art of traditional broths'
   },
   {
     id: 'bk_art_start',
     title: 'Bí Kíp Nghệ Thuật: Thanh Âm Di Sản',
+    enTitle: 'Art Bi Kip: Sounds of Heritage',
     topic: 'art',
     topicName: 'Nghệ thuật',
+    enTopicName: 'Art',
     sourceProvince: 'Huế',
-    questionSnippet: 'Nhã nhạc cung đình và các làn điệu dân ca truyền thống Việt'
+    enSourceProvince: 'Hue',
+    questionSnippet: 'Nhã nhạc cung đình và các làn điệu dân ca truyền thống Việt',
+    enQuestionSnippet: 'Royal court music of Hue and the soulful melodies of Vietnamese folk songs'
   },
   {
     id: 'bk_cust_start',
     title: 'Bí Kíp Phong Tục: Hội Làng & Tín Ngưỡng',
+    enTitle: 'Customs Bi Kip: Village Festivals & Beliefs',
     topic: 'custom',
     topicName: 'Phong tục',
+    enTopicName: 'Customs',
     sourceProvince: 'Phú Thọ',
-    questionSnippet: 'Tín ngưỡng thờ cúng Hùng Vương và phong tục hội làng đầu xuân'
+    enSourceProvince: 'Phu Tho',
+    questionSnippet: 'Tín ngưỡng thờ cúng Hùng Vương và phong tục hội làng đầu xuân',
+    enQuestionSnippet: 'Sacred worship of the Hung Kings and vibrant village festivals of early spring'
   }
 ];
 

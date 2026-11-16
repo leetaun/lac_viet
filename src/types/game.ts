@@ -29,10 +29,14 @@ export type BiKipTopic = 'history' | 'cuisine' | 'art' | 'custom' | 'general';
 export interface BiKipCard {
   id: string;
   title: string;
+  enTitle?: string;
   topic: BiKipTopic;
   topicName: string;
+  enTopicName?: string;
   sourceProvince?: string;
+  enSourceProvince?: string;
   questionSnippet?: string;
+  enQuestionSnippet?: string;
 }
 
 export interface ArtifactItem {

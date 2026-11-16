@@ -65,6 +65,11 @@ Cấu trúc chuẩn 4 phần của mọi nội dung trên Web:
       'Không lo thất lạc thẻ giấy hay thẻ kỷ vật vật lý',
       'Mỗi câu hỏi có trích dẫn văn bản và cơ quan xuất bản chính thống',
       'Mã QR xem sâu trên điện thoại cá nhân không làm chậm nhịp độ ván chơi'
+    ],
+    enHighlights: [
+      'Zero paper cards or physical artifact components to lose',
+      'Every question backed by official citations and publishing bodies',
+      'Deep Dive QR on personal mobile keeps group game pace uninterrupted'
     ]
   },
   {
@@ -111,6 +116,11 @@ Bước 5: KẾT THÚC LƯỢT
       'Bước 1: Chuẩn bị kích hoạt thẻ và kỹ năng chủ động',
       'Bước 3: Chạm trán xảy ra trước khi làm nhiệm vụ của ô',
       'Bước 5: Giới hạn tối đa 5 thẻ bài trong túi đồ số'
+    ],
+    enHighlights: [
+      'Step 1: Prepare and activate cards or active token skills',
+      'Step 3: Encounters trigger before resolving the tile task',
+      'Step 5: Maximum 5 cards in your digital pouch'
     ]
   },
   {
@@ -146,6 +156,11 @@ Bước 5: KẾT THÚC LƯỢT
       'Kiến thức: Trả lời sai được nhận thẻ Bí kíp (Học từ cái sai)',
       'Thử thách: Dùng Bí kíp cùng chủ đề để Vượt ải tự động',
       'Thị trường: Tự do chọn mua hoặc không mua, luôn được nhận 1 thẻ Tài nguyên'
+    ],
+    enHighlights: [
+      'Knowledge: Wrong answers grant Bi Kip scrolls (Learn from errors)',
+      'Challenge: Use matching-topic Bi Kip to auto-pass',
+      'Market: Free to buy or pass; always receive 1 Resource card'
     ]
   },
   {
@@ -177,6 +192,11 @@ START Station: Auto-check victory, auto-reset Token skill. Answer 2 questions: 2
       'Tại Ô góc: Tự động giải phóng phong ấn kỷ vật',
       'Hòm ký gửi: Bảo vệ an toàn tuyệt đối kỷ vật đến cuối ván',
       'Tại START: Đúng 2/2 câu hỏi được thu hồi 1 kỷ vật trong Kho thất lạc'
+    ],
+    enHighlights: [
+      'Corner Stations: Automatically unseal all sealed artifacts',
+      'Safe Deposit: Completely shields artifacts until game ends',
+      'START Station: 2/2 correct answers reclaims 1 artifact from Lost & Found'
     ]
   },
   {
@@ -232,6 +252,11 @@ Milestones: Max 2 per player; opponents stopping on your milestone tile must pay
       'Nón lá cứu kỷ vật không bị rơi về Kho thất lạc khi thua Thử thách',
       'Đèn lồng đổi đề khi gặp câu hỏi quá khó',
       'Bánh mì giúp né ô Cột mốc đối thủ hoặc tiến vào Trạm góc/Thử thách'
+    ],
+    enHighlights: [
+      'Non La shields artifacts from falling to Lost & Found on failed Challenge',
+      'Den Long redraws questions when they are too tough',
+      'Banh Mi detours past opponent Milestones or enters Corners/Challenges'
     ]
   },
   {

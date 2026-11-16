@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { GameState, BoardSpace } from '../../types/game';
 import { BOARD_SPACES } from '../../data/boardData';
+import { getBoardSpaceData } from '../../data/culturalTranslations';
 import { BoardSpaceTile } from './BoardSpaceTile';
 import { DiceRoller } from './DiceRoller';
 import { PlayerBar } from './PlayerBar';
@@ -107,6 +108,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                 activePlayerIndex={gameState.activePlayerIndex}
                 isSelected={selectedSpaceIndex === idx}
                 onClick={() => setSelectedSpaceIndex(idx)}
+                language={language}
               />
             ))}
           </div>
@@ -124,6 +126,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                   activePlayerIndex={gameState.activePlayerIndex}
                   isSelected={selectedSpaceIndex === idx}
                   onClick={() => setSelectedSpaceIndex(idx)}
+                  language={language}
                 />
               ))}
             </div>
@@ -148,13 +151,13 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                 </div>
                 <div className="flex items-center gap-1.5 text-[10px]">
                   <span className="px-2 py-0.5 rounded-full bg-blue-100 text-blue-900 font-semibold border border-blue-200">
-                    Bắc Bộ
+                    {language === 'vi' ? 'Bắc Bộ' : 'North'}
                   </span>
                   <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-semibold border border-amber-200">
-                    Trung Bộ
+                    {language === 'vi' ? 'Trung Bộ' : 'Central'}
                   </span>
                   <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-900 font-semibold border border-emerald-200">
-                    Nam Bộ
+                    {language === 'vi' ? 'Nam Bộ' : 'South'}
                   </span>
                 </div>
               </div>
@@ -222,6 +225,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                   activePlayerIndex={gameState.activePlayerIndex}
                   isSelected={selectedSpaceIndex === idx}
                   onClick={() => setSelectedSpaceIndex(idx)}
+                  language={language}
                 />
               ))}
             </div>
@@ -237,6 +241,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                 activePlayerIndex={gameState.activePlayerIndex}
                 isSelected={selectedSpaceIndex === idx}
                 onClick={() => setSelectedSpaceIndex(idx)}
+                language={language}
               />
             ))}
           </div>
@@ -258,67 +263,72 @@ export const GameBoard: React.FC<GameBoardProps> = ({
       </div>
 
       {/* Selected Space Inspection Drawer / Modal */}
-      {selectedSpace && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-backdrop-fade">
-          <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-2xl border-2 border-[#C5A059] relative animate-modal-pop">
-            <button
-              onClick={() => setSelectedSpaceIndex(null)}
-              className="absolute top-3 right-3 p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200"
-            >
-              <X size={18} />
-            </button>
+      {selectedSpace && (() => {
+        const spaceData = getBoardSpaceData(selectedSpace, language);
+        return (
+          <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 animate-backdrop-fade">
+            <div className="bg-white rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-2xl border-2 border-[#C5A059] relative animate-modal-pop">
+              <button
+                onClick={() => setSelectedSpaceIndex(null)}
+                className="absolute top-3 right-3 p-1.5 rounded-full text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200"
+              >
+                <X size={18} />
+              </button>
 
-            <div className="flex items-center gap-2 mb-2">
-              <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#543310] text-[#F5E5BE]">
-                Ô #{selectedSpace.index}
-              </span>
-              <span className="text-xs text-gray-500 font-medium">
-                {selectedSpace.subtitle}
-              </span>
-            </div>
-
-            <h3 className="font-serif-lacviet text-xl font-bold text-[#543310] mb-1">
-              {selectedSpace.name}
-            </h3>
-
-            {selectedSpace.heritageHighlight && (
-              <div className="flex items-center gap-1.5 text-xs text-[#8C572D] font-bold mb-3">
-                <MapPin size={13} />
-                <span>{selectedSpace.heritageHighlight}</span>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#543310] text-[#F5E5BE]">
+                  {language === 'vi' ? `Ô #${selectedSpace.index}` : `Space #${selectedSpace.index}`}
+                </span>
+                <span className="text-xs text-gray-500 font-medium">
+                  {spaceData.subtitle}
+                </span>
               </div>
-            )}
 
-            <p className="text-xs sm:text-sm text-gray-700 leading-relaxed mb-4 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/20">
-              {selectedSpace.description}
-            </p>
+              <h3 className="font-serif-lacviet text-xl font-bold text-[#543310] mb-1">
+                {spaceData.name}
+              </h3>
 
-            {/* Players currently here */}
-            {getPlayersOnSpace(selectedSpace.index).length > 0 && (
-              <div className="mb-4 text-xs bg-gray-50 p-2.5 rounded-xl border border-gray-200">
-                <span className="font-bold text-gray-800">Người chơi tại ô:</span>
-                <div className="flex items-center gap-2 mt-1">
-                  {getPlayersOnSpace(selectedSpace.index).map(p => (
-                    <span
-                      key={p.id}
-                      className="px-2 py-0.5 rounded-full text-white text-[11px] font-bold shadow-sm"
-                      style={{ backgroundColor: p.color }}
-                    >
-                      P{p.seat} {p.name}
-                    </span>
-                  ))}
+              {spaceData.heritageHighlight && (
+                <div className="flex items-center gap-1.5 text-xs text-[#8C572D] font-bold mb-3">
+                  <MapPin size={13} />
+                  <span>{spaceData.heritageHighlight}</span>
                 </div>
-              </div>
-            )}
+              )}
 
-            <button
-              onClick={() => setSelectedSpaceIndex(null)}
-              className="w-full py-2 bg-[#543310] hover:bg-[#6F441E] text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059]"
-            >
-              Đóng
-            </button>
+              <p className="text-xs sm:text-sm text-gray-700 leading-relaxed mb-4 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/20">
+                {spaceData.description}
+              </p>
+
+              {/* Players currently here */}
+              {getPlayersOnSpace(selectedSpace.index).length > 0 && (
+                <div className="mb-4 text-xs bg-gray-50 p-2.5 rounded-xl border border-gray-200">
+                  <span className="font-bold text-gray-800">
+                    {language === 'vi' ? 'Người chơi tại ô:' : 'Players on this space:'}
+                  </span>
+                  <div className="flex items-center gap-2 mt-1">
+                    {getPlayersOnSpace(selectedSpace.index).map(p => (
+                      <span
+                        key={p.id}
+                        className="px-2 py-0.5 rounded-full text-white text-[11px] font-bold shadow-sm"
+                        style={{ backgroundColor: p.color }}
+                      >
+                        P{p.seat} {p.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <button
+                onClick={() => setSelectedSpaceIndex(null)}
+                className="w-full py-2 bg-[#543310] hover:bg-[#6F441E] text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059]"
+              >
+                {language === 'vi' ? 'Đóng' : 'Close'}
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 };

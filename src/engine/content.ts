@@ -1,6 +1,7 @@
 import { BOARD_SPACES } from '../data/boardData';
 import { CHALLENGE_CARDS, KNOWLEDGE_CARDS } from '../data/cardDecks';
 import { getProvinceByName, PROVINCES_DATA } from '../data/provinces';
+import { getProvinceName } from '../data/culturalTranslations';
 import type { ArtifactItem, BiKipCard, BiKipTopic, ChallengeCard, KnowledgeCard } from '../types/game';
 import { copyCard, uid } from './rules';
 
@@ -8,7 +9,13 @@ export const randomItem = <T,>(items: T[]): T => {
   if (!items.length) throw new Error('Không có nội dung phù hợp.');
   return items[Math.floor(Math.random() * items.length)];
 };
-export const topicName = (topic: BiKipTopic) => ({ history: 'Lịch sử', cuisine: 'Ẩm thực', art: 'Nghệ thuật', custom: 'Phong tục', general: 'Liên ngành' }[topic]);
+export const topicName = (topic: BiKipTopic, lang: 'vi' | 'en' = 'vi') => ({
+  history: lang === 'vi' ? 'Lịch sử' : 'History',
+  cuisine: lang === 'vi' ? 'Ẩm thực' : 'Cuisine',
+  art: lang === 'vi' ? 'Nghệ thuật' : 'Art',
+  custom: lang === 'vi' ? 'Phong tục' : 'Customs',
+  general: lang === 'vi' ? 'Liên ngành' : 'Interdisciplinary'
+}[topic]);
 export function makeArtifact(province: string, treasureChance = 0.1): ArtifactItem {
   const info = getProvinceByName(province);
   if (!info) throw new Error(`Chưa có kho Kỷ vật cho ${province}.`);
@@ -16,7 +23,17 @@ export function makeArtifact(province: string, treasureChance = 0.1): ArtifactIt
   return { id: uid('art'), name: isTreasure ? info.artifacts.treasure : randomItem([...info.artifacts.regular]), province: info.name, region: info.region, isTreasure, isSealed: false, storage: 'pouch' };
 }
 export function makeBiKip(card: KnowledgeCard | ChallengeCard): BiKipCard {
-  return { id: uid('bk'), title: `Bí Kíp: ${card.title}`, topic: card.topic, topicName: topicName(card.topic), sourceProvince: card.province, questionSnippet: card.question };
+  return {
+    id: uid('bk'),
+    title: `Bí Kíp: ${card.title}`,
+    enTitle: `Bi Kip Scroll: ${card.title}`,
+    topic: card.topic,
+    topicName: topicName(card.topic, 'vi'),
+    enTopicName: topicName(card.topic, 'en'),
+    sourceProvince: card.province,
+    enSourceProvince: getProvinceName(card.province, 'en'),
+    questionSnippet: card.question
+  };
 }
 
 /** Existing reviewed facts are reused verbatim. No new cultural fact or citation is invented. */
