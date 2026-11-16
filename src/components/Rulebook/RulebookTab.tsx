@@ -1,8 +1,8 @@
 import { PHYSICAL_CARDS, physicalCardUrl } from '../../utils/physicalQR';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { RULEBOOK_SECTIONS } from '../../data/rulebook';
-import { BookOpen, ChevronDown, ChevronUp, Printer, QrCode, ExternalLink, Award, Users, Recycle } from 'lucide-react';
-import { BOARD_SPACES } from '../../data/boardData';
+import { BookOpen, Printer, QrCode, Award, Users, Recycle, X } from 'lucide-react';
 import { generateQRCode } from '../../utils/qrcode';
 
 interface RulebookTabProps {
@@ -10,14 +10,47 @@ interface RulebookTabProps {
 }
 
 export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
-  const [openSectionId, setOpenSectionId] = useState<string>('overview');
+  const [selectedSectionId, setSelectedSectionId] = useState<string | null>(null);
+  const selectedSection = RULEBOOK_SECTIONS.find(section => section.id === selectedSectionId);
+  const highlights = language === 'vi' ? selectedSection?.highlights : selectedSection?.enHighlights;
+  const dialogRef = useRef<HTMLElement>(null);
   const [showQRPrinter, setShowQRPrinter] = useState<boolean>(false);
   const [generatedQRs, setGeneratedQRs] = useState<{ name: string; url: string; qrImg: string }[]>([]);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
-  const toggleSection = (id: string) => {
-    setOpenSectionId(openSectionId === id ? '' : id);
-  };
+  useEffect(() => {
+    if (!selectedSectionId) return;
+
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setSelectedSectionId(null);
+      }
+      if (event.key === 'Tab') {
+        // The close button is the only interactive element in this read-only dialog.
+        event.preventDefault();
+        dialogRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
+      }
+    };
+    const keepFocusInDialog = (event: FocusEvent) => {
+      if (event.target instanceof Node && !dialogRef.current?.contains(event.target)) {
+        dialogRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('focusin', keepFocusInDialog);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('focusin', keepFocusInDialog);
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
+    };
+  }, [selectedSectionId]);
 
   // Generate QR batch for physical board tiles
   const handleGeneratePhysicalQRs = async () => {
@@ -63,61 +96,84 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
         </button>
       </div>
 
-      {/* 2. Accordion Sections */}
+      {/* 2. Rule Sections */}
       <div className="space-y-2.5">
         {RULEBOOK_SECTIONS.map((sec, idx) => {
-          const isOpen = openSectionId === sec.id;
-
           return (
             <div
               key={sec.id}
               style={{ animationDelay: `${idx * 45}ms` }}
-              className={`animate-stagger-item bg-white rounded-2xl border transition-all overflow-hidden ${
-                isOpen ? 'border-[#C5A059] shadow-md ring-1 ring-[#C5A059]/30' : 'border-gray-200 hover:border-gray-300'
-              }`}
+              className="animate-stagger-item bg-white rounded-2xl border transition-all overflow-hidden border-gray-200 hover:border-gray-300"
             >
-              {/* Accordion Header */}
+              {/* Rule detail trigger */}
               <button
                 type="button"
-                onClick={() => toggleSection(sec.id)}
+                onClick={() => setSelectedSectionId(sec.id)}
+                aria-haspopup="dialog"
                 className="w-full p-4 text-left flex items-center justify-between gap-3 select-none hover:bg-gray-50/60 transition-colors"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className={`font-serif-lacviet font-bold text-sm sm:text-base transition-colors ${isOpen ? 'text-[#543310]' : 'text-gray-900'}`}>
+                  <span className="font-serif-lacviet font-bold text-sm sm:text-base transition-colors text-gray-900">
                     {language === 'vi' ? sec.title : sec.enTitle}
                   </span>
                 </div>
-                <div className="p-1 rounded-full text-gray-400 bg-gray-50 flex-shrink-0 transition-transform duration-300">
-                  <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#543310]' : ''}`} />
-                </div>
               </button>
 
-              {/* Accordion Content */}
-              {isOpen && (
-                <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 border-t border-gray-100 text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3 animate-accordion overflow-hidden">
-                  <div className="bg-[#FAF6EE] p-3.5 rounded-xl border border-[#C5A059]/20 whitespace-pre-line text-xs font-normal">
-                    {language === 'vi' ? sec.content : sec.enContent}
-                  </div>
-
-                  {sec.highlights && sec.highlights.length > 0 && (
-                    <div className="bg-amber-50/60 p-3 rounded-xl border border-amber-200 space-y-1">
-                      <span className="font-bold text-xs text-amber-900 block mb-1">
-                        ✨ Điểm cốt lõi cần nhớ:
-                      </span>
-                      {sec.highlights.map((h, i) => (
-                        <div key={i} className="text-[11px] text-amber-950 flex items-start gap-1.5">
-                          <span className="text-[#C5A059] font-bold">•</span>
-                          <span>{h}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           );
         })}
       </div>
+
+      {selectedSection && createPortal(
+        <div
+          className="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade"
+          onClick={event => {
+            if (event.target === event.currentTarget) setSelectedSectionId(null);
+          }}
+        >
+          <section
+            ref={dialogRef}
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="rulebook-detail-title"
+            className="bg-white rounded-2xl max-w-4xl w-full max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2rem)] flex flex-col overflow-hidden shadow-2xl border border-[#C5A059] animate-modal-pop"
+          >
+            <div className="p-4 sm:p-5 flex items-center justify-between gap-3 border-b border-gray-100 flex-shrink-0">
+              <h3 id="rulebook-detail-title" className="font-serif-lacviet font-bold text-sm sm:text-base text-[#543310]">
+                {language === 'vi' ? selectedSection.title : selectedSection.enTitle}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setSelectedSectionId(null)}
+                aria-label={language === 'vi' ? 'Đóng chi tiết luật' : 'Close rule details'}
+                className="p-1 rounded-full text-gray-400 bg-gray-50 flex-shrink-0 hover:text-[#543310] transition-colors"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            <div key={selectedSection.id} className="p-4 sm:p-5 min-h-0 overflow-y-auto overscroll-contain text-xs sm:text-sm text-gray-700 leading-relaxed space-y-3">
+              <div className="bg-[#FAF6EE] p-3.5 rounded-xl border border-[#C5A059]/20 whitespace-pre-line text-xs font-normal">
+                {language === 'vi' ? selectedSection.content : selectedSection.enContent}
+              </div>
+              {highlights && highlights.length > 0 && (
+                <div className="bg-amber-50/60 p-3 rounded-xl border border-amber-200 space-y-1">
+                  <span className="font-bold text-xs text-amber-900 block mb-1">
+                    {language === 'vi' ? '✨ Điểm cốt lõi cần nhớ:' : '✨ Key points to remember:'}
+                  </span>
+                  {highlights.map((highlight, index) => (
+                    <div key={index} className="text-[11px] text-amber-950 flex items-start gap-1.5">
+                      <span className="text-[#C5A059] font-bold">•</span>
+                      <span>{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+        </div>,
+        document.body
+      )}
 
       {/* 3. Project Background & Circular Economy Info (Hồ Sơ Dự Án) */}
       <div className="bg-white rounded-2xl p-4 sm:p-5 border border-[#C5A059]/40 shadow-sm space-y-3">

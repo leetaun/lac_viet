@@ -51,7 +51,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t-2 border-[#C5A059]/40 shadow-lg">
+    <nav className="game-navigation fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t-2 border-[#C5A059]/40 shadow-lg">
       <div className="max-w-xl mx-auto flex items-center justify-around px-2 py-1.5 sm:py-2">
         {tabs.map(tab => {
           const isActive = activeTab === tab.id;

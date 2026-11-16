@@ -125,7 +125,7 @@ export const App: React.FC = () => {
   if(qrKind)return <QRCardGateway key={qrKind} kind={qrKind} gameState={gameState} onBack={()=>{setLocalQR(false);leaveQR();}} onOpen={async(province,difficulty)=>{await controller.openPhysicalCard(qrKind,province,difficulty);setLocalQR(false);leaveQR();}}/>;
 
   return (
-    <div className="min-h-screen bg-[#F8F5EE] flex flex-col font-sans text-gray-900 select-none">
+    <div className="lac-viet-app min-h-screen bg-[#F8F5EE] flex flex-col font-sans text-gray-900 select-none">
       
       {/* 1. Header (Slide 6-10 Theme) */}
       <Header
@@ -138,7 +138,7 @@ export const App: React.FC = () => {
       />
 
       {/* 2. Main Content Body according to Active Tab with smooth entrance animation */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-2 sm:p-4">
+      <main className={`flex-1 max-w-7xl w-full mx-auto p-2 sm:p-4 ${activeTab === 'board' ? 'board-main-content' : ''}`}>
         <div key={activeTab} className="animate-tab-enter">
           {activeTab === 'board' && (
             <GameBoard

@@ -80,7 +80,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`relative select-none cursor-pointer transition-all duration-150 rounded-lg p-1.5 flex flex-col justify-between ${
+      className={`board-space-tile ${orientation === 'vertical' ? 'board-space-side' : ''} relative select-none cursor-pointer transition-all duration-150 rounded-lg p-1.5 flex flex-col justify-between ${
         config.bg
       } ${config.border} ${
         isSelected ? 'ring-2 ring-[#C5A059] scale-[1.03] z-20 shadow-md' : 'shadow-sm'
@@ -91,7 +91,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
       }`}
     >
       {/* Space Index & Type Badge */}
-      <div className="flex items-center justify-between gap-1 w-full">
+      <div className="board-space-meta flex items-center justify-between gap-1 w-full">
         <span className={`text-[9px] font-mono font-bold px-1 rounded ${
           isCorner ? 'bg-black/30 text-[#E5C07B]' : 'bg-gray-100 text-gray-500'
         }`}>
@@ -104,8 +104,8 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
       </div>
 
       {/* Title */}
-      <div className="my-0.5 text-center leading-tight">
-        <div className={`font-bold text-[11px] sm:text-[12px] truncate ${
+      <div className="board-space-label my-0.5 text-center leading-tight">
+        <div className={`board-space-name font-bold text-[11px] sm:text-[12px] truncate ${
           isCorner ? 'text-[#F5E5BE] font-serif-lacviet' : 'text-gray-900'
         }`}>
           {space.name}
@@ -118,7 +118,7 @@ export const BoardSpaceTile: React.FC<BoardSpaceTileProps> = ({
       </div>
 
       {/* Players Tokens currently resting on this tile */}
-      <div className="flex items-center justify-center gap-1 min-h-[18px]">
+      <div className="board-space-tokens flex items-center justify-center gap-1 min-h-[18px]">
         {playersOnSpace.map((player) => {
           const tDef = TOKENS[player.token];
           const isActive = player.seat - 1 === activePlayerIndex;

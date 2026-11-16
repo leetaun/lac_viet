@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { GameState, BoardSpace } from '../../types/game';
 import { BOARD_SPACES } from '../../data/boardData';
 import { BoardSpaceTile } from './BoardSpaceTile';
@@ -25,6 +25,37 @@ export const GameBoard: React.FC<GameBoardProps> = ({
   language
 }) => {
   const [selectedSpaceIndex, setSelectedSpaceIndex] = useState<number | null>(null);
+  const layoutRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const layout = layoutRef.current;
+    if (!layout) return;
+    const header = document.querySelector('header');
+    const navigation = document.querySelector('nav');
+    const main = layout.closest('main');
+    const updateHeight = () => {
+      const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+      const headerHeight = header?.getBoundingClientRect().height ?? 0;
+      const navigationHeight = navigation?.getBoundingClientRect().height ?? 0;
+      const mainStyle = main ? window.getComputedStyle(main) : null;
+      const verticalPadding = mainStyle
+        ? parseFloat(mainStyle.paddingTop) + parseFloat(mainStyle.paddingBottom)
+        : 32;
+      layout.style.setProperty('--board-layout-height', `${Math.max(0, viewportHeight - headerHeight - navigationHeight - verticalPadding - 8)}px`);
+    };
+    const observer = new ResizeObserver(updateHeight);
+    if (header) observer.observe(header);
+    if (navigation) observer.observe(navigation);
+    if (main) observer.observe(main);
+    window.addEventListener('resize', updateHeight);
+    window.visualViewport?.addEventListener('resize', updateHeight);
+    updateHeight();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateHeight);
+      window.visualViewport?.removeEventListener('resize', updateHeight);
+    };
+  }, []);
 
   const activePlayer = gameState.players[gameState.activePlayerIndex] || gameState.players[0];
 
@@ -51,7 +82,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
   const selectedSpace = selectedSpaceIndex !== null ? boardSpaces[selectedSpaceIndex] : null;
 
   return (
-    <div className="flex flex-col gap-4 pb-20 max-w-7xl mx-auto px-2 sm:px-4">
+    <div ref={layoutRef} className="game-board-layout flex flex-col gap-4 pb-20 max-w-7xl mx-auto px-2 sm:px-4">
       {/* 4 Players status bar */}
       <PlayerBar
         players={gameState.players}
@@ -62,12 +93,12 @@ export const GameBoard: React.FC<GameBoardProps> = ({
       />
 
       {/* Main Board Container */}
-      <div className="bg-[#F4EFE6] rounded-3xl p-2 sm:p-4 shadow-board border-2 border-[#C5A059]/40 relative overflow-x-auto">
+      <div className="game-board-frame bg-[#F4EFE6] rounded-3xl p-2 sm:p-4 shadow-board border-2 border-[#C5A059]/40 relative overflow-x-auto">
         {/* Responsive board wrapper */}
-        <div className="min-w-[760px] md:min-w-[850px] flex flex-col gap-2">
+        <div className="game-board-grid min-w-[760px] md:min-w-[850px] flex flex-col gap-2">
           
           {/* Top Row: Corner 20 (Trung Bo), Spaces 21-29, Corner 30 (Nam Bo) */}
-          <div className="grid grid-cols-11 gap-1 sm:gap-1.5">
+          <div className="board-edge-row grid grid-cols-11 gap-1 sm:gap-1.5">
             {topSpaces.map(idx => (
               <BoardSpaceTile
                 key={idx}
@@ -81,12 +112,13 @@ export const GameBoard: React.FC<GameBoardProps> = ({
           </div>
 
           {/* Middle Section: Left Col, Center Arena, Right Col */}
-          <div className="grid grid-cols-11 gap-1 sm:gap-1.5 items-stretch">
+          <div className="board-middle grid grid-cols-11 gap-1 sm:gap-1.5 items-stretch">
             {/* Left Column (Spaces 19 down to 11) */}
-            <div className="col-span-1 flex flex-col justify-between gap-1 sm:gap-1.5">
+            <div className="board-side col-span-1 flex flex-col justify-between gap-1 sm:gap-1.5">
               {[...leftSpaces].reverse().map(idx => (
                 <BoardSpaceTile
                   key={idx}
+                  orientation="vertical"
                   space={boardSpaces[idx]}
                   playersOnSpace={getPlayersOnSpace(idx)}
                   activePlayerIndex={gameState.activePlayerIndex}
@@ -97,11 +129,12 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             </div>
 
             {/* Center Arena: 9 columns wide */}
-            <div className="col-span-9 bg-gradient-to-br from-[#FAF6EE] via-[#FFFDF9] to-[#F5E5BE]/30 rounded-2xl p-4 sm:p-6 border border-[#C5A059]/30 flex flex-col justify-between relative shadow-inner overflow-hidden min-h-[360px]">
-              {/* Vietnam S-Shape subtle vector backdrop */}
+            <div className="board-arena col-span-9 bg-gradient-to-br from-[#FAF6EE] via-[#FFFDF9] to-[#F5E5BE]/30 rounded-2xl p-4 sm:p-6 border border-[#C5A059]/30 flex flex-col justify-between relative shadow-inner overflow-hidden min-h-[360px]">
+              {/* Decorative Vietnam mainland silhouette from geographic coordinates:
+                  https://github.com/johan/world.geo.json/blob/master/countries/VNM.geo.json */}
               <div className="absolute inset-0 pointer-events-none opacity-[0.09] flex items-center justify-center">
-                <svg viewBox="0 0 400 800" className="h-full max-h-[380px] text-[#543310] fill-current">
-                  <path d="M 180,40 Q 220,70 190,120 Q 150,180 180,240 Q 210,300 230,360 Q 250,420 220,480 Q 170,540 180,620 Q 190,700 130,760" stroke="#543310" strokeWidth="32" fill="none" strokeLinecap="round" />
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 400 800" className="h-full max-h-[380px] text-[#543310] fill-current">
+                  <path d="M302.4,107.4 L238.3,150.2 L198.3,197.4 L187.8,232.1 L224.5,284.8 L269.4,350.1 L312.9,381.0 L342.1,421.2 L364.1,513.7 L357.6,601.7 L317.6,634.6 L262.6,666.8 L223.4,708.5 L163.6,755.0 L146.2,722.9 L159.7,689.1 L124.0,660.7 L165.6,640.5 L216.0,636.9 L194.9,606.6 L275.6,568.1 L281.5,508.2 L270.4,474.9 L279.1,424.9 L267.0,389.6 L230.7,354.8 L200.4,310.7 L160.5,251.7 L103.0,221.7 L116.8,203.8 L147.5,190.7 L128.9,147.1 L69.8,146.7 L48.2,101.2 L20.2,61.8 L45.9,49.6 L84.2,49.8 L130.9,44.0 L171.8,17.4 L194.9,36.2 L238.8,45.3 L231.2,74.1 L254.1,94.4 Z" />
                 </svg>
               </div>
 
@@ -127,7 +160,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
               </div>
 
               {/* Center Middle: Dice Rolling Arena */}
-              <div className="flex flex-col items-center justify-center py-3 z-10 gap-2.5">
+              <div className="board-dice-arena flex flex-col items-center justify-center py-3 z-10 gap-2.5">
                 <div className="text-center">
                   <div className="font-serif-lacviet text-xl sm:text-2xl font-bold text-[#543310] flex items-center justify-center gap-2">
                     <span className="w-3 h-3 rounded-full" style={{ backgroundColor: activePlayer?.color }} />
@@ -150,6 +183,17 @@ export const GameBoard: React.FC<GameBoardProps> = ({
                   </div>
                 )}
               </div>
+              <div className="board-center-controls hidden relative z-10">
+                <TurnControls
+                  activePlayer={activePlayer}
+                  hasRolled={gameState.hasRolled}
+                  isRolling={isRolling}
+                  onRollDice={onRollDice}
+                  onUseTokenSkill={onUseTokenSkill}
+                  onEndTurn={onEndTurn}
+                  language={language}
+                />
+              </div>
 
               {/* Center Bottom: Quick Log of recent game actions */}
               <div className="z-10 bg-white/85 backdrop-blur rounded-xl p-2 border border-[#C5A059]/30 text-[11px] text-gray-600 max-h-[64px] overflow-y-auto">
@@ -168,10 +212,11 @@ export const GameBoard: React.FC<GameBoardProps> = ({
             </div>
 
             {/* Right Column (Spaces 31 down to 39) */}
-            <div className="col-span-1 flex flex-col justify-between gap-1 sm:gap-1.5">
+            <div className="board-side col-span-1 flex flex-col justify-between gap-1 sm:gap-1.5">
               {rightSpaces.map(idx => (
                 <BoardSpaceTile
                   key={idx}
+                  orientation="vertical"
                   space={boardSpaces[idx]}
                   playersOnSpace={getPlayersOnSpace(idx)}
                   activePlayerIndex={gameState.activePlayerIndex}
@@ -183,7 +228,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
           </div>
 
           {/* Bottom Row: Corner 10 (Bac Bo), Spaces 9 down to 1, Corner 0 (START) */}
-          <div className="grid grid-cols-11 gap-1 sm:gap-1.5">
+          <div className="board-edge-row grid grid-cols-11 gap-1 sm:gap-1.5">
             {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0].map(idx => (
               <BoardSpaceTile
                 key={idx}
@@ -200,6 +245,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
       </div>
 
       {/* Turn Controls Bar */}
+      <div className="board-bottom-controls">
       <TurnControls
         activePlayer={activePlayer}
         hasRolled={gameState.hasRolled}
@@ -209,6 +255,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
         onEndTurn={onEndTurn}
         language={language}
       />
+      </div>
 
       {/* Selected Space Inspection Drawer / Modal */}
       {selectedSpace && (
