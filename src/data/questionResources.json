@@ -1,0 +1,506 @@
+{
+  "questionSetId": "lv100-18b4df6139f69b72",
+  "checkedAt": "2026-11-19",
+  "resources": {
+    "lv100_history_001": {
+      "title": "Văn Lang — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/V%C4%83n_Lang",
+      "language": "vi"
+    },
+    "lv100_history_002": {
+      "title": "Hùng Vương — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/H%C3%B9ng_V%C6%B0%C6%A1ng",
+      "language": "vi"
+    },
+    "lv100_history_003": {
+      "title": "Cổ Loa — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/C%E1%BB%95_Loa",
+      "language": "vi"
+    },
+    "lv100_history_004": {
+      "title": "Trận Bạch Đằng (938) — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_B%E1%BA%A1ch_%C4%90%E1%BA%B1ng_(938)",
+      "language": "vi"
+    },
+    "lv100_history_005": {
+      "title": "Lý Thái Tổ và việc dời đô — Hoàng thành Thăng Long",
+      "url": "https://hoangthanhthanglong.vn/le-dang-huong-tuong-niem-994-nam-ngay-mat-duc-vua-ly-thai-to-2/",
+      "language": "vi"
+    },
+    "lv100_history_006": {
+      "title": "Lý Thái Tổ và Thăng Long — Hoàng thành Thăng Long",
+      "url": "https://hoangthanhthanglong.vn/le-dang-huong-tuong-niem-994-nam-ngay-mat-duc-vua-ly-thai-to-2/",
+      "language": "vi"
+    },
+    "lv100_history_007": {
+      "title": "Nhà Trần — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_Tr%E1%BA%A7n",
+      "language": "vi"
+    },
+    "lv100_history_008": {
+      "title": "Bình Ngô đại cáo — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/B%C3%ACnh_Ng%C3%B4_%C4%91%E1%BA%A1i_c%C3%A1o",
+      "language": "vi"
+    },
+    "lv100_history_009": {
+      "title": "Khởi nghĩa Lam Sơn — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Kh%E1%BB%9Fi_ngh%C4%A9a_Lam_S%C6%A1n",
+      "language": "vi"
+    },
+    "lv100_history_010": {
+      "title": "Khởi nghĩa Lam Sơn — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Kh%E1%BB%9Fi_ngh%C4%A9a_Lam_S%C6%A1n",
+      "language": "vi"
+    },
+    "lv100_history_011": {
+      "title": "Quang Trung — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Quang_Trung",
+      "language": "vi"
+    },
+    "lv100_history_012": {
+      "title": "Nhà Nguyễn — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Nh%C3%A0_Nguy%E1%BB%85n",
+      "language": "vi"
+    },
+    "lv100_history_013": {
+      "title": "Trận Đà Nẵng (1858–1859) — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Tr%E1%BA%ADn_%C4%90%C3%A0_N%E1%BA%B5ng_(1858%E2%80%931859)",
+      "language": "vi"
+    },
+    "lv100_history_014": {
+      "title": "Phong trào Cần Vương — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Phong_tr%C3%A0o_C%E1%BA%A7n_V%C6%B0%C6%A1ng",
+      "language": "vi"
+    },
+    "lv100_history_015": {
+      "title": "Ngày Bác Hồ ra đi tìm đường cứu nước — Báo Chính phủ",
+      "url": "https://baochinhphu.vn/ky-niem-100-nam-ngay-bac-ho-ra-di-tim-duong-cuu-nuoc-5-6-1911-5-6-2011-10281555.htm",
+      "language": "vi"
+    },
+    "lv100_history_016": {
+      "title": "Ngày thành lập Đảng Cộng sản Việt Nam — Tư liệu Văn kiện Đảng",
+      "url": "https://tulieuvankien.dangcongsan.vn/ho-so-su-kien-nhan-chung/su-kien-va-nhan-chung/ngay-thanh-lap-dang-cong-san-viet-nam-3-2-1930-3342",
+      "language": "vi"
+    },
+    "lv100_history_017": {
+      "title": "Cách mạng tháng Tám 1945 — Báo Chính phủ",
+      "url": "https://baochinhphu.vn/khoi-nghia-gianh-chinh-quyen-o-ha-noi-su-kien-dac-biet-trong-cach-mang-thang-tam-1945-102277816.htm",
+      "language": "vi"
+    },
+    "lv100_history_018": {
+      "title": "Quốc khánh 2/9 — Báo Chính phủ",
+      "url": "https://baochinhphu.vn/ha-noi-trong-ngay-quoc-khanh-2-9-102278472.htm",
+      "language": "vi"
+    },
+    "lv100_history_019": {
+      "title": "Tuyên ngôn Độc lập tại Ba Đình — Báo Chính phủ",
+      "url": "https://baochinhphu.vn/ha-noi-trong-ngay-quoc-khanh-2-9-102278472.htm",
+      "language": "vi"
+    },
+    "lv100_history_020": {
+      "title": "Điện Biên Phủ và Hiệp định Genève — Cổng TTĐT Chính phủ",
+      "url": "https://vanban.chinhphu.vn/giai-doan-1945-1954-khang-chien-va-kien-quoc/vii-chien-dich-dien-bien-phu-toan-thang-hiep-dinh-gionevo-duoc-ky-ket-10001574",
+      "language": "vi"
+    },
+    "lv100_history_021": {
+      "title": "Hiệp định Genève — Cổng TTĐT Chính phủ",
+      "url": "https://vanban.chinhphu.vn/giai-doan-1945-1954-khang-chien-va-kien-quoc/vii-chien-dich-dien-bien-phu-toan-thang-hiep-dinh-gionevo-duoc-ky-ket-10001574",
+      "language": "vi"
+    },
+    "lv100_history_022": {
+      "title": "Chiến dịch Hồ Chí Minh — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_d%E1%BB%8Bch_H%E1%BB%93_Ch%C3%AD_Minh",
+      "language": "vi"
+    },
+    "lv100_history_023": {
+      "title": "Chiến dịch Hồ Chí Minh — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_d%E1%BB%8Bch_H%E1%BB%93_Ch%C3%AD_Minh",
+      "language": "vi"
+    },
+    "lv100_history_024": {
+      "title": "Đổi Mới — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%95i_M%E1%BB%9Bi",
+      "language": "vi"
+    },
+    "lv100_history_025": {
+      "title": "Lê Văn Hưu — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/L%C3%AA_V%C4%83n_H%C6%B0u",
+      "language": "vi"
+    },
+    "lv100_history_026": {
+      "title": "Kim tự tháp Ai Cập — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Kim_t%E1%BB%B1_th%C3%A1p_Ai_C%E1%BA%ADp",
+      "language": "vi"
+    },
+    "lv100_history_027": {
+      "title": "Lưỡng Hà — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/L%C6%B0%E1%BB%A1ng_H%C3%A0",
+      "language": "vi"
+    },
+    "lv100_history_028": {
+      "title": "Nguồn gốc Olympic — Ủy ban Olympic Quốc tế (EN)",
+      "url": "https://www.olympics.com/ioc/faq/history-and-origin-of-the-games/what-is-the-origin-of-the-olympic-games",
+      "language": "en"
+    },
+    "lv100_history_029": {
+      "title": "La Mã cổ đại — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/La_M%C3%A3_c%E1%BB%95_%C4%91%E1%BA%A1i",
+      "language": "vi"
+    },
+    "lv100_history_030": {
+      "title": "Vạn Lý Trường Thành — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/V%E1%BA%A1n_L%C3%BD_Tr%C6%B0%E1%BB%9Dng_Th%C3%A0nh",
+      "language": "vi"
+    },
+    "lv100_history_031": {
+      "title": "Christopher Columbus — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Christopher_Columbus",
+      "language": "vi"
+    },
+    "lv100_history_032": {
+      "title": "Cách mạng Công nghiệp — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/C%C3%A1ch_m%E1%BA%A1ng_C%C3%B4ng_nghi%E1%BB%87p",
+      "language": "vi"
+    },
+    "lv100_history_033": {
+      "title": "Tuyên ngôn Độc lập Hoa Kỳ — National Archives (EN)",
+      "url": "https://www.archives.gov/milestone-documents/declaration-of-independence",
+      "language": "en"
+    },
+    "lv100_history_034": {
+      "title": "Cách mạng Pháp — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/C%C3%A1ch_m%E1%BA%A1ng_Ph%C3%A1p",
+      "language": "vi"
+    },
+    "lv100_history_035": {
+      "title": "Chiến tranh thế giới thứ nhất — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_tranh_th%E1%BA%BF_gi%E1%BB%9Bi_th%E1%BB%A9_nh%E1%BA%A5t",
+      "language": "vi"
+    },
+    "lv100_history_036": {
+      "title": "Chiến tranh thế giới thứ hai — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_tranh_th%E1%BA%BF_gi%E1%BB%9Bi_th%E1%BB%A9_hai",
+      "language": "vi"
+    },
+    "lv100_history_037": {
+      "title": "Liên Hợp Quốc — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Li%C3%AAn_H%E1%BB%A3p_Qu%E1%BB%91c",
+      "language": "vi"
+    },
+    "lv100_history_038": {
+      "title": "Sự sụp đổ Bức tường Berlin — Thành phố Berlin (EN)",
+      "url": "https://www.berlin.de/en/history/8482274-8619314-opening-and-fall-of-the-berlin-wall.en.html",
+      "language": "en"
+    },
+    "lv100_history_039": {
+      "title": "Mahatma Gandhi — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Mahatma_Gandhi",
+      "language": "vi"
+    },
+    "lv100_history_040": {
+      "title": "Tiểu sử Nelson Mandela — Nelson Mandela Foundation (EN)",
+      "url": "https://www.nelsonmandela.org/biography",
+      "language": "en"
+    },
+    "lv100_history_041": {
+      "title": "Napoléon Bonaparte — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Napol%C3%A9on_Bonaparte",
+      "language": "vi"
+    },
+    "lv100_history_042": {
+      "title": "Phục Hưng — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Ph%E1%BB%A5c_H%C6%B0ng",
+      "language": "vi"
+    },
+    "lv100_history_043": {
+      "title": "Romeo and Juliet — Royal Shakespeare Company (EN)",
+      "url": "https://www.rsc.org.uk/romeo-and-juliet/",
+      "language": "en"
+    },
+    "lv100_history_044": {
+      "title": "Johannes Gutenberg — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Johannes_Gutenberg",
+      "language": "vi"
+    },
+    "lv100_history_045": {
+      "title": "Sự thất thủ Constantinople — Wikipedia (EN)",
+      "url": "https://en.wikipedia.org/wiki/Fall_of_Constantinople",
+      "language": "en"
+    },
+    "lv100_history_046": {
+      "title": "Chiến tranh Lạnh — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_tranh_L%E1%BA%A1nh",
+      "language": "vi"
+    },
+    "lv100_history_047": {
+      "title": "Lịch sử thành lập ASEAN — ASEAN (EN)",
+      "url": "https://asean.org/the-founding-of-asean/",
+      "language": "en"
+    },
+    "lv100_history_048": {
+      "title": "Quốc khánh Cộng hòa Nhân dân Trung Hoa — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Qu%E1%BB%91c_kh%C3%A1nh_C%E1%BB%99ng_h%C3%B2a_Nh%C3%A2n_d%C3%A2n_Trung_Hoa",
+      "language": "vi"
+    },
+    "lv100_history_049": {
+      "title": "Nữ hoàng Victoria — Hoàng gia Anh (EN)",
+      "url": "https://www.royal.uk/victoria-r-1837-1901",
+      "language": "en"
+    },
+    "lv100_history_050": {
+      "title": "Chiến tranh thế giới thứ hai — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_tranh_th%E1%BA%BF_gi%E1%BB%9Bi_th%E1%BB%A9_hai",
+      "language": "vi"
+    },
+    "lv100_geography_001": {
+      "title": "Châu lục — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Ch%C3%A2u_l%E1%BB%A5c",
+      "language": "vi"
+    },
+    "lv100_geography_002": {
+      "title": "Thái Bình Dương — NOAA (EN)",
+      "url": "https://oceanservice.noaa.gov/facts/biggestocean.html",
+      "language": "en"
+    },
+    "lv100_geography_003": {
+      "title": "Châu Á — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Ch%C3%A2u_%C3%81",
+      "language": "vi"
+    },
+    "lv100_geography_004": {
+      "title": "Châu Đại Dương — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Ch%C3%A2u_%C4%90%E1%BA%A1i_D%C6%B0%C6%A1ng",
+      "language": "vi"
+    },
+    "lv100_geography_005": {
+      "title": "Xích đạo — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/X%C3%ADch_%C4%91%E1%BA%A1o",
+      "language": "vi"
+    },
+    "lv100_geography_006": {
+      "title": "Hệ tọa độ và kinh tuyến gốc — NASA (EN)",
+      "url": "https://science.nasa.gov/learn/basics-of-space-flight/chapter2-1/",
+      "language": "en"
+    },
+    "lv100_geography_007": {
+      "title": "Trái Đất: hình dạng, tự quay và quỹ đạo — NASA (EN)",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "language": "en"
+    },
+    "lv100_geography_008": {
+      "title": "Trái Đất: hình dạng, tự quay và quỹ đạo — NASA (EN)",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "language": "en"
+    },
+    "lv100_geography_009": {
+      "title": "Trái Đất: hình dạng, tự quay và quỹ đạo — NASA (EN)",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "language": "en"
+    },
+    "lv100_geography_010": {
+      "title": "Trái Đất: hình dạng, tự quay và quỹ đạo — NASA (EN)",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "language": "en"
+    },
+    "lv100_geography_011": {
+      "title": "Everest — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Everest",
+      "language": "vi"
+    },
+    "lv100_geography_012": {
+      "title": "Himalaya — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Himalaya",
+      "language": "vi"
+    },
+    "lv100_geography_013": {
+      "title": "Địa lý châu Phi và Sahara — National Geographic (EN)",
+      "url": "https://education.nationalgeographic.org/resource/africa-physical-geography/",
+      "language": "en"
+    },
+    "lv100_geography_014": {
+      "title": "Rừng mưa Amazon — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/R%E1%BB%ABng_m%C6%B0a_Amazon",
+      "language": "vi"
+    },
+    "lv100_geography_015": {
+      "title": "Sông Nin — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/S%C3%B4ng_Nin",
+      "language": "vi"
+    },
+    "lv100_geography_016": {
+      "title": "Sông Đồng Nai — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/S%C3%B4ng_%C4%90%E1%BB%93ng_Nai",
+      "language": "vi"
+    },
+    "lv100_geography_017": {
+      "title": "Đồng bằng sông Cửu Long — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%93ng_b%E1%BA%B1ng_s%C3%B4ng_C%E1%BB%ADu_Long",
+      "language": "vi"
+    },
+    "lv100_geography_018": {
+      "title": "Hà Nội — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/H%C3%A0_N%E1%BB%99i",
+      "language": "vi"
+    },
+    "lv100_geography_019": {
+      "title": "Việt Nam — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam",
+      "language": "vi"
+    },
+    "lv100_geography_020": {
+      "title": "Việt Nam — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Vi%E1%BB%87t_Nam",
+      "language": "vi"
+    },
+    "lv100_geography_021": {
+      "title": "Fansipan — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Fansipan",
+      "language": "vi"
+    },
+    "lv100_geography_022": {
+      "title": "Vịnh Hạ Long — UNESCO (EN)",
+      "url": "https://whc.unesco.org/en/list/672/",
+      "language": "en"
+    },
+    "lv100_geography_023": {
+      "title": "Tây Nguyên — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/T%C3%A2y_Nguy%C3%AAn",
+      "language": "vi"
+    },
+    "lv100_geography_024": {
+      "title": "Biển Đông — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Bi%E1%BB%83n_%C4%90%C3%B4ng",
+      "language": "vi"
+    },
+    "lv100_geography_025": {
+      "title": "Ý — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/%C3%9D",
+      "language": "vi"
+    },
+    "lv100_geography_026": {
+      "title": "Tokyo — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Tokyo",
+      "language": "vi"
+    },
+    "lv100_geography_027": {
+      "title": "Seoul — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Seoul",
+      "language": "vi"
+    },
+    "lv100_geography_028": {
+      "title": "Bangkok — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Bangkok",
+      "language": "vi"
+    },
+    "lv100_geography_029": {
+      "title": "Canberra — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Canberra",
+      "language": "vi"
+    },
+    "lv100_geography_030": {
+      "title": "Ottawa — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Ottawa",
+      "language": "vi"
+    },
+    "lv100_geography_031": {
+      "title": "Washington, D.C. — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Washington,_D.C.",
+      "language": "vi"
+    },
+    "lv100_geography_032": {
+      "title": "Paris — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Paris",
+      "language": "vi"
+    },
+    "lv100_geography_033": {
+      "title": "Berlin — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Berlin",
+      "language": "vi"
+    },
+    "lv100_geography_034": {
+      "title": "Cairo — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Cairo",
+      "language": "vi"
+    },
+    "lv100_geography_035": {
+      "title": "Nga — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Nga",
+      "language": "vi"
+    },
+    "lv100_geography_036": {
+      "title": "Ấn Độ — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/%E1%BA%A4n_%C4%90%E1%BB%99",
+      "language": "vi"
+    },
+    "lv100_geography_037": {
+      "title": "Andes — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Andes",
+      "language": "vi"
+    },
+    "lv100_geography_038": {
+      "title": "Ấn Độ Dương — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/%E1%BA%A4n_%C4%90%E1%BB%99_D%C6%B0%C6%A1ng",
+      "language": "vi"
+    },
+    "lv100_geography_039": {
+      "title": "Địa Trung Hải — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Ba_Trung_H%E1%BA%A3i",
+      "language": "vi"
+    },
+    "lv100_geography_040": {
+      "title": "Kênh đào Suez — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/K%C3%AAnh_%C4%91%C3%A0o_Suez",
+      "language": "vi"
+    },
+    "lv100_geography_041": {
+      "title": "Kênh đào Panama — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/K%C3%AAnh_%C4%91%C3%A0o_Panama",
+      "language": "vi"
+    },
+    "lv100_geography_042": {
+      "title": "Khí hậu xích đạo — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Kh%C3%AD_h%E1%BA%ADu_x%C3%ADch_%C4%91%E1%BA%A1o",
+      "language": "vi"
+    },
+    "lv100_geography_043": {
+      "title": "Gió mùa — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Gi%C3%B3_m%C3%B9a",
+      "language": "vi"
+    },
+    "lv100_geography_044": {
+      "title": "Bản đồ địa hình — USGS (EN)",
+      "url": "https://www.usgs.gov/educational-resources/topographic-mapping",
+      "language": "en"
+    },
+    "lv100_geography_045": {
+      "title": "Tỷ lệ bản đồ — National Geographic (EN)",
+      "url": "https://education.nationalgeographic.org/resource/map-scale/",
+      "language": "en"
+    },
+    "lv100_geography_046": {
+      "title": "Xích đạo — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/X%C3%ADch_%C4%91%E1%BA%A1o",
+      "language": "vi"
+    },
+    "lv100_geography_047": {
+      "title": "Trái Đất: hình dạng, tự quay và quỹ đạo — NASA (EN)",
+      "url": "https://science.nasa.gov/earth/facts/",
+      "language": "en"
+    },
+    "lv100_geography_048": {
+      "title": "Nhật Bản — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Nh%E1%BA%ADt_B%E1%BA%A3n",
+      "language": "vi"
+    },
+    "lv100_geography_049": {
+      "title": "Hồ Thượng — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/H%E1%BB%93_Th%C6%B0%E1%BB%A3ng",
+      "language": "vi"
+    },
+    "lv100_geography_050": {
+      "title": "Châu Nam Cực — Wikipedia tiếng Việt",
+      "url": "https://vi.wikipedia.org/wiki/Ch%C3%A2u_Nam_C%E1%BB%B1c",
+      "language": "vi"
+    }
+  }
+}

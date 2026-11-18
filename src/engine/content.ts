@@ -1,5 +1,5 @@
-import { BOARD_SPACES } from '../data/boardData';
-import { CHALLENGE_CARDS, KNOWLEDGE_CARDS } from '../data/cardDecks';
+﻿import { BOARD_SPACES } from '../data/boardData';
+import { QUESTION_BANK, pickBankQuestion, bankGameCard } from '../data/questionBank';
 import { getProvinceByName, PROVINCES_DATA } from '../data/provinces';
 import { getProvinceName } from '../data/culturalTranslations';
 import type { ArtifactItem, BiKipCard, BiKipTopic, ChallengeCard, KnowledgeCard } from '../types/game';
@@ -10,6 +10,7 @@ export const randomItem = <T,>(items: T[]): T => {
   return items[Math.floor(Math.random() * items.length)];
 };
 export const topicName = (topic: BiKipTopic, lang: 'vi' | 'en' = 'vi') => ({
+  geography: lang === 'vi' ? 'Địa lý' : 'Geography',
   history: lang === 'vi' ? 'Lịch sử' : 'History',
   cuisine: lang === 'vi' ? 'Ẩm thực' : 'Cuisine',
   art: lang === 'vi' ? 'Nghệ thuật' : 'Art',
@@ -36,35 +37,11 @@ export function makeBiKip(card: KnowledgeCard | ChallengeCard): BiKipCard {
   };
 }
 
-/** Existing reviewed facts are reused verbatim. No new cultural fact or citation is invented. */
-function localQuestion(province: string, topic: BiKipTopic): KnowledgeCard {
-  const info = getProvinceByName(province)!;
-  const others = PROVINCES_DATA.filter(p => p.id !== info.id);
-  const options = [info.name, ...[...others].sort(() => Math.random() - 0.5).slice(0,3).map(p => p.name)].sort(() => Math.random() - 0.5);
-  const fact = topic === 'cuisine' ? info.specialty : topic === 'custom' ? info.festivals.join('; ') : info.heritage;
-  return {
-    id: `local_${info.id}_${topic}`, type: 'knowledge', province: info.name, region: info.region,
-    topic, title: `${topicName(topic)} · ${info.name}`, heritageName: info.heritage,
-    question: `Tư liệu sau gắn với địa phương nào? “${fact}”`, options, correctAnswer: options.indexOf(info.name),
-    description: info.description, culturalSignificance: info.heritage, didYouKnow: info.description,
-    // The existing local reference is provided as a link, not misrepresented as a reviewed citation.
-    qrContent: info.qrCodeUrl, category: topicName(topic),
-  };
-}
-
 export function drawLocalQuestion(province: string, type: 'knowledge' | 'challenge', excludeId?: string): KnowledgeCard | ChallengeCard {
-  const info = getProvinceByName(province);
-  if (!info) throw new Error('Chưa xác định được địa phương.');
-  const topics: BiKipTopic[] = ['history','cuisine','art','custom'];
-  const excludedTopic = topics.find(t => excludeId?.startsWith(`local_${info.id}_${t}_`));
-  const topic = randomItem(topics.filter(t => t !== excludedTopic));
-  const pool = (type === 'knowledge' ? KNOWLEDGE_CARDS : CHALLENGE_CARDS).filter(c => getProvinceByName(c.province)?.id === info.id && c.topic === topic && !excludeId?.startsWith(`${c.id}_`));
-  if (pool.length) return copyCard(randomItem(pool));
-  const base = localQuestion(info.name, topic);
-  if (type === 'knowledge') return copyCard(base);
-  return { ...copyCard(base), type: 'challenge', challengeType: 'quiz', explanation: base.didYouKnow, rewardArtifact: info.artifacts.regular[0], relatedKnowledgeKeyword: info.heritage, timeLimitSeconds: 20 };
+  const previous = QUESTION_BANK.find(q=>excludeId===q.id || excludeId?.startsWith(`${q.id}_`));
+  const question = pickBankQuestion(type,'basic',previous?[previous.id]:[]);
+  return bankGameCard(question,province);
 }
-
 export function provinceAt(position: number): string {
   const space = BOARD_SPACES[position];
   if (space.province) return space.province;

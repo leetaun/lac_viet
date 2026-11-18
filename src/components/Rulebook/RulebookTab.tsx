@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { RULEBOOK_SECTIONS } from '../../data/rulebook';
 import { BookOpen, Printer, QrCode, Award, Users, Recycle, X } from 'lucide-react';
 import { generateQRCode } from '../../utils/qrcode';
+import { CardLibraryPanel } from '../CardLibraryPanel';
 
 interface RulebookTabProps {
   language: 'vi' | 'en';
@@ -99,6 +100,7 @@ export const RulebookTab: React.FC<RulebookTabProps> = ({ language }) => {
       </div>
 
       {/* 2. Rule Sections */}
+      <details className="space-y-2"><summary className="cursor-pointer text-sm font-bold text-[#543310]">{language==='vi'?'Quản lý bộ thẻ chủ đề':'Manage topic card library'}</summary><CardLibraryPanel language={language}/></details>
       <div className="space-y-2.5">
         {RULEBOOK_SECTIONS.map((sec, idx) => {
           return (

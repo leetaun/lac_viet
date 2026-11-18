@@ -7,6 +7,7 @@ interface DiceRollerProps {
   disabled?: boolean;
   onRoll: () => void;
   language: 'vi' | 'en';
+  physical?: boolean;
 }
 
 export const DiceRoller: React.FC<DiceRollerProps> = ({
@@ -14,7 +15,8 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({
   isRolling,
   disabled,
   onRoll,
-  language
+  language,
+  physical = false
 }) => {
   const [displayValue, setDisplayValue] = useState<number>(value || 1);
 
@@ -63,7 +65,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({
         className={`relative cursor-pointer transition-all duration-200 select-none ${
           disabled ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 active:scale-95'
         } ${isRolling ? 'animate-dice-shake' : ''}`}
-        title={language === 'vi' ? 'Nhấn để gieo xúc xắc' : 'Click to roll dice'}
+        title={physical ? (language==='vi'?'Nhập kết quả xúc xắc':'Enter die result') : (language === 'vi' ? 'Nhấn để gieo xúc xắc' : 'Click to roll dice')}
       >
         {renderPips(displayValue)}
       </div>
@@ -82,7 +84,7 @@ export const DiceRoller: React.FC<DiceRollerProps> = ({
         <span>
           {isRolling 
             ? (language === 'vi' ? 'Đang gieo...' : 'Rolling...')
-            : (language === 'vi' ? 'Tung xúc xắc' : 'Roll Dice')}
+            : physical ? (language === 'vi' ? 'Nhập xúc xắc' : 'Enter Die') : (language === 'vi' ? 'Tung xúc xắc' : 'Roll Dice')}
         </span>
       </button>
     </div>

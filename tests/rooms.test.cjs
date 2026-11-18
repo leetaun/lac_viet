@@ -16,6 +16,7 @@ test('phone opens exact pending task and host receives one server-graded answer'
  const q=bank.find(q=>q.group==='knowledge');
  await api({...host,action:'publish',snapshot:{...pending,key:'card-one',questionId:q.id,seconds:20}});
  const phone=await api({...guest,action:'read'});assert.equal(phone.snapshot.question.question,q.question);assert.equal(phone.snapshot.question.correctAnswer,undefined);
+ assert.ok(phone.snapshot.question.learningResource.url.startsWith('https://'));
  const [a,b]=await Promise.all([api({...guest,action:'answer',key:'card-one',answer:q.correctAnswer}),api({...guest,action:'answer',key:'card-one',answer:(q.correctAnswer+1)%4})]);
  assert.deepEqual(a.result,b.result);assert.equal(a.result.success,true);
  const received=await api({...host,action:'host'});assert.equal(received.command.success,true);

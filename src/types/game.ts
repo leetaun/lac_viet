@@ -24,7 +24,13 @@ export interface TokenDef {
 
 export type CardType = 'knowledge' | 'challenge' | 'resource' | 'fortune';
 
-export type BiKipTopic = 'history' | 'cuisine' | 'art' | 'custom' | 'general';
+export interface LearningResource {
+  title: string;
+  url: string;
+  language: 'vi' | 'en';
+}
+
+export type BiKipTopic = 'history' | 'cuisine' | 'art' | 'custom' | 'geography' | 'general';
 
 export interface BiKipCard {
   id: string;
@@ -73,6 +79,7 @@ export interface KnowledgeCard {
 }
 
 export interface ChallengeCard {
+  qrContent?: string;
   bankQuestionId?: string;
   questionScope?: 'general';
   difficulty?: import('../data/questionBank').QuestionDifficulty;
@@ -211,6 +218,7 @@ export type GameModeRule = 'toc_chien' | 'co_ban' | 'truong_ky';
 export type ArtifactGoal = 3 | 5 | 7;
 
 export interface GameState {
+  questionSetId?: string;
   sessionId?: string;
   revision?: number;
   seenBankQuestions?: string[];
@@ -235,6 +243,8 @@ export interface GameState {
   lostAndFound: ArtifactItem[]; // Kho thất lạc tại START
   milestones: Milestone[]; // Cột mốc đã cắm
   options: {
+    physicalDice?: boolean;
+    questionIds?: string[];
     physicalQR?: boolean;
     starterBiKip: boolean; // 3 Bí kíp khởi đầu
     exploreMode: boolean;  // Chế độ Khám phá

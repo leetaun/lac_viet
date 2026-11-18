@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Player, GameCard } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
-import { CHALLENGE_CARDS, KNOWLEDGE_CARDS } from '../../data/cardDecks';
 import { soundManager } from '../../utils/sound';
 import { Sparkles, ArrowLeft, ArrowRight, Eye, RefreshCw, X, Check } from 'lucide-react';
 

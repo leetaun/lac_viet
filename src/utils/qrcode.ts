@@ -1,10 +1,10 @@
 import QRCode from 'qrcode';
 
-export async function generateQRCode(text: string): Promise<string> {
+export async function generateQRCode(text: string, options: {width?:number; margin?:number} = {}): Promise<string> {
   try {
     return await QRCode.toDataURL(text, {
-      width: 280,
-      margin: 2,
+      width: options.width ?? 280,
+      margin: options.margin ?? 2,
       color: {
         dark: '#543310', // Màu nâu trầm hoàng gia Lạc Việt
         light: '#FFFFFF'

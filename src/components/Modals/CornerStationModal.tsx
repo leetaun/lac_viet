@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Player, BoardSpace, ArtifactItem } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
+import { pickBankQuestion } from '../../data/questionBank';
 import { soundManager } from '../../utils/sound';
 import { getArtifactName, getProvinceName } from '../../data/culturalTranslations';
 import { Sparkles, ShoppingBag, RotateCcw, ShieldCheck, Flag, CheckCircle2, ArrowRight, Unlock, Mic } from 'lucide-react';
 
 interface CornerStationModalProps {
+  questionIds?: string[];
   station: BoardSpace;
   player: Player;
   penalizedArtifactsAtStart: number;
@@ -18,6 +20,7 @@ interface CornerStationModalProps {
 
 export const CornerStationModal: React.FC<CornerStationModalProps> = ({
   station,
+  questionIds,
   player,
   penalizedArtifactsAtStart,
   lostAndFoundList = [],
@@ -40,18 +43,11 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
   const pouchArtifacts = player.artifactItems.filter(a => a.storage === 'pouch' && !a.isSealed);
 
   // START 2 Questions
-  const startQuestions = [
-    {
-      q: 'Quốc hiệu đầu tiên của nước ta thời các vua Hùng dựng nước là gì?',
-      opts: ['Văn Lang', 'Âu Lạc', 'Đại Cồ Việt', 'Vạn Xuân'],
-      correct: 0
-    },
-    {
-      q: 'Hình tượng chim Lạc trên Trống đồng Đông Sơn thể hiện điều gì?',
-      opts: ['Khát vọng vươn lên và tín ngưỡng sùng bái tự nhiên', 'Biểu tượng chiến tranh chinh phạt', 'Thần tài lộc trong buôn bán', 'Lễ nghi tang lễ cổ'],
-      correct: 0
-    }
-  ];
+  const [startQuestions] = useState(()=>{
+    const first=pickBankQuestion('knowledge','basic',[],questionIds);
+    const second=pickBankQuestion('knowledge','basic',[first.id],questionIds);
+    return [first,second].map(q=>({q:q.question,opts:q.options,correct:q.correctAnswer}));
+  });
 
   const finishStart = (score: number) => {
     if (finished.current) return;

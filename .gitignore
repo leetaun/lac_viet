@@ -17,6 +17,9 @@ tmp/pdfs/
 .env.*
 !.env.example
 public/qr/demo-*.png
+output/map-provinces-source.json
+output/province-map-preview.png
+output/province-map-preview.svg
 
 # Editor directories and files
 .vscode/*

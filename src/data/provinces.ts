@@ -1,13 +1,10 @@
-export interface ProvinceArtifacts {
+﻿export interface ProvinceArtifacts {
   regular: [string, string];
   treasure: string;
 }
 
-export interface MarketQuiz {
+export interface MarketInfo {
   item: string;
-  question: string;
-  options: string[];
-  correctAnswer: number;
   marketHint: string;
 }
 
@@ -22,7 +19,7 @@ export interface ProvinceInfo {
   specialty: string;
   festivals: string[];
   artifacts: ProvinceArtifacts;
-  marketQuiz: MarketQuiz;
+  marketInfo: MarketInfo;
   lat: number;
   lng: number;
   qrCodeUrl: string;
@@ -44,11 +41,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bút Lông Văn Miếu', 'Tranh Hàng Trống'],
       treasure: 'Chiếu Dời Đô Bằng Vàng'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cốm Làng Vòng tiến vua',
-      question: 'Cốm Làng Vòng truyền thống được gói bằng loại lá gì để giữ trọn hương thơm?',
-      options: ['Lá sen già', 'Lá chuối non', 'Lá dong xanh', 'Lá ổi tươi'],
-      correctAnswer: 0,
       marketHint: 'Hương cốm quyện trong hương sen Tây Hồ tạo nên hồn thu Hà Nội.'
     },
     lat: 21.0285,
@@ -69,11 +63,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Nón Quai Thao Liền Chị', 'Tranh Đông Hồ Gà Lợn'],
       treasure: 'Bản Dập Sắc Phong Đền Đô'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Bánh Phu Thê Đình Bảng',
-      question: 'Bánh phu thê Đình Bảng truyền thống tượng trưng cho điều gì trong hôn nhân?',
-      options: ['Sự gắn kết thủy chung vợ chồng', 'Cầu chúc thi cử đỗ đạt', 'Mùa màng bội thu', 'Khát vọng trường thọ'],
-      correctAnswer: 0,
       marketHint: 'Tên gọi "Phu thê" đã nói lên ý nghĩa son sắt của tình nghĩa lứa đôi.'
     },
     lat: 21.1861,
@@ -94,11 +85,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Nhãn Lồng Hưng Yên Thượng Hạng', 'Gốm Men Ngọc Phố Hiến'],
       treasure: 'Thuyền Buôn Gỗ Thương Cảng Phố Hiến'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Nhãn Lồng Hưng Yên',
-      question: 'Nhãn lồng Hưng Yên xưa kia thường được dùng để dâng lên đối tượng nào?',
-      options: ['Tiến dâng lên Vua', 'Xuất khẩu sang châu Âu', 'Tế lễ thần rừng', 'Ban phát cho thợ rèn'],
-      correctAnswer: 0,
       marketHint: 'Quả nhãn dày cùi, róc hạt, vị ngọt thanh tao từng được gọi là "vương giả chi quả".'
     },
     lat: 20.6464,
@@ -119,11 +107,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Mỏ Neo Thuyền Buôn Đất Cảng', 'Hóa Thạch San Hô Cát Bà'],
       treasure: 'Phù Hiệu Tàu Không Số Bến K15'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Bánh Đa Cua Hải Phòng',
-      question: 'Màu nâu đỏ đặc trưng của sợi bánh đa đỏ Hải Phòng có được nhờ thành phần tự nhiên nào?',
-      options: ['Nước đường mía (mật mía) phơi sấy', 'Bột ớt cay nồng', 'Gấc chín đỏ au', 'Nước cốt dừa'],
-      correctAnswer: 0,
       marketHint: 'Mật mía giúp sợi bánh có màu nâu tự nhiên và độ dai giòn khi chan nước dùng sôi.'
     },
     lat: 20.8449,
@@ -144,11 +129,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Trầm Tượng Non Thiêng Yên Tử', 'Viên Ngọc Trai Vịnh Hạ Long'],
       treasure: 'Bảo Đao Bạch Đằng Giang Vạn Kiếp'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Chả Mực Giã Tay Hạ Long',
-      question: 'Yếu tố quyết định độ giòn sần sật trứ danh của chả mực Hạ Long là gì?',
-      options: ['Phải giã bằng tay trong cối đá', 'Phải xay bằng máy công nghiệp', 'Pha nhiều bột nở', 'Ướp đá lạnh 3 ngày'],
-      correctAnswer: 0,
       marketHint: 'Giã cối đá truyền thống giúp thớ thịt mực kết dính tự nhiên mà không bị nát nhừ.'
     },
     lat: 20.9502,
@@ -169,11 +151,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Búp Lá Mắc Mật Rừng', 'Đàn Tính Tày Nùng'],
       treasure: 'Mảnh Đá Khắc Hịch Ải Chi Lăng'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Vịt Quay Lá Mắc Mật',
-      question: 'Tên "Mắc mật" trong tiếng Tày - Nùng có ý nghĩa là gì?',
-      options: ['Quả ngọt, lá thơm', 'Quả cay, hạt đắng', 'Lá thuốc giải độc', 'Cây cổ thụ'],
-      correctAnswer: 0,
       marketHint: 'Mắc mật là gia vị linh hồn tạo nên mùi thơm nồng nàn khó cưỡng xứ Lạng.'
     },
     lat: 21.8537,
@@ -194,11 +173,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Khăn Chàm Thổ Cẩm Pác Bó', 'Túi Hạt Dẻ Trùng Khánh'],
       treasure: 'Bàn Đá Lịch Sử Bác Hồ Dịch Sử Đảng'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Hạt Dẻ Trùng Khánh',
-      question: 'Hạt dẻ Trùng Khánh thơm ngon nhất vào mùa nào trong năm?',
-      options: ['Mùa thu hoạch vào mùa Thu (tháng 9-10)', 'Mùa hè nắng gắt', 'Mùa xuân hoa đào', 'Giữa mùa đông buốt giá'],
-      correctAnswer: 0,
       marketHint: 'Những cơn gió thu se lạnh cũng là lúc những chùm quả dẻ gai nứt vỏ rơi xuống đất.'
     },
     lat: 22.6667,
@@ -219,11 +195,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Đèn Kéo Quân Thành Tuyên', 'Hũ Rượu Men Lá Na Hang'],
       treasure: 'Cây Đa Tân Trào Khắc Son'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Rượu Ngô Na Hang Men Lá',
-      question: 'Rượu ngô Na Hang truyền thống được lên men từ bao nhiêu loại lá thảo dược rừng?',
-      options: ['Hơn 20 loại lá thuốc rừng', 'Chỉ dùng 1 loại men công nghiệp', 'Lên men bằng cơm nếp', 'Ngâm với mía đỏ'],
-      correctAnswer: 0,
       marketHint: 'Bí quyết men lá của người Dao giúp rượu thơm mát, uống êm say không đau đầu.'
     },
     lat: 21.8233,
@@ -244,11 +217,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Hộp Trà Móc Câu Tân Cương', 'Cối Ép Trà Gỗ Nghiến'],
       treasure: 'Ấm Tử Sa Dâng Trà Kháng Chiến ATK'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Chè Đinh Tân Cương Thượng Hạng',
-      question: 'Để hái được 1kg chè đinh Tân Cương hảo hạng, người thợ trà phải chọn lọc phần nào của búp trà?',
-      options: ['Chỉ hái 1 đọt non nhọn như chiếc đinh', 'Hái 1 búp 2 lá to', 'Hái cả cành bánh tẻ', 'Nhổ cả rễ non'],
-      correctAnswer: 0,
       marketHint: 'Búp trà non còn ngậm sương sớm được hái tỉ mỉ như thêu hoa dệt gấm.'
     },
     lat: 21.5942,
@@ -269,11 +239,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Chiếc Khèn Mông Bằng Trúc', 'Vải Lanh Nhuộm Chàm Sa Pa'],
       treasure: 'Chóp Inox Cột Mốc Fansipan 3.143m'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Thắng Cố Ngựa Bắc Hà',
-      question: 'Thắng cố ngựa truyền thống của đồng bào Mông ở chợ phiên được nấu trong dụng cụ gì?',
-      options: ['Chảo gang khổng lồ đun bằng củi gác', 'Nồi áp suất điện', 'Thùng gỗ sồi', 'Niêu đất nhỏ'],
-      correctAnswer: 0,
       marketHint: 'Chảo gang sôi sùng sục bên cạnh bếp than hồng là hình ảnh thân thuộc của phiên chợ vùng cao.'
     },
     lat: 22.4856,
@@ -294,11 +261,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Giỏ Lan Rừng Ô Quy Hồ', 'Vòng Bạc Thái Khắc Nổi'],
       treasure: 'Bia Cổ Vua Lê Thái Tổ Bên Bờ Sông Đà'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Pa Pỉnh Tộp (Cá gập nướng)',
-      question: 'Trong tiếng Thái, "Pa pỉnh tộp" có nghĩa là món ăn gì?',
-      options: ['Cá suối ướp gia vị gập đôi nướng than', 'Cá hấp lá chuối rừng', 'Cá kho tương chua', 'Canh cá nấu măng'],
-      correctAnswer: 0,
       marketHint: 'Cá được mổ lưng, ướp mắc khén hạt dổi rồi gập đôi kẹp thanh tre nướng thơm lừng.'
     },
     lat: 22.3964,
@@ -319,11 +283,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bó Hoa Ban Trắng Mường Phăng', 'Bát Cơm Gạo Tám Mường Thanh'],
       treasure: 'Mảnh Cờ Quyết Chiến Quyết Thắng Đồi A1'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Gạo Tám Điện Biên Mường Thanh',
-      question: 'Cánh đồng lúa Mường Thanh nức tiếng là cánh đồng lớn thứ mấy ở miền núi Tây Bắc?',
-      options: ['Lớn nhất Tây Bắc ("Nhất Thanh")', 'Lớn thứ nhì ("Nhì Lò")', 'Lớn thứ ba', 'Nhỏ nhất'],
-      correctAnswer: 0,
       marketHint: 'Câu phương ngôn xưa khẳng định: "Nhất Thanh, nhì Lò, tam Than, tứ Tấc".'
     },
     lat: 21.3869,
@@ -344,11 +305,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Hộp Sữa Bò Thảo Nguyên Mộc Châu', 'Cành Đào Tô Hiệu Đỏ Thắm'],
       treasure: 'Tua-bin Thuỷ Điện Sơn La Mô Hình Vàng'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Mận Hậu Mộc Châu',
-      question: 'Thung lũng mận nào tại Mộc Châu được mệnh danh là vựa mận lớn và đẹp nhất?',
-      options: ['Thung lũng mận Nà Ka', 'Thung lũng Mường Lát', 'Thung lũng Mai Châu', 'Thung lũng hoa Bắc Sơn'],
-      correctAnswer: 0,
       marketHint: 'Mỗi độ tháng 5, Nà Ka phủ kín sắc đỏ tím mọng nước của những chùm mận chín.'
     },
     lat: 21.3283,
@@ -369,11 +327,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Cành Bưởi Đoan Hùng Ngát Hương', 'Ống Nứa Thịt Chua Thanh Sơn'],
       treasure: 'Trống Đồng Đền Hùng Hùng Vương Thánh Tích'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Thịt Chua Thanh Sơn',
-      question: 'Nguyên liệu đặc biệt nào của núi rừng giúp lên men chín thịt chua Thanh Sơn?',
-      options: ['Thính ngô và thính gạo rang thơm', 'Nước mắm cá cơm', 'Men rượu trắng', 'Nước cốt chanh'],
-      correctAnswer: 0,
       marketHint: 'Bột thính rang vàng rộm ủ chặt trong ống nứa làm thịt chín thơm tự nhiên.'
     },
     lat: 21.3228,
@@ -394,11 +349,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Tấm Cơm Cháy Vàng Giòn Ruộm', 'Thuyền Nan Lướt Hang Tràng An'],
       treasure: 'Áo Bào Long Côn Cố Đô Hoa Lư'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cơm Cháy Chà Bông Ninh Bình',
-      question: 'Nước sốt truyền thống hảo hạng dùng kèm với cơm cháy Ninh Bình được chế biến từ gì?',
-      options: ['Nước sốt tim cật dê núi đậm đà', 'Nước cốt dừa ngọt béo', 'Sốt mayonnaise', 'Nước chấm mù tạt'],
-      correctAnswer: 0,
       marketHint: 'Sốt tim cật sóng sánh nóng hổi chan lên miếng cơm cháy giòn tan tạo nên mỹ vị cố đô.'
     },
     lat: 20.2506,
@@ -421,11 +373,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bó Nem Chua Lá Chuối Xanh', 'Viên Đá Xây Thành Nhà Hồ'],
       treasure: 'Thanh Thuận Thiên Kiếm Khởi Nghĩa Lam Sơn'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Nem Chua Thanh Hóa',
-      question: 'Lá cây nào thường được gài kèm bên trong cuộn nem chua để tạo vị chát bùi và diệt khuẩn?',
-      options: ['Lá đinh lăng hoặc lá ổi', 'Lá tía tô', 'Lá trà xanh', 'Lá lốt'],
-      correctAnswer: 0,
       marketHint: 'Vài nhánh lá đinh lăng kèm lát tỏi ớt làm dậy vị chua thanh giòn sần sật.'
     },
     lat: 19.8067,
@@ -446,11 +395,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Đóa Sen Hồng Kim Liên', 'Hũ Nhút Thanh Chương Mặn Mòi'],
       treasure: 'Khung Cửi Gỗ Mẹ Hoàng Thị Loan'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Nhút Thanh Chương',
-      question: 'Món "Nhút" dân dã nổi tiếng xứ Nghệ được làm từ nguyên liệu chính nào?',
-      options: ['Quả mít non muối mặn', 'Củ cải trắng phơi khô', 'Măng le rừng', 'Dưa chuột non'],
-      correctAnswer: 0,
       marketHint: '"Nhút Thanh Chương, tương Nam Đàn" - quả mít non thái sợi muối chua cay đượm tình quê.'
     },
     lat: 18.6734,
@@ -471,11 +417,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Miếng Kẹo Cu Đơ Giòn Rụm', 'Bản Chép Nôm Đoạn Trường Tân Thanh'],
       treasure: 'Chiếc Chuông Đồng Cổ Ngã Ba Đồng Lộc'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Kẹo Cu Đơ Hà Tĩnh',
-      question: 'Thành phần tạo nên độ giòn bùi ngọt cay đặc trưng của kẹo cu đơ gồm những gì?',
-      options: ['Mật mía, lạc (đậu phộng), gừng tươi và bánh đa nướng', 'Đường hóa học và mè trắng', 'Bột nếp và mật ong', 'Đường phèn và dừa sấy'],
-      correctAnswer: 0,
       marketHint: 'Mật mía nấu dẻo quyện lạc rang kẹp giữa hai miếng bánh đa nướng giòn rụm.'
     },
     lat: 18.3560,
@@ -496,11 +439,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Cành Lá Trơơng Rừng Trường Sơn', 'Mảnh Đất Lửa Thành Cổ'],
       treasure: 'Cột Cờ Giới Tuyến Vĩ Tuyến 17 Bến Hải'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Thịt Trâu Nướng Lá Trơơng',
-      question: 'Lá "trơơng" - gia vị độc nhất vô nhị xứ Quảng Trị có hương vị như thế nào?',
-      options: ['Cay nồng, thơm ngát đặc trưng', 'Chua gắt như chanh', 'Ngọt lịm như cỏ ngọt', 'Đắng nghét như mướp đắng'],
-      correctAnswer: 0,
       marketHint: 'Mùi thơm cay nồng của lá trơơng rừng khử tanh và tôn vị ngọt mềm của thịt trâu.'
     },
     lat: 16.7499,
@@ -521,11 +461,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bộ Đàn Tỳ Bà Nhã Nhạc', 'Bát Cơm Hến Sông Hương'],
       treasure: 'Ấn Vàng Sắc Mệnh Chi Bảo Triều Nguyễn'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cơm Hến Cồn Hến Xứ Huế',
-      question: 'Cơm hến truyền thống Huế thường được ăn ở trạng thái nhiệt độ nào?',
-      options: ['Cơm nguội ăn kèm nước dùng hến nóng hổi', 'Cơm nóng sốt và nước lạnh', 'Tất cả đều đun sôi bốc khói', 'Ướp lạnh cùng đá'],
-      correctAnswer: 0,
       marketHint: 'Sự tương phản giữa cơm nguội giòn rau bắp chuối và nước hến ngọt cay nghi ngút khói tạo nên nét duyên ẩm thực Huế.'
     },
     lat: 16.4637,
@@ -546,11 +483,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bức Tượng Vũ Nữ Apsara Bằng Đá', 'Mô Hình Cầu Rồng Thép'],
       treasure: 'Đài Thờ Trà Kiệu Bằng Đá Sa Thạch'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Bánh Tráng Thịt Heo Hai Đầu Da',
-      question: 'Miếng thịt heo "hai đầu da" đòi hỏi kỹ thuật luộc và pha thịt khéo léo như thế nào?',
-      options: ['Miếng thịt luộc có lớp da ở cả hai đầu lát cắt', 'Thịt chỉ toàn mỡ không nạc', 'Da chiên giòn rụm bọc thịt xông khói', 'Thịt xay nhuyễn nướng vỉ'],
-      correctAnswer: 0,
       marketHint: 'Khối thịt ba chỉ chọn lọc khéo léo để khi xắt lát mỏng có dải da ở hai đầu viền.'
     },
     lat: 16.0544,
@@ -571,11 +505,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bó Tỏi Cô Đơn Núi Lửa Lý Sơn', 'Chiếc Thuyền Câu Hoàng Sa Bằng Gỗ'],
       treasure: 'Mô Hình Thuyền Nan Thế Lính Hoàng Sa Tâm Linh'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Tỏi Cô Đơn Lý Sơn',
-      question: 'Tỏi Lý Sơn có hương thơm thanh dịu và hàm lượng tinh dầu cao vượt trội nhờ thổ nhưỡng nào?',
-      options: ['Trầm tích đất đỏ bazan núi lửa pha cát biển san hô', 'Đất sét bãi bồi ven sông', 'Đất phù sa đen màu mỡ', 'Đất than bùn đầm lầy'],
-      correctAnswer: 0,
       marketHint: 'Sự kết hợp giữa tro bụi núi lửa triệu năm và cát biển san hô tạo nên chất đất thần kỳ.'
     },
     lat: 15.1205,
@@ -596,11 +527,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bộ Cồng Chiêng Đồng Cổ', 'Hũ Muối Kiến Vàng Rừng Krông Pa'],
       treasure: 'Cột Nhà Rông Gỗ Trắc Chạm Khắc Thần Mặt Trời'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Phở Khô Hai Tô Pleiku',
-      question: 'Vì sao món phở nổi tiếng Pleiku lại được gọi là "Phở hai tô"?',
-      options: ['Một tô đựng bánh phở trộn gia vị, một tô đựng nước dùng thơm phức', 'Phải ăn liền hai tô mới tính tiền', 'Tô dành cho người lớn và tô cho trẻ em', 'Đựng trong tô có hai ngăn đôi'],
-      correctAnswer: 0,
       marketHint: 'Khách vừa nhai sợi phở ngấm tương đen đậm đà, vừa xì xụp húp thìa nước súp béo ngậy.'
     },
     lat: 13.9833,
@@ -621,11 +549,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Gùi Mây Dệt Thổ Cẩm Ê Đê', 'Túi Hạt Cà Phê Moka Thượng Hạng'],
       treasure: 'Chiếc Ngà Voi Hóa Thạch Vua Voi Ama Kông'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cà Phê Buôn Ma Thuột',
-      question: 'Đắk Lắk là thủ phủ trồng loài cây cà phê nào chiếm sản lượng xuất khẩu lớn nhất Việt Nam?',
-      options: ['Cà phê Robusta (Cà phê vối)', 'Cà phê Chè (Arabica)', 'Cà phê Mít', 'Cà phê Culi'],
-      correctAnswer: 0,
       marketHint: 'Khí hậu và đất đỏ bazan Buôn Ma Thuột sinh ra hạt Robusta đậm đà sánh mịn nổi danh năm châu.'
     },
     lat: 12.6667,
@@ -646,11 +571,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Mẩu Trầm Hương Kỳ Nam', 'Bát Yến Sào Đảo Hòn Nội'],
       treasure: 'Tượng Nữ Thần Thiên Y A Na Bằng Vàng'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Yến Sào Đảo Yến Hòn Nội',
-      question: 'Loài chim yến nào làm nên những tổ yến tự nhiên có giá trị dinh dưỡng cao nhất trên vách đá vịnh Nha Trang?',
-      options: ['Chim yến Hàng (Aerodramus fuciphagus)', 'Chim yến nhà nuôi', 'Chim bồ câu biển', 'Chim én lưng xanh'],
-      correctAnswer: 0,
       marketHint: 'Yến đảo thiên nhiên làm tổ trên vách đá cheo leo hấp thụ khoáng chất của biển trời.'
     },
     lat: 12.2388,
@@ -671,11 +593,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bình Rượu Vang Đà Lạt Hảo Hạng', 'Chậu Hoa Phong Lan Rừng Langbiang'],
       treasure: 'Vương Miện Tình Yêu Chàng K’Lang Nàng H’Biang'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Hồng Treo Gió Công Nghệ Nhật',
-      question: 'Quy trình làm hồng treo gió Đà Lạt tận dụng yếu tố tự nhiên nào của xứ sở sương mù?',
-      options: ['Gió trời hanh hao và nắng nhẹ vùng cao nguyên', 'Sấy lò than củi nhiệt độ cao', 'Ủ men rượu vang', 'Ngâm nước tro bếp'],
-      correctAnswer: 0,
       marketHint: 'Quả hồng được mát-xa và phơi dưới nắng gió tự nhiên trong nhà màng suốt cả tháng trời.'
     },
     lat: 11.9404,
@@ -696,11 +615,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Mảnh San Hô Đỏ Biển Đông', 'Hải Bàn Đồng Hùng Binh Hoàng Sa'],
       treasure: 'Mộc Bản Khắc Chiếu Dụ Xác Lập Chủ Quyền Hoàng Sa Vua Minh Mạng'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Hải Sâm Biển Đảo Hoàng Sa',
-      question: 'Hải sâm quý hiếm vùng biển san hô Hoàng Sa còn được mệnh danh là sản vật gì của biển cả?',
-      options: ['"Nhân sâm của biển cả" (Đại bổ)', 'Thảo dược chữa sâu răng', 'Bột tạo màu thực phẩm', 'Gia vị nấu canh chua'],
-      correctAnswer: 0,
       marketHint: 'Hải sâm giàu đạm và vi khoáng từng là cống vật thượng hạng dâng lên triều đình.'
     },
     lat: 16.5333,
@@ -721,11 +637,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Quả Bàng Vuông Trường Sa', 'Vỏ Ốc Nón Biển Đảo Tiền Tiêu'],
       treasure: 'Lá Cờ Tổ Quốc Thấm Đẫm Gió Mặn Trường Sa'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Quả Bàng Vuông Khắc Chữ Kỷ Niệm',
-      question: 'Cây Bàng vuông và cây Phong ba trên quần đảo Trường Sa là biểu tượng cho phẩm chất gì của người lính đảo?',
-      options: ['Ý chí kiên trung, bất khuất đương đầu sóng gió', 'Sự nhẹ nhàng uốn lượn', 'Tính cách trầm lặng', 'Tình yêu thi ca lãng mạn'],
-      correctAnswer: 0,
       marketHint: 'Bão giông chỉ làm rễ cây bám chặt thêm vào đá san hô, đơm hoa nở giữa đêm mặn mòi.'
     },
     lat: 8.6444,
@@ -748,11 +661,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Chiếc Bánh Mì Kẹp Giòn Rụm', 'Mô Hình Tháp Đồng Hồ Chợ Bến Thành'],
       treasure: 'Bản Đồ Cảng Sài Gòn 1911 Nơi Bác Ra Đi Cứu Nước'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cơm Tấm Sườn Bì Chả Sài Gòn',
-      question: 'Hạt gạo "Tấm" dùng nấu cơm tấm nức tiếng Sài Gòn vốn có nguồn gốc từ đâu?',
-      options: ['Hạt gạo gãy trong quá trình xay xát lúa', 'Một giống lúa nếp đặc biệt', 'Gạo nhập khẩu châu Âu', 'Hạt ngô xay nhỏ'],
-      correctAnswer: 0,
       marketHint: 'Từ hạt gạo vỡ mộc mạc của người lao động xưa đã trở thành quốc hồn quốc túy ẩm thực đô thành.'
     },
     lat: 10.8231,
@@ -773,11 +683,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Trái Bưởi Đường Da Cam Tân Triều', 'Bút Lông Văn Miếu Trấn Biên'],
       treasure: 'Bản Đồ Hành Quân Mở Cõi Danh Tướng Nguyễn Hữu Cảnh'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Bưởi Tân Triều Đồng Nai',
-      question: 'Làng bưởi cổ Tân Triều được bồi đắp phù sa trù phú bởi dòng sông nào?',
-      options: ['Sông Đồng Nai uốn lượn', 'Sông Tiền Giang', 'Sông Sài Gòn', 'Sông Vàm Cỏ Đông'],
-      correctAnswer: 0,
       marketHint: 'Dòng phù sa sông Đồng Nai bồi đắp cù lao tạo nên tép bưởi mọng nước ngọt thanh.'
     },
     lat: 10.9575,
@@ -798,11 +705,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Hũ Muối Tôm Cay Nồng', 'Tấm Bánh Tráng Phơi Sương Trảng Bàng'],
       treasure: 'Tượng Phật Bà Bằng Đồng Đỉnh Núi Bà Đen'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Bánh Tráng Phơi Sương Trảng Bàng',
-      question: 'Bánh tráng Trảng Bàng sau khi nướng phồng phải được đem phơi lúc nào để đạt độ mềm dẻo?',
-      options: ['Phơi trong đêm ngậm sương sớm ban mai', 'Phơi giữa trưa nắng gắt 40 độ', 'Sấy trong lò nướng bánh mì', 'Ủ dưới cát nóng'],
-      correctAnswer: 0,
       marketHint: 'Những giọt sương đêm đất trời phương Nam thấm sâu vào từng thớ bột tạo nên độ dẻo thơm trứ danh.'
     },
     lat: 11.3101,
@@ -823,11 +727,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Cây Bẹo Bán Hàng Chợ Nổi', 'Đòn Bánh Tét Lá Cẩm Tím'],
       treasure: 'Đèn Cổ Nhà Cổ Bình Thủy Thế Kỷ 19'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cây Bẹo Chợ Nổi Cái Răng',
-      question: 'Ý nghĩa của "Cây Bẹo" dựng đứng trên mũi thuyền chợ nổi Cái Răng là gì?',
-      options: ['Treo sản vật gì thì bán sản vật đó cho người mua từ xa nhận biết', 'Dùng làm cột buồm', 'Trang trí đón Tết', 'Xua đuổi cá sấu'],
-      correctAnswer: 0,
       marketHint: '"Treo bắp bán bắp, treo khóm bán khóm" - ngôn ngữ giao thương không lời kỳ thú của người miền Tây.'
     },
     lat: 10.0452,
@@ -848,11 +749,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Bình Gốm Đỏ Đương Đại Mang Thít', 'Bó Khoai Lang Mật Bình Tân'],
       treasure: 'Mô Hình Lò Gạch Cổ Nung Đỏ Rực Mang Thít'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Bưởi Năm Roi Bình Minh',
-      question: 'Bưởi Năm Roi trồng tại đất cù lao Vĩnh Long có đặc điểm gì đặc biệt khi chín?',
-      options: ['Tép bưởi róc múi, hầu như không có hạt', 'Vỏ màu đỏ tươi như gấc', 'Có vị cay nồng', 'Hạt to như hạt mít'],
-      correctAnswer: 0,
       marketHint: 'Múi bưởi vàng mọng, giòn ngọt dịu và róc múi không dính hạt.'
     },
     lat: 10.2537,
@@ -873,11 +771,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Hộp Nem Lai Vung Thơm Bùi', 'Gói Hủ Tiếu Bột Sa Đéc'],
       treasure: 'Cặp Lục Bình Gỗ Khắc Sếu Đầu Đỏ Tràm Chim'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Nem Lai Vung Đồng Tháp',
-      question: 'Vị chua ngọt thơm lừng của chiếc nem Lai Vung Đồng Tháp được gói bằng lá gì?',
-      options: ['Bọc bên trong bằng lá chùm ruột hoặc lá vông, ngoài gói lá chuối', 'Gói hoàn toàn bằng giấy bạc', 'Gói bằng lá sen khô', 'Gói bằng lá bưởi'],
-      correctAnswer: 0,
       marketHint: 'Lá chùm ruột giúp nem lên men chua dịu và giữ màu hồng tươi thắm.'
     },
     lat: 10.4578,
@@ -898,11 +793,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Hũ Mắm Thái Châu Đốc', 'Hũ Đường Thốt Nốt Thơm Lừng'],
       treasure: 'Đôi Sừng Bò Chiến Thắng Lễ Hội Đua Bò Bảy Núi'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Đường Thốt Nốt Bảy Núi An Giang',
-      question: 'Đường thốt nốt nguyên chất được nấu từ bộ phận nào của cây thốt nốt?',
-      options: ['Nước tiết ra từ cuống cụm hoa thốt nốt', 'Nước ép từ cùi quả thốt nốt chín', 'Nhựa cây chảy từ vỏ thân', 'Nấu từ rễ cây'],
-      correctAnswer: 0,
       marketHint: 'Người thợ thoăn thoắt trèo lên ngọn cây cao vắt lấy từng giọt nước hoa thơm ngọt vào ống tre.'
     },
     lat: 10.3891,
@@ -923,11 +815,8 @@ export const PROVINCES_DATA: ProvinceInfo[] = [
       regular: ['Hũ Mật Ong Rừng Tràm U Minh Hạ', 'Dây Tôm Khô Rạch Gốc'],
       treasure: 'Biểu Tượng Con Thuyền No Gió Cột Mốc Mũi Cà Mau GPS 0001'
     },
-    marketQuiz: {
+    marketInfo: {
       item: 'Cua Biển Cà Mau Gạch Son',
-      question: 'Cua biển Cà Mau chắc nịch, thịt ngọt đậm đà nhất là nhờ môi trường sống nào?',
-      options: ['Vùng nước lợ phù sa rừng ngập mặn trù phú thức ăn', 'Nuôi trong hồ nước ngọt', 'Được cho ăn cám công nghiệp', 'Sống ở vách đá ngầm đáy sâu'],
-      correctAnswer: 0,
       marketHint: 'Nguồn khoáng chất và thức ăn tự nhiên dưới tán rừng đước tạo nên chất lượng cua trứ danh.'
     },
     lat: 9.1769,

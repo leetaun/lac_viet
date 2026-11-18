@@ -1,0 +1,21 @@
+.province-atlas { background: #fffdf8; border: 1px solid #c5a05966; border-radius: 24px; overflow: hidden; box-shadow: 0 6px 24px #5433100b; }
+.atlas-canvas { position: relative; overflow: auto; max-height: 1100px; background: radial-gradient(ellipse at 80% 55%, #e8f1ee 0%, #f7f8ef 40%, #fffdf8 80%); }
+.atlas-svg { display: block; height: auto; min-width: 650px; max-width: none; margin: auto; }
+.atlas-control { padding: 8px; color: #70502b; border: 1px solid #c5a05955; border-radius: 9px; background: #fffdf8; }
+.atlas-control:hover { background: #f6ecd7; }
+.atlas-control:disabled { opacity: .35; cursor: default; }
+.atlas-province, .atlas-label-group, .atlas-islands { cursor: pointer; outline: none; }
+.atlas-region { stroke: #fffaf0; stroke-width: 1.6; stroke-linejoin: round; transition: fill .15s, opacity .15s; }
+.atlas-province.is-hovered .atlas-region, .atlas-province:focus-visible .atlas-region { fill: #e7b962; stroke: #795021; stroke-width: 2; }
+.atlas-label { fill: #493a28; font-family: 'Playfair Display', Georgia, serif; font-size: 14px; font-weight: 600; paint-order: stroke; stroke: #fffdf8; stroke-width: 3px; stroke-linejoin: round; }
+.atlas-label-group.is-hovered .atlas-label, .atlas-islands.is-hovered .atlas-label, .atlas-islands:focus-visible .atlas-label { fill: #925b13; text-decoration: underline; }
+.atlas-leader { fill: none; stroke: #998361; stroke-width: .85; pointer-events: none; }
+.atlas-sea { fill: #789e9a; opacity: .5; letter-spacing: 5px; font-size: 17px; font-weight: 500; }
+.atlas-country { fill: #70502b; font-size: 24px; font-weight: 700; letter-spacing: 2px; }
+.atlas-legend, .atlas-island-caption { fill: #7d715f; font-size: 12px; }
+.province-atlas .is-muted { opacity: .2; cursor: default; }
+.atlas-preview { position: absolute; top: 20px; right: 20px; width: 205px; padding: 15px; background: #fffffff2; border: 1px solid #c5a05966; border-radius: 16px; box-shadow: 0 5px 20px #54331012; pointer-events: none; }
+@media (max-width: 639px) {
+  .atlas-canvas { max-height: 78dvh; }
+  .atlas-preview { position: sticky; bottom: 10px; left: 12px; width: calc(100% - 24px); margin-top: -118px; min-height: 108px; }
+}

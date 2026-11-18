@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { CardLibraryPanel } from '../CardLibraryPanel';
+import { readCardLibrary } from '../../utils/cardLibrary';
+import { CARD_PACKS, validateQuestionSelection } from '../../data/cardPacks';
+import { topicName } from '../../engine/content';
 import { GameMode, GameModeRule, ArtifactGoal, TokenType, Player } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { STARTER_BIKIP_CARDS } from '../../data/cardDecks';
@@ -16,6 +20,8 @@ interface GameSetupModalProps {
     players: Player[];
     roomCode?: string;
     options: {
+      physicalDice?: boolean;
+      questionIds?: string[];
       physicalQR?: boolean;
       starterBiKip: boolean;
       exploreMode: boolean;
@@ -47,6 +53,11 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
 
   // Options toggles (Section 3 & 10.1)
   const [starterBiKip, setStarterBiKip] = useState<boolean>(false);
+  const [physicalDice,setPhysicalDice] = useState(true);
+  const [useLibrary,setUseLibrary] = useState(false);
+  const [library,setLibrary] = useState(readCardLibrary);
+  const [selectedPacks,setSelectedPacks] = useState<string[]>(()=>readCardLibrary().packs);
+  const [setupError,setSetupError] = useState('');
   const [exploreMode, setExploreMode] = useState<boolean>(false);
   const [timedMode, setTimedMode] = useState<boolean>(false);
   const [physicalQR,setPhysicalQR]=useState(true);
@@ -80,6 +91,12 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
   };
 
   const handleStart = () => {
+    const selectedQuestions = library.questions.filter(id=>CARD_PACKS.some(p=>selectedPacks.includes(p.id)&&p.questionIds.includes(id)));
+    if(useLibrary) {
+      try { validateQuestionSelection(selectedQuestions); }
+      catch(e) {setSetupError((e as Error).message);return;}
+    }
+    setSetupError('');
     soundManager.playSuccess();
 
     const createdPlayers: Player[] = [];
@@ -128,6 +145,8 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
       players: createdPlayers,
       roomCode: mode === 'online' ? roomCode.trim() : undefined,
       options: {
+        physicalDice: mode === 'offline' && physicalDice,
+        questionIds: useLibrary ? selectedQuestions : undefined,
         physicalQR: mode==='offline' && physicalQR,
         starterBiKip,
         exploreMode,
@@ -373,6 +392,11 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
                   <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
                 </summary>
                 <div className="px-4 pb-4 space-y-4">
+                  {mode==='offline' && <label className="flex items-center gap-3 text-sm font-semibold text-gray-800"><input type="checkbox" checked={physicalDice} onChange={e=>setPhysicalDice(e.target.checked)} className="accent-[#543310]"/>{language==='vi'?'Nhập kết quả xúc xắc vật lý (1–6)':'Enter physical die results (1–6)'}</label>}
+                  <CardLibraryPanel language={language} onChange={setLibrary}/>
+                  <label className="flex items-center gap-3 text-sm font-semibold text-gray-800"><input type="checkbox" checked={useLibrary} onChange={e=>setUseLibrary(e.target.checked)} className="accent-[#543310]"/>{language==='vi'?'Chơi bằng các thẻ đã tích hợp':'Play with integrated cards'}</label>
+                  {useLibrary&&<div className="space-y-2">{CARD_PACKS.filter(p=>library.packs.includes(p.id)).map(p=><label key={p.id} className="flex items-center gap-2 text-xs text-gray-700"><input type="checkbox" checked={selectedPacks.includes(p.id)} onChange={e=>setSelectedPacks(old=>e.target.checked?[...old,p.id]:old.filter(id=>id!==p.id))}/>{topicName(p.topic,language)} · DEMO</label>)}</div>}
+                  <p className="text-xs text-gray-500">{language==='vi'?'Bỏ chọn để dùng ngân hàng sẵn có. Bộ được chọn cần có Kiến thức và Thử thách; có thể kết hợp nhiều bộ.':'Leave unchecked to use the built-in bank. Include Knowledge and Challenge cards; packs may be combined.'}</p>
                   {mode==='offline' && (
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input type="checkbox" checked={physicalQR} onChange={e=>setPhysicalQR(e.target.checked)} className="mt-1 accent-[#543310]"/>
@@ -447,6 +471,7 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
           )}
         </div>
 
+        {setupError&&<p role="alert" className="px-5 py-2 text-xs text-amber-900 bg-amber-50">{setupError}</p>}
         <footer className="shrink-0 px-5 sm:px-7 py-4 border-t border-gray-100 flex items-center justify-between gap-3 bg-white">
           {step > 0 ? (
             <button type="button" onClick={() => setStep(step - 1)} className="flex items-center gap-1.5 px-2 py-3 text-sm font-semibold text-gray-500 hover:text-[#543310]">

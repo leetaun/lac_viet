@@ -1,4 +1,4 @@
-import type { ArtifactGoal, ArtifactItem, BiKipCard, GameCard, GameModeRule, GameState, Player } from '../types/game';
+import type { ArtifactGoal, ArtifactItem, BiKipCard, CardResolution, GameCard, GameModeRule, GameState, Player } from '../types/game';
 
 export const uid = (prefix: string) => `${prefix}_${crypto.randomUUID()}`;
 export const copyCard = <T extends GameCard | BiKipCard>(card: T): T => ({ ...card, id: uid(card.id) });
@@ -101,11 +101,24 @@ export function failChallenge(state: GameState, artifactId?: string, discardId?:
     if (!artifact) throw new Error('Chọn 1 Kỷ vật trong Tay nải để làm rơi.');
     lostAndFound = [...lostAndFound, artifact];
     updated = normalizePlayer({ ...player, artifactItems: player.artifactItems.filter(a => a.id !== artifact.id) });
-  } else if (pouchCards(player).length) {
-    if (!discardId) throw new Error('Chọn 1 thẻ để bỏ khi Tay nải trống.');
-    updated = removeCards(player, [discardId]);
   }
   return { ...state, lostAndFound, players: state.players.map(p => p.id === updated.id ? updated : p) };
+}
+
+/** Validate payments before closing the task or changing the player's inventory. */
+export function validateBiKipResolution(player: Player, card: GameCard, result: CardResolution): void {
+  const ids = result.consumeBiKipIds;
+  const id = result.consumeBiKipId;
+  if (ids?.length && id) throw new Error('Chỉ dùng một cách đổi Bí kíp.');
+  if (ids?.length) {
+    if (card.type !== 'knowledge' || ids.length !== 3 || !result.success) throw new Error('Ba Bí kíp chỉ đổi Kỷ vật tại ô Kiến thức.');
+    spendBiKip(player, ids);
+  }
+  if (id) {
+    const scroll = player.biKipCards.find(b => b.id === id);
+    if (card.type !== 'challenge' || card.topic === 'general' || scroll?.topic !== card.topic || !result.success) throw new Error('Vượt Thử thách cần một Bí kíp cùng chủ đề đã xác định.');
+    spendBiKip(player, [id]);
+  }
 }
 
 export interface CardUse {

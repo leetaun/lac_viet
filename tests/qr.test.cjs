@@ -1,4 +1,4 @@
-const {test}=require('node:test');
+﻿const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const React=require('react');
@@ -7,6 +7,38 @@ const {loader}=require('./load-ts.cjs');
 const load=loader();
 const bank=load('src/data/questionBank.ts');
 const qr=load('src/utils/physicalQR.ts');
+const reading=load('src/utils/learningResources.ts');
+
+test('every supplied question has a checked HTTPS reading and all four task types resolve by question, not province',()=>{
+ const manifest=require('../src/data/questionResources.json');
+ assert.equal(manifest.questionSetId,bank.QUESTION_SET_ID);assert.equal(Object.keys(manifest.resources).length,100);
+ for(const question of bank.QUESTION_BANK){
+  const expected=question.learningResource;
+  assert.ok(expected?.title);const url=new URL(expected.url);assert.equal(url.protocol,'https:');assert.equal(url.username,'');assert.equal(url.password,'');
+  assert.notEqual(url.hostname,'lacviet.edu.vn');assert.ok(!url.hostname.includes('google.'));
+  assert.ok(question.sources.some(s=>s.url===expected.url));
+  const knowledge=bank.bankGameCard({...question,group:'knowledge'},'Tuyên Quang');
+  const challenge=bank.bankGameCard({...question,group:'challenge'},'Hà Nội');
+  const market={type:'resource',marketQuestion:question,province:'Tuyên Quang'};
+  const contest={type:'fortune',contestQuestion:question,province:'Cà Mau'};
+  for(const task of [knowledge,challenge,market,contest])assert.deepEqual(reading.getCardLearningResource(task),expected);
+  assert.equal(knowledge.qrContent,expected.url);assert.equal(challenge.qrContent,expected.url);
+ }
+ const berlin=bank.QUESTION_BANK.find(q=>q.topic==='history'&&q.number===38);
+ assert.ok(berlin.learningResource.url.includes('berlin.de'));assert.ok(berlin.learningResource.title.includes('Berlin'));
+ // An old restored card's stale province link must not override the question registry.
+ assert.equal(reading.getCardLearningResource({type:'knowledge',bankQuestionId:berlin.id,qrContent:'https://lacviet.edu.vn/tinh-thanh/tuyen-quang'}).url,berlin.learningResource.url);
+ assert.equal(reading.getCardLearningResource({type:'resource',id:'bonus',province:'Tuyên Quang'}),undefined);
+});
+
+test('reading QR supports the longest curated URL and blank source URLs are never rendered as links',async()=>{
+ const resource=bank.QUESTION_BANK.map(q=>q.learningResource).sort((a,b)=>b.url.length-a.url.length)[0];
+ const {generateQRCode}=load('src/utils/qrcode.ts');
+ assert.ok((await generateQRCode(resource.url,{width:384,margin:4})).startsWith('data:image/png;base64,'));
+ const {QuestionSources}=load('src/components/QuestionSources.tsx');
+ const html=renderToStaticMarkup(React.createElement(QuestionSources,{sources:bank.QUESTION_BANK[0].sources}));
+ assert.equal(html.includes('href=""'),false);assert.ok(html.includes('<a '));assert.ok(html.includes(bank.BANK_SOURCE.file));
+});
 function player(id,position=0){return {id,name:id,position,seat:Number(id.slice(1)),isAI:false,token:'non_la',color:'#000',artifactItems:[],artifacts:0,safeArtifacts:0,biKipCards:[],milestones:[],score:0,tokenSkillAvailable:true,hasShield:false,immuneToPenalty:false,cards:{knowledge:[],resource:[],fortune:[]},lapsCompleted:0};}
 function hooks(start=false,players=[player('p1'),player('p2',20)]){
  let cursor=0;const slots=[];
@@ -19,16 +51,21 @@ function hooks(start=false,players=[player('p1'),player('p2',20)]){
 }
 async function stored(fn){const before=global.localStorage,random=Math.random;const values=new Map();global.localStorage={getItem:key=>values.get(key)||null,setItem:(key,value)=>values.set(key,String(value)),removeItem:key=>values.delete(key)};Math.random=()=>0;try{return await fn(values);}finally{global.localStorage=before;Math.random=random;}}
 
-test('all 375 imported questions retain four options, one valid answer and actual source references',()=>{
- assert.equal(bank.QUESTION_BANK.length,375);assert.equal(new Set(bank.QUESTION_BANK.map(q=>q.id)).size,375);
- for(const difficulty of ['basic','intermediate','advanced'])for(const group of ['knowledge','challenge','market','festival'])assert.equal(bank.QUESTION_BANK.filter(q=>q.difficulty===difficulty&&q.group===group).length,group==='knowledge'?50:25);
- for(const q of bank.QUESTION_BANK){assert.equal(q.options.length,4);assert.ok(q.correctAnswer>=0&&q.correctAnswer<4);assert.ok(q.explanation);assert.ok(q.sources.length);assert.ok(q.sources.every(s=>/^https:\/\//.test(s.url)));assert.equal(q.scope,'general');assert.equal('province' in q,false);}
- assert.equal(bank.QUESTION_BANK[0].correctAnswer,3);assert.equal(bank.QUESTION_BANK[0].options[3],'Ngô Quyền');
+test('exactly 100 new questions preserve both complete answer keys from the supplied DOCX',()=>{
+ assert.equal(bank.QUESTION_BANK.length,100);assert.equal(new Set(bank.QUESTION_BANK.map(q=>q.id)).size,100);
+ // Explicit answer-key rows, in source order (two independent 1–50 sections).
+ const keys={history:['ABCDABCABC','DABCBACBAC','BACCBACBCB','ACBDACBCAB','CDABCDAABA'].join(''),geography:['BACDBAACBC','ACBDABCDAB','CABCBDACBD','ACBDACBDAB','CABDBACBCD'].join('')};
+ for(const [topic,key] of Object.entries(keys)){
+  const questions=bank.QUESTION_BANK.filter(q=>q.topic===topic);assert.equal(questions.length,50);assert.equal(key.length,50);
+  questions.forEach((q,index)=>{assert.equal(q.number,index+1);assert.equal(q.correctAnswer,key.charCodeAt(index)-65);assert.equal(q.options.length,4);assert.ok(q.id.startsWith('lv100_'));assert.ok(q.sources[0].label.includes(bank.BANK_SOURCE.file));});
+ }
+ assert.equal(bank.QUESTION_BANK[0].options[0],'Văn Lang');
 });
-test('difficulty filtering and repeat avoidance preserve the original bank group',()=>{
- const all=bank.QUESTION_BANK.filter(q=>q.group==='knowledge'&&q.difficulty==='advanced');const wanted=all.at(-1);
+test('all quiz spaces reuse the new set with repeat avoidance and no invented difficulty',()=>{
+ const all=bank.QUESTION_BANK;const wanted=all.at(-1);
  assert.equal(bank.pickBankQuestion('knowledge','advanced',all.slice(0,-1).map(q=>q.id)).id,wanted.id);
- const card=bank.bankGameCard(wanted,'Huế');assert.equal(card.question,wanted.question);assert.equal(card.province,'Huế');assert.equal(card.questionScope,'general');assert.equal(card.topic,'general');assert.equal(card.correctAnswer,wanted.correctAnswer);
+ const card=bank.bankGameCard(wanted,'Huế');assert.equal(card.question,wanted.question);assert.equal(card.province,'Huế');assert.equal(card.topic,'geography');assert.equal(card.correctAnswer,wanted.correctAnswer);
+ for(const group of ['knowledge','challenge','market','festival'])assert.equal(bank.pickBankQuestion(group,'advanced').group,group);
 });
 test('four physical codes point only to the supplied HTTPS website and recognized entry kinds',()=>{
  const manifest=JSON.parse(fs.readFileSync('output/qr/manifest.json','utf8'));assert.equal(manifest.cards.length,4);
@@ -43,7 +80,7 @@ test('offline QR mode pauses before awarding or drawing a question and rejects a
 test('scanning in a new tab restores the match and stale tabs cannot award the mission twice',()=>stored(async()=>{
  const original=hooks(true);await original.act(()=>original.render().handleRollDice());
  const scanned=hooks();assert.equal(scanned.render().gameState.pendingPhysicalCard.kind,'knowledge');
- let c=await scanned.act(()=>scanned.render().openPhysicalCard('knowledge','Hà Nội','advanced'));assert.equal(c.activeCardModal.type,'knowledge');assert.equal(c.activeCardModal.difficulty,'advanced');assert.equal(c.activeCardModal.questionScope,'general');
+ let c=await scanned.act(()=>scanned.render().openPhysicalCard('knowledge','Hà Nội','advanced'));assert.equal(c.activeCardModal.type,'knowledge');assert.equal(c.activeCardModal.difficulty,'basic');assert.equal(c.activeCardModal.questionScope,'general');
  const reopened=hooks();assert.equal(reopened.render().activeCardModal.bankQuestionId,c.activeCardModal.bankQuestionId);
  c=await reopened.act(()=>reopened.render().handleResolveCard({success:true,logMessage:'correct'}));assert.equal(c.activePlayer.artifactItems.length,1);assert.equal(c.gameState.turnStep,5);
  c=await scanned.act(()=>scanned.render().handleResolveCard({success:true,logMessage:'duplicate'}));assert.equal(c.activePlayer.artifactItems.length,1);assert.equal(c.activeCardModal,null);
@@ -51,6 +88,24 @@ test('scanning in a new tab restores the match and stale tabs cannot award the m
 }));
 test('corrupt or unsupported saved sessions are ignored safely',()=>stored(async values=>{
  const session=load('src/utils/gameSession.ts');values.set(session.GAME_SESSION_KEY,'{');assert.equal(session.loadGameSession(),null);values.set(session.GAME_SESSION_KEY,JSON.stringify({schema:999,state:{}}));assert.equal(session.loadGameSession(),null);
+}));
+
+test('saved matches replace retired questions without losing artifacts or reviving old phone answers',()=>stored(async()=>{
+ const h=hooks(true);let c=await h.act(()=>h.render().handleRollDice());
+ c=await h.act(()=>h.render().openPhysicalCard('knowledge','Hà Nội','basic'));
+ const session=load('src/utils/gameSession.ts');const legacy=JSON.parse(JSON.stringify(c.gameState));
+ delete legacy.questionSetId;legacy.options.questionIds=['retired'];
+ legacy.currentActionModal.card.question='OLD QUESTION';legacy.currentActionModal.card.bankQuestionId='retired';
+ legacy.players[0].artifactItems=[{id:'keep',name:'Kỷ vật đã nhận',province:'Hà Nội',region:'bac_bo',storage:'pouch',isTreasure:false,isSealed:false}];
+ legacy.players[0].biKipCards=[{id:'scroll',topic:'history',title:'OLD QUESTION',questionSnippet:'OLD QUESTION'}];
+ session.saveGameSession(legacy);
+ const restored=session.loadGameSession();
+ assert.equal(restored.questionSetId,bank.QUESTION_SET_ID);assert.equal(restored.players[0].artifactItems[0].id,'keep');
+ assert.equal(restored.players[0].biKipCards[0].id,'scroll');assert.equal(restored.players[0].biKipCards[0].questionSnippet,undefined);
+ assert.ok(restored.currentActionModal.card.bankQuestionId.startsWith('lv100_'));
+ assert.notEqual(restored.currentActionModal.card.id,legacy.currentActionModal.card.id);
+ assert.equal(restored.options.questionIds,undefined);assert.equal(JSON.stringify(restored).includes('OLD QUESTION'),false);
+ assert.equal(session.loadGameSession().revision,restored.revision);
 }));
 
 test('server-graded phone answer applies laptop reward once through the real controller',()=>stored(async()=>{
@@ -77,5 +132,5 @@ test('Lantern state survives QR reload both before and after the preview is cons
 test('a QR on a device with no active match renders practice and never pretends to award artifacts',()=>{
  const {QRCardGateway}=load('src/components/QRCardGateway.tsx');const state={players:[player('p1'),player('p2')],activePlayerIndex:0,gameStatus:'setup'};
  const html=renderToStaticMarkup(React.createElement(QRCardGateway,{kind:'knowledge',gameState:state,onOpen(){throw Error('Should not run');},onBack(){}}));
- assert.ok(html.includes('Bắt đầu luyện tập'));assert.ok(html.includes('không cộng Kỷ vật'));assert.ok(html.includes('50 câu Kiến thức'));assert.ok(html.includes('font-serif-lacviet'));
+ assert.ok(html.includes('Bắt đầu luyện tập'));assert.ok(html.includes('không cộng Kỷ vật'));assert.ok(html.includes('100 câu Kiến thức'));assert.ok(html.includes('font-serif-lacviet'));
 });

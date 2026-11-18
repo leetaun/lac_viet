@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import type { ArtifactGoal, ArtifactItem, BiKipCard, BoardSpace, CardResolution, FortuneCard, GameCard, GameMode, GameModeRule, GameState, Player, ResourceCard } from '../types/game';
 import type { RuleChoice } from '../components/Modals/RuleChoiceModal';
 import { BOARD_SPACES } from '../data/boardData';
-import { STARTER_BIKIP_CARDS, drawFortuneCard, drawResourceCard } from '../data/cardDecks';
+import { drawFortuneCard, drawResourceCard } from '../data/cardDecks';
 import { addCard, canWin, copyCard, deposit, failChallenge, finishTurn, pouchCards, isProtected, normalizePlayer, placeMilestone, reclaim, removeCards, spendBiKip, timedRanking, transferCard, uid, useCard } from './rules';
 import { drawLocalQuestion, makeArtifact, makeBiKip, provinceAt, randomItem } from './content';
 import { soundManager } from '../utils/sound';
-import { bankGameCard, pickBankQuestion, QuestionDifficulty } from '../data/questionBank';
+import { bankGameCard, QUESTION_SET_ID, QuestionDifficulty } from '../data/questionBank';
 import type { PhysicalCardKind } from '../utils/physicalQR';
 import { GAME_SESSION_KEY, loadGameSession, saveGameSession } from '../utils/gameSession';
+import { selectQuestion, validateQuestionSelection } from '../data/cardPacks';
+import { validateBiKipResolution } from './rules';
 
 export interface SetupConfig {
   mode: GameMode; gameModeRule: GameModeRule; playerCount: number; artifactGoal: ArtifactGoal;
@@ -64,11 +66,11 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
   },[]);
   const log = (text: string) => update(s => ({ ...s, historyLog: [...s.historyLog, text] }));
   const updatePlayer = (id: string, fn: (p: Player) => Player) => update(s => ({ ...s, players: s.players.map(p => p.id === id ? normalizePlayer(fn(p)) : p) }));
-  const ask = async (title: string, options: RuleChoice['options'], player = actor(), min = 1, max = 1, description?: string): Promise<string[]> => {
+  const ask = async (title: string, options: RuleChoice['options'], player = actor(), min = 1, max = 1, description?: string, layout?: RuleChoice['layout']): Promise<string[]> => {
     if (!options.length) return [];
     if (player.isAI) return options.slice(0,min).map(o => o.id);
     const version = epoch.current;
-    const ids = await new Promise<string[]>(resolve => { answer.current = resolve; setChoice({ id: uid('choice'), title, options, min, max, description }); });
+    const ids = await new Promise<string[]>(resolve => { answer.current = resolve; setChoice({ id: uid('choice'), title, options, min, max, description, layout }); });
     if (version !== epoch.current) throw new Error('Ván chơi đã thay đổi.');
     return ids;
   };
@@ -131,21 +133,23 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     update(s=>({...s,currentActionModal:{type:'card_drawn',card}}));
   };
   const seenQuestion = (id: string) => update(s=>({...s,seenBankQuestions:[...(s.seenBankQuestions||[]).filter(old=>old!==id),id]}));
+  const nextQuestion = (group: import('../data/questionBank').QuestionGroup, difficulty: QuestionDifficulty, excluded = state.current.seenBankQuestions || []) =>
+    selectQuestion(group, difficulty, excluded, state.current.options.questionIds);
   const openLocalTask = async (space: BoardSpace, difficulty: QuestionDifficulty = state.current.questionDifficulty || 'basic') => {
     update(s=>({...s,pendingPhysicalCard:null,questionDifficulty:difficulty,currentActionModal:null}));
     if(space.type==='knowledge'||space.type==='challenge') {
-      const question=pickBankQuestion(space.type,difficulty,state.current.seenBankQuestions||[]);
+      const question=nextQuestion(space.type,difficulty);
       seenQuestion(question.id);
       const card=bankGameCard(question,space.province!);
       if(actor().token==='den_long' && actor().tokenSkillAvailable) { lanternCard.current=card;lanternUsed.current=false;update(s=>({...s,currentActionModal:{type:'token_skill',card}}));setShowTokenSkillModal(true); }
       else showCard(card);
     } else if(space.type==='market') {
-      const question=pickBankQuestion('market',difficulty,state.current.seenBankQuestions||[]);seenQuestion(question.id);
+      const question=nextQuestion('market',difficulty);seenQuestion(question.id);
       const card={...drawResourceCard(state.current.options.exploreMode),province:space.province,marketVisit:true,marketQuestion:question};
       updatePlayer(actor().id,p=>addCard(p,card));showCard(card);
     } else if(space.type==='festival') {
       const card={...drawFortuneCard(state.current.options.exploreMode),province:space.province};
-      if(card.eventType==='contest') { const question=pickBankQuestion('festival',difficulty,state.current.seenBankQuestions||[]);seenQuestion(question.id);showCard({...card,contestQuestion:question}); }
+      if(card.eventType==='contest') { const question=nextQuestion('festival',difficulty);seenQuestion(question.id);showCard({...card,contestQuestion:question}); }
       else showCard(card);
     }
   };
@@ -169,10 +173,6 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     if (milestone && pouchCards(actor()).length) {
       const [id] = await chooseCards(actor(),1,'Chọn 1 thẻ lộ phí cho chủ Cột mốc');
       update(s=>({ ...s,players:transferCard(s.players,actor().id,milestone.playerId,id) }));
-    }
-    if (actor().biKipCards.length >= 3 && await yesNo('Dùng 3 Bí kíp nhận ngay Kỷ vật?',actor(),'Có công mài sắt: bỏ qua nhiệm vụ ô địa phương này.')) {
-      updatePlayer(actor().id,p=>spendBiKip(p,p.biKipCards.slice(0,3).map(b=>b.id)));
-      grantArtifact(actor().id,space.province!); await completeTask(); return;
     }
     if(state.current.options.physicalQR && state.current.mode==='offline') {
       const kind: PhysicalCardKind=space.type==='market'?'resource':space.type==='festival'?'fortune':space.type as 'knowledge'|'challenge';
@@ -269,7 +269,10 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
   const handleRollDice = run(async () => {
     if(state.current.gameStatus!=='playing' || state.current.hasRolled || currentCard.current || activeCornerStation || activeStealTarget || showTokenSkillModal) return;
     const version=epoch.current;
-    let roll=Math.floor(Math.random()*6)+1;
+    const physical = state.current.options.physicalDice && !actor().isAI;
+    const inputRoll = async (title: string) => Number((await ask(title, [1,2,3,4,5,6].map(n=>({id:String(n),label:String(n)})),actor(),1,1,'Chọn kết quả vừa tung trên xúc xắc vật lý / Select your physical die result.','dice'))[0]);
+    let roll=physical ? await inputRoll('Nhập xúc xắc / Enter die result (1–6)') : Math.floor(Math.random()*6)+1;
+    if (!Number.isInteger(roll) || roll < 1 || roll > 6) throw new Error('Kết quả xúc xắc không hợp lệ.');
     const old=actor().position,extra=state.current.turnStep===2;
     setIsRolling(true); soundManager.playDiceRoll();
     update(s=>({...s,diceValue:roll,hasRolled:true,turnStep:2}));
@@ -281,7 +284,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
         updatePlayer(actor().id,p=>removeCards(p,[steed.id]));
         const defense=await negateSkill();
         if(!defense) {
-          const reroll=Math.floor(Math.random()*6)+1;
+          const reroll=physical ? await inputRoll('Ngựa trạm: nhập lần tung lại / Enter reroll') : Math.floor(Math.random()*6)+1;
           const [selected]=await ask('Chọn kết quả xúc xắc',[{id:String(roll),label:`Giữ ${roll} bước`},...(reroll===roll ? [] : [{id:String(reroll),label:`Chọn ${reroll} bước`}])]);
           roll=Number(selected); update(s=>({...s,diceValue:roll}));
         }
@@ -294,6 +297,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
 
   const handleResolveCard = (result: CardResolution) => run(async () => {
     const card=currentCard.current; if(!card) return;
+    validateBiKipResolution(actor(),card,result);
     if(card.type==='resource' && card.marketQuestion && result.consumeCards?.length && (result.marketAnswer===undefined || result.consumeCards.length!==(result.marketAnswer===card.marketQuestion.correctAnswer?1:2)))throw new Error('Số thẻ thanh toán không khớp kết quả Trả giá.');
     // Close immediately to prevent double resolution, while retaining the authoritative card.
     currentCard.current=null; setActiveCardModal(null);
@@ -317,8 +321,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
           if(!hat) {
             const pouch=actor().artifactItems.filter(a=>a.storage==='pouch');
             const artifactId=pouch.length ? (await ask('Chọn Kỷ vật làm rơi về Kho thất lạc',pouch.map(a=>({id:a.id,label:`${a.isTreasure?'⭐ ':''}${a.name}`}))))[0] : undefined;
-            const cardId=!pouch.length && pouchCards(actor()).length ? (await chooseCards(actor(),1,'Tay nải trống: chọn 1 thẻ phải bỏ'))[0] : undefined;
-            update(s=>failChallenge(s,artifactId,cardId));
+            update(s=>failChallenge(s,artifactId));
           }
         }
         updatePlayer(actor().id,p=>({...p,biKipCards:[...p.biKipCards,makeBiKip(card)]}));
@@ -335,7 +338,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     await completeTask();
   })();
   const handleConsumeBiKip = (ids: string[]) => {
-    if(!currentCard.current || state.current.turnStep!==4) return false;
+    if(currentCard.current?.type!=='knowledge' || state.current.turnStep!==4 || ids.length!==1) return false;
     try { updatePlayer(actor().id,p=>spendBiKip(p,ids)); return true; } catch { return false; }
   };
   const handleSelectCornerOption = (option: 'fortune' | 'resource' | 'restore_skill' | 'safe_deposit' | 'reclaim_start', extraData?: string[]) => run(async()=>{
@@ -438,10 +441,16 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
   const handleLanternRedraw=run(async()=>{
     const card=lanternCard.current;
     if(!card || (card.type!=='knowledge' && card.type!=='challenge') || !lanternUsed.current) return;
-    lanternUsed.current=false; lanternCard.current=null; setShowTokenSkillModal(false);
     if(card.bankQuestionId) {
-      const question=pickBankQuestion(card.type,card.difficulty||'basic',state.current.seenBankQuestions||[]);seenQuestion(question.id);showCard(bankGameCard(question,card.province));
-    } else showCard(drawLocalQuestion(card.province,card.type,card.id));
+      let question;
+      try { question=selectQuestion(card.type,card.difficulty||'basic',state.current.seenBankQuestions||[],state.current.options.questionIds,card.bankQuestionId); }
+      catch { setNotice('Bộ thẻ không còn đề khác cho loại ô này / No alternative task in this pack.');return; }
+      lanternUsed.current=false; lanternCard.current=null; setShowTokenSkillModal(false);
+      seenQuestion(question.id);showCard(bankGameCard(question,card.province));
+    } else {
+      lanternUsed.current=false; lanternCard.current=null; setShowTokenSkillModal(false);
+      showCard(drawLocalQuestion(card.province,card.type,card.id));
+    }
   });
   const handlePreviewLantern=async()=>{
     const card=lanternCard.current;
@@ -466,11 +475,12 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     update(s=>finishTurn(s,ids));
   });
   const handleStartGame=(config:SetupConfig)=>{
+    if(config.options.questionIds) validateQuestionSelection(config.options.questionIds);
     epoch.current++; answer.current?.([]); answer.current=null; setChoice(null); setNotice(null);
     currentCard.current=null; lanternCard.current=null; pendingDestination.current=null; afterCard.current=null; movement.current=null;
     setActiveCardModal(null);setActiveCornerStation(null);setActiveStealTarget(null);setShowTokenSkillModal(false);
     const first=Math.floor(Math.random()*config.players.length);
-    update(()=>({...initial,sessionId:uid('match'),seenBankQuestions:[],questionDifficulty:'basic',pendingPhysicalCard:null,mode:config.mode,roomCode:config.roomCode,gameStatus:'playing',gameModeRule:config.options.exploreMode?'toc_chien':config.gameModeRule,artifactGoal:config.options.exploreMode?3:config.artifactGoal,players:config.players.map(p=>normalizePlayer(p)),activePlayerIndex:first,firstPlayerIndex:first,options:config.options,endsAt:config.options.timedMode&&!config.options.exploreMode ? Date.now()+(config.durationMinutes||60)*60000 : undefined,historyLog:[`Trận đấu bắt đầu! ${config.players[first].name} đi đầu tiên.`]}));
+    update(()=>({...initial,questionSetId:QUESTION_SET_ID,sessionId:uid('match'),seenBankQuestions:[],questionDifficulty:'basic',pendingPhysicalCard:null,mode:config.mode,roomCode:config.roomCode,gameStatus:'playing',gameModeRule:config.options.exploreMode?'toc_chien':config.gameModeRule,artifactGoal:config.options.exploreMode?3:config.artifactGoal,players:config.players.map(p=>normalizePlayer(p)),activePlayerIndex:first,firstPlayerIndex:first,options:config.options,endsAt:config.options.timedMode&&!config.options.exploreMode ? Date.now()+(config.durationMinutes||60)*60000 : undefined,historyLog:[`Trận đấu bắt đầu! ${config.players[first].name} đi đầu tiên.`]}));
   };
   const resetSetup=()=>{
     epoch.current++;answer.current?.([]);answer.current=null;setChoice(null);setNotice(null);

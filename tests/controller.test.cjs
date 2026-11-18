@@ -22,6 +22,44 @@ function harness(players,options={}) {
 }
 async function random(value,fn){const before=Math.random;Math.random=()=>value;try{return await fn();}finally{Math.random=before;}}
 
+test('physical dice use confirmed input, not random movement, and cannot submit twice',()=>random(0,async()=>{
+ const h=harness([player('p1',0),player('p2',20)],{physicalDice:true});
+ let c=await h.act(()=>h.render().handleRollDice(),choice=>{
+  assert.equal(h.render().activePlayer.position,0);
+  h.render().confirmChoice(['7']);assert.ok(h.render().choice);
+  return ['4'];
+ });
+ assert.equal(c.gameState.diceValue,4);assert.equal(c.activePlayer.position,4);
+ await h.act(()=>h.render().handleRollDice());assert.equal(h.render().activePlayer.position,4);
+}));
+
+test('physical Steed accepts a second input and Banh mi shifts the chosen result',()=>random(0,async()=>{
+ const steed={...decks.RESOURCE_CARDS.find(c=>c.category==='steed'),id:'steed'};
+ const h=harness([player('p1',0,{token:'banh_mi',cards:{knowledge:[],resource:[steed],fortune:[]}}),player('p2',20)],{physicalDice:true});
+ let c=await h.act(()=>h.render().handleRollDice(),choice=>choice.title.includes('Nhập xúc xắc')?['2']:choice.title.includes('nhập lần tung lại')?['6']:choice.title.includes('Chọn kết quả')?['6']:choice.options.slice(0,choice.min).map(o=>o.id));
+ assert.equal(c.gameState.diceValue,6);assert.equal(c.showTokenSkillModal,true);
+ c=await h.act(()=>h.render().handleBanhMiShift(1));assert.equal(c.activePlayer.position,7);
+ assert.equal(c.activePlayer.cards.resource.length,0);
+}));
+
+test('failed Challenge with empty Pouch keeps inventory and awards a compensation scroll',()=>random(0,async()=>{
+ const card={...decks.RESOURCE_CARDS[0],id:'keep'};
+ const h=harness([player('p1',4,{token:'hoa_sen',cards:{knowledge:[],resource:[card],fortune:[]}}),player('p2',20)]);
+ await h.act(()=>h.render().handleRollDice());
+ const c=await h.act(()=>h.render().handleResolveCard({success:false,logMessage:'fail'}));
+ assert.equal(c.activePlayer.cards.resource[0].id,'keep');assert.equal(c.activePlayer.biKipCards.length,1);
+}));
+
+test('matching-topic Challenge auto-pass awards both artifact and bonus, mismatched cost keeps task open',()=>random(0,async()=>{
+ const catalog=base('src/data/cardPacks.ts');const pack=catalog.CARD_PACKS.find(p=>p.topic==='history');
+ const h=harness([player('p1',4,{biKipCards:[{id:'matching',topic:'history'},{id:'wrong',topic:'geography'}]}),player('p2',20)],{questionIds:pack.questionIds});
+ await h.act(()=>h.render().handleRollDice());
+ let c=await h.act(()=>h.render().handleResolveCard({success:true,consumeBiKipId:'wrong',logMessage:'bad'}));
+ assert.ok(c.notice);assert.ok(c.activeCardModal);assert.equal(c.activePlayer.artifactItems.length,0);
+ c=await h.act(()=>h.render().handleResolveCard({success:true,consumeBiKipId:'matching',logMessage:'pass'}));
+ assert.equal(c.activePlayer.artifactItems.length,1);assert.equal(c.activePlayer.cards.resource.length,1);assert.equal(c.activePlayer.biKipCards.length,1);
+}));
+
 test('passing START pauses movement for quiz and then resumes remaining spaces',()=>random(0.4,async()=>{
  const h=harness([player('p1',38),player('p2',20)]);
  let c=await h.act(()=>h.render().handleRollDice());assert.equal(c.activeCornerStation.index,0);assert.equal(c.activePlayer.position,0);assert.equal(c.activePlayer.lapsCompleted,1);

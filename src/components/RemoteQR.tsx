@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 import { roomRequest, readRoomIdentity, saveRoomIdentity } from '../utils/roomClient';
 import { PHYSICAL_CARDS, PhysicalCardKind } from '../utils/physicalQR';
 import { ProvinceSelector } from './QRCardGateway';
@@ -26,7 +26,8 @@ export function useHostQR(controller: any, enabled: boolean) {
           if(pending) snapshot={key:`pending:${g.sessionId}:${g.round}:${g.activePlayerIndex}:${pending.spaceIndex}:${g.revision}`,kind:pending.kind,province:BOARD_SPACES[pending.spaceIndex].province,player:c.activePlayer.name};
           else if(card) {
             const q=card.bankQuestionId||card.marketQuestion?.id||card.contestQuestion?.id;
-            snapshot={key:card.id,kind:card.type==='resource'?'resource':card.type==='fortune'?'fortune':card.type,province:card.province||'',player:c.activePlayer.name,questionId:q,title:card.title||card.name,description:q?undefined:card.description,seconds:!g.options.exploreMode&&(card.type==='knowledge'||card.type==='challenge')?card.timeLimitSeconds||20:undefined};
+            const manual = card.type==='challenge' && card.challengeType!=='quiz';
+            snapshot={key:card.id,kind:card.type==='resource'?'resource':card.type==='fortune'?'fortune':card.type,province:card.province||'',player:c.activePlayer.name,questionId:manual?undefined:q,title:card.title||card.name,description:manual ? `${card.question}\n${card.actionPrompt||''}` : q?undefined:card.description,seconds:!manual&&!g.options.exploreMode&&(card.type==='knowledge'||card.type==='challenge')?card.timeLimitSeconds||20:undefined};
           }
         }
         const serialized=JSON.stringify(snapshot);
@@ -86,9 +87,10 @@ export function RemoteQRPhone({kind,onPractice}:{kind:PhysicalCardKind;onPractic
         <p className="text-xs font-bold text-[#543310]">Phòng {identity.code}{snapshot?` · Lượt ${snapshot.player}`:''}</p>
         {!snapshot?<><p className="text-sm">Đang chờ nhiệm vụ trên laptop…</p>{receipt&&<p className="text-xs text-gray-600">Kết quả vừa gửi: {receipt.success?'chính xác':'chưa đúng'}. {receipt.explanation}</p>}</>:snapshot.kind!==kind?<p className="text-sm">Laptop đang chờ thẻ {PHYSICAL_CARDS.find(c=>c.kind===snapshot.kind)?.label}. Hãy quét đúng thẻ.</p>:<>
           <p className="text-xs text-gray-600">Tỉnh trên bàn cờ: {snapshot.province}.</p>
-          {!snapshot.question&&!snapshot.title?<><ProvinceSelector value={province} onChange={setProvince}/><label className="block text-xs font-bold">Độ khó<select className={input} value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)}>{Object.entries(DIFFICULTY_LABELS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label><button className={button} disabled={busy} onClick={open}>Mở câu hỏi</button></>:snapshot.question?<>
+          {!snapshot.question&&!snapshot.title?<><ProvinceSelector value={province} onChange={setProvince}/><label className="block text-xs font-bold">Độ khó<select className={input} value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)}>{Object.entries(DIFFICULTY_LABELS).filter(([id])=>id==='basic').map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label><button className={button} disabled={busy} onClick={open}>Mở câu hỏi</button></>:snapshot.question?<>
             {remaining!==null&&!result&&<p className="text-xs font-bold">Thời gian: {remaining} giây</p>}
             <p className="text-sm font-bold">{snapshot.question.question}</p>
+            {snapshot.question.learningResource&&<a className="inline-block text-xs font-semibold text-[#543310] underline" href={snapshot.question.learningResource.url} target="_blank" rel="noopener noreferrer">Tìm hiểu thêm: {snapshot.question.learningResource.title} ↗</a>}
             {snapshot.question.options.map((option:string,index:number)=><button key={index} className="w-full p-3 rounded-xl border border-gray-200 text-left text-xs sm:text-sm bg-white hover:bg-blue-50/50 disabled:opacity-60 shadow-sm" disabled={busy||!!result} onClick={()=>send(index)}>{String.fromCharCode(65+index)}. {option}</button>)}
           </>:<><p className="font-bold text-sm">{snapshot.title}</p><p className="text-sm">{snapshot.description}</p><p className="text-xs text-gray-600">Tiếp tục xử lý sự kiện trên laptop.</p></>}
           {result&&<div className={`p-3 rounded-xl border text-xs ${result.success?'bg-emerald-100 border-emerald-500':'bg-amber-100 border-amber-400'}`}><strong>{result.success?'Chính xác!':'Cùng tìm hiểu đáp án nhé.'}</strong><p>{result.explanation}</p><p className="mt-2">Kết quả đã gửi về phòng.</p></div>}

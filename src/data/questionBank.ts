@@ -1,30 +1,46 @@
-import data from './questionBank.json';
-import type { ChallengeCard, KnowledgeCard, BiKipTopic } from '../types/game';
+﻿import data from './questionBank.json';
+import resources from './questionResources.json';
+import type { ChallengeCard, KnowledgeCard, BiKipTopic, LearningResource } from '../types/game';
 import { getProvinceByName } from './provinces';
 import { copyCard } from '../engine/rules';
 
 export type QuestionGroup = 'knowledge' | 'challenge' | 'market' | 'festival';
 export type QuestionDifficulty = 'basic' | 'intermediate' | 'advanced';
 export interface BankQuestion {
+  learningResource?: LearningResource;
   id: string; group: QuestionGroup; difficulty: QuestionDifficulty; number: number;
   question: string; options: string[]; correctAnswer: number; explanation: string;
-  sources: {id: string; label: string; url: string}[]; scope: 'general';
+  sources: {id: string; label: string; url: string}[]; scope: 'general'; topic: BiKipTopic;
+  challengeType?: ChallengeCard['challengeType']; actionPrompt?: string; timeLimitSeconds?: number;
 }
-export const QUESTION_BANK = data.questions as BankQuestion[];
+const resourceIndex = resources.resources as Record<string, LearningResource>;
+export const QUESTION_BANK: BankQuestion[] = (data.questions as BankQuestion[]).map(q=>{
+  const resource = resources.questionSetId === data.questionSetId ? resourceIndex[q.id] : undefined;
+  return {...q, learningResource:resource, sources:[...q.sources,...(resource ? [{id:`reading_${q.id}`,label:resource.title,url:resource.url}] : [])]};
+});
+export const QUESTION_SET_ID = data.questionSetId;
 export const BANK_SOURCE = {file: data.sourceFile,sha256:data.sourceSha256};
 export const GROUP_LABELS: Record<QuestionGroup,string> = {knowledge:'Kiến thức',challenge:'Thử thách',market:'Thị trường',festival:'Lễ hội'};
-export const DIFFICULTY_LABELS: Record<QuestionDifficulty,string> = {basic:'Cơ bản',intermediate:'Trung bình',advanced:'Cao cấp'};
-export function pickBankQuestion(group: QuestionGroup, difficulty: QuestionDifficulty = 'basic', excludedIds: string[] = []): BankQuestion {
-  const all=QUESTION_BANK.filter(q=>q.group===group && q.difficulty===difficulty);
+export const DIFFICULTY_LABELS: Record<QuestionDifficulty,string> = {basic:'Dễ – Trung bình',intermediate:'Trung bình',advanced:'Cao cấp'};
+export const AVAILABLE_DIFFICULTIES = ['basic'] as const;
+
+// The supplied document has no split by space type or per-question difficulty.
+// Reuse its exact 100 quizzes for each space without duplicating or inventing tasks.
+export function questionPool(ids?: string[]): BankQuestion[] {
+  return ids ? QUESTION_BANK.filter(q=>ids.includes(q.id)) : QUESTION_BANK;
+}
+export function pickBankQuestion(group: QuestionGroup, difficulty: QuestionDifficulty = 'basic', excludedIds: string[] = [], ids?: string[], currentId?: string): BankQuestion {
+  const all=questionPool(ids).filter(q=>q.id!==currentId);
   const fresh=all.filter(q=>!excludedIds.includes(q.id));
   const pool=fresh.length ? fresh : all;
-  if(!pool.length) throw new Error('Chưa có câu hỏi phù hợp trong ngân hàng.');
-  return pool[Math.floor(Math.random()*pool.length)];
+  if(!pool.length) throw new Error('Không còn câu hỏi phù hợp trong bộ đã chọn / No question available in this pack.');
+  return {...pool[Math.floor(Math.random()*pool.length)],group};
 }
 export function bankGameCard(question: BankQuestion, rewardProvince: string): KnowledgeCard | ChallengeCard {
   const province=getProvinceByName(rewardProvince);
   if(!province)throw new Error('Chưa xác định được địa phương nhận Kỷ vật.');
-  const common={id:question.id,bankQuestionId:question.id,questionScope:'general' as const,difficulty:question.difficulty,province:province.name,region:province.region,title:`${GROUP_LABELS[question.group]} · ${DIFFICULTY_LABELS[question.difficulty]} · Câu ${question.number}`,topic:'general' as BiKipTopic,question:question.question,options:question.options,correctAnswer:question.correctAnswer,didYouKnow:question.explanation,citation:question.sources.map(s=>`${s.label} — ${s.url}`).join('\n')};
+  const topic=question.topic==='history'?'Lịch sử':'Địa lý';
+  const common={id:question.id,bankQuestionId:question.id,qrContent:question.learningResource?.url || '',questionScope:'general' as const,difficulty:question.difficulty,province:province.name,region:province.region,title:`${topic} · Câu ${question.number}`,topic:question.topic,question:question.question,options:question.options,correctAnswer:question.correctAnswer,didYouKnow:question.explanation,citation:question.sources.map(s=>s.url?`${s.label} — ${s.url}`:s.label).join('\n')};
   if(question.group==='challenge')return copyCard({...common,type:'challenge',challengeType:'quiz',timeLimitSeconds:20,explanation:question.explanation,rewardArtifact:province.artifacts.regular[0],relatedKnowledgeKeyword:question.id});
-  return copyCard({...common,type:'knowledge',heritageName:'Kiến thức liên ngành',description:question.explanation,culturalSignificance:'Câu hỏi chung theo ngân hàng do nhóm cung cấp; tỉnh xác định Kỷ vật thưởng.',qrContent:question.sources[0].url,category:'Liên ngành'});
+  return copyCard({...common,type:'knowledge',heritageName:topic,description:question.explanation,culturalSignificance:'Tỉnh đang đứng xác định Kỷ vật thưởng.',category:topic});
 }

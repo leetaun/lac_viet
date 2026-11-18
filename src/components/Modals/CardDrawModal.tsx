@@ -1,13 +1,15 @@
-import { topicName } from '../../engine/content';
+﻿import { topicName } from '../../engine/content';
 import { getProvinceName, getArtifactName } from '../../data/culturalTranslations';
 import { DIFFICULTY_LABELS } from '../../data/questionBank';
 import { pouchCards } from '../../engine/rules';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { GameCard, KnowledgeCard, ChallengeCard, ResourceCard, FortuneCard, Player, BiKipCard, ArtifactItem, CardResolution } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { PROVINCES_DATA, getProvinceByName } from '../../data/provinces';
 import { soundManager } from '../../utils/sound';
 import { generateQRCode } from '../../utils/qrcode';
+import { getCardLearningResource } from '../../utils/learningResources';
+import { QuestionSources } from '../QuestionSources';
 import { 
   Sparkles, Trophy, AlertTriangle, ShieldCheck, QrCode, CheckCircle2, 
   XCircle, ArrowRight, HelpCircle, Users, BookOpen, Clock, Tag, ShoppingBag, ExternalLink
@@ -76,7 +78,12 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   // Province and Artifact lookup
   const provinceName = ('province' in card ? card.province : '') || '';
   const provData = getProvinceByName(provinceName);
-  const marketQuiz = card.type==='resource' && card.marketQuestion ? {...provData?.marketQuiz,...card.marketQuestion,item:provData?.marketQuiz.item||'Kỷ vật địa phương'} : provData?.marketQuiz;
+  const marketQuiz = card.type==='resource' && card.marketQuestion ? {...card.marketQuestion,item:provData?.marketInfo.item||'Kỷ vật địa phương'} : undefined;
+  const learningResource = getCardLearningResource(card);
+  const readingSection = useRef<HTMLDivElement>(null);
+  useEffect(()=>{
+    if(showQR)readingSection.current?.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },[showQR]);
 
   // Helper to generate a new artifact item for this province
   const generateArtifactForProvince = (isTreasure: boolean = false): ArtifactItem => {
@@ -96,24 +103,25 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   };
 
   // Check matching Bi Kip for Challenge auto-pass
-  const matchingTopicBiKip = card.type === 'challenge'
+  const matchingTopicBiKip = card.type === 'challenge' && card.topic !== 'general'
     ? player.biKipCards.find(bk => bk.topic === (card as ChallengeCard).topic)
     : undefined;
 
   useEffect(() => {
     soundManager.playCardDraw();
     
-    // Generate QR code for Deep Dive
-    const qrLink = ('qrContent' in card && card.qrContent) 
-      ? card.qrContent 
-      : provData?.qrCodeUrl || `https://lacviet.edu.vn/kham-pha/${card.id}`;
-    generateQRCode(qrLink).then(url => setQrDataUrl(url));
-
     // Countdown Timer for Knowledge and Action Challenges
     const initialTime = card.type === 'knowledge' ? 20 : (card.type === 'challenge' && card.timeLimitSeconds ? card.timeLimitSeconds : 20);
     setTimer(initialTime);
 
   }, [card]);
+
+  useEffect(()=>{
+    let active=true;
+    setQrDataUrl('');
+    if(learningResource)void generateQRCode(learningResource.url,{width:384,margin:4}).then(url=>{if(active)setQrDataUrl(url);});
+    return()=>{active=false;};
+  },[card.id,learningResource?.url]);
 
   useEffect(() => {
     if (remoteConnected || exploreMode || askingFriend || answered || pendingAction) return;
@@ -189,7 +197,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
 
   // 3 Bí kíp: "Có công mài sắt" (Auto-win artifact without quiz)
   const handleCoCongMaiSat = () => {
-    if (player.biKipCards.length < 3 || helperUsed || answered || (!exploreMode && timer === 0)) return;
+    if (card.type !== 'knowledge' || player.biKipCards.length < 3 || helperUsed || answered || (!exploreMode && timer === 0)) return;
     soundManager.playSuccess();
     const newArt = generateArtifactForProvince(Math.random() < 0.1);
     onResolve({
@@ -390,13 +398,13 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
             )}
 
             {/* QR Deep Dive Toggle */}
-            <button
+            {learningResource && <button
               onClick={() => setShowQR(!showQR)}
               className="p-2 bg-white/20 hover:bg-white/30 rounded-xl transition-colors text-white"
               title={language === 'vi' ? 'Quét QR xem tư liệu chuyên sâu trên máy cá nhân' : 'Scan QR for digital source on mobile'}
             >
               <QrCode size={18} />
-            </button>
+            </button>}
           </div>
         </div>
 
@@ -405,15 +413,17 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
           {remoteConnected && remoteConnection}
           
           {/* QR Code Deep Dive Section (Part 4) */}
-          {showQR && qrDataUrl && (
-            <div className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center flex flex-col items-center gap-2 animate-fade-in">
+          {showQR && learningResource && (
+            <div ref={readingSection} className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center flex flex-col items-center gap-2 animate-fade-in">
               <span className="text-xs font-bold text-[#543310] flex items-center gap-1">
                 <QrCode size={15} /> {language === 'vi' ? 'TƯ LIỆU MỞ RỘNG (QR)' : 'DIGITAL ARCHIVE (QR)'}
               </span>
-              <img src={qrDataUrl} alt="QR Code" className="w-32 h-32 rounded-xl shadow-sm border border-gray-200" />
+              {qrDataUrl && <img src={qrDataUrl} alt={`QR: ${learningResource.title}`} className="w-48 h-48 rounded-xl shadow-sm border border-gray-200" />}
+              <p className="text-xs font-semibold text-[#543310]">{learningResource.title}</p>
               <p className="text-[11px] text-gray-600 max-w-xs leading-relaxed">
-                {language === 'vi' ? 'Quét mã để xem tư liệu lịch sử chi tiết trên điện thoại.' : 'Scan QR code to view detailed historical archives on mobile.'}
+                {language === 'vi' ? 'Quét mã để đọc thêm về câu hỏi này trên điện thoại.' : 'Scan to learn more about this question on your phone.'}
               </p>
+              <a href={learningResource.url} target="_blank" rel="noopener noreferrer" className="px-3 py-2 rounded-xl border border-[#C5A059] text-xs font-bold text-[#543310] hover:bg-white">{language==='vi'?'Mở bài đọc trực tiếp':'Open reading directly'} ↗</a>
             </div>
           )}
 
@@ -630,16 +640,15 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
               {(card.challengeType === 'action' || card.challengeType === 'speed_naming') && !answered && (
                 <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2">
                   <div className="text-xs font-bold text-gray-700 text-center">
-                    Cả bàn chơi biểu quyết kết quả thực hiện:
+                    {language === 'vi' ? 'Cả bàn xác nhận kết quả thực hiện:' : 'The group confirms the result:'}
                   </div>
-                  <p className="text-[11px] text-gray-500">Diễn tả/Vẽ: có người khác đoán đúng trong thời gian. Hát/Kể nhanh: quá nửa số người còn lại đồng ý; hòa phiếu hoặc chơi 2 người thì tính Đạt nếu đã cố gắng hoàn thành trọn yêu cầu.</p>
+                  <p className="text-[11px] text-gray-500">{language === 'vi' ? 'Hoàn thành yêu cầu trong thời gian, sau đó cả bàn xác nhận Đạt hoặc Không đạt.' : 'Complete the task within the time limit, then have the group confirm Pass or Fail.'}</p>
                   <div className="flex items-center gap-2">
                     <button
                       disabled={pendingAction}
                       onClick={async () => {
                         if (pendingAction || (!exploreMode && timer === 0)) return;
                         setPendingAction(true);
-                        if (card.challengeType === 'action' && /diễn tả|vẽ/i.test(card.question + ' ' + (card.actionPrompt || ''))) await onGuessReward?.();
                         setPendingAction(false);
                         setActionDone(true);
                         setAnswered(true);
@@ -649,7 +658,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                       className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs shadow transition-all flex items-center justify-center gap-1.5"
                     >
                       <CheckCircle2 size={15} />
-                      <span>ĐẠT (Quá nửa đồng ý)</span>
+                      <span>{language === 'vi' ? 'ĐẠT' : 'PASS'}</span>
                     </button>
                     <button
                       onClick={() => {
@@ -660,7 +669,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                       }}
                       className="py-2.5 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-semibold text-xs transition-all"
                     >
-                      KHÔNG ĐẠT
+                      {language === 'vi' ? 'KHÔNG ĐẠT' : 'FAIL'}
                     </button>
                   </div>
                 </div>
@@ -686,8 +695,8 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                         <BookOpen size={16} className="text-[#543310] flex-shrink-0" />
                         <span>
                           {language === 'vi'
-                            ? 'Nhận 01 Bí kíp. Bấm tiếp tục để chọn Kỷ vật/thẻ phải bỏ (hoặc dùng Nón lá nếu sẵn sàng).'
-                            : 'Received 1 Bi Kip scroll. Click proceed to choose artifact/card to forfeit (or use Non La).'}
+                            ? 'Nhận 01 Bí kíp. Chọn 1 Kỷ vật Tay nải làm rơi hoặc dùng Nón lá. Tay nải trống không mất thêm thẻ.'
+                            : 'Receive 1 Bi Kip. Drop 1 Pouch artifact or use Non La. An empty Pouch incurs no additional card penalty.'}
                         </span>
                       </>
                     )}
@@ -766,7 +775,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
                         {marketPrice === 1 ? 'Trả giá đúng! Giá mua: 1 THẺ BÀI.' : 'Chưa đúng! Giá mua: 2 THẺ BÀI.'}
                       </div>
 
-                      {card.marketQuestion && <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 text-xs text-gray-800"><p>{card.marketQuestion.explanation}</p>{card.marketQuestion.sources.map(source=><a key={source.id} href={source.url} target="_blank" rel="noopener noreferrer" className="block text-[11px] text-gray-500 hover:underline">{source.label}</a>)}</div>}
+                      {card.marketQuestion && <div className="bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/40 text-xs text-gray-800"><p>{card.marketQuestion.explanation}</p><QuestionSources sources={card.marketQuestion.sources}/></div>}
                       <div className="text-xs text-gray-700">
                         Chọn thẻ bài thanh toán ({selectedCardsToPay.length}/{marketPrice} thẻ):
                       </div>
@@ -809,7 +818,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
             </div>
           )}
 
-          {card.type==='fortune' && card.contestQuestion && <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2.5"><p className="text-xs font-bold text-[#543310]">Hội thi · {DIFFICULTY_LABELS[card.contestQuestion.difficulty]}</p><p className="text-sm font-bold text-gray-900">{card.contestQuestion.question}</p>{card.contestQuestion.options.map((option,index)=><p key={index} className="text-xs text-gray-700">{String.fromCharCode(65+index)}. {option}</p>)}<button type="button" onClick={()=>setShowContestAnswer(true)} className="px-3 py-1.5 bg-[#543310] text-white rounded-xl text-xs font-bold">Hiện đáp án</button>{showContestAnswer && <div className="text-xs text-gray-700"><strong>Đáp án {String.fromCharCode(65+card.contestQuestion.correctAnswer)}.</strong> {card.contestQuestion.explanation}{card.contestQuestion.sources.map(source=><a className="block text-[11px] text-gray-500 hover:underline" key={source.id} href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a>)}</div>}</div>}
+          {card.type==='fortune' && card.contestQuestion && <div className="bg-[#FAF6EE] p-3.5 rounded-2xl border border-[#C5A059]/40 space-y-2.5"><p className="text-xs font-bold text-[#543310]">Hội thi · {DIFFICULTY_LABELS[card.contestQuestion.difficulty]}</p><p className="text-sm font-bold text-gray-900">{card.contestQuestion.question}</p>{card.contestQuestion.options.map((option,index)=><p key={index} className="text-xs text-gray-700">{String.fromCharCode(65+index)}. {option}</p>)}<button type="button" onClick={()=>setShowContestAnswer(true)} className="px-3 py-1.5 bg-[#543310] text-white rounded-xl text-xs font-bold">Hiện đáp án</button>{showContestAnswer && <div className="text-xs text-gray-700"><strong>Đáp án {String.fromCharCode(65+card.contestQuestion.correctAnswer)}.</strong> {card.contestQuestion.explanation}<QuestionSources sources={card.contestQuestion.sources}/></div>}</div>}
 
           {/* 4. THẺ MAY MẮN (Ô Lễ hội) */}
           {card.type === 'fortune' && (
@@ -834,13 +843,13 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
 
         {/* Modal Footer */}
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
-          <button
+          {learningResource ? <button
             onClick={() => setShowQR(!showQR)}
             className="text-xs text-[#543310] font-bold flex items-center gap-1 hover:underline"
           >
             <ExternalLink size={13} />
             <span>{showQR ? (language === 'vi' ? 'Ẩn QR' : 'Hide QR') : (language === 'vi' ? 'Mở rộng (QR)' : 'Digital Archive (QR)')}</span>
-          </button>
+          </button> : <span />}
 
           {card.type === 'resource' && marketQuiz && marketBargainAnswered ? null : (
             (card.type !== 'challenge' && card.type !== 'knowledge') || answered ? (

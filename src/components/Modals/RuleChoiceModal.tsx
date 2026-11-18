@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export interface RuleChoice {
+  layout?: 'dice';
   id?: string;
   title: string;
   description?: string;
@@ -32,9 +33,9 @@ export function RuleChoiceModal({ choice, onConfirm, language = 'vi' }: { choice
         </div>
         <div className="p-4 sm:p-5 space-y-3 max-h-[60vh] overflow-y-auto">
           {choice.description && <p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">{choice.description}</p>}
-          {choice.options.map(option => <button key={option.id} type="button" aria-pressed={selected.includes(option.id)} onClick={() => setSelected(previous => previous.includes(option.id) ? previous.filter(id => id !== option.id) : choice.max === 1 ? [option.id] : previous.length < choice.max ? [...previous, option.id] : previous)} className={`w-full p-2 rounded-xl text-xs text-left border flex items-center justify-between transition-all ${selected.includes(option.id) ? 'bg-[#543310] text-white font-bold border-[#543310]' : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-700'}`}>
+          <div className={choice.layout==='dice'?'grid grid-cols-3 gap-3':'space-y-3'}>{choice.options.map(option => <button key={option.id} type="button" aria-pressed={selected.includes(option.id)} onClick={() => setSelected(previous => previous.includes(option.id) ? previous.filter(id => id !== option.id) : choice.max === 1 ? [option.id] : previous.length < choice.max ? [...previous, option.id] : previous)} className={`w-full p-2 rounded-xl border flex items-center transition-all ${choice.layout==='dice'?'min-h-14 justify-center text-xl font-bold':'text-xs text-left justify-between'} ${selected.includes(option.id) ? 'bg-[#543310] text-white font-bold border-[#543310]' : 'bg-white hover:bg-gray-50 border-gray-200 text-gray-700'}`}>
             {option.label}
-          </button>)}
+          </button>)}</div>
         </div>
         <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
           <span className="text-xs text-gray-500 font-medium">

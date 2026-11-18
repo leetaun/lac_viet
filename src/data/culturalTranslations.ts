@@ -1,4 +1,4 @@
-import type { BoardSpace } from '../types/game';
+﻿import type { BoardSpace } from '../types/game';
 import type { ProvinceInfo } from './provinces';
 
 // 1. PROVINCE NAME TRANSLATIONS
@@ -805,8 +805,8 @@ export function getProvinceData(p: ProvinceInfo, lang: 'vi' | 'en' = 'vi') {
       description: p.description,
       specialty: p.specialty,
       festivals: p.festivals,
-      marketItem: p.marketQuiz.item,
-      marketHint: p.marketQuiz.marketHint
+      marketItem: p.marketInfo.item,
+      marketHint: p.marketInfo.marketHint
     };
   }
   const en = PROVINCES_EN_DATA[p.id];
@@ -817,22 +817,13 @@ export function getProvinceData(p: ProvinceInfo, lang: 'vi' | 'en' = 'vi') {
     description: en?.enDescription || p.description,
     specialty: en?.enSpecialty || p.specialty,
     festivals: en?.enFestivals || p.festivals,
-    marketItem: en?.enMarketItem || p.marketQuiz.item,
-    marketHint: en?.enMarketHint || p.marketQuiz.marketHint
+    marketItem: en?.enMarketItem || p.marketInfo.item,
+    marketHint: en?.enMarketHint || p.marketInfo.marketHint
   };
 }
 
 // 5. BI KIP SCROLL SNIPPET TRANSLATIONS
-export const BIKIP_SNIPPET_EN: Record<string, string> = {
-  'bk_hist_start': 'Thang Long capital relocation in 1010 and the ancient Co Loa Citadel of King An Duong Vuong',
-  'bk_cuis_start': 'Essence of indigenous herbal spices and the culinary art of traditional broths',
-  'bk_art_start': 'Royal court music of Hue and the soulful melodies of Vietnamese folk songs',
-  'bk_cust_start': 'Sacred worship of the Hung Kings and vibrant village festivals of early spring',
-  'Dời đô Thăng Long 1010 và chiến lũy Cổ Loa thời An Dương Vương': 'Thang Long capital relocation in 1010 and the ancient Co Loa Citadel of King An Duong Vuong',
-  'Tinh hoa gia vị thảo mộc và nghệ thuật nấu nước dùng truyền thống': 'Essence of indigenous herbal spices and the culinary art of traditional broths',
-  'Nhã nhạc cung đình và các làn điệu dân ca truyền thống Việt': 'Royal court music of Hue and the soulful melodies of Vietnamese folk songs',
-  'Tín ngưỡng thờ cúng Hùng Vương và phong tục hội làng đầu xuân': 'Sacred worship of the Hung Kings and vibrant village festivals of early spring'
-};
+export const BIKIP_SNIPPET_EN: Record<string, string> = {};
 
 export function getBiKipSnippet(bk: { id?: string; questionSnippet?: string; enQuestionSnippet?: string }, lang: 'vi' | 'en' = 'vi'): string {
   if (lang === 'vi') return bk.questionSnippet || '';

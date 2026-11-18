@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Player, GameCard, ResourceCard, FortuneCard, KnowledgeCard, ArtifactItem, BiKipCard } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { topicName } from '../../engine/content';
@@ -8,6 +8,7 @@ import {
   ChevronRight, X, Lock, Unlock, Flag, CheckCircle2, AlertTriangle, Info 
 } from 'lucide-react';
 import { generateQRCode } from '../../utils/qrcode';
+import { getCardLearningResource } from '../../utils/learningResources';
 
 interface InventoryTabProps {
   player: Player;
@@ -30,6 +31,8 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
   const [selectedCard, setSelectedCard] = useState<GameCard | null>(null);
   const [selectedBiKip, setSelectedBiKip] = useState<BiKipCard | null>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const qrRequest = useRef(0);
+  const selectedResource = selectedCard ? getCardLearningResource(selectedCard) : undefined;
 
   const opponents = allPlayers.filter(p => p.id !== player.id);
   
@@ -54,12 +57,12 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
   const totalHandCards = player.cards.resource.length + player.cards.fortune.length + player.cards.knowledge.length + player.biKipCards.length;
 
   const handleCardClick = async (card: GameCard) => {
+    const request = ++qrRequest.current;
     setSelectedCard(card);
-    const url = 'qrContent' in card 
-      ? card.qrContent 
-      : `https://lacviet.edu.vn/the-bai/${card.id}`;
-    const qr = await generateQRCode(url);
-    setQrCodeUrl(qr);
+    setQrCodeUrl('');
+    const resource = getCardLearningResource(card);
+    const qr = resource ? await generateQRCode(resource.url,{width:384,margin:4}) : '';
+    if(request===qrRequest.current)setQrCodeUrl(qr);
   };
 
   return (
@@ -412,12 +415,13 @@ export const InventoryTab: React.FC<InventoryTabProps> = ({
             </button>
             {qrCodeUrl && (
               <div className="text-center pt-2">
-                <img src={qrCodeUrl} alt="QR" className="w-28 h-28 mx-auto rounded-lg border border-gray-200" />
+                <img src={qrCodeUrl} alt="QR" className="w-48 h-48 mx-auto rounded-lg border border-gray-200" />
                 <span className="text-[10px] text-gray-400 mt-1 block">
                   {language === 'vi' ? 'Quét QR xem tư liệu' : 'Scan QR for digital source'}
                 </span>
               </div>
             )}
+            {selectedResource&&<a className="block text-center text-xs font-semibold text-[#543310] underline" href={selectedResource.url} target="_blank" rel="noopener noreferrer">{selectedResource.title} ↗</a>}
           </div>
         </div>
       )}

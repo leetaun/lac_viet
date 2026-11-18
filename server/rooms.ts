@@ -1,12 +1,12 @@
 import { randomBytes, createHash } from 'node:crypto';
-import bank from '../src/data/questionBank.json' with { type: 'json' };
+import { QUESTION_CATALOG } from '../src/data/cardPacks';
 
 type Snapshot = { key: string; kind: string; province: string; player: string; questionId?: string; title?: string; description?: string; seconds?: number };
 type Room = { host: string; guest: string; snapshot: Snapshot | null; command: any; result: any; deadline: number; version: number };
 const memory = new Map<string, string>();
 const hash = (s: string) => createHash('sha256').update(s).digest('hex');
 const token = () => randomBytes(24).toString('hex');
-const questions = (bank as any).questions as any[];
+const questions = QUESTION_CATALOG.filter(q => !q.challengeType || q.challengeType === 'quiz');
 async function redis(args: unknown[]) {
   const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const auth = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
@@ -60,7 +60,7 @@ export function createRoomService(local = false) {
       else if (body.action === 'ack') { if (room.command?.id === body.id) { room.command = null; changed = true; } }
       else if (body.action === 'read') {
         const s = room.snapshot; const q = questions.find(q => q.id === s?.questionId);
-        return { snapshot: s ? { ...s, question: q ? { question: q.question, options: q.options } : null } : null, deadline: room.deadline, serverTime: Date.now(), result: room.result };
+        return { snapshot: s ? { ...s, question: q ? { question: q.question, options: q.options, learningResource:q.learningResource } : null } : null, deadline: room.deadline, serverTime: Date.now(), result: room.result };
       } else if (body.action === 'open') {
         const s = room.snapshot;
         if (!s || s.questionId || s.key !== body.key || s.kind !== body.kind || s.province !== body.province) throw new Error('Chọn đúng loại thẻ và tỉnh đang chờ trên laptop.');

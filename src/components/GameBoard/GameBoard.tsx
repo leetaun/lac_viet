@@ -133,11 +133,22 @@ export const GameBoard: React.FC<GameBoardProps> = ({
 
             {/* Center Arena: 9 columns wide */}
             <div className="board-arena col-span-9 bg-gradient-to-br from-[#FAF6EE] via-[#FFFDF9] to-[#F5E5BE]/30 rounded-2xl p-4 sm:p-6 border border-[#C5A059]/30 flex flex-col justify-between relative shadow-inner overflow-hidden min-h-[360px]">
-              {/* Decorative Vietnam mainland silhouette from geographic coordinates:
+              {/* Mainland silhouette from geographic coordinates; offshore island groups
+                  are schematic decoration east of the central and southern coastline.
                   https://github.com/johan/world.geo.json/blob/master/countries/VNM.geo.json */}
-              <div className="absolute inset-0 pointer-events-none opacity-[0.09] flex items-center justify-center">
-                <svg aria-hidden="true" focusable="false" viewBox="0 0 400 800" className="h-full max-h-[380px] text-[#543310] fill-current">
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 720 800" fillOpacity={0.09} className="h-full max-h-[380px] text-[#543310] fill-current">
                   <path d="M302.4,107.4 L238.3,150.2 L198.3,197.4 L187.8,232.1 L224.5,284.8 L269.4,350.1 L312.9,381.0 L342.1,421.2 L364.1,513.7 L357.6,601.7 L317.6,634.6 L262.6,666.8 L223.4,708.5 L163.6,755.0 L146.2,722.9 L159.7,689.1 L124.0,660.7 L165.6,640.5 L216.0,636.9 L194.9,606.6 L275.6,568.1 L281.5,508.2 L270.4,474.9 L279.1,424.9 L267.0,389.6 L230.7,354.8 L200.4,310.7 L160.5,251.7 L103.0,221.7 L116.8,203.8 L147.5,190.7 L128.9,147.1 L69.8,146.7 L48.2,101.2 L20.2,61.8 L45.9,49.6 L84.2,49.8 L130.9,44.0 L171.8,17.4 L194.9,36.2 L238.8,45.3 L231.2,74.1 L254.1,94.4 Z" />
+                  <g data-archipelago="hoang-sa">
+                    <path d="M463 327 l9 -5 5 7 -9 6 Z M488 314 l8 -3 4 7 -8 4 Z M507 338 l10 -4 5 7 -10 5 Z M481 352 l7 -3 4 6 -8 4 Z M528 321 l7 -2 3 6 -7 3 Z" />
+                    <circle cx="475" cy="339" r="3" /><circle cx="501" cy="324" r="3" /><circle cx="523" cy="352" r="3" />
+                    <text x="548" y="340" fontSize="28" fontWeight="700" fillOpacity={0.35}>{language === 'vi' ? 'Hoàng Sa' : 'Hoang Sa'}</text>
+                  </g>
+                  <g data-archipelago="truong-sa">
+                    <path d="M548 535 l8 -4 5 7 -9 5 Z M573 563 l9 -3 4 7 -9 4 Z M604 550 l7 -3 4 6 -8 4 Z M589 601 l10 -4 4 7 -10 5 Z M623 620 l9 -3 4 7 -9 4 Z M567 642 l8 -3 4 6 -8 4 Z M642 658 l8 -4 5 7 -9 5 Z" />
+                    <circle cx="565" cy="550" r="3" /><circle cx="596" cy="578" r="3" /><circle cx="613" cy="592" r="3" /><circle cx="600" cy="638" r="3" /><circle cx="630" cy="678" r="3" />
+                    <text x="540" y="720" fontSize="28" fontWeight="700" fillOpacity={0.35}>{language === 'vi' ? 'Trường Sa' : 'Truong Sa'}</text>
+                  </g>
                 </svg>
               </div>
 
@@ -173,6 +184,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({
 
                 {/* Animated Dice */}
                 <DiceRoller
+                  physical={gameState.options.physicalDice}
                   value={gameState.diceValue}
                   isRolling={isRolling}
                   disabled={gameState.hasRolled || activePlayer?.isAI}
