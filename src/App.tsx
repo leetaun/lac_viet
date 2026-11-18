@@ -109,6 +109,7 @@ export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('board');
   const [language, setLanguage] = useState<'vi' | 'en'>('vi');
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [volume, setVolume] = useState(() => soundManager.getVolume());
   const controller = useGameController(DEFAULT_PLAYERS);
   const [showSetup, setShowSetup] = useState(controller.gameState.gameStatus==='setup');
   const [qrKind,setQrKind]=useState(()=>readPhysicalCard(location.hash));
@@ -116,6 +117,14 @@ export const App: React.FC = () => {
   const hostQR=useHostQR(controller,!qrKind);
   const { gameState, activePlayer, activeCardModal, activeCornerStation, activeStealTarget, showTokenSkillModal, isRolling, handleRollDice, handleResolveCard, handleSelectCornerOption, handleCloseCorner, handleExecuteSteal, handleConsumeBiKip, handleLotusSwap, handleBanhMiShift, handleEndTurn } = controller;
   const handleStartGame = (config: SetupConfig) => { controller.handleStartGame(config); setShowSetup(false); setActiveTab('board'); };
+  const handleVolumeChange = (newVol: number) => {
+    const clamped = Math.max(0, Math.min(1, newVol));
+    setVolume(clamped);
+    soundManager.setVolume(clamped);
+    if (clamped > 0 && !soundEnabled) {
+      setSoundEnabled(true);
+    }
+  };
   useEffect(() => { soundManager.setSoundEnabled(soundEnabled); }, [soundEnabled]);
   useEffect(()=>{const listener=()=>setQrKind(readPhysicalCard(location.hash));window.addEventListener('hashchange',listener);return()=>window.removeEventListener('hashchange',listener);},[]);
   const leaveQR=()=>{history.replaceState(null,'',location.pathname+location.search);setQrKind(null);};
@@ -135,6 +144,8 @@ export const App: React.FC = () => {
         onResetGame={() => { controller.resetSetup(); setShowSetup(true); }}
         soundEnabled={soundEnabled}
         onToggleSound={() => setSoundEnabled(!soundEnabled)}
+        volume={volume}
+        onVolumeChange={handleVolumeChange}
       />
 
       {/* 2. Main Content Body according to Active Tab with smooth entrance animation */}

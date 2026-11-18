@@ -4,10 +4,20 @@ class SoundManager {
   public enabled: boolean = true;
   private bgmAudio: HTMLAudioElement | null = null;
   public isBgmPlaying: boolean = false;
-  private bgmVolume: number = 0.32; // Âm lượng lofi chill vừa phải (32%)
+  private volume: number = 0.5; // Master volume (0 to 1, mặc định 50%)
 
   constructor() {
     if (typeof window !== 'undefined') {
+      try {
+        const savedVol = localStorage.getItem('lacviet_sound_volume');
+        if (savedVol !== null) {
+          const parsed = parseFloat(savedVol);
+          if (!isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+            this.volume = parsed;
+          }
+        }
+      } catch {}
+
       this.initBgm();
       // Kích hoạt phát nhạc khi có tương tác đầu tiên của người chơi (vượt rào cản autoplay trình duyệt)
       const handleFirstInteraction = () => {
@@ -36,11 +46,27 @@ class SoundManager {
 
   private initBgm() {
     if (!this.bgmAudio && typeof Audio !== 'undefined') {
-      this.bgmAudio = new Audio('/audio/lac-viet-lofi.mp3');
+      this.bgmAudio = new Audio('/audio/hello-vietnam.mp3');
       this.bgmAudio.loop = true;
-      this.bgmAudio.volume = this.bgmVolume;
+      this.bgmAudio.volume = this.volume;
       this.bgmAudio.preload = 'auto';
     }
+  }
+
+  public getVolume(): number {
+    return this.volume;
+  }
+
+  public setVolume(vol: number) {
+    this.volume = Math.max(0, Math.min(1, vol));
+    if (this.bgmAudio) {
+      this.bgmAudio.volume = this.volume;
+    }
+    try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('lacviet_sound_volume', this.volume.toString());
+      }
+    } catch {}
   }
 
   public playBgm() {
@@ -48,7 +74,7 @@ class SoundManager {
     this.init();
     this.initBgm();
     if (this.bgmAudio) {
-      this.bgmAudio.volume = this.bgmVolume;
+      this.bgmAudio.volume = this.volume;
       const playPromise = this.bgmAudio.play();
       if (playPromise !== undefined) {
         playPromise
@@ -81,7 +107,7 @@ class SoundManager {
 
   // Âm thanh lắc xúc xắc (Dice roll sound)
   public playDiceRoll() {
-    if (!this.enabled) return;
+    if (!this.enabled || this.volume <= 0) return;
     try {
       this.init();
       if (!this.ctx) return;
@@ -92,8 +118,8 @@ class SoundManager {
         const gain = this.ctx.createGain();
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(180 + Math.random() * 260, now + i * 0.06);
-        gain.gain.setValueAtTime(0.18, now + i * 0.06);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.05);
+        gain.gain.setValueAtTime(0.18 * this.volume, now + i * 0.06);
+        gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, 0.001 * this.volume), now + i * 0.06 + 0.05);
 
         osc.connect(gain);
         gain.connect(this.ctx.destination);
@@ -108,7 +134,7 @@ class SoundManager {
 
   // Âm thanh rút thẻ bài (Card draw swoosh)
   public playCardDraw() {
-    if (!this.enabled) return;
+    if (!this.enabled || this.volume <= 0) return;
     try {
       this.init();
       if (!this.ctx) return;
@@ -121,8 +147,8 @@ class SoundManager {
       osc.frequency.setValueAtTime(320, now);
       osc.frequency.exponentialRampToValueAtTime(640, now + 0.15);
 
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.linearRampToValueAtTime(0.01, now + 0.15);
+      gain.gain.setValueAtTime(0.15 * this.volume, now);
+      gain.gain.linearRampToValueAtTime(0.01 * this.volume, now + 0.15);
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
@@ -134,7 +160,7 @@ class SoundManager {
 
   // Âm thanh đúng / Nhận Kỷ vật (Chime of success / Golden gong)
   public playSuccess() {
-    if (!this.enabled) return;
+    if (!this.enabled || this.volume <= 0) return;
     try {
       this.init();
       if (!this.ctx) return;
@@ -149,8 +175,8 @@ class SoundManager {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now + idx * 0.08);
 
-        gain.gain.setValueAtTime(0.2, now + idx * 0.08);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
+        gain.gain.setValueAtTime(0.2 * this.volume, now + idx * 0.08);
+        gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, 0.001 * this.volume), now + idx * 0.08 + 0.4);
 
         osc.connect(gain);
         gain.connect(this.ctx.destination);
@@ -163,7 +189,7 @@ class SoundManager {
 
   // Âm thanh thất bại / Phạt (Low penalty gong)
   public playPenalty() {
-    if (!this.enabled) return;
+    if (!this.enabled || this.volume <= 0) return;
     try {
       this.init();
       if (!this.ctx) return;
@@ -176,8 +202,8 @@ class SoundManager {
       osc.frequency.setValueAtTime(180, now);
       osc.frequency.linearRampToValueAtTime(110, now + 0.35);
 
-      gain.gain.setValueAtTime(0.22, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      gain.gain.setValueAtTime(0.22 * this.volume, now);
+      gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, 0.001 * this.volume), now + 0.4);
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
@@ -189,7 +215,7 @@ class SoundManager {
 
   // Âm thanh kích hoạt kỹ năng Token (Token skill activation aura)
   public playTokenSkill() {
-    if (!this.enabled) return;
+    if (!this.enabled || this.volume <= 0) return;
     try {
       this.init();
       if (!this.ctx) return;
@@ -203,8 +229,8 @@ class SoundManager {
       osc.frequency.exponentialRampToValueAtTime(880, now + 0.2);
       osc.frequency.exponentialRampToValueAtTime(587.33, now + 0.35);
 
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      gain.gain.setValueAtTime(0.2 * this.volume, now);
+      gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, 0.001 * this.volume), now + 0.4);
 
       osc.connect(gain);
       gain.connect(this.ctx.destination);
@@ -216,7 +242,7 @@ class SoundManager {
 
   // Âm thanh Chiến thắng vinh quang (Grand victory fanfare)
   public playVictory() {
-    if (!this.enabled) return;
+    if (!this.enabled || this.volume <= 0) return;
     try {
       this.init();
       if (!this.ctx) return;
@@ -239,8 +265,8 @@ class SoundManager {
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(note.f, now + note.t);
 
-        gain.gain.setValueAtTime(0.25, now + note.t);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + note.t + note.d);
+        gain.gain.setValueAtTime(0.25 * this.volume, now + note.t);
+        gain.gain.exponentialRampToValueAtTime(Math.max(0.0001, 0.001 * this.volume), now + note.t + note.d);
 
         osc.connect(gain);
         gain.connect(this.ctx.destination);
