@@ -46,7 +46,7 @@ class SoundManager {
 
   private initBgm() {
     if (!this.bgmAudio && typeof Audio !== 'undefined') {
-      this.bgmAudio = new Audio('/audio/hello-vietnam.mp3');
+      this.bgmAudio = new Audio('/audio/lac-viet-lofi.mp3');
       this.bgmAudio.loop = true;
       this.bgmAudio.volume = this.volume;
       this.bgmAudio.preload = 'auto';
