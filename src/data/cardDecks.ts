@@ -2,10 +2,10 @@
 import type { ResourceCard, FortuneCard, BiKipCard } from '../types/game';
 import { QUESTION_BANK } from './questionBank';
 
-export const STARTER_BIKIP_CARDS: BiKipCard[] = [QUESTION_BANK[0],QUESTION_BANK[50],QUESTION_BANK[1],QUESTION_BANK[51]].map(q=>({
-  id:`starter_${q.id}`,title:`Bí kíp: ${q.topic==='history'?'Lịch sử':'Địa lý'}`,
-  enTitle:`Bi Kip: ${q.topic==='history'?'History':'Geography'}`,topic:q.topic,
-  topicName:q.topic==='history'?'Lịch sử':'Địa lý',enTopicName:q.topic==='history'?'History':'Geography',questionSnippet:q.question
+export const STARTER_BIKIP_CARDS: BiKipCard[] = [QUESTION_BANK[0],QUESTION_BANK[30],QUESTION_BANK[60],QUESTION_BANK[1]].map(q=>({
+  id:`starter_${q.id}`,title:`Bí kíp: ${q.topic==='history'?'Lịch sử':q.topic==='culture'?'Văn hóa':'Địa lý'}`,
+  enTitle:`Bi Kip: ${q.topic==='history'?'History':q.topic==='culture'?'Culture':'Geography'}`,topic:q.topic,
+  topicName:q.topic==='history'?'Lịch sử':q.topic==='culture'?'Văn hóa':'Địa lý',enTopicName:q.topic==='history'?'History':q.topic==='culture'?'Culture':'Geography',questionSnippet:q.question
 }));
 // THẺ TÀI NGUYÊN (Chuẩn 4 loại & Tỷ lệ ra: Lá chắn 30%, Ngựa trạm 30%, Nỏ thần 22%, Cột mốc 18%)
 export const RESOURCE_CARDS: ResourceCard[] = [

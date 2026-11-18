@@ -137,12 +137,12 @@ Nỏ thần: lấy Kỷ vật thường trong Tay nải đối thủ; phạm vi 
 May mắn: Hội thi 24%; nhóm Sự kiện tốt gồm Lễ hội mùa màng, Lộc hội, Thuận buồm xuôi gió, Đạo tặc, Lá lành đùm lá rách; nhóm Sự kiện xấu gồm Bão lũ, Mất mùa; Quyền năng gồm Vô hiệu, Phong ấn.
 Tỷ lệ chi tiết các sự kiện giữ theo cấu hình hiện có khi tài liệu mới không thay đổi chúng.
 
-Câu hỏi lấy từ bộ được chọn, không mặc định chia đều 25% cho bốn chủ đề. Bộ hiện tại gồm 100 câu trắc nghiệm: 50 Lịch sử và 50 Địa lý, mức dễ–trung bình theo tài liệu của nhóm. Cả bốn loại ô và START dùng chung bộ mới; chưa có Hành động/Kể nhanh trong bộ này.`,
+Câu hỏi lấy từ bộ được chọn, không mặc định chia đều 25% cho bốn chủ đề. Bộ hiện tại gồm 90 câu trắc nghiệm: 30 Lịch sử, 30 Văn hóa và 30 Địa lý Việt Nam. Mỗi chủ đề gồm 10 câu Dễ, 10 câu Trung bình và 10 câu Khó theo tài liệu của nhóm. Cả bốn loại ô và START dùng chung bộ mới; chưa có Hành động/Kể nhanh trong bộ này.`,
     enContent:`Resources: Shield 30%, Steed 30%, Crossbow 22%, Milestone 18%. Crossbow takes a regular Pouch artifact; its current range remains 3 spaces pending the group's missing-number clarification.
 
 Fortune: Contest 24%; good events include Harvest, Festival Gift, Tailwind, Bandit and Mutual Support; bad events include Storm and Crop Loss; powers include Negate and Seal. Other existing event rates remain where the new document gives no replacement.
 
-Questions follow the selected packs, not a mandatory 25% split among four topics. The current set has 100 easy-to-intermediate quizzes: 50 History and 50 Geography. All quiz spaces and START use this new set; it includes no Action or Speed Naming tasks.`
+Questions follow the selected packs, not a mandatory 25% split among four topics. The current set has 90 Vietnamese quizzes: 30 History, 30 Culture and 30 Geography. Each topic has 10 Easy, 10 Intermediate and 10 Hard questions as specified in the supplied document. All quiz spaces and START use this new set; it includes no Action or Speed Naming tasks.`
   },
   {
     id:'bikip', title:'9. Bí Kíp & Quyền Trợ Giúp', enTitle:'9. Bi Kip & Assistance', icon:'book-open',

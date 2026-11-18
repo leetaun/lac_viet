@@ -31,9 +31,9 @@ export function QRCardGateway({kind,gameState,onOpen,onBack}: GatewayProps) {
         <p className="text-xs text-gray-600">{practice ? 'Luyện tập từ ngân hàng của nhóm. Kết quả ở đây không cộng Kỷ vật vào ván chơi.' : `Tiếp tục lượt ${gameState.players[gameState.activePlayerIndex].name} trên thiết bị chung.`}</p>
         {!canResume && <p className="text-xs text-gray-600 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30">Thiết bị này chưa có nhiệm vụ {card.label.toLowerCase()} đang chờ. Khi chơi, hãy quét bằng điện thoại chung đang giữ ván. Quét trên điện thoại khác sẽ mở luyện tập.</p>}
         {!question && <>
-          <label className="block text-xs font-bold text-gray-600">Độ khó<select value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{Object.entries(DIFFICULTY_LABELS).filter(([id])=>id==='basic').map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>
+          <label className="block text-xs font-bold text-gray-600">Độ khó<select value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{Object.entries(DIFFICULTY_LABELS).map(([id,label])=><option key={id} value={id}>{label}</option>)}</select></label>
           {!practice && <ProvinceSelector value={province} onChange={setProvince}/>}
-          <p className="text-xs text-gray-500">{count} câu {GROUP_LABELS[card.group as QuestionGroup]} · {DIFFICULTY_LABELS[difficulty]} · Lịch sử & Địa lý. Tỉnh được chọn xác định Kỷ vật thưởng, không phải chủ đề của mọi câu hỏi.</p>
+          <p className="text-xs text-gray-500">{count} câu {GROUP_LABELS[card.group as QuestionGroup]} · {DIFFICULTY_LABELS[difficulty]} · Lịch sử, Văn hóa & Địa lý. Tỉnh được chọn xác định Kỷ vật thưởng, không phải chủ đề của mọi câu hỏi.</p>
           <button type="button" disabled={opening} onClick={async()=>{if(practice){nextQuestion();return;}setOpening(true);try{await onOpen(province,difficulty);}finally{setOpening(false);}}} className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">{practice?'Bắt đầu luyện tập':'Mở thẻ trong ván đang chơi'}</button>
           {canResume && <button type="button" onClick={()=>setPractice(p=>!p)} className="text-xs text-[#543310] font-bold hover:underline">{practice?'Quay lại ván đang chơi':'Chuyển sang luyện tập'}</button>}
         </>}
@@ -73,7 +73,7 @@ export function PhysicalCardPrompt({kind,province,onOpen,connection,language = '
       <label className="block text-xs font-bold text-gray-600">
         {language === 'vi' ? 'Độ khó' : 'Difficulty'}
         <select value={difficulty} onChange={e=>setDifficulty(e.target.value as QuestionDifficulty)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">
-          {Object.entries(DIFFICULTY_LABELS).filter(([id])=>id==='basic').map(([key,label])=><option key={key} value={key}>{language === 'vi' ? label : (key === 'basic' ? 'Easy – Intermediate' : key === 'intermediate' ? 'Intermediate' : 'Advanced')}</option>)}
+          {Object.entries(DIFFICULTY_LABELS).map(([key,label])=><option key={key} value={key}>{language === 'vi' ? label : (key === 'basic' ? 'Easy' : key === 'intermediate' ? 'Intermediate' : 'Advanced')}</option>)}
         </select>
       </label>
     </div>

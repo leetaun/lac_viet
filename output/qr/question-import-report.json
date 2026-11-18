@@ -1,12 +1,18 @@
 {
-  "sourceFile": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx",
-  "sourceSha256": "18b4df6139f69b727ac1858a8e86c4892b97f7d22f629edaf43d45296a9e8cf5",
-  "total": 100,
+  "sourceFile": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx",
+  "sourceSha256": "e94b820a578b08cdd5d44eca520bbe182861281be87735ae0960e947fef12938",
+  "total": 90,
   "topics": {
-    "history": 50,
-    "geography": 50
+    "history": 30,
+    "culture": 30,
+    "geography": 30
+  },
+  "difficulties": {
+    "basic": 30,
+    "intermediate": 30,
+    "advanced": 30
   },
   "missingAnswers": 0,
-  "sourceReferences": "User-supplied DOCX and answer key; no external citations or extra explanations added.",
-  "usage": "One canonical set reused by all quiz spaces; no invented difficulty or action tasks."
+  "sourceReferences": "Exact supplied DOCX questions, options and answer key. Reading links are maintained separately.",
+  "usage": "Canonical set reused by all quiz spaces, with source-defined difficulty."
 }

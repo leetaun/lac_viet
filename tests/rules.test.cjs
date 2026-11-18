@@ -49,9 +49,9 @@ test('new packs contain only supplied quizzes and never leak another topic',()=>
   const q=packs.selectQuestion(group,'advanced',[],pack.questionIds);
   assert.equal(q.topic,'history');assert.ok(pack.questionIds.includes(q.id));assert.equal(q.group,group);
  }
- assert.equal(packs.QUESTION_CATALOG.length,100);
- assert.deepEqual(packs.CARD_PACKS.map(p=>p.topic),['history','geography']);
- assert.ok(packs.QUESTION_CATALOG.every(q=>q.id.startsWith('lv100_')&&q.options.length===4));
+ assert.equal(packs.QUESTION_CATALOG.length,90);
+ assert.deepEqual(packs.CARD_PACKS.map(p=>p.topic),['history','culture','geography']);
+ assert.ok(packs.QUESTION_CATALOG.every(q=>q.id.startsWith('lv90_')&&q.options.length===4));
  assert.throws(()=>packs.validateQuestionSelection([]));
  assert.throws(()=>packs.validateQuestionSelection(['missing']));
  const only=pack.questionIds.filter(id=>packs.QUESTION_CATALOG.find(q=>q.id===id).group==='knowledge');

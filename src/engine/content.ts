@@ -12,6 +12,7 @@ export const randomItem = <T,>(items: T[]): T => {
 export const topicName = (topic: BiKipTopic, lang: 'vi' | 'en' = 'vi') => ({
   geography: lang === 'vi' ? 'Địa lý' : 'Geography',
   history: lang === 'vi' ? 'Lịch sử' : 'History',
+  culture: lang === 'vi' ? 'Văn hóa' : 'Culture',
   cuisine: lang === 'vi' ? 'Ẩm thực' : 'Cuisine',
   art: lang === 'vi' ? 'Nghệ thuật' : 'Art',
   custom: lang === 'vi' ? 'Phong tục' : 'Customs',

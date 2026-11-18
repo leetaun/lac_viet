@@ -30,7 +30,7 @@ export interface LearningResource {
   language: 'vi' | 'en';
 }
 
-export type BiKipTopic = 'history' | 'cuisine' | 'art' | 'custom' | 'geography' | 'general';
+export type BiKipTopic = 'history' | 'culture' | 'cuisine' | 'art' | 'custom' | 'geography' | 'general';
 
 export interface BiKipCard {
   id: string;

@@ -4,7 +4,7 @@ import type { BiKipTopic } from '../types/game';
 export const QUESTION_CATALOG = QUESTION_BANK;
 export interface CardPack { id: string; code: string; topic: BiKipTopic; questionIds: string[]; demo: true; }
 // Local sample activation codes only; these do not verify commercial ownership.
-export const CARD_PACKS: CardPack[] = (['history','geography'] as const).map(topic => ({
+export const CARD_PACKS: CardPack[] = (['history','culture','geography'] as const).map(topic => ({
   id:`demo-${topic}`,code:`DEMO-${topic.toUpperCase()}`,topic,demo:true,
   questionIds:QUESTION_BANK.filter(q=>q.topic===topic).map(q=>q.id)
 }));

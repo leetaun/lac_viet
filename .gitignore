@@ -20,6 +20,7 @@ public/qr/demo-*.png
 output/map-provinces-source.json
 output/province-map-preview.png
 output/province-map-preview.svg
+output/new-question-document.json
 
 # Editor directories and files
 .vscode/*

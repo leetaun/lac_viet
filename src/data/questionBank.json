@@ -1,2405 +1,2165 @@
 {
-  "sourceFile": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx",
-  "sourceSha256": "18b4df6139f69b727ac1858a8e86c4892b97f7d22f629edaf43d45296a9e8cf5",
+  "sourceFile": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx",
+  "sourceSha256": "e94b820a578b08cdd5d44eca520bbe182861281be87735ae0960e947fef12938",
   "importedOn": "2026-11-19",
-  "sourceDifficulty": "Dễ – Trung bình (theo tài liệu, không chia mức cho từng câu)",
-  "questionSetId": "lv100-18b4df6139f69b72",
+  "sourceDifficulty": "Dễ: câu 1–10; Trung bình: câu 11–20; Khó: câu 21–30 trong mỗi chủ đề (theo tài liệu)",
+  "questionSetId": "lv90-e94b820a578b08cd",
   "questions": [
     {
-      "id": "lv100_history_001",
+      "id": "lv90_history_001",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "history",
       "number": 1,
-      "question": "Nhà nước đầu tiên trong lịch sử Việt Nam thường được gọi là gì?",
-      "options": [
-        "Văn Lang",
-        "Âu Lạc",
-        "Đại Cồ Việt",
-        "Đại Việt"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Văn Lang.",
-      "sources": [
-        {
-          "id": "DOCX_history_1",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 1",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_002",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 2,
-      "question": "Ai là người đứng đầu nhà nước Văn Lang theo truyền thuyết?",
-      "options": [
-        "An Dương Vương",
-        "Hùng Vương",
-        "Ngô Quyền",
-        "Đinh Bộ Lĩnh"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Hùng Vương.",
-      "sources": [
-        {
-          "id": "DOCX_history_2",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 2",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_003",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 3,
-      "question": "Thành Cổ Loa gắn liền với vị vua nào?",
-      "options": [
-        "Hùng Vương",
-        "Lý Thái Tổ",
-        "An Dương Vương",
-        "Trần Nhân Tông"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. An Dương Vương.",
-      "sources": [
-        {
-          "id": "DOCX_history_3",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 3",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_004",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 4,
-      "question": "Chiến thắng Bạch Đằng năm 938 gắn với tên tuổi của ai?",
-      "options": [
-        "Lê Lợi",
-        "Trần Hưng Đạo",
-        "Quang Trung",
-        "Ngô Quyền"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Ngô Quyền.",
-      "sources": [
-        {
-          "id": "DOCX_history_4",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 4",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_005",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 5,
-      "question": "Ai là người dời đô từ Hoa Lư ra Thăng Long năm 1010?",
-      "options": [
-        "Lý Thái Tổ",
-        "Lý Thánh Tông",
-        "Trần Thái Tông",
-        "Lê Thái Tổ"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Lý Thái Tổ.",
-      "sources": [
-        {
-          "id": "DOCX_history_5",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 5",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_006",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 6,
-      "question": "Tên gọi Thăng Long được đặt vào năm nào?",
-      "options": [
-        "939",
-        "1010",
-        "1225",
-        "1428"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 1010.",
-      "sources": [
-        {
-          "id": "DOCX_history_6",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 6",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_007",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 7,
-      "question": "Triều đại nào đã lãnh đạo nhân dân Đại Việt ba lần kháng chiến chống quân Mông – Nguyên?",
-      "options": [
-        "Nhà Lý",
-        "Nhà Hồ",
-        "Nhà Trần",
-        "Nhà Nguyễn"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Nhà Trần.",
-      "sources": [
-        {
-          "id": "DOCX_history_7",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 7",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_008",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 8,
-      "question": "Ai là tác giả của tác phẩm Bình Ngô đại cáo?",
-      "options": [
-        "Nguyễn Trãi",
-        "Trần Quốc Tuấn",
-        "Lê Thánh Tông",
-        "Nguyễn Du"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Nguyễn Trãi.",
-      "sources": [
-        {
-          "id": "DOCX_history_8",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 8",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_009",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 9,
-      "question": "Khởi nghĩa Lam Sơn do ai lãnh đạo?",
-      "options": [
-        "Quang Trung",
-        "Lê Lợi",
-        "Ngô Quyền",
-        "Đinh Bộ Lĩnh"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Lê Lợi.",
-      "sources": [
-        {
-          "id": "DOCX_history_9",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 9",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_010",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 10,
-      "question": "Chiến thắng Chi Lăng – Xương Giang năm 1427 có ý nghĩa gì?",
-      "options": [
-        "Mở đầu thời Bắc thuộc",
-        "Chấm dứt chiến tranh thế giới",
-        "Đánh bại quân Minh, góp phần kết thúc ách đô hộ",
-        "Thành lập nhà Nguyễn"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Đánh bại quân Minh, góp phần kết thúc ách đô hộ.",
-      "sources": [
-        {
-          "id": "DOCX_history_10",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 10",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_011",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 11,
-      "question": "Ai chỉ huy quân Tây Sơn đại phá quân Thanh vào mùa xuân năm 1789?",
-      "options": [
-        "Nguyễn Ánh",
-        "Trần Hưng Đạo",
-        "Lê Lợi",
-        "Quang Trung"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Quang Trung.",
-      "sources": [
-        {
-          "id": "DOCX_history_11",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 11",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_012",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 12,
-      "question": "Triều Nguyễn được thành lập vào năm nào?",
-      "options": [
-        "1802",
-        "1789",
-        "1858",
-        "1945"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 1802.",
-      "sources": [
-        {
-          "id": "DOCX_history_12",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 12",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_013",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 13,
-      "question": "Thực dân Pháp nổ súng xâm lược Việt Nam lần đầu ở đâu năm 1858?",
-      "options": [
-        "Hà Nội",
-        "Đà Nẵng",
-        "Huế",
-        "Gia Định"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Đà Nẵng.",
-      "sources": [
-        {
-          "id": "DOCX_history_13",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 13",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_014",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 14,
-      "question": "Phong trào Cần Vương cuối thế kỉ XIX nhằm mục tiêu chủ yếu nào?",
-      "options": [
-        "Ủng hộ cải cách giáo dục",
-        "Chống nhà Minh",
-        "Giúp vua cứu nước, chống Pháp",
-        "Thống nhất nước Đức"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Giúp vua cứu nước, chống Pháp.",
-      "sources": [
-        {
-          "id": "DOCX_history_14",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 14",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_015",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 15,
-      "question": "Người thanh niên Nguyễn Tất Thành ra đi tìm đường cứu nước năm nào?",
-      "options": [
-        "1905",
-        "1911",
-        "1925",
-        "1930"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 1911.",
-      "sources": [
-        {
-          "id": "DOCX_history_15",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 15",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_016",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 16,
-      "question": "Đảng Cộng sản Việt Nam được thành lập vào ngày nào?",
-      "options": [
-        "3/2/1930",
-        "19/8/1945",
-        "2/9/1945",
-        "7/5/1954"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 3/2/1930.",
-      "sources": [
-        {
-          "id": "DOCX_history_16",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 16",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_017",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 17,
-      "question": "Cách mạng tháng Tám thành công vào năm nào?",
-      "options": [
-        "1930",
-        "1941",
-        "1945",
-        "1954"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. 1945.",
-      "sources": [
-        {
-          "id": "DOCX_history_17",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 17",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_018",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 18,
-      "question": "Ngày Quốc khánh Việt Nam là ngày nào?",
+      "question": "Ngày Quốc khánh nước Cộng hòa xã hội chủ nghĩa Việt Nam là ngày nào?",
       "options": [
         "30/4",
         "2/9",
-        "19/5",
-        "22/12"
+        "19/8",
+        "7/5"
       ],
       "correctAnswer": 1,
       "explanation": "Đáp án trong bộ câu hỏi: B. 2/9.",
       "sources": [
         {
-          "id": "DOCX_history_18",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 18",
+          "id": "DOCX_history_1",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 1",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_019",
+      "id": "lv90_history_002",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "history",
-      "number": 19,
-      "question": "Bản Tuyên ngôn Độc lập năm 1945 được đọc tại đâu?",
+      "number": 2,
+      "question": "Người đứng đầu nhà nước Văn Lang trong thời kỳ dựng nước đầu tiên được gọi là gì?",
+      "options": [
+        "Hùng Vương",
+        "An Dương Vương",
+        "Triệu Đà",
+        "Lạc Long Quân"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Hùng Vương.",
+      "sources": [
+        {
+          "id": "DOCX_history_2",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 2",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_003",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 3,
+      "question": "Chủ tịch Hồ Chí Minh đã đọc bản Tuyên ngôn Độc lập khai sinh ra nước Việt Nam Dân chủ Cộng hòa vào ngày 2/9/1945 tại địa điểm nào?",
       "options": [
         "Quảng trường Ba Đình",
-        "Quảng trường Đông Kinh Nghĩa Thục",
-        "Bến Nhà Rồng",
+        "Nhà hát Lớn Hà Nội",
+        "Hồ Hoàn Kiếm",
         "Dinh Độc Lập"
       ],
       "correctAnswer": 0,
       "explanation": "Đáp án trong bộ câu hỏi: A. Quảng trường Ba Đình.",
       "sources": [
         {
-          "id": "DOCX_history_19",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 19",
+          "id": "DOCX_history_3",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 3",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_020",
+      "id": "lv90_history_004",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "history",
-      "number": 20,
-      "question": "Chiến dịch Điện Biên Phủ kết thúc thắng lợi vào ngày nào?",
+      "number": 4,
+      "question": "Chiến thắng Điện Biên Phủ lừng lẫy năm châu, chấn động địa cầu diễn ra vào năm nào?",
       "options": [
-        "30/4/1975",
-        "19/8/1945",
-        "7/5/1954",
-        "2/9/1945"
+        "1945",
+        "1950",
+        "1954",
+        "1975"
       ],
       "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. 7/5/1954.",
+      "explanation": "Đáp án trong bộ câu hỏi: C. 1954.",
+      "sources": [
+        {
+          "id": "DOCX_history_4",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 4",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_005",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 5,
+      "question": "Chiến dịch Hồ Chí Minh toàn thắng, giải phóng hoàn toàn miền Nam và thống nhất đất nước vào ngày 30/4 năm nào?",
+      "options": [
+        "1968",
+        "1972",
+        "1973",
+        "1975"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Đáp án trong bộ câu hỏi: D. 1975.",
+      "sources": [
+        {
+          "id": "DOCX_history_5",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 5",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_006",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 6,
+      "question": "Cuộc khởi nghĩa Hai Bà Trưng (năm 40) bùng nổ nhằm chống lại ách đô hộ của triều đại phong kiến phương Bắc nào?",
+      "options": [
+        "Nhà Đông Hán",
+        "Nhà Tống",
+        "Nhà Minh",
+        "Nhà Nguyên"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Nhà Đông Hán.",
+      "sources": [
+        {
+          "id": "DOCX_history_6",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 6",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_007",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 7,
+      "question": "Năm 1010, vua Lý Thái Tổ quyết định dời đô từ Hoa Lư về Đại La và đổi tên thành trì này thành gì?",
+      "options": [
+        "Cổ Loa",
+        "Phú Xuân",
+        "Thăng Long",
+        "Phong Châu"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Thăng Long.",
+      "sources": [
+        {
+          "id": "DOCX_history_7",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 7",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_008",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 8,
+      "question": "Ai là thủ lĩnh kiệt xuất lãnh đạo cuộc khởi nghĩa Lam Sơn (1418–1427) đánh đuổi quân xâm lược nhà Minh?",
+      "options": [
+        "Nguyễn Trãi",
+        "Lê Lợi",
+        "Lý Bí",
+        "Phùng Hưng"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Lê Lợi.",
+      "sources": [
+        {
+          "id": "DOCX_history_8",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 8",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_009",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 9,
+      "question": "Vị kiệt tướng nổi tiếng ba lần chỉ huy quân dân nhà Trần đánh thắng quân xâm lược Mông – Nguyên là ai?",
+      "options": [
+        "Trần Hưng Đạo",
+        "Lê Hoàn",
+        "Lý Thường Kiệt",
+        "Quang Trung"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Trần Hưng Đạo.",
+      "sources": [
+        {
+          "id": "DOCX_history_9",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 9",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_010",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "history",
+      "number": 10,
+      "question": "Chiến thắng lịch sử trên sông Bạch Đằng năm 938 chấm dứt hơn 1000 năm Bắc thuộc do ai trực tiếp chỉ huy?",
+      "options": [
+        "Đinh Bộ Lĩnh",
+        "Lê Hoàn",
+        "Ngô Quyền",
+        "Khúc Thừa Dụ"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Ngô Quyền.",
+      "sources": [
+        {
+          "id": "DOCX_history_10",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 10",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_011",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 11,
+      "question": "Trong cuộc kháng chiến chống quân Tống xâm lược (1077), Lý Thường Kiệt đã chủ động xây dựng tuyến phòng thủ kiên cố trên dòng sông nào?",
+      "options": [
+        "Sông Bạch Đằng",
+        "Sông Như Nguyệt",
+        "Sông Hồng",
+        "Sông Mã"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Sông Như Nguyệt.",
+      "sources": [
+        {
+          "id": "DOCX_history_11",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 11",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_012",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 12,
+      "question": "Hiệp định Giơ-ne-vơ năm 1954 quy định ranh giới quân sự tạm thời chia cắt hai miền Nam – Bắc Việt Nam theo vĩ tuyến nào?",
+      "options": [
+        "Vĩ tuyến 16",
+        "Vĩ tuyến 17",
+        "Vĩ tuyến 18",
+        "Vĩ tuyến 38"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Vĩ tuyến 17.",
+      "sources": [
+        {
+          "id": "DOCX_history_12",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 12",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_013",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 13,
+      "question": "Hoàng đế Quang Trung – Nguyễn Huệ chỉ huy quân Tây Sơn đại phá 29 vạn quân Thanh vào mùa xuân năm nào?",
+      "options": [
+        "1771",
+        "1785",
+        "1789",
+        "1802"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. 1789.",
+      "sources": [
+        {
+          "id": "DOCX_history_13",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 13",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_014",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 14,
+      "question": "Nguyễn Ánh lên ngôi hoàng đế vào năm 1802, lập ra triều đại nhà Nguyễn và lấy niên hiệu đầu tiên là gì?",
+      "options": [
+        "Gia Long",
+        "Minh Mạng",
+        "Thiệu Trị",
+        "Tự Đức"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Gia Long.",
+      "sources": [
+        {
+          "id": "DOCX_history_14",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 14",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_015",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 15,
+      "question": "Đảng Cộng sản Việt Nam được chính thức thành lập vào năm nào?",
+      "options": [
+        "1925",
+        "1930",
+        "1941",
+        "1945"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. 1930.",
+      "sources": [
+        {
+          "id": "DOCX_history_15",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 15",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_016",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 16,
+      "question": "Phong trào Cần Vương bùng nổ hưởng ứng chiếu Cần Vương (1885) gắn liền với vị vua yêu nước nào?",
+      "options": [
+        "Hàm Nghi",
+        "Duy Tân",
+        "Thành Thái",
+        "Bảo Đại"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Hàm Nghi.",
+      "sources": [
+        {
+          "id": "DOCX_history_16",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 16",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_017",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 17,
+      "question": "Di sản văn hóa thế giới Thành nhà Hồ nằm trên địa bàn tỉnh nào hiện nay?",
+      "options": [
+        "Ninh Bình",
+        "Nghệ An",
+        "Thanh Hóa",
+        "Hà Tĩnh"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Thanh Hóa.",
+      "sources": [
+        {
+          "id": "DOCX_history_17",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 17",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_018",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 18,
+      "question": "Sau khi dẹp xong loạn 12 quân sứ vào năm 968, Đinh Bộ Lĩnh lên ngôi Hoàng đế và đặt quốc hiệu nước ta là gì?",
+      "options": [
+        "Đại Việt",
+        "Đại Cồ Việt",
+        "Vạn Xuân",
+        "Đại Ngu"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đại Cồ Việt.",
+      "sources": [
+        {
+          "id": "DOCX_history_18",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 18",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_019",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 19,
+      "question": "Thủ lĩnh xuất sắc của cuộc khởi nghĩa nông dân Yên Thế kéo dài gần 30 năm tại Bắc Giang là ai?",
+      "options": [
+        "Phan Đình Phùng",
+        "Hoàng Hoa Thám",
+        "Nguyễn Thiện Thuật",
+        "Đinh Công Tráng"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Hoàng Hoa Thám.",
+      "sources": [
+        {
+          "id": "DOCX_history_19",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 19",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_history_020",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "history",
+      "number": 20,
+      "question": "Nhà yêu nước Phan Bội Châu đã khởi xướng phong trào đưa thanh niên Việt Nam sang Nhật Học tập với tên gọi là gì?",
+      "options": [
+        "Phong trào Duy Tân",
+        "Phong trào Đông Du",
+        "Phong trào Đông Kinh Nghĩa Thục",
+        "Phong trào Cần Vương"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Phong trào Đông Du.",
       "sources": [
         {
           "id": "DOCX_history_20",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 20",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 20",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_021",
+      "id": "lv90_history_021",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 21,
-      "question": "Hiệp định Genève về Đông Dương được ký năm nào?",
+      "question": "Quốc hiệu \"Đại Ngu\" (mang nghĩa niềm vui lớn) được sử dụng dưới triều đại phong kiến nào trong lịch sử?",
       "options": [
-        "1945",
-        "1954",
-        "1968",
-        "1973"
+        "Nhà Lý",
+        "Nhà Trần",
+        "Nhà Hồ",
+        "Nhà Mạc"
       ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 1954.",
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Nhà Hồ.",
       "sources": [
         {
           "id": "DOCX_history_21",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 21",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 21",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_022",
+      "id": "lv90_history_022",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 22,
-      "question": "Chiến dịch Hồ Chí Minh toàn thắng vào ngày nào?",
+      "question": "Trong cuộc khởi nghĩa Lam Sơn, chủ tướng Liễu Thăng của viện binh nhà Minh đã bị quân ta chém đầu tại ải nào vào năm 1427?",
       "options": [
-        "30/4/1975",
-        "2/9/1945",
-        "7/5/1954",
-        "27/1/1973"
+        "Ải Chi Lăng",
+        "Ải Tốt Động",
+        "Ải Rạch Gầm",
+        "Ải Ngọc Hồi"
       ],
       "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 30/4/1975.",
+      "explanation": "Đáp án trong bộ câu hỏi: A. Ải Chi Lăng.",
       "sources": [
         {
           "id": "DOCX_history_22",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 22",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 22",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_023",
+      "id": "lv90_history_023",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 23,
-      "question": "Sự kiện ngày 30/4/1975 đánh dấu điều gì?",
+      "question": "Bộ luật \"Quốc triều hình luật\" (thường gọi là Luật Hồng Đức) – đỉnh cao pháp luật phong kiến Việt Nam – được ban hành dưới thời vị vua nào?",
       "options": [
-        "Bắt đầu công cuộc Đổi mới",
-        "Thành lập ASEAN",
-        "Giải phóng miền Nam, thống nhất đất nước",
-        "Thành lập Đảng"
+        "Lê Thái Tổ",
+        "Lê Nhân Tông",
+        "Lê Thánh Tông",
+        "Lê Trang Tông"
       ],
       "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Giải phóng miền Nam, thống nhất đất nước.",
+      "explanation": "Đáp án trong bộ câu hỏi: C. Lê Thánh Tông.",
       "sources": [
         {
           "id": "DOCX_history_23",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 23",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 23",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_024",
+      "id": "lv90_history_024",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 24,
-      "question": "Công cuộc Đổi mới ở Việt Nam được khởi xướng tại Đại hội Đảng lần thứ mấy?",
+      "question": "Hội nghị hợp nhất các tổ chức cộng sản để thành lập Đảng Cộng sản Việt Nam (đầu năm 1930) do Nguyễn Ai Quốc chủ trì được tổ chức tại đâu?",
       "options": [
-        "IV",
-        "V",
-        "VI",
-        "VII"
+        "Hương Cảng (Hồng Kông)",
+        "Quảng Châu",
+        "Thượng Hải",
+        "Pác Bó"
       ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. VI.",
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Hương Cảng (Hồng Kông).",
       "sources": [
         {
           "id": "DOCX_history_24",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 24",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 24",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_025",
+      "id": "lv90_history_025",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 25,
-      "question": "Ai được xem là người đặt nền móng cho ngành sử học hiện đại Việt Nam với bộ Đại Việt sử ký?",
+      "question": "Hiệp ước phong kiến nào được ký kết năm 1884 đã cơ bản chấm dứt nền độc lập của triều Nguyễn, đặt nền bảo hộ của Pháp lên toàn bộ Việt Nam?",
       "options": [
-        "Ngô Sĩ Liên",
-        "Lê Văn Hưu",
-        "Phan Huy Chú",
-        "Nguyễn Trãi"
+        "Hiệp ước Nhâm Tuất",
+        "Hiệp ước Giáp Tuất",
+        "Hiệp ước Hác-măng",
+        "Hiệp ước Pa-tơ-nốt"
       ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Lê Văn Hưu.",
+      "correctAnswer": 3,
+      "explanation": "Đáp án trong bộ câu hỏi: D. Hiệp ước Pa-tơ-nốt.",
       "sources": [
         {
           "id": "DOCX_history_25",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 25",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 25",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_026",
+      "id": "lv90_history_026",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 26,
-      "question": "Kim tự tháp cổ đại nổi tiếng nhất nằm ở quốc gia nào?",
+      "question": "Trận thủy chiến Rạch Gầm – Xoài Mút năm 1785 do Nguyễn Huệ chỉ huy đã đánh tan 5 vạn quân xâm lược đến từ quốc gia nào?",
       "options": [
-        "Ai Cập",
-        "Hy Lạp",
-        "Ấn Độ",
-        "Trung Quốc"
+        "Quân Xiêm",
+        "Quân Thanh",
+        "Quân Pháp",
+        "Quân Minh"
       ],
       "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Ai Cập.",
+      "explanation": "Đáp án trong bộ câu hỏi: A. Quân Xiêm.",
       "sources": [
         {
           "id": "DOCX_history_26",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 26",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 26",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_027",
+      "id": "lv90_history_027",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 27,
-      "question": "Nền văn minh Lưỡng Hà hình thành giữa hai con sông nào?",
+      "question": "Năm 1527, Mạc Đăng Dung lập ra triều đại nhà Mạc sau khi ép vị vua nào của nhà Lê sơ nhường ngôi?",
       "options": [
-        "Sông Nile và Congo",
-        "Sông Ấn và Hằng",
-        "Sông Ti-grơ và Ơ-phơ-rát",
-        "Hoàng Hà và Trường Giang"
+        "Lê Chiêu Tông",
+        "Lê Cung Hoàng",
+        "Lê Uy Mục",
+        "Lê Tương Dực"
       ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Sông Ti-grơ và Ơ-phơ-rát.",
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Lê Cung Hoàng.",
       "sources": [
         {
           "id": "DOCX_history_27",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 27",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 27",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_028",
+      "id": "lv90_history_028",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 28,
-      "question": "Thế vận hội Olympic cổ đại bắt nguồn từ nền văn minh nào?",
+      "question": "Tướng chỉ huy tập đoàn cứ điểm Điện Biên Phủ của Pháp bị quân ta bắt sống tại hầm chỉ huy vào chiều ngày 7/5/1954 là ai?",
       "options": [
-        "La Mã",
-        "Hy Lạp",
-        "Ai Cập",
-        "Ba Tư"
+        "Na-va",
+        "Đờ Cát-tơ-ri",
+        "Đờ Lát đơ Tát-xi-nhi",
+        "Xa-lăng"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Hy Lạp.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đờ Cát-tơ-ri.",
       "sources": [
         {
           "id": "DOCX_history_28",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 28",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 28",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_029",
+      "id": "lv90_history_029",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 29,
-      "question": "Đế quốc La Mã có trung tâm quyền lực ban đầu tại thành phố nào?",
+      "question": "Hiệp định Pa-ri về chấm dứt chiến tranh, lập lại hòa bình ở Việt Nam được chính thức ký kết vào ngày nào?",
       "options": [
-        "Athens",
-        "Alexandria",
-        "Rome",
-        "Paris"
+        "27/1/1973",
+        "30/4/1975",
+        "21/7/1954",
+        "2/3/1969"
       ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Rome.",
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. 27/1/1973.",
       "sources": [
         {
           "id": "DOCX_history_29",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 29",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 29",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_030",
+      "id": "lv90_history_030",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "history",
       "number": 30,
-      "question": "Vạn Lý Trường Thành gắn liền với quốc gia nào?",
+      "question": "Trong cuộc cải cách hành chính năm 1831–1832, vua Minh Mạng đã chia cả nước thành bao nhiêu tỉnh (cùng 1 phủ Thừa Thiên)?",
       "options": [
-        "Ấn Độ",
-        "Trung Quốc",
-        "Nhật Bản",
-        "Mông Cổ"
+        "13 tỉnh",
+        "21 tỉnh",
+        "30 tỉnh",
+        "63 tỉnh"
       ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Trung Quốc.",
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. 30 tỉnh.",
       "sources": [
         {
           "id": "DOCX_history_30",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 30",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Lịch sử · Câu 30",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_031",
+      "id": "lv90_culture_001",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 31,
-      "question": "Christopher Columbus vượt Đại Tây Dương và đến châu Mỹ vào năm nào?",
+      "topic": "culture",
+      "number": 1,
+      "question": "Tết Nguyên đán là dịp lễ hội đón năm mới truyền thống của người Việt được tính theo hệ lịch nào?",
       "options": [
-        "1492",
-        "1453",
-        "1517",
-        "1776"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 1492.",
-      "sources": [
-        {
-          "id": "DOCX_history_31",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 31",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_032",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 32,
-      "question": "Cách mạng công nghiệp lần thứ nhất bắt đầu ở quốc gia nào?",
-      "options": [
-        "Pháp",
-        "Đức",
-        "Anh",
-        "Hoa Kỳ"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Anh.",
-      "sources": [
-        {
-          "id": "DOCX_history_32",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 32",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_033",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 33,
-      "question": "Tuyên ngôn Độc lập của Hoa Kỳ được công bố năm nào?",
-      "options": [
-        "1789",
-        "1776",
-        "1812",
-        "1865"
+        "Dương lịch",
+        "Âm lịch",
+        "Lịch Phật",
+        "Lịch Gregory"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 1776.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Âm lịch.",
       "sources": [
         {
-          "id": "DOCX_history_33",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 33",
+          "id": "DOCX_culture_1",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 1",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_034",
+      "id": "lv90_culture_002",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 34,
-      "question": "Cách mạng Pháp bùng nổ vào năm nào?",
+      "topic": "culture",
+      "number": 2,
+      "question": "Trang phục truyền thống tà dài xẻ hai bên hông, tôn vinh vẻ đẹp của phụ nữ Việt Nam được gọi là gì?",
       "options": [
-        "1776",
-        "1804",
-        "1848",
-        "1789"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. 1789.",
-      "sources": [
-        {
-          "id": "DOCX_history_34",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 34",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_035",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 35,
-      "question": "Chiến tranh thế giới thứ nhất diễn ra trong giai đoạn nào?",
-      "options": [
-        "1914–1918",
-        "1939–1945",
-        "1901–1905",
-        "1945–1950"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 1914–1918.",
-      "sources": [
-        {
-          "id": "DOCX_history_35",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 35",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_036",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 36,
-      "question": "Chiến tranh thế giới thứ hai kết thúc vào năm nào?",
-      "options": [
-        "1918",
-        "1939",
-        "1945",
-        "1950"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. 1945.",
-      "sources": [
-        {
-          "id": "DOCX_history_36",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 36",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_037",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 37,
-      "question": "Liên Hợp Quốc được thành lập năm nào?",
-      "options": [
-        "1919",
-        "1945",
-        "1955",
-        "1967"
+        "Áo bà ba",
+        "Áo dài",
+        "Áo tứ thân",
+        "Yếm"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 1945.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Áo dài.",
       "sources": [
         {
-          "id": "DOCX_history_37",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 37",
+          "id": "DOCX_culture_2",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 2",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_038",
+      "id": "lv90_culture_003",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 38,
-      "question": "Bức tường Berlin sụp đổ vào năm nào?",
+      "topic": "culture",
+      "number": 3,
+      "question": "Món ăn truyền thống nổi tiếng thế giới gồm bánh phở, nước hầm xương thơm vị thảo mộc ăn kèm thịt bò hoặc gà là gì?",
       "options": [
-        "1961",
-        "1975",
-        "1989",
-        "1991"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. 1989.",
-      "sources": [
-        {
-          "id": "DOCX_history_38",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 38",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_039",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 39,
-      "question": "Ai là nhà lãnh đạo gắn liền với phong trào đấu tranh bất bạo động giành độc lập của Ấn Độ?",
-      "options": [
-        "Mahatma Gandhi",
-        "Nelson Mandela",
-        "Winston Churchill",
-        "Napoleon Bonaparte"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Mahatma Gandhi.",
-      "sources": [
-        {
-          "id": "DOCX_history_39",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 39",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_040",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 40,
-      "question": "Nelson Mandela gắn liền với cuộc đấu tranh chống chế độ nào ở Nam Phi?",
-      "options": [
-        "Phong kiến",
-        "Apartheid (phân biệt chủng tộc)",
-        "Thực dân La Mã",
-        "Quân chủ chuyên chế"
+        "Bún chả",
+        "Phở",
+        "Mì Quảng",
+        "Hủ tiếu"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Apartheid (phân biệt chủng tộc).",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Phở.",
       "sources": [
         {
-          "id": "DOCX_history_40",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 40",
+          "id": "DOCX_culture_3",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 3",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_041",
+      "id": "lv90_culture_004",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 41,
-      "question": "Ai là hoàng đế Pháp nổi tiếng với các cuộc chinh phạt đầu thế kỉ XIX?",
+      "topic": "culture",
+      "number": 4,
+      "question": "Món bánh truyền thống hình vuông gói bằng lá dong tượng trưng cho Đất là món ăn không thể thiếu trong dịp nào?",
       "options": [
-        "Louis XIV",
-        "Charlemagne",
-        "Napoleon Bonaparte",
-        "Julius Caesar"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Napoleon Bonaparte.",
-      "sources": [
-        {
-          "id": "DOCX_history_41",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 41",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_042",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 42,
-      "question": "Thời Phục hưng bắt đầu sớm nhất ở khu vực nào của châu Âu?",
-      "options": [
-        "Bắc Âu",
-        "Tây Ban Nha",
-        "Anh",
-        "Ý"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Ý.",
-      "sources": [
-        {
-          "id": "DOCX_history_42",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 42",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_043",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 43,
-      "question": "Ai là tác giả vở kịch Romeo và Juliet?",
-      "options": [
-        "William Shakespeare",
-        "Charles Dickens",
-        "Victor Hugo",
-        "Dante"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. William Shakespeare.",
-      "sources": [
-        {
-          "id": "DOCX_history_43",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 43",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_044",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 44,
-      "question": "Ai là người phát minh ra máy in chữ rời kiểu châu Âu vào thế kỉ XV?",
-      "options": [
-        "Isaac Newton",
-        "Johannes Gutenberg",
-        "Galileo Galilei",
-        "James Watt"
+        "Tết Trung thu",
+        "Tết Nguyên đán",
+        "Tết Đoan Ngọ",
+        "Tết Hàn thực"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Johannes Gutenberg.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Tết Nguyên đán.",
       "sources": [
         {
-          "id": "DOCX_history_44",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 44",
+          "id": "DOCX_culture_4",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 4",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_045",
+      "id": "lv90_culture_005",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 45,
-      "question": "Đế chế Ottoman chiếm Constantinople vào năm nào?",
+      "topic": "culture",
+      "number": 5,
+      "question": "Hệ chữ viết chính thức hiện nay được dùng để ghi âm tiếng Việt là hệ chữ nào?",
       "options": [
-        "1204",
-        "1492",
-        "1453",
-        "1517"
+        "Chữ Hán",
+        "Chữ Nôm",
+        "Chữ Quốc ngữ",
+        "Chữ Chăm"
       ],
       "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. 1453.",
+      "explanation": "Đáp án trong bộ câu hỏi: C. Chữ Quốc ngữ.",
       "sources": [
         {
-          "id": "DOCX_history_45",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 45",
+          "id": "DOCX_culture_5",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 5",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_046",
+      "id": "lv90_culture_006",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 46,
-      "question": "Chiến tranh Lạnh chủ yếu là sự đối đầu giữa hai cường quốc nào?",
+      "topic": "culture",
+      "number": 6,
+      "question": "Tết Trung thu – ngày tết cổ truyền dành cho thiếu nhi với hoạt động rước đèn phá cỗ – diễn ra vào ngày nào âm lịch?",
       "options": [
-        "Anh và Pháp",
-        "Đức và Ý",
-        "Trung Quốc và Nhật Bản",
-        "Hoa Kỳ và Liên Xô"
+        "15/1 âm lịch",
+        "15/7 âm lịch",
+        "15/8 âm lịch",
+        "15/10 âm lịch"
       ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Hoa Kỳ và Liên Xô.",
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. 15/8 âm lịch.",
       "sources": [
         {
-          "id": "DOCX_history_46",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 46",
+          "id": "DOCX_culture_6",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 6",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_047",
+      "id": "lv90_culture_007",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 47,
-      "question": "ASEAN được thành lập vào năm nào?",
+      "topic": "culture",
+      "number": 7,
+      "question": "Nhạc cụ cổ truyền độc đáo của Việt Nam chỉ sở hữu duy nhất một dây đàn nhưng tạo ra âm điệu vô cùng phong phú là gì?",
       "options": [
-        "1967",
-        "1975",
-        "1989",
-        "1995"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 1967.",
-      "sources": [
-        {
-          "id": "DOCX_history_47",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 47",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_048",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 48,
-      "question": "Ngày thành lập nước Cộng hòa Nhân dân Trung Hoa là ngày nào?",
-      "options": [
-        "1/10/1949",
-        "4/7/1776",
-        "14/7/1789",
-        "9/5/1945"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. 1/10/1949.",
-      "sources": [
-        {
-          "id": "DOCX_history_48",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 48",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_history_049",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "history",
-      "number": 49,
-      "question": "Ai là nữ hoàng Anh trị vì trong phần lớn thế kỉ XIX?",
-      "options": [
-        "Elizabeth I",
-        "Victoria",
-        "Mary I",
-        "Anne"
+        "Đàn tranh",
+        "Đàn bầu",
+        "Đàn nguyệt",
+        "Đàn nhị"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Victoria.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đàn bầu.",
       "sources": [
         {
-          "id": "DOCX_history_49",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 49",
+          "id": "DOCX_culture_7",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 7",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_history_050",
+      "id": "lv90_culture_008",
       "group": "knowledge",
       "difficulty": "basic",
-      "topic": "history",
-      "number": 50,
-      "question": "Sự kiện nào thường được xem là dấu mốc mở đầu Chiến tranh thế giới thứ hai ở châu Âu?",
+      "topic": "culture",
+      "number": 8,
+      "question": "Ngày lễ Giỗ Tổ Hùng Vương hướng về nguồn cội dân tộc được tổ chức hằng năm vào ngày âm lịch nào?",
       "options": [
-        "Đức tấn công Ba Lan năm 1939",
-        "Đổ bộ Normandy năm 1944",
-        "Trận Waterloo năm 1815",
-        "Cách mạng Nga năm 1917"
+        "10/3 âm lịch",
+        "15/3 âm lịch",
+        "10/4 âm lịch",
+        "1/1 âm lịch"
       ],
       "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Đức tấn công Ba Lan năm 1939.",
+      "explanation": "Đáp án trong bộ câu hỏi: A. 10/3 âm lịch.",
       "sources": [
         {
-          "id": "DOCX_history_50",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Lịch sử · Câu 50",
+          "id": "DOCX_culture_8",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 8",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_001",
+      "id": "lv90_culture_009",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "culture",
+      "number": 9,
+      "question": "Trong thần thoại dân gian, sau khi nhổ bụi tre đánh tan giặc Ân, Thánh Gióng đã cưỡi linh vật gì bay về trời?",
+      "options": [
+        "Voi thần",
+        "Ngựa sắt",
+        "Thuyền rồng",
+        "Hổ vàng"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Ngựa sắt.",
+      "sources": [
+        {
+          "id": "DOCX_culture_9",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 9",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_010",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "culture",
+      "number": 10,
+      "question": "Múa rối nước là hình thức nghệ thuật sân khấu dân gian độc đáo của người Việt được biểu diễn trên không gian nào?",
+      "options": [
+        "Sân khấu sàn gỗ",
+        "Mặt nước",
+        "Bãi cát",
+        "Thảm đỏ"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Mặt nước.",
+      "sources": [
+        {
+          "id": "DOCX_culture_10",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 10",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_011",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 11,
+      "question": "Lễ hội chọi trâu truyền thống mang đậm văn hóa miền biển nổi tiếng nhất Việt Nam diễn ra tại địa danh nào?",
+      "options": [
+        "Đồ Sơn (Hải Phòng)",
+        "Sa Pa (Lào Cai)",
+        "Huế",
+        "Đà Lạt"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Đồ Sơn (Hải Phòng).",
+      "sources": [
+        {
+          "id": "DOCX_culture_11",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 11",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_012",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 12,
+      "question": "\"Thực hành Then\" – di sản văn hóa phi vật thể đại diện của nhân loại được UNESCO ghi danh năm 2019 – là không gian tín ngưỡng của các dân tộc nào?",
+      "options": [
+        "Dân tộc Kinh",
+        "Dân tộc Tày, Nùng, Thái",
+        "Dân tộc Chăm",
+        "Dân tộc Ê Đê"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Dân tộc Tày, Nùng, Thái.",
+      "sources": [
+        {
+          "id": "DOCX_culture_12",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 12",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_013",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 13,
+      "question": "Hàng ngũ \"Tứ bất tử\" trong tín ngưỡng dân gian Việt Nam gồm Tản Viên Sơn Thánh, Chử Đồng Tử, Thánh Gióng và vị thánh nào?",
+      "options": [
+        "Mẫu Liễu Hạnh",
+        "Thần Kim Quy",
+        "Mẫu Âu Cơ",
+        "Lạc Long Quân"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Mẫu Liễu Hạnh.",
+      "sources": [
+        {
+          "id": "DOCX_culture_13",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 13",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_014",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 14,
+      "question": "Kiệt tác \"Truyện Kiều\" của Đại thi hào Nguyễn Du còn được biết đến với tên gọi nguyên tác ban đầu là gì?",
+      "options": [
+        "Kim Vân Kiều",
+        "Đoạn trường tân thanh",
+        "Thúy Kiều truyện",
+        "Hoa tiên ký"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đoạn trường tân thanh.",
+      "sources": [
+        {
+          "id": "DOCX_culture_14",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 14",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_015",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 15,
+      "question": "Tác giả kiệt tác văn học \"Bình Ngô đại cáo\" – bản tuyên ngôn độc lập thứ hai của dân tộc – là ai?",
+      "options": [
+        "Nguyễn Du",
+        "Nguyễn Trãi",
+        "Lý Thường Kiệt",
+        "Trần Hưng Đạo"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Nguyễn Trãi.",
+      "sources": [
+        {
+          "id": "DOCX_culture_15",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 15",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_016",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 16,
+      "question": "Năm 1987, Tổ chức UNESCO đã thông qua nghị quyết vinh danh vị lãnh tụ nào của Việt Nam là \"Danh nhân văn hóa thế giới\"?",
+      "options": [
+        "Nguyễn Du",
+        "Hồ Chí Minh",
+        "Nguyễn Trãi",
+        "Chu Văn An"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Hồ Chí Minh.",
+      "sources": [
+        {
+          "id": "DOCX_culture_16",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 16",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_017",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 17,
+      "question": "Dòng tranh dân gian Đông Hồ nổi tiếng với kỹ thuật in khắc gỗ trên giấy điệp nằm ở địa bàn tỉnh nào?",
+      "options": [
+        "Bắc Ninh",
+        "Hưng Yên",
+        "Thái Bình",
+        "Nam Định"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Bắc Ninh.",
+      "sources": [
+        {
+          "id": "DOCX_culture_17",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 17",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_018",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 18,
+      "question": "Ở khu vực địa lý nào bánh tét gói hình trụ tròn bọc lá chuối trở thành món ăn đặc trưng Tết thay cho bánh chưng vuông?",
+      "options": [
+        "Đồng bằng Bắc Bộ",
+        "Tây Bắc",
+        "Nam Bộ",
+        "Việt Bắc"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Nam Bộ.",
+      "sources": [
+        {
+          "id": "DOCX_culture_18",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 18",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_019",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 19,
+      "question": "Bản chất của chữ Nôm trong lịch sử văn hóa Việt Nam là hệ thống chữ viết như thế nào?",
+      "options": [
+        "Ký tự chữ cái La-tinh ghi âm tiếng Việt",
+        "Hệ chữ sáng tạo dựa trên bộ chữ Hán để ghi âm tiếng Việt",
+        "Hệ chữ cổ của dân tộc Chăm",
+        "Hệ chữ tượng hình cổ của dân tộc Mường"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Hệ chữ sáng tạo dựa trên bộ chữ Hán để ghi âm tiếng Việt.",
+      "sources": [
+        {
+          "id": "DOCX_culture_19",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 19",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_020",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "culture",
+      "number": 20,
+      "question": "Hát Chèo là loại hình nghệ thuật sân khấu dân gian truyền thống gắn liền với cư dân miền nào?",
+      "options": [
+        "Nam Bộ",
+        "Đồng bằng Bắc Bộ",
+        "Tây Nguyên",
+        "Nam Trung Bộ"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đồng bằng Bắc Bộ.",
+      "sources": [
+        {
+          "id": "DOCX_culture_20",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 20",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_021",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 21,
+      "question": "\"Hát Xoan\" – di sản văn hóa phi vật thể UNESCO ghi danh – là hình thức dân ca lễ nghi gắn liền với miền đất tổ nào?",
+      "options": [
+        "Phú Thọ",
+        "Nghệ An",
+        "Thừa Thiên Huế",
+        "Quảng Nam"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Phú Thọ.",
+      "sources": [
+        {
+          "id": "DOCX_culture_21",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 21",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_022",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 22,
+      "question": "Nhà văn nào là tác giả của tiểu thuyết trào phúng nổi tiếng \"Số đỏ\" ghi lại bức tranh xã hội thành thị Việt Nam thời tiền chiến?",
+      "options": [
+        "Nam Cao",
+        "Ngô Tất Tố",
+        "Vũ Trọng Phụng",
+        "Nguyên Hồng"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Vũ Trọng Phụng.",
+      "sources": [
+        {
+          "id": "DOCX_culture_22",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 22",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_023",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 23,
+      "question": "Vị quan sử thần nào đã hoàn thành việc biên soạn bộ chính sử \"Đại Việt sử ký toàn thư\" gồm 15 quyển vào năm 1479?",
+      "options": [
+        "Lê Văn Hưu",
+        "Phan Huy Chú",
+        "Ngô Sĩ Liên",
+        "Lê Quý Đôn"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Ngô Sĩ Liên.",
+      "sources": [
+        {
+          "id": "DOCX_culture_23",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 23",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_024",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 24,
+      "question": "Kiệt tác \"Không gian văn hóa cồng chiêng Tây Nguyên\" được UNESCO chính thức ghi danh là di sản phi vật thể thế giới vào năm nào?",
+      "options": [
+        "1999",
+        "2005",
+        "2012",
+        "2016"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. 2005.",
+      "sources": [
+        {
+          "id": "DOCX_culture_24",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 24",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_025",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 25,
+      "question": "Tín ngưỡng \"Thực hành thờ Mẫu Tam phủ của người Việt\" được UNESCO chính thức công nhận là di sản văn hóa phi vật thể đại diện của nhân loại vào năm nào?",
+      "options": [
+        "2009",
+        "2012",
+        "2016",
+        "2019"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. 2016.",
+      "sources": [
+        {
+          "id": "DOCX_culture_25",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 25",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_026",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 26,
+      "question": "Nghệ thuật sân khấu Cải lương độc đáo được hình thành và phát triển mạnh mẽ tại vùng đất nào từ đầu thế kỷ XX?",
+      "options": [
+        "Bắc Bộ",
+        "Trung Bộ",
+        "Nam Bộ",
+        "Tây Bắc"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Nam Bộ.",
+      "sources": [
+        {
+          "id": "DOCX_culture_26",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 26",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_027",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 27,
+      "question": "Kiệt tác \"Truyện Kiều\" của Nguyễn Du được mượn cốt truyện từ tác phẩm văn học Trung Quốc nào?",
+      "options": [
+        "Kim Vân Kiều truyện (của Thanh Tâm Tài Nhân)",
+        "Tây sinh ký",
+        "Hồng lâu mộng",
+        "Liêu trai chí dị"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Kim Vân Kiều truyện (của Thanh Tâm Tài Nhân).",
+      "sources": [
+        {
+          "id": "DOCX_culture_27",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 27",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_028",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 28,
+      "question": "Trong khái niệm \"An Nam tứ đại khí\" (bốn công trình nghệ thuật đúc đồng lớn thời Lý – Trần), bên cạnh chuông Quy Điền, vạc Phổ Minh và tháp Báo Thiên thì vật thể thứ tư là gì?",
+      "options": [
+        "Tượng Phật chùa Quỳnh Lâm",
+        "Tháp Rùa",
+        "Chuông chùa Thiên Mụ",
+        "Trống đồng Ngọc Lũ"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Tượng Phật chùa Quỳnh Lâm.",
+      "sources": [
+        {
+          "id": "DOCX_culture_28",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 28",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_029",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 29,
+      "question": "Văn Miếu (Hà Nội) – trường đại học đầu tiên của Việt Nam – được khởi công xây dựng vào năm 1070 dưới thời vị vua nào?",
+      "options": [
+        "Lý Thái Tổ",
+        "Lý Thái Tông",
+        "Lý Thánh Tông",
+        "Lý Nhân Tông"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Lý Thánh Tông.",
+      "sources": [
+        {
+          "id": "DOCX_culture_29",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 29",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_culture_030",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "culture",
+      "number": 30,
+      "question": "Tác phẩm văn học lịch sử \"Hoàng Lê nhất thống chí\" phản ánh sự suy vong nhà Lê và chiến công vua Quang Trung do nhóm tác giả nào chấp bút?",
+      "options": [
+        "Tự lực văn đoàn",
+        "Ngô gia văn phái",
+        "Nhóm Thơ Mới",
+        "Nhân văn Giai phẩm"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Ngô gia văn phái.",
+      "sources": [
+        {
+          "id": "DOCX_culture_30",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Văn hóa · Câu 30",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_001",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "geography",
       "number": 1,
-      "question": "Trái Đất có bao nhiêu châu lục theo cách phân chia phổ biến ở Việt Nam?",
+      "question": "Thành phố nào là Thủ đô hành chính chính thức của nước Cộng hòa xã hội chủ nghĩa Việt Nam?",
       "options": [
-        "5",
-        "6",
-        "7",
-        "8"
+        "Hà Nội",
+        "Huế",
+        "Đà Nẵng",
+        "Hải Phòng"
       ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 6.",
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Hà Nội.",
       "sources": [
         {
           "id": "DOCX_geography_1",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 1",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 1",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_002",
+      "id": "lv90_geography_002",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "geography",
       "number": 2,
-      "question": "Đại dương lớn nhất trên Trái Đất là đại dương nào?",
+      "question": "Đỉnh núi cao nhất Việt Nam (độ cao khoảng 3.143 m) nằm trên dãy Hoàng Liên Sơn có tên là gì?",
       "options": [
-        "Thái Bình Dương",
-        "Đại Tây Dương",
-        "Ấn Độ Dương",
-        "Bắc Băng Dương"
+        "Đỉnh Ngọc Linh",
+        "Đỉnh Phan Xi Păng",
+        "Đỉnh Bạch Mã",
+        "Đỉnh Lang Biang"
       ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Thái Bình Dương.",
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đỉnh Phan Xi Păng.",
       "sources": [
         {
           "id": "DOCX_geography_2",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 2",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 2",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_003",
+      "id": "lv90_geography_003",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "geography",
       "number": 3,
-      "question": "Châu lục nào có diện tích lớn nhất?",
+      "question": "Hệ thống sông chính nào chịu trách nhiệm bồi đắp nên Đồng bằng Bắc Bộ màu mỡ?",
       "options": [
-        "Châu Phi",
-        "Châu Âu",
-        "Châu Á",
-        "Châu Đại Dương"
+        "Sông Đồng Nai",
+        "Sông Mã",
+        "Sông Hồng",
+        "Sông Hương"
       ],
       "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Châu Á.",
+      "explanation": "Đáp án trong bộ câu hỏi: C. Sông Hồng.",
       "sources": [
         {
           "id": "DOCX_geography_3",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 3",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 3",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_004",
+      "id": "lv90_geography_004",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "geography",
       "number": 4,
-      "question": "Châu lục nào có diện tích nhỏ nhất?",
-      "options": [
-        "Châu Âu",
-        "Châu Nam Cực",
-        "Châu Phi",
-        "Châu Đại Dương"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Châu Đại Dương.",
-      "sources": [
-        {
-          "id": "DOCX_geography_4",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 4",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_005",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 5,
-      "question": "Đường xích đạo chia Trái Đất thành hai bán cầu nào?",
-      "options": [
-        "Đông và Tây",
-        "Bắc và Nam",
-        "Lục địa và đại dương",
-        "Nóng và lạnh"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Bắc và Nam.",
-      "sources": [
-        {
-          "id": "DOCX_geography_5",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 5",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_006",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 6,
-      "question": "Kinh tuyến gốc đi qua địa điểm nào ở Anh?",
-      "options": [
-        "Greenwich",
-        "London Bridge",
-        "Oxford",
-        "Edinburgh"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Greenwich.",
-      "sources": [
-        {
-          "id": "DOCX_geography_6",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 6",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_007",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 7,
-      "question": "Trái Đất có dạng gần đúng như thế nào?",
-      "options": [
-        "Hình cầu hơi dẹt ở hai cực",
-        "Hình lập phương",
-        "Hình đĩa phẳng",
-        "Hình trụ"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Hình cầu hơi dẹt ở hai cực.",
-      "sources": [
-        {
-          "id": "DOCX_geography_7",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 7",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_008",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 8,
-      "question": "Hiện tượng ngày và đêm luân phiên chủ yếu do đâu?",
-      "options": [
-        "Trái Đất quay quanh Mặt Trời",
-        "Mặt Trăng quay quanh Trái Đất",
-        "Trái Đất tự quay quanh trục",
-        "Mặt Trời tự quay"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Trái Đất tự quay quanh trục.",
-      "sources": [
-        {
-          "id": "DOCX_geography_8",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 8",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_009",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 9,
-      "question": "Một vòng Trái Đất tự quay quanh trục mất khoảng bao lâu?",
-      "options": [
-        "12 giờ",
-        "24 giờ",
-        "30 ngày",
-        "365 ngày"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 24 giờ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_9",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 9",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_010",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 10,
-      "question": "Trái Đất quay quanh Mặt Trời mất khoảng bao lâu?",
-      "options": [
-        "24 giờ",
-        "30 ngày",
-        "365 ngày và khoảng 6 giờ",
-        "10 năm"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. 365 ngày và khoảng 6 giờ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_10",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 10",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_011",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 11,
-      "question": "Đỉnh núi cao nhất thế giới so với mực nước biển là đỉnh nào?",
-      "options": [
-        "Everest",
-        "K2",
-        "Kilimanjaro",
-        "Mont Blanc"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Everest.",
-      "sources": [
-        {
-          "id": "DOCX_geography_11",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 11",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_012",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 12,
-      "question": "Dãy núi Himalaya nằm chủ yếu ở châu lục nào?",
-      "options": [
-        "Châu Âu",
-        "Châu Phi",
-        "Châu Á",
-        "Châu Mỹ"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Châu Á.",
-      "sources": [
-        {
-          "id": "DOCX_geography_12",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 12",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_013",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 13,
-      "question": "Sa mạc nóng lớn nhất thế giới là sa mạc nào?",
-      "options": [
-        "Gobi",
-        "Sahara",
-        "Kalahari",
-        "Atacama"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Sahara.",
-      "sources": [
-        {
-          "id": "DOCX_geography_13",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 13",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_014",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 14,
-      "question": "Rừng Amazon chủ yếu nằm ở châu lục nào?",
-      "options": [
-        "Châu Phi",
-        "Châu Á",
-        "Châu Âu",
-        "Nam Mỹ"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Nam Mỹ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_14",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 14",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_015",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 15,
-      "question": "Sông Nile nổi tiếng chảy qua khu vực nào?",
-      "options": [
-        "Đông Bắc châu Phi",
-        "Tây Âu",
-        "Bắc Mỹ",
-        "Đông Á"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Đông Bắc châu Phi.",
-      "sources": [
-        {
-          "id": "DOCX_geography_15",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 15",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_016",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 16,
-      "question": "Sông dài nhất Việt Nam chảy hoàn toàn trong lãnh thổ Việt Nam là sông nào?",
-      "options": [
-        "Sông Hồng",
-        "Sông Đồng Nai",
-        "Sông Mã",
-        "Sông Cả"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Sông Đồng Nai.",
-      "sources": [
-        {
-          "id": "DOCX_geography_16",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 16",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_017",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 17,
-      "question": "Đồng bằng sông Cửu Long nằm ở miền nào của Việt Nam?",
-      "options": [
-        "Miền Bắc",
-        "Miền Trung",
-        "Miền Nam",
-        "Tây Bắc"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Miền Nam.",
-      "sources": [
-        {
-          "id": "DOCX_geography_17",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 17",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_018",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 18,
-      "question": "Thủ đô của Việt Nam là thành phố nào?",
-      "options": [
-        "Huế",
-        "Đà Nẵng",
-        "Thành phố Hồ Chí Minh",
-        "Hà Nội"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Hà Nội.",
-      "sources": [
-        {
-          "id": "DOCX_geography_18",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 18",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_019",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 19,
-      "question": "Việt Nam nằm ở khu vực nào của châu Á?",
-      "options": [
-        "Đông Nam Á",
-        "Tây Á",
-        "Nam Á",
-        "Trung Á"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Đông Nam Á.",
-      "sources": [
-        {
-          "id": "DOCX_geography_19",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 19",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_020",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 20,
-      "question": "Việt Nam có đường bờ biển giáp với vùng biển nào?",
-      "options": [
-        "Biển Đỏ",
-        "Biển Đông",
-        "Biển Đen",
-        "Biển Baltic"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Biển Đông.",
-      "sources": [
-        {
-          "id": "DOCX_geography_20",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 20",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_021",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 21,
-      "question": "Đỉnh Fansipan thuộc dãy núi nào?",
-      "options": [
-        "Trường Sơn",
-        "Bạch Mã",
-        "Hoàng Liên Sơn",
-        "Tam Đảo"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Hoàng Liên Sơn.",
-      "sources": [
-        {
-          "id": "DOCX_geography_21",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 21",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_022",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 22,
-      "question": "Vịnh Hạ Long thuộc tỉnh/thành phố nào?",
+      "question": "Vịnh Hạ Long – di sản thiên nhiên thế giới nổi tiếng với vô số đảo đá vôi – nằm trên địa bàn tỉnh nào?",
       "options": [
         "Quảng Ninh",
-        "Hải Phòng",
-        "Thanh Hóa",
-        "Nghệ An"
+        "Khánh Hòa",
+        "Thái Bình",
+        "Thanh Hóa"
       ],
       "correctAnswer": 0,
       "explanation": "Đáp án trong bộ câu hỏi: A. Quảng Ninh.",
       "sources": [
         {
-          "id": "DOCX_geography_22",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 22",
+          "id": "DOCX_geography_4",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 4",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_023",
+      "id": "lv90_geography_005",
       "group": "knowledge",
       "difficulty": "basic",
       "topic": "geography",
-      "number": 23,
-      "question": "Tây Nguyên nổi bật với dạng địa hình nào?",
+      "number": 5,
+      "question": "Thành phố nào có quy mô dân số và mật độ đô thị đông nhất Việt Nam hiện nay?",
       "options": [
-        "Đồng bằng châu thổ",
-        "Cao nguyên xếp tầng",
-        "Hoang mạc cát",
-        "Đồi băng hà"
+        "Hà Nội",
+        "Đà Nẵng",
+        "Cần Thơ",
+        "TP. Hồ Chí Minh"
+      ],
+      "correctAnswer": 3,
+      "explanation": "Đáp án trong bộ câu hỏi: D. TP. Hồ Chí Minh.",
+      "sources": [
+        {
+          "id": "DOCX_geography_5",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 5",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_006",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "geography",
+      "number": 6,
+      "question": "Vùng biển nằm ở phía Đông lãnh thổ Việt Nam có tên gọi quốc tế chính thức là gì?",
+      "options": [
+        "Biển Đông (South China Sea)",
+        "Biển Nhật Bản",
+        "Biển Đỏ",
+        "Biển Đen"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Biển Đông (South China Sea).",
+      "sources": [
+        {
+          "id": "DOCX_geography_6",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 6",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_007",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "geography",
+      "number": 7,
+      "question": "Đồng bằng có diện tích lớn nhất Việt Nam được mệnh danh là vựa lúa lớn nhất cả nước là đồng bằng nào?",
+      "options": [
+        "Đồng bằng sông Hồng",
+        "Đồng bằng sông Cửu Long",
+        "Đồng bằng Thanh Nghệ Tĩnh",
+        "Đồng bằng duyên hải miền Trung"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Cao nguyên xếp tầng.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Đồng bằng sông Cửu Long.",
+      "sources": [
+        {
+          "id": "DOCX_geography_7",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 7",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_008",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "geography",
+      "number": 8,
+      "question": "Quốc gia nào có chung đường biên giới trên đất liền với Việt Nam ở toàn bộ phía Bắc?",
+      "options": [
+        "Lào",
+        "Campuchia",
+        "Trung Quốc",
+        "Thái Lan"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. Trung Quốc.",
+      "sources": [
+        {
+          "id": "DOCX_geography_8",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 8",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_009",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "geography",
+      "number": 9,
+      "question": "Hình dáng dải đất đất liền lãnh thổ Việt Nam trên bản đồ địa lý thường được so sánh với hình chữ cái nào?",
+      "options": [
+        "Chữ S",
+        "Chữ C",
+        "Chữ L",
+        "Chữ Z"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Chữ S.",
+      "sources": [
+        {
+          "id": "DOCX_geography_9",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 9",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_010",
+      "group": "knowledge",
+      "difficulty": "basic",
+      "topic": "geography",
+      "number": 10,
+      "question": "Huyện đảo nào có diện tích tự nhiên lớn nhất trong hệ thống biển đảo Việt Nam hiện nay?",
+      "options": [
+        "Đảo Phú Quốc",
+        "Đảo Cát Bà",
+        "Côn Đảo",
+        "Đảo Lý Sơn"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Đảo Phú Quốc.",
+      "sources": [
+        {
+          "id": "DOCX_geography_10",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 10",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_011",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 11,
+      "question": "Chợ nổi Cái Răng – hình thức sinh hoạt thương hồ sông nước đặc trưng miền Tây – thuộc thành phố nào?",
+      "options": [
+        "Mỹ Tho",
+        "Cần Thơ",
+        "Cà Mau",
+        "Châu Đốc"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Cần Thơ.",
+      "sources": [
+        {
+          "id": "DOCX_geography_11",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 11",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_012",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 12,
+      "question": "Đèo Hải Vân – \"Đệ nhất hùng quan\" hiểm trở – là ranh giới tự nhiên kết nối hai địa phương nào?",
+      "options": [
+        "Hà Nội và Hải Phòng",
+        "Huế và Đà Nẵng",
+        "Nha Trang và Đà Lạt",
+        "Vũng Tàu và TP. Hồ Chí Minh"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Huế và Đà Nẵng.",
+      "sources": [
+        {
+          "id": "DOCX_geography_12",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 12",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_013",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 13,
+      "question": "Dãy núi dài nhất Việt Nam chạy dọc theo hướng Bắc – Nam đóng vai trò xương sống địa hình lãnh thổ là dãy nào?",
+      "options": [
+        "Hoàng Liên Sơn",
+        "Trường Sơn",
+        "Con Voi",
+        "Bạch Mã"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Trường Sơn.",
+      "sources": [
+        {
+          "id": "DOCX_geography_13",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 13",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_014",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 14,
+      "question": "Loại cây công nghiệp lâu năm chủ lực mang lại giá trị xuất khẩu lớn nhất cho vùng Tây Nguyên là cây nào?",
+      "options": [
+        "Cây chè",
+        "Cây cà phê",
+        "Cây cao su",
+        "Cây hồ tiêu"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Cây cà phê.",
+      "sources": [
+        {
+          "id": "DOCX_geography_14",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 14",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_015",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 15,
+      "question": "Tổng diện tích phần lãnh thổ đất liền của Việt Nam đạt khoảng bao nhiêu?",
+      "options": [
+        "Khoảng 331.000 km²",
+        "Khoảng 150.000 km²",
+        "Khoảng 500.000 km²",
+        "Khoảng 650.000 km²"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Khoảng 331.000 km².",
+      "sources": [
+        {
+          "id": "DOCX_geography_15",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 15",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_016",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 16,
+      "question": "Khi chảy vào lãnh thổ Đồng bằng sông Cửu Long, dòng sông Mê Công tách ra làm hai nhánh chính nào?",
+      "options": [
+        "Sông Tiền và sông Hậu",
+        "Sông Đà và sông Lô",
+        "Sông Cầu và sông Thương",
+        "Sông Bến Hải và sông Gianh"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Sông Tiền và sông Hậu.",
+      "sources": [
+        {
+          "id": "DOCX_geography_16",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 16",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_017",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 17,
+      "question": "Huyện đảo quần đảo Hoàng Sa của Việt Nam về mặt hành chính thuộc sự quản lý của địa phương nào?",
+      "options": [
+        "Thành phố Đà Nẵng",
+        "Thành phố Hải Phòng",
+        "Tỉnh Khánh Hòa",
+        "Tỉnh Cà Mau"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Thành phố Đà Nẵng.",
+      "sources": [
+        {
+          "id": "DOCX_geography_17",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 17",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_018",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 18,
+      "question": "Cột cờ Lũng Cú kiêu hãnh thuộc tỉnh Hà Giang đánh dấu tọa độ địa lý điểm cực nào trên đất liền Việt Nam?",
+      "options": [
+        "Cực Bắc",
+        "Cực Nam",
+        "Cực Đông",
+        "Cực Tây"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Cực Bắc.",
+      "sources": [
+        {
+          "id": "DOCX_geography_18",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 18",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_019",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 19,
+      "question": "Khí hậu Nam Bộ thuộc vùng nhiệt đới gió mùa có đặc điểm phân chia thành mấy mùa rõ rệt trong năm?",
+      "options": [
+        "Hai mùa: mùa mưa và mùa khô",
+        "Bốn mùa: xuân, hạ, thu, đông",
+        "Ba mùa",
+        "Một mùa"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Hai mùa: mùa mưa và mùa khô.",
+      "sources": [
+        {
+          "id": "DOCX_geography_19",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 19",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_020",
+      "group": "knowledge",
+      "difficulty": "intermediate",
+      "topic": "geography",
+      "number": 20,
+      "question": "Thành phố du lịch nghỉ dưỡng Đà Lạt nằm trên địa hình cao nguyên nào của vùng Tây Nguyên?",
+      "options": [
+        "Cao nguyên Mộc Châu",
+        "Cao nguyên Lang Biang (Lâm Viên)",
+        "Cao nguyên Plây Ku",
+        "Cao nguyên Đắk Lắk"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Cao nguyên Lang Biang (Lâm Viên).",
+      "sources": [
+        {
+          "id": "DOCX_geography_20",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 20",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_021",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "geography",
+      "number": 21,
+      "question": "Điểm cực Tây lãnh thổ trên đất liền của Việt Nam (tại A Pa Chải, xã Sín Thâu, huyện Mường Nhé) thuộc tỉnh nào?",
+      "options": [
+        "Tỉnh Điện Biên (Cột mốc ngã ba biên giới Việt - Trung - Lào)",
+        "Tỉnh Lai Châu",
+        "Tỉnh Sơn La",
+        "Tỉnh Lào Cai"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Tỉnh Điện Biên (Cột mốc ngã ba biên giới Việt - Trung - Lào).",
+      "sources": [
+        {
+          "id": "DOCX_geography_21",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 21",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_022",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "geography",
+      "number": 22,
+      "question": "Hang Sơn Đoòng – hang động tự nhiên có thể tích lớn nhất thế giới – nằm trong quần thể Vườn quốc gia nào?",
+      "options": [
+        "Vườn quốc gia Phong Nha – Kẻ Bàng",
+        "Vườn quốc gia Cúc Phương",
+        "Vườn quốc gia Cát Tiên",
+        "Vườn quốc gia Ba Vì"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Vườn quốc gia Phong Nha – Kẻ Bàng.",
+      "sources": [
+        {
+          "id": "DOCX_geography_22",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 22",
+          "url": ""
+        }
+      ],
+      "scope": "general"
+    },
+    {
+      "id": "lv90_geography_023",
+      "group": "knowledge",
+      "difficulty": "advanced",
+      "topic": "geography",
+      "number": 23,
+      "question": "Căn cứ theo kế hoạch đợt sắp xếp đơn vị hành chính cấp tỉnh có hiệu lực từ ngày 1/7/2025, Việt Nam còn bao nhiêu tỉnh, thành phố trực thuộc Trung ương?",
+      "options": [
+        "63 đơn vị",
+        "54 đơn vị",
+        "34 đơn vị",
+        "28 đơn vị"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Đáp án trong bộ câu hỏi: C. 34 đơn vị.",
       "sources": [
         {
           "id": "DOCX_geography_23",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 23",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 23",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_024",
+      "id": "lv90_geography_024",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 24,
-      "question": "Hai quần đảo Hoàng Sa và Trường Sa thuộc vùng biển nào?",
+      "question": "Vịnh Hạ Long được danh hiệu UNESCO công nhận là Di sản thiên nhiên thế giới lần đầu tiên vào năm nào?",
       "options": [
-        "Địa Trung Hải",
-        "Biển Caribe",
-        "Biển Đông",
-        "Biển Nhật Bản"
+        "1993",
+        "1994",
+        "2000",
+        "2010"
       ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Biển Đông.",
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. 1994.",
       "sources": [
         {
           "id": "DOCX_geography_24",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 24",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 24",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_025",
+      "id": "lv90_geography_025",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 25,
-      "question": "Đất nước nào có hình dáng thường được ví như chiếc ủng?",
+      "question": "Hồ nước ngọt tự nhiên có diện tích bề mặt lớn nhất Việt Nam là hồ nào?",
       "options": [
-        "Hy Lạp",
-        "Ý",
-        "Na Uy",
-        "Ấn Độ"
+        "Hồ Tây",
+        "Hồ Ba Bể",
+        "Hồ Dầu Tiếng",
+        "Hồ Thác Bà"
       ],
       "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Ý.",
+      "explanation": "Đáp án trong bộ câu hỏi: B. Hồ Ba Bể.",
       "sources": [
         {
           "id": "DOCX_geography_25",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 25",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 25",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_026",
+      "id": "lv90_geography_026",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 26,
-      "question": "Thủ đô của Nhật Bản là gì?",
+      "question": "Con sông dài nhất chảy trọn vẹn hoàn toàn trong nội địa lãnh thổ Việt Nam (không bắt nguồn từ nước ngoài) là sông nào?",
       "options": [
-        "Seoul",
-        "Bắc Kinh",
-        "Bangkok",
-        "Tokyo"
+        "Sông Mã",
+        "Sông Đồng Nai",
+        "Sông Cả",
+        "Sông Hương"
       ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Tokyo.",
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Sông Đồng Nai.",
       "sources": [
         {
           "id": "DOCX_geography_26",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 26",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 26",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_027",
+      "id": "lv90_geography_027",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 27,
-      "question": "Thủ đô của Hàn Quốc là gì?",
+      "question": "Đỉnh núi cao nhất khu vực Nam Bộ (độ cao khoảng 986 m) được mệnh danh là \"Nóc nhà Nam Bộ\" là núi nào?",
       "options": [
-        "Seoul",
-        "Busan",
-        "Tokyo",
-        "Ulaanbaatar"
+        "Núi Sam",
+        "Núi Bà Đen",
+        "Núi Cấm",
+        "Núi Chứa Chan"
       ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Seoul.",
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Núi Bà Đen.",
       "sources": [
         {
           "id": "DOCX_geography_27",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 27",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 27",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_028",
+      "id": "lv90_geography_028",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 28,
-      "question": "Thủ đô của Thái Lan là gì?",
+      "question": "Vườn quốc gia đầu tiên của Việt Nam được quyết định thành lập vào năm 1962 là vườn quốc gia nào?",
       "options": [
-        "Phnom Penh",
-        "Vientiane",
-        "Bangkok",
-        "Jakarta"
+        "Vườn quốc gia Cúc Phương",
+        "Vườn quốc gia Ba Vì",
+        "Vườn quốc gia Cát Tiên",
+        "Vườn quốc gia Yôk Đôn"
       ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Bangkok.",
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Vườn quốc gia Cúc Phương.",
       "sources": [
         {
           "id": "DOCX_geography_28",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 28",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 28",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_029",
+      "id": "lv90_geography_029",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 29,
-      "question": "Thủ đô của Australia là thành phố nào?",
+      "question": "Đèo Ô Quy Hồ – một trong tứ đại đỉnh đèo hiểm trở nhất vùng Tây Bắc – vắt qua dãy núi nào?",
       "options": [
-        "Sydney",
-        "Canberra",
-        "Melbourne",
-        "Perth"
+        "Dãy Hoàng Liên Sơn",
+        "Dãy Trường Sơn",
+        "Dãy Bạch Mã",
+        "Dãy Con Voi"
       ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Canberra.",
+      "correctAnswer": 0,
+      "explanation": "Đáp án trong bộ câu hỏi: A. Dãy Hoàng Liên Sơn.",
       "sources": [
         {
           "id": "DOCX_geography_29",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 29",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 29",
           "url": ""
         }
       ],
       "scope": "general"
     },
     {
-      "id": "lv100_geography_030",
+      "id": "lv90_geography_030",
       "group": "knowledge",
-      "difficulty": "basic",
+      "difficulty": "advanced",
       "topic": "geography",
       "number": 30,
-      "question": "Thủ đô của Canada là thành phố nào?",
+      "question": "Tuyến đường huyết mạch Quốc lộ 1A bắt đầu từ Cửa khẩu Hữu Nghị (Lạng Sơn) và kết thúc tại điểm thuộc địa phương nào?",
       "options": [
-        "Toronto",
-        "Vancouver",
-        "Montreal",
-        "Ottawa"
+        "Đất Mũi",
+        "Năm Căn (Cà Mau)",
+        "Rạch Giá",
+        "Cần Thơ"
       ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Ottawa.",
+      "correctAnswer": 1,
+      "explanation": "Đáp án trong bộ câu hỏi: B. Năm Căn (Cà Mau).",
       "sources": [
         {
           "id": "DOCX_geography_30",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 30",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_031",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 31,
-      "question": "Thủ đô của Hoa Kỳ là thành phố nào?",
-      "options": [
-        "Washington, D.C.",
-        "New York",
-        "Los Angeles",
-        "Chicago"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Washington, D.C..",
-      "sources": [
-        {
-          "id": "DOCX_geography_31",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 31",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_032",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 32,
-      "question": "Thủ đô của Pháp là thành phố nào?",
-      "options": [
-        "Rome",
-        "Madrid",
-        "Paris",
-        "Berlin"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Paris.",
-      "sources": [
-        {
-          "id": "DOCX_geography_32",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 32",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_033",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 33,
-      "question": "Thủ đô của Đức là thành phố nào?",
-      "options": [
-        "Munich",
-        "Berlin",
-        "Hamburg",
-        "Frankfurt"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Berlin.",
-      "sources": [
-        {
-          "id": "DOCX_geography_33",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 33",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_034",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 34,
-      "question": "Thủ đô của Ai Cập là thành phố nào?",
-      "options": [
-        "Casablanca",
-        "Nairobi",
-        "Tunis",
-        "Cairo"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Cairo.",
-      "sources": [
-        {
-          "id": "DOCX_geography_34",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 34",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_035",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 35,
-      "question": "Quốc gia nào có diện tích lớn nhất thế giới?",
-      "options": [
-        "Nga",
-        "Canada",
-        "Trung Quốc",
-        "Hoa Kỳ"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Nga.",
-      "sources": [
-        {
-          "id": "DOCX_geography_35",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 35",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_036",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 36,
-      "question": "Quốc gia nào có dân số đông nhất thế giới theo số liệu hiện nay?",
-      "options": [
-        "Trung Quốc",
-        "Hoa Kỳ",
-        "Ấn Độ",
-        "Indonesia"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Ấn Độ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_36",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 36",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_037",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 37,
-      "question": "Dãy Andes nằm ở châu lục nào?",
-      "options": [
-        "Châu Á",
-        "Nam Mỹ",
-        "Châu Âu",
-        "Châu Phi"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Nam Mỹ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_37",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 37",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_038",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 38,
-      "question": "Đại dương nằm giữa châu Phi, châu Á và Australia là đại dương nào?",
-      "options": [
-        "Thái Bình Dương",
-        "Đại Tây Dương",
-        "Bắc Băng Dương",
-        "Ấn Độ Dương"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Ấn Độ Dương.",
-      "sources": [
-        {
-          "id": "DOCX_geography_38",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 38",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_039",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 39,
-      "question": "Biển Địa Trung Hải nằm giữa những châu lục nào?",
-      "options": [
-        "Châu Âu, châu Phi và châu Á",
-        "Châu Á và châu Đại Dương",
-        "Bắc Mỹ và Nam Mỹ",
-        "Châu Phi và Nam Mỹ"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Châu Âu, châu Phi và châu Á.",
-      "sources": [
-        {
-          "id": "DOCX_geography_39",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 39",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_040",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 40,
-      "question": "Kênh đào Suez nối Địa Trung Hải với biển nào?",
-      "options": [
-        "Biển Đen",
-        "Biển Đỏ",
-        "Biển Caspi",
-        "Biển Arab"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Biển Đỏ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_40",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 40",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_041",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 41,
-      "question": "Kênh đào Panama nối hai đại dương nào?",
-      "options": [
-        "Ấn Độ Dương và Thái Bình Dương",
-        "Bắc Băng Dương và Đại Tây Dương",
-        "Đại Tây Dương và Thái Bình Dương",
-        "Đại Tây Dương và Ấn Độ Dương"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Đại Tây Dương và Thái Bình Dương.",
-      "sources": [
-        {
-          "id": "DOCX_geography_41",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 41",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_042",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 42,
-      "question": "Khí hậu xích đạo thường có đặc điểm nào?",
-      "options": [
-        "Nóng và ẩm quanh năm",
-        "Lạnh quanh năm",
-        "Mùa đông dài và khô",
-        "Mưa rất ít quanh năm"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Nóng và ẩm quanh năm.",
-      "sources": [
-        {
-          "id": "DOCX_geography_42",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 42",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_043",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 43,
-      "question": "Gió mùa là loại gió có đặc điểm nổi bật nào?",
-      "options": [
-        "Thổi cố định một hướng quanh năm",
-        "Thay đổi hướng theo mùa",
-        "Chỉ xuất hiện ở vùng cực",
-        "Chỉ thổi trên đại dương"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Thay đổi hướng theo mùa.",
-      "sources": [
-        {
-          "id": "DOCX_geography_43",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 43",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_044",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 44,
-      "question": "Loại bản đồ thể hiện địa hình bằng các đường đồng mức là bản đồ gì?",
-      "options": [
-        "Bản đồ dân số",
-        "Bản đồ khí hậu",
-        "Bản đồ giao thông",
-        "Bản đồ địa hình"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Bản đồ địa hình.",
-      "sources": [
-        {
-          "id": "DOCX_geography_44",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 44",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_045",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 45,
-      "question": "Tỉ lệ bản đồ 1:100.000 có nghĩa là 1 cm trên bản đồ tương ứng bao nhiêu ngoài thực địa?",
-      "options": [
-        "100 m",
-        "1 km",
-        "10 km",
-        "100 km"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. 1 km.",
-      "sources": [
-        {
-          "id": "DOCX_geography_45",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 45",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_046",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 46,
-      "question": "Đường vĩ tuyến nào có vĩ độ 0°?",
-      "options": [
-        "Xích đạo",
-        "Chí tuyến Bắc",
-        "Vòng cực Bắc",
-        "Chí tuyến Nam"
-      ],
-      "correctAnswer": 0,
-      "explanation": "Đáp án trong bộ câu hỏi: A. Xích đạo.",
-      "sources": [
-        {
-          "id": "DOCX_geography_46",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 46",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_047",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 47,
-      "question": "Hai cực Bắc và Nam nằm trên trục nào của Trái Đất?",
-      "options": [
-        "Trục quỹ đạo",
-        "Trục địa từ",
-        "Trục tự quay",
-        "Trục xích đạo"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Trục tự quay.",
-      "sources": [
-        {
-          "id": "DOCX_geography_47",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 47",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_048",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 48,
-      "question": "Quốc gia nào được mệnh danh là xứ sở mặt trời mọc?",
-      "options": [
-        "Trung Quốc",
-        "Nhật Bản",
-        "Thái Lan",
-        "Nepal"
-      ],
-      "correctAnswer": 1,
-      "explanation": "Đáp án trong bộ câu hỏi: B. Nhật Bản.",
-      "sources": [
-        {
-          "id": "DOCX_geography_48",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 48",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_049",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 49,
-      "question": "Hồ nước ngọt có diện tích bề mặt lớn nhất thế giới là hồ nào?",
-      "options": [
-        "Hồ Victoria",
-        "Hồ Baikal",
-        "Hồ Superior",
-        "Hồ Tanganyika"
-      ],
-      "correctAnswer": 2,
-      "explanation": "Đáp án trong bộ câu hỏi: C. Hồ Superior.",
-      "sources": [
-        {
-          "id": "DOCX_geography_49",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 49",
-          "url": ""
-        }
-      ],
-      "scope": "general"
-    },
-    {
-      "id": "lv100_geography_050",
-      "group": "knowledge",
-      "difficulty": "basic",
-      "topic": "geography",
-      "number": 50,
-      "question": "Châu Nam Cực có đặc điểm khí hậu nổi bật nào?",
-      "options": [
-        "Nóng ẩm quanh năm",
-        "Khô nóng như sa mạc Sahara",
-        "Ôn hòa quanh năm",
-        "Rất lạnh, phần lớn bị băng phủ"
-      ],
-      "correctAnswer": 3,
-      "explanation": "Đáp án trong bộ câu hỏi: D. Rất lạnh, phần lớn bị băng phủ.",
-      "sources": [
-        {
-          "id": "DOCX_geography_50",
-          "label": "Bo_100_cau_hoi_trac_nghiem_Lich_su_Dia_ly.docx · Địa lý · Câu 50",
+          "label": "BỘ CÂU HỎI TRẮC NGHIỆM LỊCH SỬ – VĂN HÓA – ĐỊA LÝ VIỆT NAM.docx · Địa lý · Câu 30",
           "url": ""
         }
       ],
