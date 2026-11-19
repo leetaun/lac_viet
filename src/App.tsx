@@ -270,7 +270,7 @@ export const App: React.FC = () => {
         />
       )}
 
-      {controller.choice && <RuleChoiceModal key={controller.choice.id} choice={controller.choice} onConfirm={controller.confirmChoice} language={language} />}
+      {controller.choice && <RuleChoiceModal key={controller.choice.id} choice={controller.choice} onConfirm={controller.confirmChoice} onCancel={controller.cancelDiceChoice} language={language} />}
       {controller.notice && <RuleChoiceModal choice={{ title: language === 'vi' ? 'Thông báo' : 'Notice', description: controller.notice, options: [{id:'ok',label: language === 'vi' ? 'Đã hiểu' : 'Understood'}], min:1, max:1 }} onConfirm={() => controller.setNotice(null)} language={language} />}
 
       {gameState.winner && (

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { X } from 'lucide-react';
 
 export interface RuleChoice {
   layout?: 'dice';
@@ -11,7 +12,7 @@ export interface RuleChoice {
 }
 
 // Uses the same modal, option and footer button classes as CornerStationModal.
-export function RuleChoiceModal({ choice, onConfirm, language = 'vi' }: { choice: RuleChoice; onConfirm: (ids: string[]) => void; language?: 'vi' | 'en' }) {
+export function RuleChoiceModal({ choice, onConfirm, onCancel, language = 'vi' }: { choice: RuleChoice; onConfirm: (ids: string[]) => void; onCancel?: () => void; language?: 'vi' | 'en' }) {
   const [selected, setSelected] = useState<string[]>([]);
   const dialog = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -22,6 +23,7 @@ export function RuleChoiceModal({ choice, onConfirm, language = 'vi' }: { choice
   return (
     <div className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-backdrop-fade">
       <div ref={dialog} tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="rule-choice-title" className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border-4 border-[#C5A059] animate-modal-pop" onKeyDown={event => {
+        if (event.key === 'Escape' && choice.layout === 'dice' && onCancel) { event.preventDefault(); event.stopPropagation(); onCancel(); return; }
         if (event.key !== 'Tab') return;
         const buttons = Array.from(dialog.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') || []);
         const first = buttons[0], last = buttons[buttons.length - 1];
@@ -30,6 +32,7 @@ export function RuleChoiceModal({ choice, onConfirm, language = 'vi' }: { choice
       }}>
         <div className="p-4 brown-gradient-bg text-white flex items-center justify-between">
           <h2 id="rule-choice-title" className="font-serif-lacviet text-lg sm:text-xl font-bold flex items-center gap-2">{choice.title}</h2>
+          {choice.layout === 'dice' && onCancel && <button type="button" onClick={onCancel} aria-label={language === 'vi' ? 'Đóng nhập xúc xắc' : 'Close die input'} className="ml-3 shrink-0 p-2 rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"><X size={20} /></button>}
         </div>
         <div className="p-4 sm:p-5 space-y-3 max-h-[60vh] overflow-y-auto">
           {choice.description && <p className="text-xs text-gray-700 bg-[#FAF6EE] p-3 rounded-xl border border-[#C5A059]/30 leading-relaxed">{choice.description}</p>}

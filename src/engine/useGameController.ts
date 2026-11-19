@@ -78,6 +78,10 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     if (!choice || ids.length < choice.min || ids.length > choice.max || new Set(ids).size !== ids.length || ids.some(id => !choice.options.some(o=>o.id===id))) return;
     const resolve = answer.current; answer.current = null; setChoice(null); resolve?.(ids);
   };
+  const cancelDiceChoice = () => {
+    if (choice?.layout !== 'dice') return;
+    const resolve = answer.current; answer.current = null; setChoice(null); resolve?.([]);
+  };
   const run = (fn: () => Promise<void> | void) => async () => {
     if (busy.current) return;
     const latest=loadGameSession();
@@ -272,6 +276,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     const physical = state.current.options.physicalDice && !actor().isAI;
     const inputRoll = async (title: string) => Number((await ask(title, [1,2,3,4,5,6].map(n=>({id:String(n),label:String(n)})),actor(),1,1,'Chọn kết quả vừa tung trên xúc xắc vật lý / Select your physical die result.','dice'))[0]);
     let roll=physical ? await inputRoll('Nhập xúc xắc / Enter die result (1–6)') : Math.floor(Math.random()*6)+1;
+    if (physical && Number.isNaN(roll)) return;
     if (!Number.isInteger(roll) || roll < 1 || roll > 6) throw new Error('Kết quả xúc xắc không hợp lệ.');
     const old=actor().position,extra=state.current.turnStep===2;
     setIsRolling(true); soundManager.playDiceRoll();
@@ -285,8 +290,10 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
         const defense=await negateSkill();
         if(!defense) {
           const reroll=physical ? await inputRoll('Ngựa trạm: nhập lần tung lại / Enter reroll') : Math.floor(Math.random()*6)+1;
+          if (!Number.isNaN(reroll)) {
           const [selected]=await ask('Chọn kết quả xúc xắc',[{id:String(roll),label:`Giữ ${roll} bước`},...(reroll===roll ? [] : [{id:String(reroll),label:`Chọn ${reroll} bước`}])]);
           roll=Number(selected); update(s=>({...s,diceValue:roll}));
+          }
         }
       }
       movement.current={roll,old,isExtra:extra};
@@ -529,5 +536,5 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     },1000);
     return()=>clearTimeout(timer);
   },[gameState,activeCardModal,activeCornerStation,activeStealTarget,showTokenSkillModal,choice]);
-  return { gameState,activePlayer:gameState.players[gameState.activePlayerIndex],activeCardModal,activeCornerStation,activeStealTarget,showTokenSkillModal,isRolling,choice,notice,setNotice,confirmChoice,handleStartGame,resetSetup,handleRollDice,handleResolveCard,handleSelectCornerOption,handleCloseCorner,handleExecuteSteal,handleUseCard,handleConsumeBiKip,handleLotusSwap,handleBanhMiShift,handleCloseToken,handleLanternRedraw,handlePreviewLantern,openTokenSkill,handleEndTurn,handleAskFriend,handleFriendReward,handleGuessReward,handleGuideApproval,openPhysicalCard,lanternPreview:lanternCard.current,lanternInitialPreview:gameState.currentActionModal?.previewAccepted?lanternCard.current:null };
+  return { gameState,activePlayer:gameState.players[gameState.activePlayerIndex],activeCardModal,activeCornerStation,activeStealTarget,showTokenSkillModal,isRolling,choice,notice,setNotice,confirmChoice,cancelDiceChoice,handleStartGame,resetSetup,handleRollDice,handleResolveCard,handleSelectCornerOption,handleCloseCorner,handleExecuteSteal,handleUseCard,handleConsumeBiKip,handleLotusSwap,handleBanhMiShift,handleCloseToken,handleLanternRedraw,handlePreviewLantern,openTokenSkill,handleEndTurn,handleAskFriend,handleFriendReward,handleGuessReward,handleGuideApproval,openPhysicalCard,lanternPreview:lanternCard.current,lanternInitialPreview:gameState.currentActionModal?.previewAccepted?lanternCard.current:null };
 }

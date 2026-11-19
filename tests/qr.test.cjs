@@ -91,6 +91,28 @@ test('corrupt or unsupported saved sessions are ignored safely',()=>stored(async
  const session=load('src/utils/gameSession.ts');values.set(session.GAME_SESSION_KEY,'{');assert.equal(session.loadGameSession(),null);values.set(session.GAME_SESSION_KEY,JSON.stringify({schema:999,state:{}}));assert.equal(session.loadGameSession(),null);
 }));
 
+test('saved match resumes the same Vietnam day and expires at Vietnam midnight',()=>stored(async(values)=>{
+ const session=load('src/utils/gameSession.ts');
+ const state=hooks(true).render().gameState;
+ const beforeMidnight=new Date('2026-11-19T16:59:00Z');
+ const midnight=new Date('2026-11-19T17:00:00Z');
+ values.set('lacviet.library.v1','keep activated packs');
+ assert.equal(session.saveGameSession(state,beforeMidnight),true);
+ assert.equal(session.loadGameSession(new Date('2026-11-19T16:59:59Z')).sessionId,state.sessionId);
+ assert.equal(session.loadGameSession(midnight),null);
+ assert.equal(values.has(session.GAME_SESSION_KEY),false);
+ assert.equal(values.get('lacviet.library.v1'),'keep activated packs');
+ assert.equal(session.saveGameSession(state,midnight),true);
+ assert.equal(session.loadGameSession(new Date('2026-11-20T09:00:00Z')).sessionId,state.sessionId);
+}));
+
+test('undated saves expire instead of restoring a match from before the daily reset update',()=>stored(async(values)=>{
+ const session=load('src/utils/gameSession.ts');
+ values.set(session.GAME_SESSION_KEY,JSON.stringify({schema:1,state:hooks().render().gameState}));
+ assert.equal(session.loadGameSession(),null);
+ assert.equal(values.has(session.GAME_SESSION_KEY),false);
+}));
+
 test('saved matches replace retired questions without losing artifacts or reviving old phone answers',()=>stored(async()=>{
  const h=hooks(true);let c=await h.act(()=>h.render().handleRollDice());
  c=await h.act(()=>h.render().openPhysicalCard('knowledge','Hà Nội','basic'));

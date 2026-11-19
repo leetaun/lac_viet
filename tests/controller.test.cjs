@@ -33,6 +33,26 @@ test('physical dice use confirmed input, not random movement, and cannot submit 
  await h.act(()=>h.render().handleRollDice());assert.equal(h.render().activePlayer.position,4);
 }));
 
+test('closing physical die input leaves the turn untouched and allows reopening',()=>random(0,async()=>{
+ const h=harness([player('p1',0),player('p2',20)],{physicalDice:true});
+ let c=await h.act(()=>h.render().handleRollDice(),()=>{h.render().cancelDiceChoice();return [];});
+ assert.equal(c.activePlayer.position,0);assert.equal(c.gameState.hasRolled,false);assert.equal(c.gameState.diceValue,null);
+ assert.equal(c.choice,null);assert.equal(c.notice,null);assert.equal(c.isRolling,false);
+ c=await h.act(()=>h.render().handleRollDice(),()=>['4']);
+ assert.equal(c.activePlayer.position,4);assert.equal(c.gameState.diceValue,4);
+}));
+
+test('closing Steed reroll retains the first confirmed die result and finishes movement',()=>random(0,async()=>{
+ const steed={...decks.RESOURCE_CARDS.find(c=>c.category==='steed'),id:'steed'};
+ const h=harness([player('p1',0,{cards:{knowledge:[],resource:[steed],fortune:[]}}),player('p2',20)],{physicalDice:true});
+ const c=await h.act(()=>h.render().handleRollDice(),choice=>{
+  if(choice.layout==='dice'&&choice.title.includes('Enter reroll')){h.render().cancelDiceChoice();return [];}
+  if(choice.layout==='dice')return ['2'];
+  return choice.options.slice(0,choice.min).map(o=>o.id);
+ });
+ assert.equal(c.gameState.diceValue,2);assert.equal(c.activePlayer.position,2);assert.equal(c.isRolling,false);assert.equal(c.notice,null);
+}));
+
 test('physical Steed accepts a second input and Banh mi shifts the chosen result',()=>random(0,async()=>{
  const steed={...decks.RESOURCE_CARDS.find(c=>c.category==='steed'),id:'steed'};
  const h=harness([player('p1',0,{token:'banh_mi',cards:{knowledge:[],resource:[steed],fortune:[]}}),player('p2',20)],{physicalDice:true});
