@@ -2,10 +2,10 @@ import { createHash, randomBytes, randomInt } from 'node:crypto';
 import type { OnlineIdentity, OnlineMember, OnlineRoomView } from '../src/types/online';
 import type { TokenType } from '../src/types/game';
 import type { RoomStore } from './onlineStore';
-import { executeOperation, gradeResolution, operation, type OnlineOperation } from './onlineEngine';
-import { QUESTION_BANK } from '../src/data/questionBank';
-import { STARTER_BIKIP_CARDS } from '../src/data/cardDecks';
-import { hand } from '../src/engine/rules';
+import { executeOperation, gradeResolution, operation, type OnlineOperation } from './onlineEngine.js';
+import { QUESTION_BANK } from '../src/data/questionBank.js';
+import { STARTER_BIKIP_CARDS } from '../src/data/cardDecks.js';
+import { hand } from '../src/engine/rules.js';
 import type { GameState, Player } from '../src/types/game';
 
 interface PrivateRoom extends OnlineRoomView {

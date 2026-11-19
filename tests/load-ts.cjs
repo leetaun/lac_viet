@@ -14,7 +14,7 @@ exports.loader = function loader(overrides = {}) {
       if (Object.hasOwn(overrides,name)) return overrides[name];
       if (!name.startsWith('.')) return require(name);
       const base = path.resolve(path.dirname(absolute),name);
-      const resolved = ['', '.ts','.tsx','.js','.json'].map(ext=>base+ext).find(p=>fs.existsSync(p)&&fs.statSync(p).isFile());
+      const resolved = [base,base.replace(/\.js$/,'.ts'),base.replace(/\.js$/,'.tsx'),...['.ts','.tsx','.js','.json'].map(ext=>base+ext)].find(p=>fs.existsSync(p)&&fs.statSync(p).isFile());
       if (!resolved) throw Error('Cannot load '+base);
       return load(resolved);
     }

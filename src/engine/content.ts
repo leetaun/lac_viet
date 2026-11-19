@@ -1,10 +1,10 @@
-import { engineRandom } from './random';
-﻿import { BOARD_SPACES } from '../data/boardData';
-import { QUESTION_BANK, pickBankQuestion, bankGameCard } from '../data/questionBank';
-import { getProvinceByName, PROVINCES_DATA } from '../data/provinces';
-import { getProvinceName } from '../data/culturalTranslations';
+import { engineRandom } from './random.js';
+﻿import { BOARD_SPACES } from '../data/boardData.js';
+import { QUESTION_BANK, pickBankQuestion, bankGameCard } from '../data/questionBank.js';
+import { getProvinceByName, PROVINCES_DATA } from '../data/provinces.js';
+import { getProvinceName } from '../data/culturalTranslations.js';
 import type { ArtifactItem, BiKipCard, BiKipTopic, ChallengeCard, KnowledgeCard } from '../types/game';
-import { copyCard, uid } from './rules';
+import { copyCard, uid } from './rules.js';
 
 export const randomItem = <T,>(items: T[]): T => {
   if (!items.length) throw new Error('Không có nội dung phù hợp.');

@@ -1,6 +1,6 @@
-﻿import { copyCard, weightedDraw } from '../engine/rules';
+﻿import { copyCard, weightedDraw } from '../engine/rules.js';
 import type { ResourceCard, FortuneCard, BiKipCard } from '../types/game';
-import { QUESTION_BANK } from './questionBank';
+import { QUESTION_BANK } from './questionBank.js';
 
 export const STARTER_BIKIP_CARDS: BiKipCard[] = [QUESTION_BANK[0],QUESTION_BANK[30],QUESTION_BANK[60],QUESTION_BANK[1]].map(q=>({
   id:`starter_${q.id}`,title:`Bí kíp: ${q.topic==='history'?'Lịch sử':q.topic==='culture'?'Văn hóa':'Địa lý'}`,

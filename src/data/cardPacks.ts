@@ -1,4 +1,4 @@
-﻿import { QUESTION_BANK, pickBankQuestion, type QuestionDifficulty, type QuestionGroup } from './questionBank';
+﻿import { QUESTION_BANK, pickBankQuestion, type QuestionDifficulty, type QuestionGroup } from './questionBank.js';
 import type { BiKipTopic } from '../types/game';
 
 export const QUESTION_CATALOG = QUESTION_BANK;

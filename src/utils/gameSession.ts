@@ -1,6 +1,6 @@
 import type { GameState, GameCard } from '../types/game';
-import { QUESTION_BANK, QUESTION_SET_ID, bankGameCard } from '../data/questionBank';
-import { uid } from '../engine/rules';
+import { QUESTION_BANK, QUESTION_SET_ID, bankGameCard } from '../data/questionBank.js';
+import { uid } from '../engine/rules.js';
 
 export function migrateQuestionSet(state: GameState): GameState {
   if(state.questionSetId===QUESTION_SET_ID)return state;

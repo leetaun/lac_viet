@@ -1,9 +1,9 @@
-import { engineRandom } from '../engine/random';
-﻿import data from './questionBank.json';
-import resources from './questionResources.json';
+import { engineRandom } from '../engine/random.js';
+﻿import data from './questionBank.json' with { type: 'json' };
+import resources from './questionResources.json' with { type: 'json' };
 import type { ChallengeCard, KnowledgeCard, BiKipTopic, LearningResource } from '../types/game';
-import { getProvinceByName } from './provinces';
-import { copyCard } from '../engine/rules';
+import { getProvinceByName } from './provinces.js';
+import { copyCard } from '../engine/rules.js';
 
 export type QuestionGroup = 'knowledge' | 'challenge' | 'market' | 'festival';
 export type QuestionDifficulty = 'basic' | 'intermediate' | 'advanced';

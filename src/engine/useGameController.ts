@@ -1,17 +1,17 @@
-import { engineRandom, engineNow } from './random';
+import { engineRandom, engineNow } from './random.js';
 import { useEffect as reactUseEffect, useRef as reactUseRef, useState as reactUseState } from 'react';
 import type { ArtifactGoal, ArtifactItem, BiKipCard, BoardSpace, CardResolution, FortuneCard, GameCard, GameMode, GameModeRule, GameState, Player, ResourceCard } from '../types/game';
 import type { RuleChoice } from '../components/Modals/RuleChoiceModal';
-import { BOARD_SPACES } from '../data/boardData';
-import { drawFortuneCard, drawResourceCard } from '../data/cardDecks';
-import { addCard, canWin, copyCard, deposit, failChallenge, finishTurn, pouchCards, isProtected, normalizePlayer, placeMilestone, reclaim, removeCards, spendBiKip, timedRanking, transferCard, uid, useCard } from './rules';
-import { drawLocalQuestion, makeArtifact, makeBiKip, provinceAt, randomItem } from './content';
-import { soundManager } from '../utils/sound';
-import { bankGameCard, QUESTION_SET_ID, QuestionDifficulty } from '../data/questionBank';
+import { BOARD_SPACES } from '../data/boardData.js';
+import { drawFortuneCard, drawResourceCard } from '../data/cardDecks.js';
+import { addCard, canWin, copyCard, deposit, failChallenge, finishTurn, pouchCards, isProtected, normalizePlayer, placeMilestone, reclaim, removeCards, spendBiKip, timedRanking, transferCard, uid, useCard } from './rules.js';
+import { drawLocalQuestion, makeArtifact, makeBiKip, provinceAt, randomItem } from './content.js';
+import { soundManager } from '../utils/sound.js';
+import { bankGameCard, QUESTION_SET_ID, QuestionDifficulty } from '../data/questionBank.js';
 import type { PhysicalCardKind } from '../utils/physicalQR';
-import { GAME_SESSION_KEY, loadGameSession, saveGameSession } from '../utils/gameSession';
-import { selectQuestion, validateQuestionSelection } from '../data/cardPacks';
-import { validateBiKipResolution } from './rules';
+import { GAME_SESSION_KEY, loadGameSession, saveGameSession } from '../utils/gameSession.js';
+import { selectQuestion, validateQuestionSelection } from '../data/cardPacks.js';
+import { validateBiKipResolution } from './rules.js';
 
 export interface SetupConfig {
   mode: GameMode; gameModeRule: GameModeRule; playerCount: number; artifactGoal: ArtifactGoal;
@@ -148,7 +148,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700, e
     update(s=>({...s,currentActionModal:{type:'card_drawn',card}}));
   };
   const seenQuestion = (id: string) => update(s=>({...s,seenBankQuestions:[...(s.seenBankQuestions||[]).filter(old=>old!==id),id]}));
-  const nextQuestion = (group: import('../data/questionBank').QuestionGroup, difficulty: QuestionDifficulty, excluded = state.current.seenBankQuestions || []) =>
+  const nextQuestion = (group: import('../data/questionBank.js').QuestionGroup, difficulty: QuestionDifficulty, excluded = state.current.seenBankQuestions || []) =>
     selectQuestion(group, difficulty, excluded, state.current.options.questionIds);
   const openLocalTask = async (space: BoardSpace, difficulty: QuestionDifficulty = state.current.questionDifficulty || 'basic') => {
     update(s=>({...s,pendingPhysicalCard:null,questionDifficulty:difficulty,currentActionModal:null}));

@@ -1,9 +1,9 @@
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { randomBytes } from 'node:crypto';
-import { useGameController } from '../src/engine/useGameController';
-import { setEngineSourcesResolver, type EngineSources } from '../src/engine/random';
-import { QUESTION_BANK } from '../src/data/questionBank';
-import { pouchCards } from '../src/engine/rules';
+import { useGameController } from '../src/engine/useGameController.js';
+import { setEngineSourcesResolver, type EngineSources } from '../src/engine/random.js';
+import { QUESTION_BANK } from '../src/data/questionBank.js';
+import { pouchCards } from '../src/engine/rules.js';
 import type { GameState } from '../src/types/game';
 import type { RuleChoice } from '../src/components/Modals/RuleChoiceModal';
 

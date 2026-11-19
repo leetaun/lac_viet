@@ -1,4 +1,4 @@
-import { engineRandom, engineNow, engineUuid } from './random';
+import { engineRandom, engineNow, engineUuid } from './random.js';
 import type { ArtifactGoal, ArtifactItem, BiKipCard, CardResolution, GameCard, GameModeRule, GameState, Player } from '../types/game';
 
 export const uid = (prefix: string) => `${prefix}_${engineUuid()}`;
