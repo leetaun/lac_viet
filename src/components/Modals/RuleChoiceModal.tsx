@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 
 export interface RuleChoice {
+  playerId?: string;
   layout?: 'dice';
   id?: string;
   title: string;

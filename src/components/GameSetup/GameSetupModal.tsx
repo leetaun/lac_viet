@@ -11,6 +11,7 @@ import { soundManager } from '../../utils/sound';
 import { Play, Smartphone, Bot, Globe, ArrowLeft, ArrowRight, Check, ChevronDown } from 'lucide-react';
 
 interface GameSetupModalProps {
+  onOnline?: () => void;
   onStartGame: (config: {
     durationMinutes?: number;
     mode: GameMode;
@@ -36,6 +37,7 @@ const TOKEN_LIST: TokenType[] = ['non_la', 'hoa_sen', 'den_long', 'banh_mi'];
 
 export const GameSetupModal: React.FC<GameSetupModalProps> = ({
   onStartGame,
+  onOnline,
   language
 }) => {
   const [step, setStep] = useState(0);
@@ -264,7 +266,7 @@ export const GameSetupModal: React.FC<GameSetupModalProps> = ({
           {step === 0 && (
             <div className="space-y-3" role="group" aria-label="Hình thức chơi">
               {modes.map(item => (
-                <button key={item.value} type="button" aria-pressed={mode === item.value} onClick={() => setMode(item.value)} className={selectionClass(mode === item.value)}>
+                <button key={item.value} type="button" aria-pressed={mode === item.value} onClick={() => { if (item.value === 'online' && onOnline) onOnline(); else setMode(item.value); }} className={selectionClass(mode === item.value)}>
                   <span className="flex items-center gap-3">
                     <span className={`p-2.5 rounded-xl ${mode === item.value ? 'bg-[#543310] text-white' : 'bg-gray-100 text-gray-500'}`}><item.icon size={20} aria-hidden="true" /></span>
                     <span className="flex-1"><span className="block text-sm font-bold text-gray-900">{item.name}</span><span className="block text-xs text-gray-500 mt-1 leading-relaxed">{item.description}</span></span>

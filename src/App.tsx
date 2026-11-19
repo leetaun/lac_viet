@@ -6,6 +6,8 @@ import { CardLibraryPanel } from './components/CardLibraryPanel';
 import { BOARD_SPACES } from './data/boardData';
 import { useGameController, SetupConfig } from './engine/useGameController';
 import { RuleChoiceModal } from './components/Modals/RuleChoiceModal';
+import { OnlinePlay } from './components/Online/OnlinePlay';
+import { readOnlineIdentity } from './utils/onlineClient';
 import React, { useState, useEffect } from 'react';
 import type { Player } from './types/game';
 import { STARTER_BIKIP_CARDS } from './data/cardDecks';
@@ -111,12 +113,13 @@ export const App: React.FC = () => {
   const [language, setLanguage] = useState<'vi' | 'en'>('vi');
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [volume, setVolume] = useState(() => soundManager.getVolume());
-  const controller = useGameController(DEFAULT_PLAYERS);
+  const [onlineOpen, setOnlineOpen] = useState(() => !!readOnlineIdentity());
+  const controller = useGameController(DEFAULT_PLAYERS, 700, { suspended: onlineOpen });
   const [showSetup, setShowSetup] = useState(controller.gameState.gameStatus==='setup');
   const [qrKind,setQrKind]=useState(()=>readPhysicalCard(location.hash));
   const [packHash,setPackHash]=useState(()=>new URLSearchParams(location.hash.slice(1)).has('pack')?location.hash:'');
   const [localQR,setLocalQR]=useState(false);
-  const hostQR=useHostQR(controller,!qrKind&&!packHash);
+  const hostQR=useHostQR(controller,!onlineOpen&&!qrKind&&!packHash);
   const { gameState, activePlayer, activeCardModal, activeCornerStation, activeStealTarget, showTokenSkillModal, isRolling, handleRollDice, handleResolveCard, handleSelectCornerOption, handleCloseCorner, handleExecuteSteal, handleConsumeBiKip, handleLotusSwap, handleBanhMiShift, handleEndTurn } = controller;
   const handleStartGame = (config: SetupConfig) => { controller.handleStartGame(config); setShowSetup(false); setActiveTab('board'); };
   const handleVolumeChange = (newVol: number) => {
@@ -131,6 +134,7 @@ export const App: React.FC = () => {
   useEffect(()=>{const listener=()=>{setQrKind(readPhysicalCard(location.hash));setPackHash(new URLSearchParams(location.hash.slice(1)).has('pack')?location.hash:'');};window.addEventListener('hashchange',listener);return()=>window.removeEventListener('hashchange',listener);},[]);
   const leaveQR=()=>{history.replaceState(null,'',location.pathname+location.search);setQrKind(null);};
 
+  if (onlineOpen) return <OnlinePlay language={language} onExit={() => { setOnlineOpen(false); setShowSetup(true); }} />;
   if (location.hash.startsWith('#journal=')) return <JournalView />;
   if(packHash)return <main className="min-h-screen bg-[#F8F5EE] p-4 font-sans"><div className="max-w-xl mx-auto space-y-3"><CardLibraryPanel key={packHash} language={language} initialHash={packHash}/><button className="px-4 py-2 rounded-xl bg-[#543310] text-[#F5E5BE] text-sm font-bold" onClick={()=>{history.replaceState(null,'',location.pathname+location.search);setPackHash('');}}>{language==='vi'?'Về bàn chơi':'Back to game'}</button></div></main>;
   if(qrKind&&!localQR)return <RemoteQRPhone key={qrKind} kind={qrKind} onPractice={()=>setLocalQR(true)}/>;
@@ -198,6 +202,7 @@ export const App: React.FC = () => {
       {showSetup && (
         <GameSetupModal
           onStartGame={handleStartGame}
+          onOnline={() => { setShowSetup(false); setOnlineOpen(true); }}
           language={language}
         />
       )}

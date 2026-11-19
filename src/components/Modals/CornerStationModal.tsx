@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Player, BoardSpace, ArtifactItem } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { pickBankQuestion } from '../../data/questionBank';
+import type { BankQuestion } from '../../data/questionBank';
 import { soundManager } from '../../utils/sound';
 import { getArtifactName, getProvinceName } from '../../data/culturalTranslations';
 import { Sparkles, ShoppingBag, RotateCcw, ShieldCheck, Flag, CheckCircle2, ArrowRight, Unlock, Mic } from 'lucide-react';
 
 interface CornerStationModalProps {
+  serverStartQuestions?: BankQuestion[];
+  onSubmitStart?: (answers: number[]) => void;
   questionIds?: string[];
   station: BoardSpace;
   player: Player;
@@ -27,12 +30,15 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
   onSelectOption,
   onClose,
   onGuideApproval,
+  serverStartQuestions,
+  onSubmitStart,
   language
 }) => {
   const isStart = station.index === 0;
   const tokenDef = TOKENS[player.token];
   const [approvingGuide, setApprovingGuide] = useState(false);
   const finished = React.useRef(false);
+  const startAnswers = React.useRef<number[]>([]);
   const [startQuizStep, setStartQuizStep] = useState<number>(0);
   const [startQuizScore, setStartQuizScore] = useState<number>(0);
   const [guidePresentationDone, setGuidePresentationDone] = useState<boolean>(false);
@@ -44,6 +50,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
 
   // START 2 Questions
   const [startQuestions] = useState(()=>{
+    if (serverStartQuestions?.length === 2) return serverStartQuestions.map(q => ({ q:q.question, opts:q.options, correct:q.correctAnswer }));
     const first=pickBankQuestion('knowledge','basic',[],questionIds);
     const second=pickBankQuestion('knowledge','basic',[first.id],questionIds);
     return [first,second].map(q=>({q:q.question,opts:q.options,correct:q.correctAnswer}));
@@ -52,12 +59,14 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
   const finishStart = (score: number) => {
     if (finished.current) return;
     finished.current = true;
+    if (onSubmitStart) { onSubmitStart(startAnswers.current); return; }
     if (score === 2 && lostAndFoundList.length > 0) onSelectOption('reclaim_start');
     else if (score > 0) onSelectOption(score === 2 ? 'fortune' : 'resource');
     else onClose();
   };
   const handleAnswerStartQuiz = (optIndex: number) => {
     if (finished.current || approvingGuide) return;
+    startAnswers.current.push(optIndex);
     const correct = optIndex === startQuestions[startQuizStep].correct;
     const score = startQuizScore + (correct ? 1 : 0);
     setStartQuizScore(score);
@@ -70,6 +79,7 @@ export const CornerStationModal: React.FC<CornerStationModalProps> = ({
     const approved = await onGuideApproval?.();
     setApprovingGuide(false);
     setGuidePresentationDone(true);
+    startAnswers.current.push(approved ? -2 : -1);
     const score = startQuizScore + (approved ? 1 : 0);
     setStartQuizScore(score);
     if (startQuizStep === 0) setStartQuizStep(1);

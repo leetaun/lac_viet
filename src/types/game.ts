@@ -145,6 +145,7 @@ export interface FortuneCard {
 export type GameCard = KnowledgeCard | ChallengeCard | ResourceCard | FortuneCard;
 
 export interface CardResolution {
+  quizAnswer?: number;
   marketAnswer?: number;
   success: boolean;
   rewardArtifact?: boolean;

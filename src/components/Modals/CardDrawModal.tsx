@@ -22,7 +22,9 @@ interface CardDrawModalProps {
   card: GameCard;
   player: Player;
   onResolve: (result: CardResolution) => void;
-  onConsumeBiKip?: (ids: string[]) => boolean;
+  onConsumeBiKip?: (ids: string[]) => boolean | Promise<boolean>;
+  onQuizAnswer?: (answer: number) => void;
+  initialSeconds?: number;
   exploreMode?: boolean;
   onAskFriend?: () => Promise<string | undefined>;
   onFriendReward?: (id: string) => void;
@@ -36,7 +38,9 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   remoteAnswer,
   card,
   player,
-  onResolve,
+  onResolve: submitResolution,
+  onQuizAnswer,
+  initialSeconds,
   onConsumeBiKip,
   exploreMode = false,
   onAskFriend,
@@ -67,6 +71,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   // Market specific state
   const [marketBargainAnswered, setMarketBargainAnswered] = useState<boolean>(false);
   const [marketAnswer,setMarketAnswer]=useState<number | undefined>();
+  const onResolve = (result: CardResolution) => submitResolution({ ...result, quizAnswer: marketAnswer ?? selectedOption ?? -1 });
   const [marketPrice, setMarketPrice] = useState<number>(2); // 1 if bargain correct, 2 if wrong
   const [selectedCardsToPay, setSelectedCardsToPay] = useState<string[]>([]);
   useEffect(()=>{
@@ -112,7 +117,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
     
     // Countdown Timer for Knowledge and Action Challenges
     const initialTime = card.type === 'knowledge' ? 20 : (card.type === 'challenge' && card.timeLimitSeconds ? card.timeLimitSeconds : 20);
-    setTimer(initialTime);
+    setTimer(initialSeconds ?? initialTime);
 
   }, [card]);
 
@@ -151,7 +156,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
     answeredRef.current = true;
     if (answered || (!exploreMode && timer === 0) || card.type !== 'knowledge') { answeredRef.current = false; return; }
     const kn = card as KnowledgeCard;
-    setSelectedOption(index);
+    setSelectedOption(index); onQuizAnswer?.(index);
     setAnswered(true);
 
     const correct = kn.correctAnswer === index;
@@ -169,7 +174,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   const handleAnswerChallenge = (index: number) => {
     if (answered || (!exploreMode && timer === 0) || card.type !== 'challenge') return;
     const ch = card as ChallengeCard;
-    setSelectedOption(index);
+    setSelectedOption(index); onQuizAnswer?.(index);
     setAnswered(true);
 
     const correct = ch.correctAnswer === index;
@@ -183,9 +188,9 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   };
 
   // 1 Bí kíp: 50:50 Eliminate 2 wrong options
-  const handleEliminateTwoOptions = () => {
+  const handleEliminateTwoOptions = async () => {
     if (player.biKipCards.length < 1 || answered || helperUsed || (!exploreMode && timer === 0) || card.type !== 'knowledge') return;
-    if (!onConsumeBiKip?.([player.biKipCards[0].id])) return;
+    if (!await onConsumeBiKip?.([player.biKipCards[0].id])) return;
     const kn = card as KnowledgeCard;
     const wrongIndices = kn.options.map((_, index) => index).filter(i => i !== kn.correctAnswer);
     // Shuffle and pick 2
@@ -235,7 +240,7 @@ export const CardDrawModal: React.FC<CardDrawModalProps> = ({
   // Market: Handle Bargain Quiz
   const handleMarketBargainAnswer = (idx: number) => {
     if (!marketQuiz || marketBargainAnswered) return;
-    setMarketAnswer(idx);
+    setMarketAnswer(idx); onQuizAnswer?.(idx);
     setMarketBargainAnswered(true);
     const correct = marketQuiz.correctAnswer === idx;
     if (correct) {

@@ -1,6 +1,7 @@
+import { engineRandom, engineNow, engineUuid } from './random';
 import type { ArtifactGoal, ArtifactItem, BiKipCard, CardResolution, GameCard, GameModeRule, GameState, Player } from '../types/game';
 
-export const uid = (prefix: string) => `${prefix}_${crypto.randomUUID()}`;
+export const uid = (prefix: string) => `${prefix}_${engineUuid()}`;
 export const copyCard = <T extends GameCard | BiKipCard>(card: T): T => ({ ...card, id: uid(card.id) });
 export const hand = (player: Player): GameCard[] => [...player.cards.knowledge, ...player.cards.resource, ...player.cards.fortune];
 export const pouchCards = (player: Player): (GameCard | BiKipCard)[] => [...hand(player), ...player.biKipCards];
@@ -81,7 +82,7 @@ export function timedRanking(players: Player[]): Player[] {
   const distance = (p: Player) => (40 - p.position) % 40;
   return [...players].sort((a, b) => validArtifacts(b).length - validArtifacts(a).length || regions(b) - regions(a) || distance(a) - distance(b));
 }
-export function weightedDraw<T extends { ratePercent: number }>(cards: T[], random: () => number = Math.random): T {
+export function weightedDraw<T extends { ratePercent: number }>(cards: T[], random: () => number = engineRandom): T {
   const total = cards.reduce((sum, c) => sum + c.ratePercent, 0);
   if (total <= 0) throw new Error('Kho thẻ trống.');
   let value = random() * total;
@@ -157,7 +158,7 @@ export function useCard(state: GameState, cardId: string, choice: CardUse = {}):
   return { ...state, players };
 }
 
-export function finishTurn(state: GameState, discardIds: string[] = [], now = Date.now()): GameState {
+export function finishTurn(state: GameState, discardIds: string[] = [], now = engineNow()): GameState {
   if (!state.hasRolled || state.turnStep !== 5) throw new Error('Chưa hoàn tất nhiệm vụ của lượt.');
   const actor = state.players[state.activePlayerIndex];
   if (discardIds.length !== Math.max(0, pouchCards(actor).length - 5)) throw new Error('Cần chọn đủ số thẻ thừa để xả.');

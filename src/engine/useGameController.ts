@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { engineRandom, engineNow } from './random';
+import { useEffect as reactUseEffect, useRef as reactUseRef, useState as reactUseState } from 'react';
 import type { ArtifactGoal, ArtifactItem, BiKipCard, BoardSpace, CardResolution, FortuneCard, GameCard, GameMode, GameModeRule, GameState, Player, ResourceCard } from '../types/game';
 import type { RuleChoice } from '../components/Modals/RuleChoiceModal';
 import { BOARD_SPACES } from '../data/boardData';
@@ -18,9 +19,17 @@ export interface SetupConfig {
   options: GameState['options']; durationMinutes?: number;
 }
 
-export function useGameController(defaultPlayers: Player[], animationMs = 700) {
+export interface ControllerEnvironment {
+  hooks?: { useEffect: typeof reactUseEffect; useRef: typeof reactUseRef; useState: typeof reactUseState };
+  initialState?: GameState;
+  persist?: boolean;
+  suspended?: boolean;
+  contestWinners?: string[];
+}
+export function useGameController(defaultPlayers: Player[], animationMs = 700, env: ControllerEnvironment = {}) {
+  const { useEffect, useRef, useState } = env.hooks || { useEffect: reactUseEffect, useRef: reactUseRef, useState: reactUseState };
   const initial: GameState = { mode: 'offline', gameModeRule: 'toc_chien', players: defaultPlayers, activePlayerIndex: 0, firstPlayerIndex: 0, artifactGoal: 3, round: 1, turnStep: 1, diceValue: null, hasRolled: false, gameStatus: 'setup', winner: null, lostAndFound: [], milestones: [], options: { starterBiKip: false, exploreMode: false, timedMode: false }, currentActionModal: null, historyLog: ['Chào mừng đến với Boardgame Lạc Việt!'] };
-  const [gameState, render] = useState<GameState>(()=>loadGameSession() || initial);
+  const [gameState, render] = useState<GameState>(()=>env.initialState || (env.persist === false ? null : loadGameSession()) || initial);
   const state = useRef(gameState);
   const [activeCardModal, setActiveCardModal] = useState<GameCard | null>(()=>gameState.currentActionModal?.type==='card_drawn' ? gameState.currentActionModal.card || null : null);
   const [activeCornerStation, setActiveCornerStation] = useState<BoardSpace | null>(()=>gameState.currentActionModal?.type==='corner_choice' || gameState.currentActionModal?.type==='quiz_start' ? BOARD_SPACES[gameState.currentActionModal.spaceIndex || 0] : null);
@@ -42,7 +51,8 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
   const update = (fn: (prev: GameState) => GameState) => {
     const next=fn(state.current);
     state.current={...next,revision:(state.current.revision||0)+1};
-    saveGameSession(state.current); render(state.current);
+    if (env.persist !== false) saveGameSession(state.current);
+    render(state.current);
   };
   const restore = (saved: GameState) => {
     epoch.current++; answer.current?.([]); answer.current=null;setChoice(null);
@@ -56,7 +66,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     lanternCard.current=modal?.type==='token_skill'?modal.card||null:null;lanternUsed.current=modal?.previewAccepted===true;movement.current=saved.pendingDiceMovement||null;setShowTokenSkillModal(modal?.type==='token_skill');
   };
   useEffect(()=>{
-    if(typeof window==='undefined')return;
+    if(typeof window==='undefined' || env.persist === false)return;
     const listener=(event: StorageEvent)=>{
       if(event.key!==GAME_SESSION_KEY)return;
       const saved=loadGameSession();
@@ -70,7 +80,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     if (!options.length) return [];
     if (player.isAI) return options.slice(0,min).map(o => o.id);
     const version = epoch.current;
-    const ids = await new Promise<string[]>(resolve => { answer.current = resolve; setChoice({ id: uid('choice'), title, options, min, max, description, layout }); });
+    const ids = await new Promise<string[]>(resolve => { answer.current = resolve; setChoice({ id: uid('choice'), title, options, min, max, description, layout, playerId: player.id }); });
     if (version !== epoch.current) throw new Error('Ván chơi đã thay đổi.');
     return ids;
   };
@@ -83,8 +93,9 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     const resolve = answer.current; answer.current = null; setChoice(null); resolve?.([]);
   };
   const run = (fn: () => Promise<void> | void) => async () => {
+    if (env.suspended) return;
     if (busy.current) return;
-    const latest=loadGameSession();
+    const latest=env.persist === false ? null : loadGameSession();
     if(latest && latest.sessionId===state.current.sessionId && (latest.revision||0)>(state.current.revision||0)) { restore(latest);setNotice('Ván chơi vừa được cập nhật ở tab khác. Hãy tiếp tục từ trạng thái mới.');return; }
     busy.current = true;
     const version=epoch.current;
@@ -220,7 +231,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     if(fortune.group!=='power' && await negateSkill()) { if(finish) await completeTask(); return; }
     if (fortune.group==='power') updatePlayer(player.id,p=>addCard(p,fortune));
     else if (fortune.eventType==='contest') {
-      const winners=await ask('Hội thi: chọn người thắng',state.current.players.map(p=>({id:p.id,label:p.name})),player,1,state.current.players.length,fortune.contestQuestion ? 'Cả bàn cùng trả lời câu hỏi Lễ hội vừa mở. Chọn người trả lời đúng nhanh nhất; nếu hòa chọn tất cả người đồng hạng.' : 'Cả bàn cùng chơi Nhanh mắt, Đối đáp ca dao hoặc Kể tiếp sức. Nếu hòa, chọn tất cả người đồng hạng.');
+      const winners=env.contestWinners ?? await ask('Hội thi: chọn người thắng',state.current.players.map(p=>({id:p.id,label:p.name})),player,1,state.current.players.length,fortune.contestQuestion ? 'Cả bàn cùng trả lời câu hỏi Lễ hội vừa mở. Chọn người trả lời đúng nhanh nhất; nếu hòa chọn tất cả người đồng hạng.' : 'Cả bàn cùng chơi Nhanh mắt, Đối đáp ca dao hoặc Kể tiếp sức. Nếu hòa, chọn tất cả người đồng hạng.');
       const tied=state.current.players.filter(p=>winners.includes(p.id));
       const winner=tied.find(p=>p.id===player.id) || [...tied].sort((a,b)=>a.artifactItems.length-b.artifactItems.length)[0];
       if(winner) grantArtifact(winner.id,province);
@@ -275,7 +286,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     const version=epoch.current;
     const physical = state.current.options.physicalDice && !actor().isAI;
     const inputRoll = async (title: string) => Number((await ask(title, [1,2,3,4,5,6].map(n=>({id:String(n),label:String(n)})),actor(),1,1,'Chọn kết quả vừa tung trên xúc xắc vật lý / Select your physical die result.','dice'))[0]);
-    let roll=physical ? await inputRoll('Nhập xúc xắc / Enter die result (1–6)') : Math.floor(Math.random()*6)+1;
+    let roll=physical ? await inputRoll('Nhập xúc xắc / Enter die result (1–6)') : Math.floor(engineRandom()*6)+1;
     if (physical && Number.isNaN(roll)) return;
     if (!Number.isInteger(roll) || roll < 1 || roll > 6) throw new Error('Kết quả xúc xắc không hợp lệ.');
     const old=actor().position,extra=state.current.turnStep===2;
@@ -289,7 +300,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
         updatePlayer(actor().id,p=>removeCards(p,[steed.id]));
         const defense=await negateSkill();
         if(!defense) {
-          const reroll=physical ? await inputRoll('Ngựa trạm: nhập lần tung lại / Enter reroll') : Math.floor(Math.random()*6)+1;
+          const reroll=physical ? await inputRoll('Ngựa trạm: nhập lần tung lại / Enter reroll') : Math.floor(engineRandom()*6)+1;
           if (!Number.isNaN(reroll)) {
           const [selected]=await ask('Chọn kết quả xúc xắc',[{id:String(roll),label:`Giữ ${roll} bước`},...(reroll===roll ? [] : [{id:String(reroll),label:`Chọn ${reroll} bước`}])]);
           roll=Number(selected); update(s=>({...s,diceValue:roll}));
@@ -432,6 +443,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     updatePlayer(actor().id,p=>({...removeCards(p,ids),tokenSkillAvailable:false}));
     setShowTokenSkillModal(false);
     if(!blocked) updatePlayer(updated.id,p=>addCard(p,draw(deck)));
+    update(s=>({...s,currentActionModal:null}));
   })();
   const handleBanhMiShift=(delta:-1|1)=>run(async()=>{
     const pending=movement.current;
@@ -444,6 +456,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     setShowTokenSkillModal(false);
     if(movement.current) { const pending=movement.current; movement.current=null;update(s=>({...s,pendingDiceMovement:null,currentActionModal:null})); await move(pending.roll); }
     else if(lanternCard.current) { const card=lanternCard.current; lanternCard.current=null; showCard(card); }
+    else update(s=>({...s,currentActionModal:null}));
   });
   const handleLanternRedraw=run(async()=>{
     const card=lanternCard.current;
@@ -474,6 +487,7 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
   const openTokenSkill=()=>{
     if(busy.current || state.current.turnStep!==1 || !actor().tokenSkillAvailable || actor().token!=='hoa_sen') return;
     setShowTokenSkillModal(true);
+    update(s=>({...s,currentActionModal:{type:'token_skill'}}));
   };
   const handleEndTurn=run(async()=>{
     if(state.current.turnStep!==5 || currentCard.current || activeCornerStation || activeStealTarget || showTokenSkillModal) return;
@@ -486,8 +500,8 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     epoch.current++; answer.current?.([]); answer.current=null; setChoice(null); setNotice(null);
     currentCard.current=null; lanternCard.current=null; pendingDestination.current=null; afterCard.current=null; movement.current=null;
     setActiveCardModal(null);setActiveCornerStation(null);setActiveStealTarget(null);setShowTokenSkillModal(false);
-    const first=Math.floor(Math.random()*config.players.length);
-    update(()=>({...initial,questionSetId:QUESTION_SET_ID,sessionId:uid('match'),seenBankQuestions:[],questionDifficulty:'basic',pendingPhysicalCard:null,mode:config.mode,roomCode:config.roomCode,gameStatus:'playing',gameModeRule:config.options.exploreMode?'toc_chien':config.gameModeRule,artifactGoal:config.options.exploreMode?3:config.artifactGoal,players:config.players.map(p=>normalizePlayer(p)),activePlayerIndex:first,firstPlayerIndex:first,options:config.options,endsAt:config.options.timedMode&&!config.options.exploreMode ? Date.now()+(config.durationMinutes||60)*60000 : undefined,historyLog:[`Trận đấu bắt đầu! ${config.players[first].name} đi đầu tiên.`]}));
+    const first=Math.floor(engineRandom()*config.players.length);
+    update(()=>({...initial,questionSetId:QUESTION_SET_ID,sessionId:uid('match'),seenBankQuestions:[],questionDifficulty:'basic',pendingPhysicalCard:null,mode:config.mode,roomCode:config.roomCode,gameStatus:'playing',gameModeRule:config.options.exploreMode?'toc_chien':config.gameModeRule,artifactGoal:config.options.exploreMode?3:config.artifactGoal,players:config.players.map(p=>normalizePlayer(p)),activePlayerIndex:first,firstPlayerIndex:first,options:config.options,endsAt:config.options.timedMode&&!config.options.exploreMode ? engineNow()+(config.durationMinutes||60)*60000 : undefined,historyLog:[`Trận đấu bắt đầu! ${config.players[first].name} đi đầu tiên.`]}));
   };
   const resetSetup=()=>{
     epoch.current++;answer.current?.([]);answer.current=null;setChoice(null);setNotice(null);
@@ -508,6 +522,11 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
     if(card && card.type==='knowledge') updatePlayer(id,p=>({...p,biKipCards:[...p.biKipCards,makeBiKip(card)]}));
   };
   const handleGuideApproval=async()=>{
+    if (state.current.mode === 'online') {
+      let votes = 0;
+      for (const p of state.current.players) if (await yesNo(`${p.name}: đồng ý phần hướng dẫn viên?`, p)) votes++;
+      return votes > state.current.players.length / 2;
+    }
     const votes=await ask('Hướng dẫn viên: biểu quyết',state.current.players.map(p=>({id:p.id,label:p.name})),actor(),0,state.current.players.length,'Sau phần trình bày tối đa 30 giây, chọn những người đồng ý. Quá nửa bàn đồng ý mới tính là một câu đúng.');
     return votes.length > state.current.players.length / 2;
   };
@@ -519,11 +538,11 @@ export function useGameController(defaultPlayers: Player[], animationMs = 700) {
   };
   // AI resolves its own digital tasks, without leaving quiz modals blocking indefinitely.
   useEffect(()=>{
-    if(gameState.gameStatus!=='playing' || !actor().isAI || choice || busy.current) return;
+    if(env.suspended || gameState.gameStatus!=='playing' || !actor().isAI || choice || busy.current) return;
     const timer=setTimeout(()=>{
-      if(activeCardModal) handleResolveCard({success:Math.random()<0.65,logMessage:`${actor().name} hoàn thành nhiệm vụ.`});
+      if(activeCardModal) handleResolveCard({success:engineRandom()<0.65,logMessage:`${actor().name} hoàn thành nhiệm vụ.`});
       else if(activeCornerStation?.index===0) {
-        const score=Number(Math.random()<0.65)+Number(Math.random()<0.65);
+        const score=Number(engineRandom()<0.65)+Number(engineRandom()<0.65);
         if(score===2) handleSelectCornerOption('reclaim_start');
         else if(score===1) handleSelectCornerOption('resource');
         else handleCloseCorner();

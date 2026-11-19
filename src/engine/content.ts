@@ -1,3 +1,4 @@
+import { engineRandom } from './random';
 ﻿import { BOARD_SPACES } from '../data/boardData';
 import { QUESTION_BANK, pickBankQuestion, bankGameCard } from '../data/questionBank';
 import { getProvinceByName, PROVINCES_DATA } from '../data/provinces';
@@ -7,7 +8,7 @@ import { copyCard, uid } from './rules';
 
 export const randomItem = <T,>(items: T[]): T => {
   if (!items.length) throw new Error('Không có nội dung phù hợp.');
-  return items[Math.floor(Math.random() * items.length)];
+  return items[Math.floor(engineRandom() * items.length)];
 };
 export const topicName = (topic: BiKipTopic, lang: 'vi' | 'en' = 'vi') => ({
   geography: lang === 'vi' ? 'Địa lý' : 'Geography',
@@ -21,7 +22,7 @@ export const topicName = (topic: BiKipTopic, lang: 'vi' | 'en' = 'vi') => ({
 export function makeArtifact(province: string, treasureChance = 0.1): ArtifactItem {
   const info = getProvinceByName(province);
   if (!info) throw new Error(`Chưa có kho Kỷ vật cho ${province}.`);
-  const isTreasure = Math.random() < treasureChance;
+  const isTreasure = engineRandom() < treasureChance;
   return { id: uid('art'), name: isTreasure ? info.artifacts.treasure : randomItem([...info.artifacts.regular]), province: info.name, region: info.region, isTreasure, isSealed: false, storage: 'pouch' };
 }
 export function makeBiKip(card: KnowledgeCard | ChallengeCard): BiKipCard {

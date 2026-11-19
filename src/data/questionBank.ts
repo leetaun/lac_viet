@@ -1,3 +1,4 @@
+import { engineRandom } from '../engine/random';
 ﻿import data from './questionBank.json';
 import resources from './questionResources.json';
 import type { ChallengeCard, KnowledgeCard, BiKipTopic, LearningResource } from '../types/game';
@@ -35,7 +36,7 @@ export function pickBankQuestion(group: QuestionGroup, difficulty: QuestionDiffi
   const fresh=all.filter(q=>!excludedIds.includes(q.id));
   const pool=fresh.length ? fresh : all;
   if(!pool.length) throw new Error('Không còn câu hỏi phù hợp trong bộ đã chọn / No question available in this pack.');
-  return {...pool[Math.floor(Math.random()*pool.length)],group};
+  return {...pool[Math.floor(engineRandom()*pool.length)],group};
 }
 export function bankGameCard(question: BankQuestion, rewardProvince: string): KnowledgeCard | ChallengeCard {
   const province=getProvinceByName(rewardProvince);
