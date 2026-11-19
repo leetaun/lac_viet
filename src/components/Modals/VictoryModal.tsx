@@ -1,4 +1,3 @@
-import { journalUrl, downloadJournal } from '../../utils/journal';
 import { timedRanking, validArtifacts } from '../../engine/rules';
 import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
@@ -6,8 +5,7 @@ import { Player } from '../../types/game';
 import { TOKENS } from '../../data/tokens';
 import { getArtifactName, getProvinceName } from '../../data/culturalTranslations';
 import { soundManager } from '../../utils/sound';
-import { generateQRCode } from '../../utils/qrcode';
-import { Trophy, Award, Sparkles, RotateCcw, BookOpen, QrCode, Mic, Download } from 'lucide-react';
+import { Trophy, RotateCcw, Mic } from 'lucide-react';
 
 interface VictoryModalProps {
   winner: Player;
@@ -28,11 +26,6 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
 }) => {
   const tokenDef = TOKENS[winner.token];
   const [showStoryMinute, setShowStoryMinute] = useState<boolean>(false);
-  const [showJournalQR, setShowJournalQR] = useState<boolean>(false);
-  const [journalQrUrl, setJournalQrUrl] = useState<string>('');
-  const [journalPlayerId, setJournalPlayerId] = useState(winner.id);
-  const [journalError, setJournalError] = useState('');
-  const journalPlayer = players.find(p => p.id === journalPlayerId) || winner;
 
   useEffect(() => {
     soundManager.playVictory();
@@ -63,17 +56,6 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
     })();
 
   }, [winner]);
-
-  useEffect(() => {
-    let cancelled=false;
-    setJournalQrUrl(''); setJournalError('');
-    journalUrl(journalPlayer).then(generateQRCode).then(url=>{
-      if(cancelled)return;
-      if(url)setJournalQrUrl(url);
-      else setJournalError(language === 'vi' ? 'Sổ dài hơn dung lượng mã QR. Bạn vẫn có thể tải đầy đủ bằng nút bên dưới.' : 'Journal exceeds QR code limit. You can still download the full file below.');
-    }).catch(()=>{if(!cancelled)setJournalError(language === 'vi' ? 'Không tạo được mã QR. Bạn có thể tải Sổ hành trình bên dưới.' : 'Failed to generate QR code. You can download the Journal below.');});
-    return()=>{cancelled=true;};
-  }, [journalPlayer, language]);
 
   const sortedPlayers = timedRanking(players);
 
@@ -199,36 +181,10 @@ export const VictoryModal: React.FC<VictoryModalProps> = ({
               </p>
             )}
           </div>
-
-          {/* Sổ Hành Trình QR Code */}
-          {showJournalQR && (
-            <div className="bg-[#FAF6EE] p-4 rounded-2xl border-2 border-[#C5A059] text-center space-y-2 animate-fade-in">
-              <span className="font-bold text-xs text-[#543310] block">
-                {language === 'vi' ? 'MÃ QR SỔ HÀNH TRÌNH VĂN HÓA' : 'CULTURAL TRAVEL JOURNAL QR'}
-              </span>
-              <select aria-label={language === 'vi' ? "Sổ hành trình của người chơi" : "Player's travel journal"} value={journalPlayerId} onChange={event=>setJournalPlayerId(event.target.value)} className="w-full text-sm font-semibold border border-gray-200 rounded-lg p-2 bg-white focus:ring-[#C5A059] focus:border-[#C5A059]">{players.map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select>
-              {journalError && <p className="text-xs text-gray-500">{journalError}</p>}
-              <button type="button" onClick={()=>downloadJournal(journalPlayer)} className="w-full py-2.5 bg-[#543310] hover:bg-[#6F441E] disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow transition-all">{language === 'vi' ? 'Tải Sổ hành trình' : 'Download Travel Journal'}</button>
-              {journalQrUrl && <img src={journalQrUrl} alt="Journey QR" className="w-28 h-28 mx-auto rounded-lg border border-gray-200" />}
-              <p className="text-[11px] text-gray-500">
-                {language === 'vi'
-                  ? 'Quét mã để lưu lại toàn bộ kỷ vật và tri thức vào điện thoại!'
-                  : 'Scan QR to save all artifacts and knowledge to your mobile!'}
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between gap-2">
-          <button
-            onClick={() => setShowJournalQR(!showJournalQR)}
-            className="px-3 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-xl text-xs font-bold border border-gray-300 flex items-center gap-1.5 transition-all"
-          >
-            <QrCode size={14} className="text-[#543310]" />
-            <span>{language === 'vi' ? 'Sổ hành trình' : 'Travel Journal'}</span>
-          </button>
-
+        <div className="p-4 bg-gray-50 border-t border-gray-200 flex items-center justify-end gap-2">
           <button
             onClick={onNewGame}
             className="px-5 py-2.5 brown-gradient-bg hover:opacity-95 text-[#F5E5BE] font-bold rounded-xl text-xs sm:text-sm border border-[#C5A059] shadow flex items-center gap-2"
